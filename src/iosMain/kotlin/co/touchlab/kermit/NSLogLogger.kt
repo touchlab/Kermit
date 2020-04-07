@@ -2,8 +2,9 @@ package co.touchlab.kermit
 
 import platform.Foundation.NSLog
 
-class NSLogLogger : Logger {
+class NSLogLogger : Logger() {
     override fun log(severity: Severity, message: String, tag: String?, throwable: Throwable?) {
-        NSLog("%s: (%s) %s", severity, tag, message)
+        //TODO: Handle throwable
+        NSLog("%s: (%s) %s", severity.name, tag, message)
     }
 }
