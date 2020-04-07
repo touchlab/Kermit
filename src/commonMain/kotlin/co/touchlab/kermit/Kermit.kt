@@ -14,8 +14,8 @@ class Kermit(
         throwable: Throwable?,
         message: () -> String
     ) {
-        loggerList.forEach {
-            if (it.isLoggable(severity)) it.log(
+        loggerList.filter { it.isLoggable(severity) }. forEach {
+            it.log(
                 severity,
                 message(),
                 tag,
@@ -25,51 +25,33 @@ class Kermit(
     }
 
     fun v(tag: String? = null, throwable: Throwable? = null, message: () -> String) {
-        loggerList.forEach {
-            if (it.isLoggable(Severity.Verbose)) {
-                it.v(message(), tag, throwable)
-            }
-        }
+        loggerList.filter {it.isLoggable(Severity.Verbose)}
+            .forEach { it.v(message(), tag, throwable)}
     }
 
     fun d(tag: String? = null, throwable: Throwable? = null, message: () -> String) {
-        loggerList.forEach {
-            if (it.isLoggable(Severity.Debug)) {
-                it.d(message(), tag, throwable)
-            }
-        }
+        loggerList.filter {it.isLoggable(Severity.Debug)}
+            .forEach { it.d(message(), tag, throwable)}
     }
 
     fun i(tag: String? = null, throwable: Throwable? = null, message: () -> String) {
-        loggerList.forEach {
-            if (it.isLoggable(Severity.Info)) {
-                it.i(message(), tag, throwable)
-            }
-        }
+        loggerList.filter {it.isLoggable(Severity.Info)}
+            .forEach { it.i(message(), tag, throwable)}
     }
 
     fun w(tag: String? = null, throwable: Throwable? = null, message: () -> String) {
-        loggerList.forEach {
-            if (it.isLoggable(Severity.Warn)) {
-                it.w(message(), tag, throwable)
-            }
-        }
+        loggerList.filter {it.isLoggable(Severity.Warn)}
+            .forEach { it.w(message(), tag, throwable)}
     }
 
     fun e(tag: String? = null, throwable: Throwable? = null, message: () -> String) {
-        loggerList.forEach {
-            if (it.isLoggable(Severity.Error)) {
-                it.e(message(), tag, throwable)
-            }
-        }
+        loggerList.filter {it.isLoggable(Severity.Error)}
+            .forEach { it.e(message(), tag, throwable)}
     }
 
     fun wtf(tag: String? = null, throwable: Throwable? = null, message: () -> String) {
-        loggerList.forEach {
-            if (it.isLoggable(Severity.Assert)) {
-                it.wtf(message(), tag, throwable)
-            }
-        }
+        loggerList.filter {it.isLoggable(Severity.Assert)}
+            .forEach { it.wtf(message(), tag, throwable)}
     }
 }
 
