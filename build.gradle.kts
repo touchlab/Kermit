@@ -2,7 +2,11 @@ plugins {
     kotlin("multiplatform") version "1.3.71"
     id("com.android.library") version "3.4.1"
     id("co.touchlab.native.cocoapods") version "0.6"
+    id("maven-publish")
 }
+
+group="co.touchlab"
+version="0.0.1"
 
 repositories {
     google()
@@ -66,3 +70,4 @@ android {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
     }
 }
+
