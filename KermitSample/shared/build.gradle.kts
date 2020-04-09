@@ -66,7 +66,6 @@ android {
 
     val main by sourceSets.getting {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
-        res.srcDir("src/androidMain/res")
     }
 }
 

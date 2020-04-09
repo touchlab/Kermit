@@ -6,6 +6,6 @@ class SampleCommon(private val kermit: Kermit) {
     private var count = 0
     fun onClick() {
         count++
-        kermit.i("SHILL") { "Common click count: $count" }
+        kermit.i { "Common click count: $count" }
     }
 }
