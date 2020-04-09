@@ -14,7 +14,6 @@ struct ContentView: View {
     let common: SampleCommon
     
     init() {
-        //TODO: tag doesn't display correctly
         self.common = SampleCommon(kermit: kermit)
         self.kermit.i(tag: "ContentView", throwable: nil, message: {"loaded"})
     }
