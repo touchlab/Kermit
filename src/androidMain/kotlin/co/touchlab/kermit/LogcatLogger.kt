@@ -2,7 +2,8 @@ package co.touchlab.kermit
 
 import android.util.Log
 
-class LogcatLogger : Logger() {
+class LogcatLogger(private val defaultTag: String = "Kermit") : Logger() {
+
     private fun getSeverity(severity: Severity) = when (severity) {
         Severity.Verbose -> 2
         Severity.Debug -> 3
@@ -17,26 +18,26 @@ class LogcatLogger : Logger() {
     }
 
     override fun v(message: String, tag: String?, throwable: Throwable?) {
-        Log.v(tag, message, throwable)
+        Log.v(tag ?: defaultTag, message, throwable)
     }
 
     override fun d(message: String, tag: String?, throwable: Throwable?) {
-        Log.d(tag, message, throwable)
+        Log.d(tag ?: defaultTag, message, throwable)
     }
 
     override fun i(message: String, tag: String?, throwable: Throwable?) {
-        Log.i(tag, message, throwable)
+        Log.i(tag ?: defaultTag, message, throwable)
     }
 
     override fun w(message: String, tag: String?, throwable: Throwable?) {
-        Log.w(tag, message, throwable)
+        Log.w(tag ?: defaultTag, message, throwable)
     }
 
     override fun e(message: String, tag: String?, throwable: Throwable?) {
-        Log.e(tag, message, throwable)
+        Log.e(tag ?: defaultTag, message, throwable)
     }
 
     override fun wtf(message: String, tag: String?, throwable: Throwable?) {
-        Log.wtf(tag, message, throwable)
+        Log.wtf(tag ?: defaultTag, message, throwable)
     }
 }

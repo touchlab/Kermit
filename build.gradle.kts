@@ -1,6 +1,6 @@
 plugins {
+    id("com.android.library") version "3.6.1"
     kotlin("multiplatform") version "1.3.71"
-    id("com.android.library") version "3.4.1"
     id("co.touchlab.native.cocoapods") version "0.6"
     id("maven-publish")
 }
@@ -16,7 +16,9 @@ repositories {
 
 kotlin {
     version = "0.0.1"
-    android()
+    android {
+        publishAllLibraryVariants()
+    }
     ios()
 
     sourceSets {
@@ -61,13 +63,9 @@ android {
     compileSdkVersion(29)
     defaultConfig {
         minSdkVersion(15)
-        targetSdkVersion(29)
-        versionCode = 1
-        versionName = "0.0.1"
     }
 
     val main by sourceSets.getting {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
     }
 }
-
