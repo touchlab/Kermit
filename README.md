@@ -1,33 +1,38 @@
 # Kermit
 
-Kermit is a Kotlin Multiplatform logger that can support multiple platform and customizeable loggers. The library not only supports custom built loggers but also comes equiped with prebuilt loggers for Logcat, NSLog, and kotlin logging.
+Kermit is a Kotlin Multiplatform logger that can support multiple customizeable loggers. The library not only supports custom built loggers but also comes equiped with prebuilt loggers for Logcat, NSLog, and println logging.
 
 ## Usage
 
-Kermit contains two essential objects: `Kermit` itself and `Logger` objects. 
-The `Kermit` object is constructed with a list or single `Logger` object, and handles logging to those loggers. 
+Kermit contains two essential objects: `Kermit` and `Logger` objects. 
 
-The Kermit object is passed in `Logger` objects on initialization, it then logs to all these objects when it is called. `Kermit` is called similarly to Logcat, in that you call functions based on the severity of the log.
-
-
+The Kermit object is passed in `Logger` objects on initialization, it then logs to all these objects when it is called. 
 
 ```
-      val kermit = Kermit(LogcatLogger())
-      kermit.i("CustomTag", optionalThrowable) { "Message" }
+      val kermit1 = Kermit(LogcatLogger())
+      val kermit2 = Kermit({LogcatLogger(),CommonLogger(),MyCustomLogger()})
+      kermit1.i("CustomTag", optionalThrowable) { "Message" }
 ```
 
+`Kermit` is called similarly to Logcat, in that you call functions based on the severity of the log.
 
-
-### Loggers
-
-`Loggers` are passed into Kermit and are used to handle what happens to the logs. They support several levels of Severity:
-
+They support several levels of Severity:
 * `v()` - Verbose
 * `d()` - Debug
 * `i()` - Info
 * `w()` - Warn
 * `e()` - Error
 * `wtf()` - Assert
+
+Each call takes in the same three parameters:
+
+```
+    v(tag: String? = null, throwable: Throwable? = null, message: () -> String)
+```
+
+### Loggers
+
+`Loggers` are passed into Kermit and are used to handle what happens to the logs. 
 
 #### Prebuilt Loggers
 
