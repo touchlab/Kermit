@@ -9,9 +9,8 @@ Kermit contains two essential objects: `Kermit` and `Logger` objects.
 The Kermit object is passed in `Logger` objects on initialization, it then logs to all these objects when it is called. 
 
 ```
-      val kermit1 = Kermit(LogcatLogger())
-      val kermit2 = Kermit({LogcatLogger(),CommonLogger(),MyCustomLogger()})
-      kermit1.i("CustomTag", optionalThrowable) { "Message" }
+      val kermit = Kermit(LogcatLogger(),CommonLogger(),CustomCrashLogger())
+      kermit.i("CustomTag", optionalThrowable) { "Message" }
 ```
 
 `Kermit` is called similarly to Logcat, in that you call functions based on the severity of the log.
