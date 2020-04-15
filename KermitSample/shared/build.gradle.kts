@@ -33,20 +33,16 @@ kotlin {
             }
         }
 
-        val androidMain by sourceSets.getting {
-            dependencies {
-                implementation(kotlin("stdlib"))
-            }
+        sourceSets["androidMain"].dependencies {
+            implementation(kotlin("stdlib"))
         }
-        val androidTest by sourceSets.getting {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(kotlin("test-junit"))
-            }
+        sourceSets["androidTest"].dependencies {
+            implementation(kotlin("test"))
+            implementation(kotlin("test-junit"))
         }
 
-        val iosMain by sourceSets.getting {
-
+        sourceSets["iosMain"].dependencies {
+            implementation("co.touchlab:crashkios:0.2.1")
         }
     }
     cocoapodsext {
