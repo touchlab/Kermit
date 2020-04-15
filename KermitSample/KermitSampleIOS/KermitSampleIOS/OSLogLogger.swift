@@ -24,8 +24,8 @@ class OSLogLogger: KermitLogger {
         }
     }
     
-    override func isLoggable(severity: Severity) -> Bool {
-        OSLog.default.isEnabled(type: logType(severity))
+    override func isLoggable(severity: KermitSeverity) -> Bool {
+        OSLog.default.isEnabled(type: getSeverity(severity: severity))
     }
     
     override func log(severity: KermitSeverity, message: String, tag: String?, throwable: KotlinThrowable?) {
