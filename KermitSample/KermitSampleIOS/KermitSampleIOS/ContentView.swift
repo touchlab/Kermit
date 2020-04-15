@@ -12,7 +12,8 @@ import shared
 struct ContentView: View {
     let kermit = UtilKt.getKermit()
     let common: SampleCommon
-    
+    let cb = CrashBot()
+
     init() {
         self.common = SampleCommon(kermit: kermit)
         self.kermit.i(tag: "ContentView", throwable: nil, message: {"loaded"})
@@ -21,6 +22,7 @@ struct ContentView: View {
     var body: some View {
         Button(action: {
             self.common.onClick()
+            self.cb.goCrash()
         }){
             Text("Click Me").padding()
             .background(Color.blue)

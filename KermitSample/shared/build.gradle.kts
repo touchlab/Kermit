@@ -42,7 +42,7 @@ kotlin {
         }
 
         sourceSets["iosMain"].dependencies {
-            implementation("co.touchlab:crashkios:0.2.1")
+            api("co.touchlab:crashkios:0.2.2")
         }
     }
     cocoapodsext {
