@@ -14,8 +14,8 @@
 		95FA421F243F7F7300A0104F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95FA421E243F7F7300A0104F /* Assets.xcassets */; };
 		95FA4222243F7F7300A0104F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95FA4221243F7F7300A0104F /* Preview Assets.xcassets */; };
 		95FA4225243F7F7300A0104F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95FA4223243F7F7300A0104F /* LaunchScreen.storyboard */; };
-		F1E59051244652FC00825AB6 /* KermitCrashHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E59050244652FC00825AB6 /* KermitCrashHandler.swift */; };
 		F1BE031B2446163800E02658 /* OSLogLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BE031A2446163800E02658 /* OSLogLogger.swift */; };
+		F1E59051244652FC00825AB6 /* CrashKiOSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E59050244652FC00825AB6 /* CrashKiOSLogger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,8 +30,8 @@
 		95FA4224243F7F7300A0104F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		95FA4226243F7F7300A0104F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B6D7F23C24166543540B3767 /* Pods_KermitSampleIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KermitSampleIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F1E59050244652FC00825AB6 /* KermitCrashHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KermitCrashHandler.swift; sourceTree = "<group>"; };
 		F1BE031A2446163800E02658 /* OSLogLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLogLogger.swift; sourceTree = "<group>"; };
+		F1E59050244652FC00825AB6 /* CrashKiOSLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashKiOSLogger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +74,7 @@
 				95FA4223243F7F7300A0104F /* LaunchScreen.storyboard */,
 				95FA4226243F7F7300A0104F /* Info.plist */,
 				95FA4220243F7F7300A0104F /* Preview Content */,
-				F1E59050244652FC00825AB6 /* KermitCrashHandler.swift */,
+				F1E59050244652FC00825AB6 /* CrashKiOSLogger.swift */,
 				F1BE031A2446163800E02658 /* OSLogLogger.swift */,
 			);
 			path = KermitSampleIOS;
@@ -202,7 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1E59051244652FC00825AB6 /* KermitCrashHandler.swift in Sources */,
+				F1E59051244652FC00825AB6 /* CrashKiOSLogger.swift in Sources */,
 				F1BE031B2446163800E02658 /* OSLogLogger.swift in Sources */,
 				95FA4219243F7F7100A0104F /* AppDelegate.swift in Sources */,
 				95FA421B243F7F7100A0104F /* SceneDelegate.swift in Sources */,
