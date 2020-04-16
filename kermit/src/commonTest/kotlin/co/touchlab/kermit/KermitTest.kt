@@ -14,7 +14,7 @@ abstract class KermitTest {
     }
 
     @Test
-    fun logTest123(){
+    fun testingDefaultTag(){
         val kermit = Kermit(testLogger)
         val kermitWithTag = kermit.withTag("My Custom Tag")
 
