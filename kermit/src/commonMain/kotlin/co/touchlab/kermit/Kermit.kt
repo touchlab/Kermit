@@ -3,17 +3,15 @@ package co.touchlab.kermit
 class Kermit(
     private val loggerList: List<Logger> = listOf(
         CommonLogger()
-    )
+    ),private val defaultTag:String? = "Kermit"
 ) {
-    private var defaultTag:String? = null
+
 
     constructor(vararg loggers: Logger) : this(loggers.asList())
     constructor(logger: Logger) : this(listOf(logger))
 
     fun withTag(defaultTag:String) : Kermit {
-        val taggedKermit = Kermit(loggerList)
-        taggedKermit.defaultTag = defaultTag
-        return taggedKermit
+        return Kermit(this.loggerList,defaultTag)
     }
 
     fun log(
