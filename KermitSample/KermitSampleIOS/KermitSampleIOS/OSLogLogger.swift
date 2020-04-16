@@ -33,31 +33,6 @@ class OSLogLogger: KermitLogger {
         handleThrowable(throwable: throwable, tag: tag)
     }
     
-    override func v(message: String, tag: String?, throwable: KotlinThrowable?) {
-        os_log("%@", log: OSLog(subsystem: tag ?? "default", category: tag ?? "default"), type: OSLogType.info, message)
-        handleThrowable(throwable: throwable, tag: tag)
-    }
-    override func d(message: String, tag: String?, throwable: KotlinThrowable?) {
-        os_log("%@", log: OSLog(subsystem: tag ?? "default", category: tag ?? "default"), type: OSLogType.debug, message)
-        handleThrowable(throwable: throwable, tag: tag)
-    }
-    override func i(message: String, tag: String?, throwable: KotlinThrowable?) {
-        os_log("%@", log: OSLog(subsystem: tag ?? "default", category: tag ?? "default"), type: OSLogType.info, message)
-        handleThrowable(throwable: throwable, tag: tag)
-    }
-    override func w(message: String, tag: String?, throwable: KotlinThrowable?) {
-        os_log("%@", log: OSLog(subsystem: tag ?? "default", category: tag ?? "default"), type: OSLogType.debug, message)
-        handleThrowable(throwable: throwable, tag: tag)
-    }
-    override func e(message: String, tag: String?, throwable: KotlinThrowable?) {
-        os_log("%@", log: OSLog(subsystem: tag ?? "default", category: tag ?? "default"), type: OSLogType.error, message)
-        handleThrowable(throwable: throwable, tag: tag)
-    }
-    override func wtf(message: String, tag: String?, throwable: KotlinThrowable?) {
-        os_log("%@", log: OSLog(subsystem: tag ?? "default", category: tag ?? "default"), type: OSLogType.fault, message)
-        handleThrowable(throwable: throwable, tag: tag)
-    }
-    
     private func handleThrowable(throwable: KotlinThrowable?, tag:String?){
         if let realThrowable = throwable {
             os_log("%@", log: OSLog(subsystem: tag ?? "default", category: tag ?? "default"), type: OSLogType.fault, realThrowable.message ?? realThrowable.description)
