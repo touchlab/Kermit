@@ -8,6 +8,7 @@ import kotlin.test.Test
 @Suppress("IllegalIdentifier")
 @RunWith(RobolectricTestRunner::class)
 class LogcatLoggerTest {
+
     @Test
     fun `Logs to logcat`() {
         val kimber = Kermit(LogcatLogger())
