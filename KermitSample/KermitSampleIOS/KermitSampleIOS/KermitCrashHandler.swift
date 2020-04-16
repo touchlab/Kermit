@@ -11,11 +11,9 @@ import shared
 
 class KermitCrashHandler: CrashkiosCrashHandler {
     
-    let kermit = UtilKt.getKermit()
-    let common: SampleCommon
+    let kermit = KermitKermit(logger: UtilKt.getNSLogger())
 
     override init() {
-        self.common = SampleCommon(kermit: kermit)
         self.kermit.i(tag: "ContentView", throwable: nil, message: {"loaded"})
     }
 
