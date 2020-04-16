@@ -5,7 +5,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import kotlin.test.fail
 
-abstract class KermitTest {
+class KermitTest {
     @Test
     fun `can config Kimber`() {
         val kimber = Kermit(testLogger)
