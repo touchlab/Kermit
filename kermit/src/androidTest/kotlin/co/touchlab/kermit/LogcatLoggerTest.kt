@@ -21,6 +21,3 @@ class LogcatLoggerTest {
         }
     }
 }
-
-@RunWith(AndroidJUnit4::class)
-class KermitTestAndroid : co.touchlab.kermit.KermitTest()
