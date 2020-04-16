@@ -9,7 +9,7 @@ abstract class KermitTest {
     @Test
     fun `can config Kimber`() {
         val kimber = Kermit(testLogger)
-        kimber.e{ "SHILLMSG" }
+        kimber.e{"Message"}
         assertTrue(logged)
     }
 

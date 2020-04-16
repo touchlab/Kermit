@@ -13,7 +13,7 @@ class LogcatLoggerTest {
     @Test
     fun `Logs to logcat`() {
         val kimber = Kermit(LogcatLogger())
-        kimber.e { "TESTMSG" }
+        kimber.e{"Message"}
 
         ShadowLog.getLogs().apply {
             assert(size > 0)
