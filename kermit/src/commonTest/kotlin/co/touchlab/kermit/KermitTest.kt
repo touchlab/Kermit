@@ -1,101 +1,62 @@
 package co.touchlab.kermit
 
-import kotlin.test.*
+import kotlin.test.Test
 
 class KermitTest {
+    private val testLogger = TestLogger()
+
     @Test
-    fun `can config Kimber`() {
+    fun simpleLogTest() {
         val kimber = Kermit(testLogger)
-        kimber.e{"Message"}
-        assertTrue(logged)
+        kimber.e { "Message" }
+        testLogger.assertCount(1)
     }
 
     @Test
-    fun testIsLoggable(){
-        val kermit = Kermit(testLogger)
+    fun testIsLoggable() {
+        val errorLogger = TestLogger(Severity.Error)
+        val kermit = Kermit(errorLogger)
 
-        logged = false
-        kermit.v { "Message" }
-        assertFalse(logged)
+        kermit.v { "verbose" }
+        kermit.d { "debug" }
+        kermit.i { "info" }
+        kermit.w { "warn" }
 
-        logged = false
-        kermit.d { "Message" }
-        assertFalse(logged)
+        testLogger.assertCount(0)
+        kermit.e { "error" }
+        errorLogger.assertLast { message == "error" && severity == Severity.Error }
 
-        logged = false
-        kermit.i { "Message" }
-        assertFalse(logged)
-
-        logged = false
-        kermit.w { "Message" }
-        assertTrue(logged)
-
-        logged = false
-        kermit.e { "Message" }
-        assertTrue(logged)
-
-        logged = false
-        kermit.wtf { "Message" }
-        assertTrue(logged)
-
+        kermit.wtf { "wtf" }
+        errorLogger.assertCount(2)
+        errorLogger.assertLast { message == "wtf" && severity == Severity.Assert }
     }
 
     @Test
     fun testMultipleLoggers() {
-        logged = false
-        secondaryLogged = false
-        val kermit = Kermit(testLogger, secondaryTestLogger)
+        val secondaryLogger = TestLogger()
+        val kermit = Kermit(testLogger, secondaryLogger)
         kermit.e { "Message" }
 
-        assertTrue(logged)
-        assertTrue(secondaryLogged)
+        testLogger.assertLast { message == "Message" }
+        secondaryLogger.assertLast { message == "Message" }
     }
 
     @Test
     fun testSingleLogger() {
-        logged = false
-        secondaryLogged = false
-        val kermit = Kermit(secondaryTestLogger)
+        val secondaryLogger = TestLogger()
+        val kermit = Kermit(testLogger)
         kermit.e { "Message" }
 
-        assertFalse(logged)
-        assertTrue(secondaryLogged)
+        testLogger.assertCount(1)
+        secondaryLogger.assertCount(0)
     }
 
     @Test
-    fun testLogParameters(){
-        logged = false
+    fun testLogParameters() {
         val kermit = Kermit(testLogger)
-        val tag = "TESTTAG"
-        val message = "This Is My Message"
-        kermit.e(tag){ message }
-        assertEquals(lastMessage,message)
-        assertEquals(lastTag,tag)
-    }
-
-    var logged = false
-    var lastMessage = ""
-    var lastTag:String? = ""
-    private val testLogger = object : Logger() {
-
-        override fun isLoggable(severity: Severity): Boolean {
-            return (severity == Severity.Assert ||
-                    severity == Severity.Error ||
-                    severity == Severity.Warn)
-        }
-
-        override fun log(severity: Severity, message: String, tag: String?, throwable: Throwable?) {
-            logged = true
-            lastMessage = message
-            lastTag = tag
-        }
-    }
-
-    var secondaryLogged = false
-    private val secondaryTestLogger = object : Logger() {
-
-        override fun log(severity: Severity, message: String, tag: String?, throwable: Throwable?) {
-            secondaryLogged = true
-        }
+        val testTag = "TESTTAG"
+        val testMessage = "This Is My Message"
+        kermit.e(testTag) { testMessage }
+        testLogger.assertLast { tag == testTag && message == testMessage }
     }
 }
