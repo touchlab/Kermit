@@ -23,11 +23,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         kermit.i("MainActivity") { "onCreate" }
-
-        kermit.d { "Log Without Tag (Original Kermit)" }
         kermitWithTag.d { "Log Without Tag (Kermit With Tag)" }
-        kermit.d("Tag") { "Log WITH Tag (Original Kermit" }
-        kermit.d { "Log Without Tag (Original Kermit)" }  // Ensuring first Kermit isn't affected by withTag
 
         fab.setOnClickListener { view ->
             sample.onClick()
