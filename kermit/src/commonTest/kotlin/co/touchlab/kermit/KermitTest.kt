@@ -1,8 +1,6 @@
 package co.touchlab.kermit
 
-import kotlin.test.Test
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 class KermitTest {
     @Test
@@ -64,7 +62,20 @@ class KermitTest {
         assertTrue(secondaryLogged)
     }
 
+    @Test
+    fun testLogParameters(){
+        logged = false
+        val kermit = Kermit(testLogger)
+        val tag = "TESTTAG"
+        val message = "This Is My Message"
+        kermit.e(tag){ message }
+        assertEquals(lastMessage,message)
+        assertEquals(lastTag,tag)
+    }
+
     var logged = false
+    var lastMessage = ""
+    var lastTag:String? = ""
     private val testLogger = object : Logger() {
 
         override fun isLoggable(severity: Severity): Boolean {
@@ -75,6 +86,8 @@ class KermitTest {
 
         override fun log(severity: Severity, message: String, tag: String?, throwable: Throwable?) {
             logged = true
+            lastMessage = message
+            lastTag = tag
         }
     }
 
