@@ -10,9 +10,9 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-    let kermit = UtilKt.getKermit()
+    let kermit = KermitKermit(loggerList: [OSLogLogger(), UtilKt.getNSLogger()])
     let common: SampleCommon
-    
+
     init() {
         self.common = SampleCommon(kermit: kermit)
         self.kermit.i(tag: "ContentView", throwable: nil, message: {"loaded"})
