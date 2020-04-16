@@ -5,9 +5,9 @@ import kotlin.test.assertTrue
 
 class KermitTest {
     @Test
-    fun `can config Kimber`() {
-        val kimber = Kermit(testLogger)
-        kimber.e{"Message"}
+    fun `can config Kermit`() {
+        val kermit = Kermit(testLogger)
+        kermit.e{"Message"}
         assertTrue(logged)
     }
 

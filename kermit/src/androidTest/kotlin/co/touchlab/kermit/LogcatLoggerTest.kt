@@ -10,8 +10,8 @@ import kotlin.test.Test
 class LogcatLoggerTest {
     @Test
     fun `Logs to logcat`() {
-        val kimber = Kermit(LogcatLogger())
-        kimber.e{"Message"}
+        val kermit = Kermit(LogcatLogger())
+        kermit.e{"Message"}
 
         ShadowLog.getLogs().apply {
             assert(size > 0)
