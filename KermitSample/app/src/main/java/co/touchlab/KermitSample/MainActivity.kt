@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     val kermit = Kermit(LogcatLogger())
+    val kermitWithTag = kermit.withTag("My Custom Tag")
+
     private val sample = SampleCommon(kermit)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         kermit.i("MainActivity") { "onCreate" }
+        kermitWithTag.d { "Log Without Tag (Kermit With Tag)" }
 
         fab.setOnClickListener { view ->
             sample.onClick()
