@@ -39,7 +39,7 @@ class LogcatLoggerTest {
     fun testingCustomTags() {
         val tag = "MyCustomTag"
         val message = "TestingCustomTag"
-        val kermit = Kermit(LogcatLogger(tag))
+        val kermit = Kermit(LogcatLogger()).withTag(tag)
         kermit.e{message}
 
         ShadowLog.getLogs().apply {

@@ -10,7 +10,7 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-    let kermit = KermitKermit(loggerList: [OSLogLogger(), UtilKt.getNSLogger()])
+    let kermit = KermitKermit(loggerList: [OSLogLogger(), UtilKt.getNSLogger()], defaultTag: "iOSTag")
     let common: SampleCommon
     let cb = CrashBot()
 

@@ -32,7 +32,7 @@ class TestLogger(val loggable:Severity = Severity.Verbose) : Logger() {
         return severity.ordinal >= loggable.ordinal
     }
 
-    override fun log(severity: Severity, message: String, tag: String?, throwable: Throwable?) {
+    override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         _logs.add(LogEntry(severity, message, tag, throwable))
     }
 }
