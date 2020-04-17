@@ -9,12 +9,6 @@ class KermitTest {
     private val testLogger = TestLogger()
 
     @Test
-    fun `can config Kermit`() {
-        val kermit = Kermit(testLogger)
-        kermit.e{"Message"}
-        assertTrue(logged)
-    }
-      
     fun simpleLogTest() {
         val kimber = Kermit(testLogger)
         kimber.e { "Message" }
