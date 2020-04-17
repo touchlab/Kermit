@@ -17,11 +17,7 @@ class KermitCrashHandler: CrashkiosCrashHandler {
         self.kermit.i(tag: "ContentView", throwable: nil, message: {"loaded"})
     }
 
-    override func crashParts(
-        addresses: [KotlinLong],
-        exceptionType: String,
-        message: String) {
-        
-        self.kermit.wtf(tag: exceptionType, throwable: nil, message: { message })
+    override func crash(t: KotlinThrowable) {
+        self.kermit.wtf(tag: "CrashKiOS", throwable: t, message: { "Crash!" })
     }
 }
