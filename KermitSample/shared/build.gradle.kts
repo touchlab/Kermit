@@ -44,9 +44,10 @@ kotlin {
                 implementation(kotlin("test-junit"))
             }
         }
-
         val iosMain by sourceSets.getting {
-
+            dependencies {
+                api("co.touchlab:crashkios:0.2.2")
+            }
         }
     }
     cocoapodsext {
