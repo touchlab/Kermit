@@ -39,8 +39,12 @@ class Kermit(
         v(message = withMessage)
     }
 
-    fun v(withThrowable: Throwable?, message: () -> String) {
+    fun v(withThrowable: Throwable, message: () -> String) {
         v(throwable = withThrowable, message = message)
+    }
+
+    fun v(withTag:String, message: () -> String) {
+        v(tag = withTag, message = message)
     }
 
     fun d(tag: String = defaultTag, throwable: Throwable? = null, message: () -> String) {
@@ -56,6 +60,10 @@ class Kermit(
         d(throwable = withThrowable, message = message)
     }
 
+    fun d(withTag:String, message: () -> String) {
+        d(tag = withTag, message = message)
+    }
+
     fun i(tag: String = defaultTag, throwable: Throwable? = null, message: () -> String) {
         loggerList.filter {it.isLoggable(Severity.Info)}
             .forEach { it.i(message(), tag, throwable)}
@@ -67,6 +75,10 @@ class Kermit(
 
     fun i(withThrowable: Throwable?, message: () -> String) {
         i(throwable = withThrowable, message = message)
+    }
+
+    fun i(withTag:String, message: () -> String) {
+        i(tag = withTag, message = message)
     }
 
     fun w(tag: String = defaultTag, throwable: Throwable? = null, message: () -> String) {
@@ -82,6 +94,10 @@ class Kermit(
         w(throwable = withThrowable, message = message)
     }
 
+    fun w(withTag:String, message: () -> String) {
+        w(tag = withTag, message = message)
+    }
+
     fun e(tag: String = defaultTag, throwable: Throwable? = null, message: () -> String) {
         loggerList.filter {it.isLoggable(Severity.Error)}
             .forEach { it.e(message(), tag, throwable)}
@@ -95,6 +111,10 @@ class Kermit(
         e(throwable = withThrowable, message = message)
     }
 
+    fun e(withTag:String, message: () -> String) {
+        e(tag = withTag, message = message)
+    }
+
     fun wtf(tag: String = defaultTag, throwable: Throwable? = null, message: () -> String) {
         loggerList.filter {it.isLoggable(Severity.Assert)}
             .forEach { it.wtf(message(), tag, throwable)}
@@ -106,6 +126,10 @@ class Kermit(
 
     fun wtf(withThrowable: Throwable?, message: () -> String) {
         wtf(throwable = withThrowable, message = message)
+    }
+
+    fun wtf(withTag:String, message: () -> String) {
+        wtf(tag = withTag, message = message)
     }
 }
 
