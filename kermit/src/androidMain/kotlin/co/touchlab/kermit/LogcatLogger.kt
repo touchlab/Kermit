@@ -15,6 +15,13 @@ class LogcatLogger : Logger() {
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         Log.println(getSeverity(severity), tag, message)
+        throwable?.let {
+            Log.println(
+                getSeverity(severity),
+                tag,
+                PlatformThrowableStringProvider().getThrowableString(it)
+            )
+        }
     }
 
     override fun v(message: String, tag: String, throwable: Throwable?) {
