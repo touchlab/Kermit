@@ -1,4 +1,7 @@
-include(":kermit", ":KermitSample:app", ":KermitSample:shared")
+include(":kermit", ":app", ":shared")
+project(":app").projectDir = file("KermitSample/app")
+project(":shared").projectDir = file("KermitSample/shared")
+
 
 pluginManagement {
     resolutionStrategy {
