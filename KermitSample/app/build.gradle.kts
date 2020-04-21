@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":shared"))
+    implementation(project(":KermitSample:shared"))
     implementation(kotlin("stdlib"))
     implementation("androidx.core:core-ktx:1.2.0")
     implementation("androidx.appcompat:appcompat:1.1.0")
