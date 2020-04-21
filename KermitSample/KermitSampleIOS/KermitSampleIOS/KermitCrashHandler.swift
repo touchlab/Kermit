@@ -14,7 +14,6 @@ class KermitCrashHandler: CrashkiosCrashHandler {
     let kermit = KermitKermit(logger: UtilKt.getNSLogger())
 
     override init() {
-        self.kermit.i(tag: "ContentView", throwable: nil, message: {"loaded"})
     }
 
     override func crash(t: KotlinThrowable) {
