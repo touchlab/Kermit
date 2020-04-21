@@ -20,14 +20,23 @@ struct ContentView: View {
     }
 
     var body: some View {
-        Button(action: {
-            self.common.onClick()
-            self.cb.goCrash()
-        }){
-            Text("Click Me").padding()
-            .background(Color.blue)
-            .foregroundColor(.white)
-            .font(.title)
+        VStack(spacing: 50){
+            Button(action: {
+                self.common.onClick()
+            }){
+                Text("Click Me").padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .font(.title)
+            }
+            Button(action: {
+               self.cb.goCrash()
+           }){
+               Text("Crash").padding()
+               .background(Color.blue)
+               .foregroundColor(.white)
+               .font(.title)
+           }
         }
     }
 }
