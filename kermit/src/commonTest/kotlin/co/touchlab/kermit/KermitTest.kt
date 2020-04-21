@@ -69,24 +69,16 @@ class KermitTest {
         val kermitWithTag = kermit.withTag("My Custom Tag")
 
         kermit.i("MainActivity") { "onCreate" }
-        assertEquals(currentTag,"MainActivity")
+        testLogger.assertLast { tag == "MainActivity" }
         kermit.d { "Log Without Tag (Original Kermit)" }
-        assertEquals(currentTag,"Kermit")
+
+        testLogger.assertLast { tag == "Kermit" }
         kermitWithTag.d { "Log Without Tag (Kermit With Tag)" }
-        assertEquals(currentTag,"My Custom Tag")
+
+        testLogger.assertLast { tag == "My Custom Tag" }
         kermit.d("Tag") { "Log WITH Tag (Original Kermit" }
-        assertEquals(currentTag,"Tag")
+        testLogger.assertLast { tag == "Tag" }
         kermit.d { "Log Without Tag (Original Kermit)" }  // Ensuring first Kermit isn't affected by withTag
-        assertEquals(currentTag,"Kermit")
-    }
-
-    var logged = false
-    var currentTag:String = ""
-
-    private val testLogger = object : Logger() {
-        override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-            logged = true
-            currentTag = tag
-        }
+        testLogger.assertLast { tag == "Kermit" }
     }
 }
