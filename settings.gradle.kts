@@ -4,7 +4,7 @@ pluginManagement {
     resolutionStrategy {
         eachPlugin {
             when (requested.id.id) {
-                "com.android.application", "com.android.library" -> useModule("com.android.tools.build:gradle:${requested.version}")
+                "com.android.library" -> useModule("com.android.tools.build:gradle:${requested.version}")
                 "co.touchlab.native.cocoapods" -> useModule("co.touchlab:kotlinnativecocoapods:${requested.version}")
             }
         }
