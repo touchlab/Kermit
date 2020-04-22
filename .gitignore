@@ -49,9 +49,3 @@ gen/
 build/
 
 local.properties
-KermitSample/.idea/jarRepositories.xml
-.idea/vcs.xml
-.idea/misc.xml
-.idea/jarRepositories.xml
-.idea/codeStyles/Project.xml
-.idea/codeStyles/codeStyleConfig.xml
