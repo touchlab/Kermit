@@ -30,12 +30,8 @@ class OSLogLogger: KermitLogger {
     
     override func log(severity: KermitSeverity, message: String, tag: String?, throwable: KotlinThrowable?) {
         os_log("%@", log: OSLog(subsystem: tag ?? "default", category: tag ?? "default"), type: getSeverity(severity: severity), message)
-        handleThrowable(throwable: throwable, tag: tag)
-    }
-    
-    private func handleThrowable(throwable: KotlinThrowable?, tag:String?){
         if let realThrowable = throwable {
-            os_log("%@", log: OSLog(subsystem: tag ?? "default", category: tag ?? "default"), type: OSLogType.fault, realThrowable.message ?? realThrowable.description)
+            os_log("%@", log: OSLog(subsystem: tag ?? "default", category: tag ?? "default"), type: getSeverity(severity: severity), realThrowable.message ?? realThrowable.description)
         }
     }
 }

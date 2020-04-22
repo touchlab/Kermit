@@ -28,7 +28,6 @@ class TestLogger(val loggable:Severity = Severity.Verbose) : Logger() {
     }
 
     override fun isLoggable(severity: Severity): Boolean {
-        println("loggable = $loggable sev = $severity")
         return severity.ordinal >= loggable.ordinal
     }
 
