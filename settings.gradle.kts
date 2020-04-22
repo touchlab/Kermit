@@ -1,3 +1,5 @@
+include(":kermit")
+
 pluginManagement {
     resolutionStrategy {
         eachPlugin {
@@ -13,6 +15,4 @@ pluginManagement {
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
     }
 }
-rootProject.name = "kermit"
-
 enableFeaturePreview("GRADLE_METADATA")
