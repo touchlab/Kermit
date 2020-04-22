@@ -16,7 +16,7 @@ struct ContentView: View {
 
     init() {
         self.common = SampleCommon(kermit: kermit)
-        self.kermit.i(tag: "ContentView", throwable: nil, message: {"loaded"})
+        self.kermit.i(withMessage: {"loaded"})
     }
 
     var body: some View {

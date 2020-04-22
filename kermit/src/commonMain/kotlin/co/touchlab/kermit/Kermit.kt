@@ -35,9 +35,33 @@ class Kermit(
             .forEach { it.v(message(), tag, throwable)}
     }
 
+    fun v(withMessage: () -> String) {
+        v(message = withMessage)
+    }
+
+    fun v(withThrowable: Throwable, message: () -> String) {
+        v(throwable = withThrowable, message = message)
+    }
+
+    fun v(withTag:String, message: () -> String) {
+        v(tag = withTag, message = message)
+    }
+
     fun d(tag: String = defaultTag, throwable: Throwable? = null, message: () -> String) {
         loggerList.filter {it.isLoggable(Severity.Debug)}
             .forEach { it.d(message(), tag, throwable)}
+    }
+
+    fun d(withMessage: () -> String) {
+        d(message = withMessage)
+    }
+
+    fun d(withThrowable: Throwable?, message: () -> String) {
+        d(throwable = withThrowable, message = message)
+    }
+
+    fun d(withTag:String, message: () -> String) {
+        d(tag = withTag, message = message)
     }
 
     fun i(tag: String = defaultTag, throwable: Throwable? = null, message: () -> String) {
@@ -45,9 +69,33 @@ class Kermit(
             .forEach { it.i(message(), tag, throwable)}
     }
 
+    fun i(withMessage: () -> String) {
+        i(message = withMessage)
+    }
+
+    fun i(withThrowable: Throwable?, message: () -> String) {
+        i(throwable = withThrowable, message = message)
+    }
+
+    fun i(withTag:String, message: () -> String) {
+        i(tag = withTag, message = message)
+    }
+
     fun w(tag: String = defaultTag, throwable: Throwable? = null, message: () -> String) {
         loggerList.filter {it.isLoggable(Severity.Warn)}
             .forEach { it.w(message(), tag, throwable)}
+    }
+
+    fun w(withMessage: () -> String) {
+        w(message = withMessage)
+    }
+
+    fun w(withThrowable: Throwable?, message: () -> String) {
+        w(throwable = withThrowable, message = message)
+    }
+
+    fun w(withTag:String, message: () -> String) {
+        w(tag = withTag, message = message)
     }
 
     fun e(tag: String = defaultTag, throwable: Throwable? = null, message: () -> String) {
@@ -55,9 +103,33 @@ class Kermit(
             .forEach { it.e(message(), tag, throwable)}
     }
 
+    fun e(withMessage: () -> String) {
+        e(message = withMessage)
+    }
+
+    fun e(withThrowable: Throwable?, message: () -> String) {
+        e(throwable = withThrowable, message = message)
+    }
+
+    fun e(withTag:String, message: () -> String) {
+        e(tag = withTag, message = message)
+    }
+
     fun wtf(tag: String = defaultTag, throwable: Throwable? = null, message: () -> String) {
         loggerList.filter {it.isLoggable(Severity.Assert)}
             .forEach { it.wtf(message(), tag, throwable)}
+    }
+
+    fun wtf(withMessage: () -> String) {
+        wtf(message = withMessage)
+    }
+
+    fun wtf(withThrowable: Throwable?, message: () -> String) {
+        wtf(throwable = withThrowable, message = message)
+    }
+
+    fun wtf(withTag:String, message: () -> String) {
+        wtf(tag = withTag, message = message)
     }
 }
 
