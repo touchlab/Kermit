@@ -5,7 +5,6 @@ pluginManagement {
         eachPlugin {
             when (requested.id.id) {
                 "com.android.library" -> useModule("com.android.tools.build:gradle:${requested.version}")
-                "co.touchlab.native.cocoapods" -> useModule("co.touchlab:kotlinnativecocoapods:${requested.version}")
             }
         }
     }
