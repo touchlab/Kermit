@@ -19,6 +19,7 @@ kotlin {
         publishAllLibraryVariants()
     }
     ios()
+    js()
 
     sourceSets {
         commonMain {
@@ -47,9 +48,17 @@ kotlin {
                 implementation("org.robolectric:robolectric:4.3.1")
             }
         }
-
         val iosMain by sourceSets.getting {
-
+        }
+        js().compilations["main"].defaultSourceSet  {
+            dependencies {
+                implementation(kotlin("stdlib-js"))
+            }
+        }
+        js().compilations["test"].defaultSourceSet {
+            dependencies {
+                implementation(kotlin("stdlib-js"))
+            }
         }
     }
 }
