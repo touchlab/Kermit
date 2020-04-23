@@ -1,9 +1,7 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
-
 plugins {
-    id("com.android.library") version "3.6.1"
-    kotlin("multiplatform") version "1.3.71"
-    id("co.touchlab.native.cocoapods") version "0.6"
+    id("com.android.library")
+    kotlin("multiplatform")
+    id("co.touchlab.native.cocoapods")
 }
 
 repositories {

@@ -15,4 +15,6 @@ pluginManagement {
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
     }
 }
+
+rootProject.name = "Kermit"
 enableFeaturePreview("GRADLE_METADATA")
