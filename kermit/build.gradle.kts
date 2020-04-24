@@ -19,6 +19,7 @@ kotlin {
         publishAllLibraryVariants()
     }
     ios()
+    jvm()
 
     sourceSets {
         commonMain {
@@ -50,6 +51,11 @@ kotlin {
 
         val iosMain by sourceSets.getting {
 
+        }
+        val jvmMain by sourceSets.getting {
+            dependencies {
+                implementation(kotlin("stdlib"))
+            }
         }
     }
 }

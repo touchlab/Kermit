@@ -15,6 +15,7 @@ kotlin {
     version = "0.0.1"
     android()
     ios()
+    jvm()
 
     sourceSets {
         commonMain {
@@ -45,6 +46,11 @@ kotlin {
         val iosMain by sourceSets.getting {
             dependencies {
                 api("co.touchlab:crashkios:0.2.2")
+            }
+        }
+        val jvmMain by sourceSets.getting {
+            dependencies {
+                implementation(kotlin("stdlib"))
             }
         }
     }
