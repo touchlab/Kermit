@@ -6,22 +6,22 @@ class ConsoleLogger : Logger() {
         console.log(severity.name, tag, message)
     }
 
-    override fun v(message: String, tag: String, throwable: Throwable? = null){
+    override fun v(message: String, tag: String, throwable: Throwable?){
         console.log(tag,message,throwable)
     }
-    override fun d(message: String, tag: String, throwable: Throwable? = null){
+    override fun d(message: String, tag: String, throwable: Throwable?){
         console.log(tag,message,throwable)
     }
-    override fun i(message: String, tag: String, throwable: Throwable? = null){
+    override fun i(message: String, tag: String, throwable: Throwable?){
         console.info(tag,message,throwable)
     }
-    override fun w(message: String, tag: String, throwable: Throwable? = null){
+    override fun w(message: String, tag: String, throwable: Throwable?){
         console.warn(tag,message,throwable)
     }
-    override fun e(message: String, tag: String, throwable: Throwable? = null){
+    override fun e(message: String, tag: String, throwable: Throwable?){
         console.error(tag,message,throwable)
     }
-    override fun wtf(message: String, tag: String, throwable: Throwable? = null){
+    override fun wtf(message: String, tag: String, throwable: Throwable?){
         console.error(tag,message,throwable)
     }
 }

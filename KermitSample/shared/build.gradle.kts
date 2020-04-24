@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
@@ -15,6 +17,9 @@ kotlin {
     version = "0.0.1"
     android()
     ios()
+    js {
+        browser()
+    }
 
     sourceSets {
         commonMain {
@@ -45,6 +50,16 @@ kotlin {
         val iosMain by sourceSets.getting {
             dependencies {
                 api("co.touchlab:crashkios:0.2.2")
+            }
+        }
+        js().compilations["main"].defaultSourceSet  {
+            dependencies {
+                implementation(kotlin("stdlib-js"))
+            }
+        }
+        js().compilations["test"].defaultSourceSet {
+            dependencies {
+                implementation(kotlin("stdlib-js"))
             }
         }
     }
