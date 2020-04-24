@@ -19,6 +19,9 @@ kotlin {
         publishAllLibraryVariants()
     }
     ios()
+    js(){
+        browser()
+    }
 
     sourceSets {
         commonMain {
@@ -47,9 +50,17 @@ kotlin {
                 implementation("org.robolectric:robolectric:4.3.1")
             }
         }
-
         val iosMain by sourceSets.getting {
-
+        }
+        val jsMain by sourceSets.getting {
+            dependencies {
+                implementation(kotlin("stdlib-js"))
+            }
+        }
+        val jsTest by sourceSets.getting {
+            dependencies {
+                implementation(kotlin("test-js"))
+            }
         }
     }
 }
