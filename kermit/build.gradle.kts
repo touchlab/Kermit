@@ -19,7 +19,9 @@ kotlin {
         publishAllLibraryVariants()
     }
     ios()
-    js()
+    js(){
+        browser()
+    }
 
     sourceSets {
         commonMain {
@@ -57,7 +59,7 @@ kotlin {
         }
         js().compilations["test"].defaultSourceSet {
             dependencies {
-                implementation(kotlin("stdlib-js"))
+                implementation(kotlin("test-js"))
             }
         }
     }

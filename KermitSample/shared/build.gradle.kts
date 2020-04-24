@@ -16,7 +16,12 @@ repositories {
 kotlin {
     version = "0.0.1"
     android()
-    ios()
+    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")?:false
+    if(onPhone){
+        iosArm64("ios")
+    }else{
+        iosX64("ios")
+    }
     js {
         browser()
     }
@@ -49,7 +54,7 @@ kotlin {
         }
         val iosMain by sourceSets.getting {
             dependencies {
-                api("co.touchlab:crashkios:0.2.2")
+                implementation("co.touchlab:crashkios:0.2.2")
             }
         }
         js().compilations["main"].defaultSourceSet  {
@@ -59,7 +64,7 @@ kotlin {
         }
         js().compilations["test"].defaultSourceSet {
             dependencies {
-                implementation(kotlin("stdlib-js"))
+                implementation(kotlin("test-js"))
             }
         }
     }
