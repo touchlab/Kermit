@@ -1,8 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="app-browser">
     <output-path>$PROJECT_DIR$/app-browser/build/libs</output-path>
-    <root id="archive" name="app-browser.jar">
-      <element id="module-output" name="KermitSample.app-browser.main" />
-    </root>
+    <root id="archive" name="app-browser.jar" />
   </artifact>
 </component>

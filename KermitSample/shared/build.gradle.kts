@@ -57,12 +57,12 @@ kotlin {
                 implementation("co.touchlab:crashkios:0.2.2")
             }
         }
-        js().compilations["main"].defaultSourceSet  {
+        val jsMain by sourceSets.getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))
             }
         }
-        js().compilations["test"].defaultSourceSet {
+        val jsTest by sourceSets.getting {
             dependencies {
                 implementation(kotlin("test-js"))
             }
