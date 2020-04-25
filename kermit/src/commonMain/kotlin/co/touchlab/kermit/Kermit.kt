@@ -3,36 +3,18 @@ package co.touchlab.kermit
 class Kermit(
     private val loggerList: List<Logger> = listOf(
         CommonLogger()
-    ),private val defaultTag:String = "Kermit"
+    ), private val defaultTag: String = "Kermit"
 ) {
-
 
     constructor(vararg loggers: Logger) : this(loggers.asList())
     constructor(logger: Logger) : this(listOf(logger))
 
-    fun withTag(defaultTag:String) : Kermit {
-        return Kermit(this.loggerList,defaultTag)
-    }
-
-    fun log(
-        severity: Severity,
-        tag: String?,
-        throwable: Throwable?,
-        message: () -> String
-    ) {
-        loggerList.filter { it.isLoggable(severity) }. forEach {
-            it.log(
-                severity,
-                message(),
-                tag ?: defaultTag,
-                throwable
-            )
-        }
+    fun withTag(defaultTag: String): Kermit {
+        return Kermit(this.loggerList, defaultTag)
     }
 
     fun v(tag: String = defaultTag, throwable: Throwable? = null, message: () -> String) {
-        loggerList.filter {it.isLoggable(Severity.Verbose)}
-            .forEach { it.v(message(), tag, throwable)}
+        processLog(Severity.Verbose, tag, throwable, message, Logger::v)
     }
 
     fun v(withMessage: () -> String) {
@@ -43,13 +25,12 @@ class Kermit(
         v(throwable = withThrowable, message = message)
     }
 
-    fun v(withTag:String, message: () -> String) {
+    fun v(withTag: String, message: () -> String) {
         v(tag = withTag, message = message)
     }
 
     fun d(tag: String = defaultTag, throwable: Throwable? = null, message: () -> String) {
-        loggerList.filter {it.isLoggable(Severity.Debug)}
-            .forEach { it.d(message(), tag, throwable)}
+        processLog(Severity.Debug, tag, throwable, message, Logger::d)
     }
 
     fun d(withMessage: () -> String) {
@@ -60,13 +41,12 @@ class Kermit(
         d(throwable = withThrowable, message = message)
     }
 
-    fun d(withTag:String, message: () -> String) {
+    fun d(withTag: String, message: () -> String) {
         d(tag = withTag, message = message)
     }
 
     fun i(tag: String = defaultTag, throwable: Throwable? = null, message: () -> String) {
-        loggerList.filter {it.isLoggable(Severity.Info)}
-            .forEach { it.i(message(), tag, throwable)}
+        processLog(Severity.Info, tag, throwable, message, Logger::i)
     }
 
     fun i(withMessage: () -> String) {
@@ -77,13 +57,12 @@ class Kermit(
         i(throwable = withThrowable, message = message)
     }
 
-    fun i(withTag:String, message: () -> String) {
+    fun i(withTag: String, message: () -> String) {
         i(tag = withTag, message = message)
     }
 
     fun w(tag: String = defaultTag, throwable: Throwable? = null, message: () -> String) {
-        loggerList.filter {it.isLoggable(Severity.Warn)}
-            .forEach { it.w(message(), tag, throwable)}
+        processLog(Severity.Warn, tag, throwable, message, Logger::w)
     }
 
     fun w(withMessage: () -> String) {
@@ -94,13 +73,12 @@ class Kermit(
         w(throwable = withThrowable, message = message)
     }
 
-    fun w(withTag:String, message: () -> String) {
+    fun w(withTag: String, message: () -> String) {
         w(tag = withTag, message = message)
     }
 
     fun e(tag: String = defaultTag, throwable: Throwable? = null, message: () -> String) {
-        loggerList.filter {it.isLoggable(Severity.Error)}
-            .forEach { it.e(message(), tag, throwable)}
+        processLog(Severity.Error, tag, throwable, message, Logger::e)
     }
 
     fun e(withMessage: () -> String) {
@@ -111,13 +89,12 @@ class Kermit(
         e(throwable = withThrowable, message = message)
     }
 
-    fun e(withTag:String, message: () -> String) {
+    fun e(withTag: String, message: () -> String) {
         e(tag = withTag, message = message)
     }
 
     fun wtf(tag: String = defaultTag, throwable: Throwable? = null, message: () -> String) {
-        loggerList.filter {it.isLoggable(Severity.Assert)}
-            .forEach { it.wtf(message(), tag, throwable)}
+        processLog(Severity.Assert, tag, throwable, message, Logger::wtf)
     }
 
     fun wtf(withMessage: () -> String) {
@@ -128,8 +105,38 @@ class Kermit(
         wtf(throwable = withThrowable, message = message)
     }
 
-    fun wtf(withTag:String, message: () -> String) {
+    fun wtf(withTag: String, message: () -> String) {
         wtf(tag = withTag, message = message)
     }
-}
 
+    fun log(
+        severity: Severity,
+        tag: String = defaultTag,
+        throwable: Throwable?,
+        message: () -> String
+    ) {
+        processLog(
+            severity,
+            tag,
+            throwable,
+            message
+        ) { processedMessage, processedTag, processedThrowable ->
+            log(severity, processedMessage, processedTag, processedThrowable)
+        }
+    }
+
+    private inline fun processLog(
+        severity: Severity,
+        tag: String,
+        throwable: Throwable?,
+        crossinline message: () -> String,
+        loggingCall: Logger.(message: String, tag: String, throwable: Throwable?) -> Unit
+    ) {
+        val processedMessage: String by lazy { message() }
+        loggerList.forEach {
+            if (it.isLoggable(severity)) {
+                it.loggingCall(processedMessage, tag, throwable)
+            }
+        }
+    }
+}
