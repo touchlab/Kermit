@@ -36,29 +36,32 @@ kotlin {
 
     js() {
         browser()
+        nodejs()
     }
 
+    val darwinTargets = listOf(
+        "macosX64",
+        "iosArm32",
+        "iosArm64",
+        "iosX64",
+        "watchosArm32",
+        "watchosArm64",
+        "watchosX86",
+        "tvosArm64",
+        "tvosX64"
+    )
+
+    val nonDarwinTargets = mutableListOf<String>()
+
     if (ideaActive) {
-        macosX64("ios")
+        macosX64("darwin")
     } else {
-        macosX64()
-        iosArm32()
-        iosArm64()
-        iosX64()
-
-        linuxX64()
-        linuxArm32Hfp()
-        linuxMips32()
-
-        watchosArm32()
-        watchosArm64()
-        watchosX86()
-        tvosArm64()
-        tvosX64()
-        //    androidNativeArm32()
-        //    androidNativeArm64()
-
-        mingwX64()
+        presets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetPreset>().forEach { preset ->
+            if(!darwinTargets.contains(preset.name)){
+                nonDarwinTargets.add(preset.name)
+            }
+            targetFromPreset(preset)
+        }
     }
 
     sourceSets {
@@ -91,7 +94,7 @@ kotlin {
         val nativeMain = sourceSets.maybeCreate("nativeMain").apply {
             dependsOn(commonMain.get())
         }
-        val iosMain = sourceSets.maybeCreate("iosMain").apply {
+        val darwinMain = sourceSets.maybeCreate("darwinMain").apply {
             dependsOn(nativeMain)
         }
         val jsMain = sourceSets.maybeCreate("jsMain").apply {
@@ -109,32 +112,17 @@ kotlin {
 
         if (!ideaActive) {
             configure(
-                listOf(
-                    targets.findByName("iosX64"),
-                    targets.findByName("iosArm32"),
-                    targets.findByName("iosArm64"),
-                    targets.findByName("macosX64"),
-                    targets.findByName("watchosArm32"),
-                    targets.findByName("watchosArm64"),
-                    targets.findByName("watchosX86"),
-                    targets.findByName("tvosArm64"),
-                    targets.findByName("tvosX64")
-                ).filterNotNull()
+                darwinTargets.map { targets.findByName(it) }.filterNotNull()
             ) {
-                compilations.findByName("main")?.source(iosMain)
+                compilations.findByName("main")?.source(darwinMain)
 
-                sourceSets.findByName("iosTest")?.let {
+                sourceSets.findByName("darwinTest")?.let {
                     compilations.findByName("test")?.source(it)
                 }
             }
 
             configure(
-                listOf(
-                    targets.findByName("linuxX64"),
-                    targets.findByName("linuxArm32Hfp"),
-                    targets.findByName("linuxMips32"),
-                    targets.findByName("mingwX64")
-                ).filterNotNull()
+                nonDarwinTargets.map { targets.findByName(it) }.filterNotNull()
             ) {
                 compilations.findByName("main")?.source(nativeMain)
 
