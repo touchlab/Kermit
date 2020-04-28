@@ -13,8 +13,6 @@ plugins {
     kotlin("multiplatform") version "1.3.71"
 }
 
-apply(from = "../gradle/gradle-mvn-mpp-push.gradle")
-
 val GROUP: String by project
 val VERSION_NAME: String by project
 
@@ -56,7 +54,7 @@ kotlin {
     if (ideaActive) {
         macosX64("darwin")
     } else {
-        presets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetPreset>().forEach { preset ->
+        presets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.AbstractKotlinNativeTargetPreset<*>>().forEach { preset ->
             if(!darwinTargets.contains(preset.name)){
                 nonDarwinTargets.add(preset.name)
             }
@@ -144,3 +142,5 @@ android {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
     }
 }
+
+apply(from = "../gradle/gradle-mvn-mpp-push.gradle")
