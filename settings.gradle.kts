@@ -25,5 +25,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "Kermit"
 enableFeaturePreview("GRADLE_METADATA")
