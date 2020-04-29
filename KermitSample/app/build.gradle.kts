@@ -26,8 +26,8 @@ android {
     defaultConfig {
         minSdkVersion(15)
         targetSdkVersion(29)
-        versionCode = 1
-        versionName = "0.0.1"
+        versionCode = 104
+        versionName = "0.1.4"
     }
     packagingOptions {
         exclude("META-INF/*.kotlin_module")
