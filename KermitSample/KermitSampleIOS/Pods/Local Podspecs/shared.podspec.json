@@ -1,10 +1,10 @@
 {
   "name": "shared",
-  "version": "0.1.4",
+  "version": "0.0.1",
   "homepage": "https://www.touchlab.co",
   "source": {
     "git": "Not Published",
-    "tag": "Cocoapods/shared/0.1.4"
+    "tag": "Cocoapods/shared/0.0.1"
   },
   "authors": "",
   "license": "",

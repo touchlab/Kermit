@@ -24,7 +24,7 @@ repositories {
 }
 
 kotlin {
-    version = "0.1.4"
+    version = "0.0.1"
     android()
     val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")?:false
     if(onPhone){
@@ -89,8 +89,8 @@ android {
     defaultConfig {
         minSdkVersion(15)
         targetSdkVersion(29)
-        versionCode = 104
-        versionName = "0.1.4"
+        versionCode = 1
+        versionName = "1.0"
     }
 
     val main by sourceSets.getting {
