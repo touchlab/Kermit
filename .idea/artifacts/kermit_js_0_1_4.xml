@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="kermit-js-0.1.4">
+    <output-path>$PROJECT_DIR$/kermit/build/libs</output-path>
+    <root id="archive" name="kermit-js-0.1.4.jar" />
+  </artifact>
+</component>

@@ -40,7 +40,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                api("co.touchlab:kermit:0.0.1")
+                api("co.touchlab:kermit:0.1.4")
             }
         }
 
