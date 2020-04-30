@@ -2,6 +2,8 @@
 
 Kermit is a Kotlin Multiplatform logging utility with composable log outputs. The library provides prebuilt loggers for outputting to platform logging tools such as Logcat and NSLog.
 
+> Check out [KaMP Kit](https://github.com/touchlab/KaMPKit) to get started developing for Kotlin Multiplatform
+
 ## Usage
 
 Logging calls are made to a `Kermit` instance which delegates logging to implementations of the `Logger` interface which are provided during instantiation. If no `Logger`s are provided, `CommonLogger`(which outputs to println) will be used by default.  
