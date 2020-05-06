@@ -2,6 +2,49 @@
 
 Kermit is a Kotlin Multiplatform logging utility with composable log outputs. The library provides prebuilt loggers for outputting to platform logging tools such as Logcat and NSLog.
 
+> Check out [KaMP Kit](https://github.com/touchlab/KaMPKit) to get started developing for Kotlin Multiplatform
+
+### Pre-release
+Kermit is in a pre-release stage. We are still working to improve usage and future versions may change the public api.
+
+### Design Philosophy
+Read more about our api and architecture decisions here: [DESIGN](DESIGN.md)
+
+## Installation
+
+The Kermit dependency should added to your `commonMain` source set in your Kotlin Multiplatform module. 
+
+```kotlin
+commonMain {
+    dependencies {
+        implementation(kotlin("stdlib-common"))
+        api("co.touchlab:kermit:0.1.5")
+    }
+}
+```
+
+Notice the use of the `api` configuration. This is to expose Kermit to the native Android & iOS code which includes your shared library. If using an iOS framework (including through CocoaPods) you will also need to transitively export kermit to make it available for use in swift. Learn more under "Exporting dependencies to binaries" [Here](https://kotlinlang.org/docs/reference/building-mpp-with-gradle.html#building-final-native-binaries)
+
+```kotlin
+framework {
+    export("co.touchlab:kermit:0.1.5")
+    transitiveExport = true
+}
+```
+
+When using cocoapods to package your shared module (we've found this to be the best way right now), you can use [Touchlab's cocoapods plugin](https://github.com/touchlab/KotlinCocoapods) to configure the framework. 
+
+```kotlin
+cocoapodsext {
+    summary = "Sample for Kermit"
+    homepage = "https://www.touchlab.co"
+    framework {
+        export("co.touchlab:kermit:0.1.5")
+        transitiveExport = true
+    }
+}
+```
+
 ## Usage
 
 Logging calls are made to a `Kermit` instance which delegates logging to implementations of the `Logger` interface which are provided during instantiation. If no `Logger`s are provided, `CommonLogger`(which outputs to println) will be used by default.  
