@@ -4,9 +4,6 @@
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.8">
-      <module name="shared_jvmMain" target="1.6" />
-      <module name="shared_jvmTest" target="1.6" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.8" />
   </component>
 </project>
