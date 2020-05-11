@@ -31,7 +31,7 @@ kotlin {
     android {
         publishAllLibraryVariants()
     }
-
+    jvm()
     js() {
         browser()
         nodejs()
@@ -127,6 +127,20 @@ kotlin {
                 sourceSets.findByName("nativeTest")?.let {
                     compilations.findByName("test")?.source(it)
                 }
+            }
+        }
+        val jvmMain = sourceSets.maybeCreate("jvmMain").apply {
+            dependsOn(commonMain.get())
+            dependencies {
+                implementation(kotlin("stdlib"))
+            }
+        }
+        val jvmTest = sourceSets.maybeCreate("jvmTest").apply {
+            dependsOn(commonTest.get())
+            dependencies {
+                implementation(kotlin("stdlib"))
+                implementation(kotlin("test"))
+                implementation(kotlin("test-junit"))
             }
         }
     }

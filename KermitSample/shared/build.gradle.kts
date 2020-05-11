@@ -25,6 +25,7 @@ repositories {
 kotlin {
     version = "0.0.1"
     android()
+    jvm()
     val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")?:false
     if(onPhone){
         iosArm64("ios")
@@ -76,6 +77,18 @@ kotlin {
                 implementation(kotlin("test-js"))
             }
         }
+        val jvmMain by sourceSets.getting {
+            dependsOn(commonMain.get())
+            dependencies {
+                implementation(kotlin("stdlib"))
+            }
+        }
+        val jvmTest by sourceSets.getting {
+            dependsOn(commonTest.get())
+            dependencies {
+                implementation(kotlin("stdlib"))
+            }
+        }
     }
     cocoapodsext {
         summary = "Sample for Kermit"
@@ -100,5 +113,3 @@ android {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
     }
 }
-
-
