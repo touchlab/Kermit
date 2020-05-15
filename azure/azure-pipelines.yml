@@ -8,7 +8,7 @@ pool:
   vmImage: 'macos-latest'
 
 jobs:
-  - job: 'build'
+  - job: 'library'
     displayName: 'Build Library'
     variables:
       MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
@@ -32,7 +32,7 @@ jobs:
 
   - job: 'sample'
     displayName: 'Build Sample'
-    dependsOn: 'lib'
+    dependsOn: 'library'
     steps:
     - task: DownloadBuildArtifacts@0
       inputs:
