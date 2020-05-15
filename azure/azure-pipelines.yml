@@ -11,7 +11,7 @@ jobs:
   - job: 'library'
     displayName: 'Build Library'
     variables:
-      MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
+      MAVEN_CACHE_FOLDER: $(Agent.HomeDirectory)/.m2/repository
     steps:
     - task: Gradle@2
       inputs:
