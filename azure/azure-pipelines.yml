@@ -7,40 +7,45 @@ pr:
 pool:
   vmImage: 'macos-latest'
 
-stages:
-  - stage: 'lib'
-    displayName: 'Build Library'
-    jobs:
-      - job: 'build'
-        displayName: 'Build and Test'
-        steps:
-          - task: Gradle@2
-            inputs:
-              gradleWrapperFile: 'gradlew'
-              tasks: 'build'
-              publishJUnitResults: true
-              testResultsFiles: '**/TEST-*.xml'
-              javaHomeOption: 'JDKVersion'
-              sonarQubeRunAnalysis: false
-      - job: 'publishLocal'
-        displayName: 'Publish to Maven Local'
-        steps:
-          - task: Gradle@2
-            inputs:
-              gradleWrapperFile: 'gradlew'
-              tasks: 'publishToMavenLocal'
-  - stage: 'sample'
-    displayName: 'Build Sample Project'
-    jobs:
-      - job: 'build'
-        displayName: 'Build and Test'
-        steps:
-          - task: Gradle@2
-            inputs:
-              cwd: 'KermitSample'
-              gradleWrapperFile: 'KermitSample/gradlew'
-              tasks: 'build'
-              publishJUnitResults: true
-              testResultsFiles: '**/TEST-*.xml'
-              javaHomeOption: 'JDKVersion'
-              sonarQubeRunAnalysis: false
+  jobs:
+    - job: 'build'
+      displayName: 'Build Library'
+      variables:
+        MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
+      steps:
+      - task: Gradle@2
+        inputs:
+          gradleWrapperFile: 'gradlew'
+          tasks: 'build'
+          publishJUnitResults: true
+          testResultsFiles: '**/TEST-*.xml'
+          javaHomeOption: 'JDKVersion'
+          sonarQubeRunAnalysis: false
+      - task: Gradle@2
+        inputs:
+          gradleWrapperFile: 'gradlew'
+          tasks: 'publishToMavenLocal'
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: '$(MAVEN_CACHE_FOLDER)'
+          artifactName: kermit
+
+    - job: 'sample'
+      displayName: 'Build Sample'
+      dependsOn: 'lib'
+      steps:
+      - task: DownloadBuildArtifacts@0
+        inputs:
+          buildType: 'current'
+          downloadType: 'single'
+          artifactName: 'kermit'
+          downloadPath: '$(MAVEN_CACHE_FOLDER)'
+      - task: Gradle@2
+        inputs:
+          cwd: 'KermitSample'
+          gradleWrapperFile: 'KermitSample/gradlew'
+          tasks: 'build'
+          publishJUnitResults: true
+          testResultsFiles: '**/TEST-*.xml'
+          javaHomeOption: 'JDKVersion'
+          sonarQubeRunAnalysis: false
