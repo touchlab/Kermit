@@ -13,34 +13,34 @@ stages:
     jobs:
       - job: 'build'
         displayName: 'Build and Test'
-        - steps:
+        steps:
           - task: Gradle@2
-              inputs:
-                gradleWrapperFile: 'gradlew'
-                tasks: 'build'
-                publishJUnitResults: true
-                testResultsFiles: '**/TEST-*.xml'
-                javaHomeOption: 'JDKVersion'
-                sonarQubeRunAnalysis: false
+            inputs:
+              gradleWrapperFile: 'gradlew'
+              tasks: 'build'
+              publishJUnitResults: true
+              testResultsFiles: '**/TEST-*.xml'
+              javaHomeOption: 'JDKVersion'
+              sonarQubeRunAnalysis: false
       - job: 'publishLocal'
         displayName: 'Publish to Maven Local'
-        - steps:
-            - task: Gradle@2
-                inputs:
-                  gradleWrapperFile: 'gradlew'
-                  tasks: 'publishToMavenLocal'
+        steps:
+          - task: Gradle@2
+            inputs:
+              gradleWrapperFile: 'gradlew'
+              tasks: 'publishToMavenLocal'
   - stage: 'sample'
-      displayName: 'Build Sample Project'
-      jobs:
-        - job: 'build'
-          displayName: 'Build and Test'
-            - steps:
-                - task: Gradle@2
-                    inputs:
-                      cwd: 'KermitSample'
-                      gradleWrapperFile: 'KermitSample/gradlew'
-                      tasks: 'build'
-                      publishJUnitResults: true
-                      testResultsFiles: '**/TEST-*.xml'
-                      javaHomeOption: 'JDKVersion'
-                      sonarQubeRunAnalysis: false
+    displayName: 'Build Sample Project'
+    jobs:
+      - job: 'build'
+        displayName: 'Build and Test'
+        steps:
+          - task: Gradle@2
+            inputs:
+              cwd: 'KermitSample'
+              gradleWrapperFile: 'KermitSample/gradlew'
+              tasks: 'build'
+              publishJUnitResults: true
+              testResultsFiles: '**/TEST-*.xml'
+              javaHomeOption: 'JDKVersion'
+              sonarQubeRunAnalysis: false
