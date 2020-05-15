@@ -25,21 +25,6 @@ jobs:
       inputs:
         gradleWrapperFile: 'gradlew'
         tasks: 'publishToMavenLocal'
-    - task: PublishBuildArtifacts@1
-      inputs:
-        pathToPublish: '$(MAVEN_CACHE_FOLDER)'
-        artifactName: kermit
-
-  - job: 'sample'
-    displayName: 'Build Sample'
-    dependsOn: 'library'
-    steps:
-    - task: DownloadBuildArtifacts@0
-      inputs:
-        buildType: 'current'
-        downloadType: 'single'
-        artifactName: 'kermit'
-        downloadPath: '$(MAVEN_CACHE_FOLDER)'
     - task: Gradle@2
       inputs:
         cwd: 'KermitSample'
