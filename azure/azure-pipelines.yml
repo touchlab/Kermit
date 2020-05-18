@@ -20,7 +20,7 @@ jobs:
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
-        gradleOptions: '-Xmx1536m'
+        gradleOptions: '-Xmx2g'
         sonarQubeRunAnalysis: false
     - task: Gradle@2
       inputs:
@@ -36,5 +36,5 @@ jobs:
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
-        gradleOptions: '-Xmx3072m'
+        gradleOptions: '-Xmx2g'
         sonarQubeRunAnalysis: false
