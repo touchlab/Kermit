@@ -36,5 +36,5 @@ jobs:
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
-        gradleOptions: '-Xmx1536m'
+        gradleOptions: '-Xmx3072m'
         sonarQubeRunAnalysis: false
