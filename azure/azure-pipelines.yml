@@ -20,6 +20,7 @@ jobs:
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
+        gradleOptions: '-Xmx1536m'
         sonarQubeRunAnalysis: false
     - task: Gradle@2
       inputs:
@@ -29,10 +30,11 @@ jobs:
         sonarQubeRunAnalysis: false
     - task: Gradle@2
       inputs:
-        cwd: 'KermitSample'
         gradleWrapperFile: 'KermitSample/gradlew'
+        workingDirectory: 'KermitSample'
         tasks: 'build'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
+        gradleOptions: '-Xmx1536m'
         sonarQubeRunAnalysis: false
