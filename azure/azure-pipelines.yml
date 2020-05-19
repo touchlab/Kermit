@@ -10,12 +10,42 @@ pool:
 jobs:
   - job: 'library'
     displayName: 'Build Library'
-    variables:
-      MAVEN_CACHE_FOLDER: $(Agent.HomeDirectory)/.m2/repository
     steps:
+    - task: Cache@2
+      inputs:
+        key: 'gradle | "$(Agent.OS)" | build.gradle | kermit/**/build.gradle'
+        path: '$(Pipeline.Workspace)/.gradle'
+        restoreKeys: |
+          gradle | "$(Agent.OS)"
+          gradle
     - task: Gradle@2
       inputs:
         gradleWrapperFile: 'gradlew'
+        options: '--build-cache'
+        tasks: 'build'
+        publishJUnitResults: true
+        testResultsFiles: '**/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        sonarQubeRunAnalysis: false
+
+    - task: Gradle@2
+      inputs:
+        gradleWrapperFile: 'gradlew'
+        tasks: 'publishToMavenLocal'
+        publishJUnitResults: false
+        sonarQubeRunAnalysis: false
+    - task: Cache@2
+      inputs:
+        key: 'sampleGradle | "$(Agent.OS)" | KermitSample/**/build.gradle'
+        path: '$(Pipeline.Workspace)/KermitSample/.gradle'
+        restoreKeys: |
+          sampleGradle | "$(Agent.OS)"
+          sampleGradle
+    - task: Gradle@2
+      inputs:
+        gradleWrapperFile: 'KermitSample/gradlew'
+        workingDirectory: 'KermitSample'
+        options: '--build-cache'
         tasks: 'build'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
@@ -24,15 +54,8 @@ jobs:
     - task: Gradle@2
       inputs:
         gradleWrapperFile: 'gradlew'
-        tasks: 'publishToMavenLocal'
+        options: '--stop'
+        tasks: 
         publishJUnitResults: false
-        sonarQubeRunAnalysis: false
-    - task: Gradle@2
-      inputs:
-        gradleWrapperFile: 'KermitSample/gradlew'
-        workingDirectory: 'KermitSample'
-        tasks: 'build'
-        publishJUnitResults: true
-        testResultsFiles: '**/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
         sonarQubeRunAnalysis: false
