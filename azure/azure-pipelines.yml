@@ -55,7 +55,7 @@ jobs:
       inputs:
         gradleWrapperFile: 'gradlew'
         options: '--stop'
-        tasks: 
+        tasks: 'build' 
         publishJUnitResults: false
         javaHomeOption: 'JDKVersion'
         sonarQubeRunAnalysis: false
