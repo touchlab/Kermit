@@ -14,7 +14,7 @@ jobs:
     - task: Cache@2
       inputs:
         key: 'gradle | "$(Agent.OS)" | build.gradle.kts | kermit/**/build.gradle.kts'
-        path: '$(Pipeline.Workspace)/.gradle'
+        path: '.gradle'
         restoreKeys: |
           gradle | "$(Agent.OS)"
           gradle
@@ -37,7 +37,7 @@ jobs:
     - task: Cache@2
       inputs:
         key: 'sampleGradle | "$(Agent.OS)" | KermitSample/**/build.gradle.kts'
-        path: '$(Pipeline.Workspace)/KermitSample/.gradle'
+        path: 'KermitSample/.gradle'
         restoreKeys: |
           sampleGradle | "$(Agent.OS)"
           sampleGradle
