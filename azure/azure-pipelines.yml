@@ -13,7 +13,7 @@ jobs:
     steps:
     - task: Cache@2
       inputs:
-        key: 'gradle | "$(Agent.OS)" | build.gradle | kermit/**/build.gradle'
+        key: 'gradle | "$(Agent.OS)" | build.gradle.kts | kermit/**/build.gradle.kts'
         path: '$(Pipeline.Workspace)/.gradle'
         restoreKeys: |
           gradle | "$(Agent.OS)"
@@ -36,7 +36,7 @@ jobs:
         sonarQubeRunAnalysis: false
     - task: Cache@2
       inputs:
-        key: 'sampleGradle | "$(Agent.OS)" | KermitSample/**/build.gradle'
+        key: 'sampleGradle | "$(Agent.OS)" | KermitSample/**/build.gradle.kts'
         path: '$(Pipeline.Workspace)/KermitSample/.gradle'
         restoreKeys: |
           sampleGradle | "$(Agent.OS)"
