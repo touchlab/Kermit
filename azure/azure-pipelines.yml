@@ -9,9 +9,10 @@ pool:
 
 jobs:
   - job: 'library'
-    displayName: 'Build Library'
+    displayName: 'Build Library and Sample'
     steps:
     - task: Cache@2
+      displayName: 'Check for library gradle cache'
       inputs:
         key: 'gradle | "$(Agent.OS)" | build.gradle.kts | kermit/**/build.gradle.kts'
         path: '.gradle'
@@ -19,6 +20,7 @@ jobs:
           gradle | "$(Agent.OS)"
           gradle
     - task: Gradle@2
+      displayName: 'Build Library'
       inputs:
         gradleWrapperFile: 'gradlew'
         options: '--build-cache'
@@ -29,12 +31,14 @@ jobs:
         sonarQubeRunAnalysis: false
 
     - task: Gradle@2
+      displayName: 'Publish library to Maven Local for use by Sample'
       inputs:
         gradleWrapperFile: 'gradlew'
         tasks: 'publishToMavenLocal'
         publishJUnitResults: false
         sonarQubeRunAnalysis: false
     - task: Cache@2
+      displayName: 'Check for Sample gradle cache'
       inputs:
         key: 'sampleGradle | "$(Agent.OS)" | KermitSample/**/build.gradle.kts'
         path: 'KermitSample/.gradle'
@@ -42,6 +46,7 @@ jobs:
           sampleGradle | "$(Agent.OS)"
           sampleGradle
     - task: Gradle@2
+      displayName: 'Build Sample'
       inputs:
         gradleWrapperFile: 'KermitSample/gradlew'
         workingDirectory: 'KermitSample'
@@ -52,6 +57,7 @@ jobs:
         javaHomeOption: 'JDKVersion'
         sonarQubeRunAnalysis: false
     - task: Gradle@2
+      displayName: 'Stop gradle to ensure clean caching'
       inputs:
         gradleWrapperFile: 'gradlew'
         options: '--stop'
