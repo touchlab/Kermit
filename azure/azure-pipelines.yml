@@ -56,6 +56,15 @@ jobs:
         testResultsFiles: '**/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
         sonarQubeRunAnalysis: false
+    - task: Xcode@5
+      inputs:
+        actions: 'build'
+        configuration: 'Debug'
+        sdk: 'iphoneos13.4'
+        xcWorkspacePath: 'KermitSample/KermitSampleIOS/KermitSampleIOS.xcworkspace'
+        scheme: 'KermitSampleIOS'
+        packageApp: false
+        publishJUnitResults: false
     - task: Gradle@2
       displayName: 'Stop gradle to ensure clean caching'
       inputs:
