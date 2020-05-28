@@ -15,4 +15,38 @@ allprojects{
         google()
         jcenter()
     }
+
+    allprojects {
+        tasks.maybeCreate("publishMac").apply {
+            if(tasks.findByName("publish")!= null) {
+                dependsOn("publishIosArm32PublicationToMavenRepository")
+                dependsOn("publishIosArm64PublicationToMavenRepository")
+                dependsOn("publishIosX64PublicationToMavenRepository")
+                dependsOn("publishMacosX64PublicationToMavenRepository")
+                dependsOn("publishTvosArm64PublicationToMavenRepository")
+                dependsOn("publishTvosX64PublicationToMavenRepository")
+                dependsOn("publishWatchosArm32PublicationToMavenRepository")
+                dependsOn("publishWatchosArm64PublicationToMavenRepository")
+                dependsOn("publishWatchosX86PublicationToMavenRepository")
+                dependsOn("publishJvmPublicationToMavenRepository")
+                dependsOn("publishJsPublicationToMavenRepository")
+                dependsOn("publishMetadataPublicationToMavenRepository")
+                dependsOn("publishKotlinMultiplatformPublicationToMavenRepository")
+                dependsOn("publishLinuxX64PublicationToMavenRepository")
+                dependsOn("publishLinuxArm32HfpPublicationToMavenRepository")
+            }
+        }
+
+        tasks.maybeCreate("publishWindows").apply {
+            if(tasks.findByName("publish")!= null) {
+                dependsOn("publishMingwX64PublicationToMavenRepository")
+            }
+        }
+
+        tasks.maybeCreate("publishLinux").apply {
+            if(tasks.findByName("publish") != null) {
+                dependsOn ("publishLinuxMips32PublicationToMavenRepository")
+            }
+        }
+    }
 }
