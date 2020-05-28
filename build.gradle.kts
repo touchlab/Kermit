@@ -8,45 +8,53 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-allprojects{
-    repositories{
+allprojects {
+    repositories {
         mavenLocal()
         mavenCentral()
         google()
         jcenter()
     }
 
-    allprojects {
-        tasks.maybeCreate("publishMac").apply {
-            if(tasks.findByName("publish")!= null) {
-                dependsOn("publishIosArm32PublicationToMavenRepository")
-                dependsOn("publishIosArm64PublicationToMavenRepository")
-                dependsOn("publishIosX64PublicationToMavenRepository")
-                dependsOn("publishMacosX64PublicationToMavenRepository")
-                dependsOn("publishTvosArm64PublicationToMavenRepository")
-                dependsOn("publishTvosX64PublicationToMavenRepository")
-                dependsOn("publishWatchosArm32PublicationToMavenRepository")
-                dependsOn("publishWatchosArm64PublicationToMavenRepository")
-                dependsOn("publishWatchosX86PublicationToMavenRepository")
-                dependsOn("publishJvmPublicationToMavenRepository")
-                dependsOn("publishJsPublicationToMavenRepository")
-                dependsOn("publishMetadataPublicationToMavenRepository")
-                dependsOn("publishKotlinMultiplatformPublicationToMavenRepository")
-                dependsOn("publishLinuxX64PublicationToMavenRepository")
-                dependsOn("publishLinuxArm32HfpPublicationToMavenRepository")
-            }
+    tasks.register("publishMac") {
+        if (tasks.findByName("publish") != null) {
+            dependsOn("publishKotlinMultiplatformPublicationToMavenRepository",
+                "publishMetadataPublicationToMavenRepository",
+                "publishJvmPublicationToMavenRepository",
+                "publishAndroidDebugPublicationToMavenRepository",
+                "publishAndroidReleasePublicationToMavenRepository",
+                "publishAndroidNativeArm32PublicationToMavenRepository",
+                "publishAndroidNativeArm64PublicationToMavenRepository",
+                "publishAndroidNativeX64PublicationToMavenRepository",
+                "publishAndroidNativeX86PublicationToMavenRepository",
+                "publishIosArm32PublicationToMavenRepository",
+                "publishIosArm64PublicationToMavenRepository",
+                "publishIosX64PublicationToMavenRepository",
+                "publishMacosX64PublicationToMavenRepository",
+                "publishJsPublicationToMavenRepository",
+                "publishWatchosArm32PublicationToMavenRepository",
+                "publishWatchosArm64PublicationToMavenRepository",
+                "publishWatchosX86PublicationToMavenRepository",
+                "publishTvosArm64PublicationToMavenRepository",
+                "publishTvosX64PublicationToMavenRepository",
+                "publishLinuxArm32HfpPublicationToMavenRepository",
+                "publishLinuxArm64PublicationToMavenRepository",
+                "publishLinuxX64PublicationToMavenRepository",
+                "publishWasm32PublicationToMavenRepository")
         }
+    }
 
-        tasks.maybeCreate("publishWindows").apply {
-            if(tasks.findByName("publish")!= null) {
-                dependsOn("publishMingwX64PublicationToMavenRepository")
-            }
+    tasks.register("publishWindows") {
+        if (tasks.findByName("publish") != null) {
+            dependsOn("publishMingwX64PublicationToMavenRepository",
+                "publishMingwX86PublicationToMavenRepository")
         }
+    }
 
-        tasks.maybeCreate("publishLinux").apply {
-            if(tasks.findByName("publish") != null) {
-                dependsOn ("publishLinuxMips32PublicationToMavenRepository")
-            }
+    tasks.register("publishLinux") {
+        if (tasks.findByName("publish") != null) {
+            dependsOn("publishLinuxMips32PublicationToMavenRepository",
+                "publishLinuxMipsel32PublicationToMavenRepository")
         }
     }
 }
