@@ -33,6 +33,7 @@
 .idea/modules.xml
 .idea/*.iml
 .idea/modules/
+/.idea/artifacts/
 *.iml
 *.ipr
 
