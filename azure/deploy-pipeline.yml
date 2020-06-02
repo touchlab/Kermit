@@ -26,6 +26,7 @@ jobs:
   - job: "Linux"
     pool:
       vmimage: "ubuntu-latest"
+    dependsOn: 'macOS'
     steps:
       - task: Gradle@2
         inputs:
@@ -46,6 +47,7 @@ jobs:
   - job: "Windows"
     pool:
       vmimage: "windows-latest"
+    dependsOn: 'Linux'
     steps:
       - task: Gradle@2
         inputs:

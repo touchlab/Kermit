@@ -18,7 +18,7 @@ The Kermit dependency should added to your `commonMain` source set in your Kotli
 commonMain {
     dependencies {
         implementation(kotlin("stdlib-common"))
-        api("co.touchlab:kermit:0.1.5")
+        api("co.touchlab:kermit:0.1.7")
     }
 }
 ```
@@ -27,7 +27,7 @@ Notice the use of the `api` configuration. This is to expose Kermit to the nativ
 
 ```kotlin
 framework {
-    export("co.touchlab:kermit:0.1.5")
+    export("co.touchlab:kermit:0.1.7")
     transitiveExport = true
 }
 ```
@@ -39,7 +39,7 @@ cocoapodsext {
     summary = "Sample for Kermit"
     homepage = "https://www.touchlab.co"
     framework {
-        export("co.touchlab:kermit:0.1.5")
+        export("co.touchlab:kermit:0.1.7")
         transitiveExport = true
     }
 }
