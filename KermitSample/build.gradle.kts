@@ -13,11 +13,14 @@ buildscript {
         google()
         mavenCentral()
         jcenter()
+        maven("https://plugins.gradle.org/m2/")
+
     }
     dependencies {
         classpath("com.android.tools.build:gradle:3.6.3")
         classpath(kotlin("gradle-plugin","1.3.72"))
         classpath("co.touchlab:kotlinnativecocoapods:0.9")
+        classpath("org.jlleitschuh.gradle:ktlint-gradle:9.2.1")
     }
 }
 allprojects{
@@ -26,5 +29,14 @@ allprojects{
         mavenCentral()
         google()
         jcenter()
+    }
+}
+
+subprojects {
+    apply(plugin = "org.jlleitschuh.gradle.ktlint") // Version should be inherited from parent
+
+    // Optionally configure plugin
+    ktlint {
+        debug.set(true)
     }
 }

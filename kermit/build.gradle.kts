@@ -8,9 +8,19 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
+buildscript {
+    repositories {
+        maven("https://plugins.gradle.org/m2/")
+    }
+    dependencies {
+        classpath("org.jlleitschuh.gradle:ktlint-gradle:9.2.1")
+    }
+}
+
 plugins {
     id("com.android.library") version "3.6.1"
     kotlin("multiplatform") version "1.3.71"
+    id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
 }
 
 val GROUP: String by project
@@ -143,6 +153,21 @@ kotlin {
                 implementation(kotlin("test-junit"))
             }
         }
+    }
+}
+
+ktlint {
+    version.set("0.37.2")
+    enableExperimentalRules.set(true)
+    verbose.set(true)
+    filter {
+        exclude { it.file.path.contains("build/") }
+    }
+}
+
+afterEvaluate {
+    tasks.named("check").configure {
+        dependsOn(tasks.getByName("ktlintCheck"))
     }
 }
 
