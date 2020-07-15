@@ -11,9 +11,6 @@
 package co.touchlab.kermit
 
 import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
-import kotlin.test.fail
 
 class KermitTest {
     private val testLogger = TestLogger()
@@ -72,9 +69,9 @@ class KermitTest {
         kermit.e(testTag) { testMessage }
         testLogger.assertLast { tag == testTag && message == testMessage }
     }
-  
+
     @Test
-    fun testingDefaultTag(){
+    fun testingDefaultTag() {
         val kermit = Kermit(testLogger)
         val kermitWithTag = kermit.withTag("My Custom Tag")
 
@@ -88,7 +85,7 @@ class KermitTest {
         testLogger.assertLast { tag == "My Custom Tag" }
         kermit.d("Tag") { "Log WITH Tag (Original Kermit" }
         testLogger.assertLast { tag == "Tag" }
-        kermit.d { "Log Without Tag (Original Kermit)" }  // Ensuring first Kermit isn't affected by withTag
+        kermit.d { "Log Without Tag (Original Kermit)" } // Ensuring first Kermit isn't affected by withTag
         testLogger.assertLast { tag == "Kermit" }
     }
 }

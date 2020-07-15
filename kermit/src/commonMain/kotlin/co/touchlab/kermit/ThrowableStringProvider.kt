@@ -15,8 +15,9 @@ interface ThrowableStringProvider {
         fun Throwable.printCause(depth: Int = 0) {
             append("Caused by: ${toString()}\n")
             cause?.let {
-                if (it !== this && depth < 2)
+                if (it !== this && depth < 2) {
                     it.printCause(depth + 1)
+                }
             }
         }
 

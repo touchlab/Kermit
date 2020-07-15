@@ -36,7 +36,8 @@ class PlatformThrowableStringProviderTest {
     fun defaultImplTest() {
         val provider = object : ThrowableStringProvider {}
         val throwable = RuntimeException(
-            "Root Exception Message", IllegalStateException(
+            "Root Exception Message",
+            IllegalStateException(
                 "cause 1",
                 IllegalStateException(
                     "cause 2",

@@ -65,7 +65,7 @@ kotlin {
         macosX64("darwin")
     } else {
         presets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.AbstractKotlinNativeTargetPreset<*>>().forEach { preset ->
-            if(!darwinTargets.contains(preset.name)){
+            if (!darwinTargets.contains(preset.name)) {
                 nonDarwinTargets.add(preset.name)
             }
             targetFromPreset(preset)

@@ -13,7 +13,7 @@ package co.touchlab.kermit
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class TestLogger(val loggable:Severity = Severity.Verbose) : Logger() {
+class TestLogger(val loggable: Severity = Severity.Verbose) : Logger() {
     data class LogEntry(
         val severity: Severity,
         val message: String,

@@ -13,7 +13,8 @@ package co.touchlab.kermit
 class Kermit(
     private val loggerList: List<Logger> = listOf(
         CommonLogger()
-    ), private val defaultTag: String = "Kermit"
+    ),
+    private val defaultTag: String = "Kermit"
 ) {
 
     constructor(vararg loggers: Logger) : this(loggers.asList())
