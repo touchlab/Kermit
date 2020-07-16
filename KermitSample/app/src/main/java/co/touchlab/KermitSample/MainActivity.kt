@@ -14,7 +14,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import co.touchlab.kermit.CommonLogger
 import co.touchlab.kermit.Kermit
 import co.touchlab.kermit.LogcatLogger
 import co.touchlab.kermitsample.SampleCommon

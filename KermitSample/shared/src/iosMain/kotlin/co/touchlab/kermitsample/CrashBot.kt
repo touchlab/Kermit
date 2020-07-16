@@ -10,7 +10,6 @@
 
 package co.touchlab.kermitsample
 
-
 import co.touchlab.crashkios.catchAndReport
 import kotlin.native.concurrent.TransferMode
 import kotlin.native.concurrent.Worker
@@ -25,7 +24,7 @@ class CrashBot() {
     }
 
     fun goCrashBackground() {
-        worker.execute(TransferMode.SAFE, {this.freeze()}) {
+        worker.execute(TransferMode.SAFE, { this.freeze() }) {
             try {
                 it.goCrash()
             } catch (t: Throwable) {
@@ -34,7 +33,7 @@ class CrashBot() {
         }
     }
 
-    fun differentPath(){
+    fun differentPath() {
         throw SampleException("Nap time 2 ...")
     }
 
@@ -44,7 +43,7 @@ class CrashBot() {
 
     private fun internalDispatch() {
         val door = Random.nextInt(5)
-        when(door){
+        when (door) {
             0 -> goCrash0()
             1 -> goCrash1()
             2 -> goCrash2()
@@ -55,7 +54,7 @@ class CrashBot() {
 
     private fun internalDispatch1() {
         val door = Random.nextInt(5)
-        when(door){
+        when (door) {
             0 -> goCrash0()
             1 -> goCrash1()
             2 -> goCrash2()
@@ -66,7 +65,7 @@ class CrashBot() {
 
     private fun internalDispatch2() {
         val door = Random.nextInt(5)
-        when(door){
+        when (door) {
             0 -> goCrash0()
             1 -> goCrash1()
             2 -> goCrash2()
@@ -77,7 +76,7 @@ class CrashBot() {
 
     private fun internalDispatch3() {
         val door = Random.nextInt(5)
-        when(door){
+        when (door) {
             0 -> goCrash0()
             1 -> goCrash1()
             2 -> goCrash2()
@@ -85,8 +84,6 @@ class CrashBot() {
             4 -> goCrash4()
         }
     }
-
-
 
     private fun manualCatchPrivate() = catchAndReport {
         goCrash()
@@ -121,12 +118,12 @@ class CrashBot() {
         moreLayers()
     }
 
-    private fun moreLayers(){
+    private fun moreLayers() {
         throw SampleException("Nap time ...")
     }
 }
 
-class SampleException(message:String? = null, cause:Throwable? = null): Exception(message, cause)
+class SampleException(message: String? = null, cause: Throwable? = null) : Exception(message, cause)
 
 @SymbolName("TerminateWithUnhandledException")
 private external fun terminate(t: Throwable)

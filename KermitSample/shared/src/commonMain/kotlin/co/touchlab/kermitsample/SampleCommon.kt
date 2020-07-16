@@ -11,7 +11,6 @@
 package co.touchlab.kermitsample
 
 import co.touchlab.kermit.Kermit
-import com.squareup.javapoet
 
 class SampleCommon(private val kermit: Kermit) {
     private var count = 0
