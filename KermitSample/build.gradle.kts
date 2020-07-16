@@ -31,16 +31,20 @@ allprojects {
         jcenter()
         maven("https://plugins.gradle.org/m2/")
     }
-}
-plugins {
-    id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
-}
+    apply(plugin= "org.jlleitschuh.gradle.ktlint")
 
-ktlint {
-    version.set("0.37.2")
-    enableExperimentalRules.set(true)
-    verbose.set(true)
-    filter {
-        exclude { it.file.path.contains("build/") }
+    ktlint {
+        version.set("0.37.2")
+        enableExperimentalRules.set(true)
+        verbose.set(true)
+        filter {
+            exclude { it.file.path.contains("build/") }
+        }
+    }
+
+    afterEvaluate {
+        tasks.named("check").configure {
+            dependsOn(tasks.getByName("ktlintCheck"))
+        }
     }
 }
