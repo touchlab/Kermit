@@ -12,6 +12,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 repositories {
@@ -56,4 +57,17 @@ dependencies {
     implementation("androidx.coordinatorlayout:coordinatorlayout:1.1.0")
 }
 
+ktlint {
+    version.set("0.37.2")
+    enableExperimentalRules.set(true)
+    verbose.set(true)
+    filter {
+        exclude { it.file.path.contains("build/") }
+    }
+}
 
+afterEvaluate {
+    tasks.named("check").configure {
+        dependsOn(tasks.getByName("ktlintCheck"))
+    }
+}

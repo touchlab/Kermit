@@ -8,11 +8,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
     id("co.touchlab.native.cocoapods")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 repositories {
@@ -26,10 +26,10 @@ kotlin {
     version = "0.0.1"
     android()
     jvm()
-    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")?:false
-    if(onPhone){
+    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
+    if (onPhone) {
         iosArm64("ios")
-    }else{
+    } else {
         iosX64("ios")
     }
     js {
@@ -111,5 +111,20 @@ android {
 
     val main by sourceSets.getting {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    }
+}
+
+ktlint {
+    version.set("0.37.2")
+    enableExperimentalRules.set(true)
+    verbose.set(true)
+    filter {
+        exclude { it.file.path.contains("build/") }
+    }
+}
+
+afterEvaluate {
+    tasks.named("check").configure {
+        dependsOn(tasks.getByName("ktlintCheck"))
     }
 }

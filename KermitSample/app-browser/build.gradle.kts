@@ -12,6 +12,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 
 plugins {
     kotlin("js")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 kotlin.target.browser {
@@ -28,4 +29,19 @@ dependencies {
 
 tasks.withType<KotlinJsCompile> {
     kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
+}
+
+ktlint {
+    version.set("0.37.2")
+    enableExperimentalRules.set(true)
+    verbose.set(true)
+    filter {
+        exclude { it.file.path.contains("build/") }
+    }
+}
+
+afterEvaluate {
+    tasks.named("check").configure {
+        dependsOn(tasks.getByName("ktlintCheck"))
+    }
 }
