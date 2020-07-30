@@ -4,73 +4,88 @@ trigger:
 pr:
   - master
 
-pool:
-  vmImage: 'macos-latest'
-
 jobs:
-  - job: 'library'
-    displayName: 'Build Library and Sample'
+  - job: "macOS"
+    pool:
+      vmimage: "macos-latest"
     steps:
-    - task: Cache@2
-      displayName: 'Check for library gradle cache'
-      inputs:
-        key: 'gradle | "$(Agent.OS)" | build.gradle.kts | kermit/**/build.gradle.kts'
-        path: '.gradle'
-        restoreKeys: |
-          gradle | "$(Agent.OS)"
-          gradle
-    - task: Gradle@2
-      displayName: 'Build Library'
-      inputs:
-        gradleWrapperFile: 'gradlew'
-        options: '--build-cache'
-        tasks: 'build'
-        publishJUnitResults: true
-        testResultsFiles: '**/TEST-*.xml'
-        javaHomeOption: 'JDKVersion'
-        sonarQubeRunAnalysis: false
+      - task: Gradle@2
+        inputs:
+          workingDirectory: ''
+          gradleWrapperFile: 'gradlew'
+          gradleOptions: '-Xmx3072m'
+          javaHomeOption: 'JDKVersion'
+          jdkVersionOption: '1.8'
+          jdkArchitectureOption: 'x64'
+          publishJUnitResults: true
+          testResultsFiles: '**/TEST-*.xml'
+          tasks: 'build'
 
-    - task: Gradle@2
-      displayName: 'Publish library to Maven Local for use by Sample'
-      inputs:
-        gradleWrapperFile: 'gradlew'
-        tasks: 'publishToMavenLocal'
-        publishJUnitResults: false
-        sonarQubeRunAnalysis: false
-    - task: Cache@2
-      displayName: 'Check for Sample gradle cache'
-      inputs:
-        key: 'sampleGradle | "$(Agent.OS)" | KermitSample/**/build.gradle.kts'
-        path: 'KermitSample/.gradle'
-        restoreKeys: |
-          sampleGradle | "$(Agent.OS)"
-          sampleGradle
-    - task: Gradle@2
-      displayName: 'Build Sample'
-      inputs:
-        gradleWrapperFile: 'KermitSample/gradlew'
-        workingDirectory: 'KermitSample'
-        options: '--build-cache'
-        tasks: 'build'
-        publishJUnitResults: true
-        testResultsFiles: '**/TEST-*.xml'
-        javaHomeOption: 'JDKVersion'
-        sonarQubeRunAnalysis: false
-    - task: Xcode@5
-      inputs:
-        actions: 'build'
-        configuration: 'Debug'
-        sdk: 'iphoneos13.4'
-        xcWorkspacePath: 'KermitSample/KermitSampleIOS/KermitSampleIOS.xcworkspace'
-        scheme: 'KermitSampleIOS'
-        packageApp: false
-        publishJUnitResults: false
-    - task: Gradle@2
-      displayName: 'Stop gradle to ensure clean caching'
-      inputs:
-        gradleWrapperFile: 'gradlew'
-        options: '--stop'
-        tasks: 'build' 
-        publishJUnitResults: false
-        javaHomeOption: 'JDKVersion'
-        sonarQubeRunAnalysis: false
+  - job: "Linux"
+    pool:
+      vmimage: "ubuntu-latest"
+    steps:
+      - task: Gradle@2
+        inputs:
+          workingDirectory: ''
+          gradleWrapperFile: 'gradlew'
+          gradleOptions: '-Xmx3072m'
+          javaHomeOption: 'JDKVersion'
+          jdkVersionOption: '1.8'
+          jdkArchitectureOption: 'x64'
+          publishJUnitResults: true
+          testResultsFiles: '**/TEST-*.xml'
+          tasks: 'publishLinuxMips32PublicationToMavenLocal publishLinuxMipsel32PublicationToMavenLocal linuxX64Test'
+
+  - job: "Windows"
+    pool:
+      vmimage: "windows-latest"
+    steps:
+      - task: Gradle@2
+        inputs:
+          workingDirectory: ''
+          gradleWrapperFile: 'gradlew'
+          gradleOptions: '-Xmx3072m'
+          javaHomeOption: 'JDKVersion'
+          jdkVersionOption: '1.8'
+          jdkArchitectureOption: 'x64'
+          publishJUnitResults: true
+          testResultsFiles: '**/TEST-*.xml'
+          tasks: 'mingwX64Test publishMingwX86TestToMavenLocal'
+
+  - job: "Sample"
+    pool:
+      vmimage: "macos-latest"
+    steps:
+      - task: Gradle@2
+        displayName: 'Publish library to Maven Local for use by Sample'
+        inputs:
+          gradleWrapperFile: 'gradlew'
+          tasks: 'publishToMavenLocal'
+          gradleOptions: '-Xmx3072m'
+          javaHomeOption: 'JDKVersion'
+          jdkVersionOption: '1.8'
+          jdkArchitectureOption: 'x64'
+          publishJUnitResults: false
+          sonarQubeRunAnalysis: false
+      - task: Gradle@2
+        displayName: 'Build Sample'
+        inputs:
+          gradleWrapperFile: 'KermitSample/gradlew'
+          workingDirectory: 'KermitSample'
+          options: '--build-cache'
+          tasks: 'build'
+          publishJUnitResults: true
+          testResultsFiles: '**/TEST-*.xml'
+          javaHomeOption: 'JDKVersion'
+          sonarQubeRunAnalysis: false
+      - task: Xcode@5
+        displayName: 'Run sample with XCode'
+        inputs:
+          actions: 'build'
+          configuration: 'Debug'
+          sdk: 'iphoneos'
+          xcWorkspacePath: 'KermitSample/KermitSampleIOS/KermitSampleIOS.xcworkspace'
+          scheme: 'KermitSampleIOS'
+          packageApp: false
+          publishJUnitResults: false
