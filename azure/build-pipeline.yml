@@ -48,20 +48,10 @@ jobs:
           gradleOptions: '-Xmx3072m'
           javaHomeOption: 'JDKVersion'
           jdkVersionOption: '1.8'
-          publishJUnitResults: true
-          testResultsFiles: '**/TEST-*.xml'
-          tasks: 'tasks'
-      - task: Gradle@2
-        inputs:
-          workingDirectory: ''
-          gradleWrapperFile: 'gradlew'
-          gradleOptions: '-Xmx3072m'
-          javaHomeOption: 'JDKVersion'
-          jdkVersionOption: '1.8'
           jdkArchitectureOption: 'x64'
           publishJUnitResults: true
           testResultsFiles: '**/TEST-*.xml'
-          tasks: 'mingwX64Test publishMingwX86TestToMavenLocal'
+          tasks: 'mingwX64Test publishMingwX86PublicationToMavenLocal'
 
   - job: "Sample"
     pool:
