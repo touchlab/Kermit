@@ -48,6 +48,16 @@ jobs:
           gradleOptions: '-Xmx3072m'
           javaHomeOption: 'JDKVersion'
           jdkVersionOption: '1.8'
+          publishJUnitResults: true
+          testResultsFiles: '**/TEST-*.xml'
+          tasks: 'tasks'
+      - task: Gradle@2
+        inputs:
+          workingDirectory: ''
+          gradleWrapperFile: 'gradlew'
+          gradleOptions: '-Xmx3072m'
+          javaHomeOption: 'JDKVersion'
+          jdkVersionOption: '1.8'
           jdkArchitectureOption: 'x64'
           publishJUnitResults: true
           testResultsFiles: '**/TEST-*.xml'
@@ -73,7 +83,6 @@ jobs:
         inputs:
           gradleWrapperFile: 'KermitSample/gradlew'
           workingDirectory: 'KermitSample'
-          options: '--build-cache'
           tasks: 'build'
           publishJUnitResults: true
           testResultsFiles: '**/TEST-*.xml'
