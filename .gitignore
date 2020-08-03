@@ -18,6 +18,8 @@ local.properties
 !.idea/inspectionProfiles/**
 !.idea/codeStyles/
 !.idea/codeStyles/**
+!.idea/copyright/
+!.idea/copyright/**
 
  # Generated files
 bin/
