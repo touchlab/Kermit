@@ -19,7 +19,7 @@ buildscript {
         classpath("com.android.tools.build:gradle:3.6.3")
         classpath(kotlin("gradle-plugin", "1.3.72"))
         classpath("co.touchlab:kotlinnativecocoapods:0.9")
-        classpath("org.jlleitschuh.gradle:ktlint-gradle:9.2.1")
+        classpath("org.jlleitschuh.gradle:ktlint-gradle:9.3.0")
     }
 }
 
