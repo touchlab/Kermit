@@ -123,3 +123,8 @@ Kermit comes with a Sample Multiplatform project which gives a brief example of 
 
 The iOS sample also includes a custom logger for outputting using `os_log`. `os_log` is not currently available in Kotlin/Native and consequently could not be included as a prebuilt logger in the library, but does serve as a good demonstration of custom logger implementation
 
+## Primary Maintainer
+
+[Michael Friend](https://github.com/kpgalligan/)
+
+![Image of Michael](https://avatars.githubusercontent.com/u/16885048?s=140&v=4)
