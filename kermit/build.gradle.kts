@@ -19,8 +19,8 @@ buildscript {
 
 plugins {
     id("com.android.library") version "3.6.1"
-    kotlin("multiplatform") version "1.3.71"
     id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
+    kotlin("multiplatform") version "1.4.0"
 }
 
 val GROUP: String by project
