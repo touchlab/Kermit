@@ -125,6 +125,6 @@ The iOS sample also includes a custom logger for outputting using `os_log`. `os_
 
 ## Primary Maintainer
 
-[Michael Friend](https://github.com/kpgalligan/)
+[Michael Friend](https://github.com/mrf7/)
 
 ![Image of Michael](https://avatars.githubusercontent.com/u/16885048?s=140&v=4)
