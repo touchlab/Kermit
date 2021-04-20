@@ -9,8 +9,8 @@
  */
 
 plugins {
-    id("com.android.library") version "3.6.1"
-    kotlin("multiplatform") version "1.4.0"
+    id("com.android.library") version "4.1.2"
+    kotlin("multiplatform") version "1.4.32"
 }
 
 val GROUP: String by project
