@@ -9,7 +9,7 @@
  */
 
 plugins {
-    id("com.android.library") version "4.2.0-rc01"
+    id("com.android.library") version "4.1.2"
     kotlin("multiplatform") version "1.4.32"
 }
 
