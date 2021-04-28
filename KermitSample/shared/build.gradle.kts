@@ -19,7 +19,6 @@ repositories {
     mavenLocal()
     google()
     mavenCentral()
-    jcenter()
 }
 
 kotlin {
@@ -40,7 +39,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                api("co.touchlab:kermit:0.1.7")
+                api("co.touchlab:kermit:0.1.9")
             }
         }
 
@@ -64,7 +63,7 @@ kotlin {
         }
         val iosMain by sourceSets.getting {
             dependencies {
-                implementation("co.touchlab:crashkios:0.2.2")
+                implementation("co.touchlab:crashkios:0.3.2")
             }
         }
         val jsMain by sourceSets.getting {
@@ -94,7 +93,7 @@ kotlin {
         summary = "Sample for Kermit"
         homepage = "https://www.touchlab.co"
         framework {
-            export("co.touchlab:kermit:0.1.7")
+            export("co.touchlab:kermit:0.1.9")
             transitiveExport = true
         }
     }

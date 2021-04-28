@@ -10,7 +10,7 @@
 
 plugins {
     id("com.android.library") version "4.1.2"
-    kotlin("multiplatform") version "1.4.32"
+    kotlin("multiplatform") version "1.5.0"
 }
 
 val GROUP: String by project
@@ -24,7 +24,6 @@ val ideaActive = System.getProperty("idea.active") == "true"
 repositories {
     google()
     mavenCentral()
-    jcenter()
 }
 
 kotlin {
@@ -45,6 +44,7 @@ kotlin {
         "watchosArm32",
         "watchosArm64",
         "watchosX86",
+        "watchosX64",
         "tvosArm64",
         "tvosX64"
     )

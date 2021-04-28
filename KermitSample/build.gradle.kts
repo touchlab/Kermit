@@ -12,11 +12,10 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter()
     }
     dependencies {
         classpath("com.android.tools.build:gradle:4.0.2")
-        classpath(kotlin("gradle-plugin","1.4.32"))
+        classpath(kotlin("gradle-plugin", "1.5.0"))
         classpath("co.touchlab:kotlinnativecocoapods:0.9")
     }
 }
@@ -25,6 +24,5 @@ allprojects{
         mavenLocal()
         mavenCentral()
         google()
-        jcenter()
     }
 }
