@@ -18,7 +18,7 @@ actual class PlatformThrowableStringProvider : ThrowableStringProvider {
 
     //Adapted from native printStackTrace to let us include it in our log
     private fun dumpStackTrace(throwable: Throwable): String = buildString {
-        dumpStackTrace(throwable) { appendln(it) }
+        dumpStackTrace(throwable) { appendLine(it) }
     }
 
     private inline fun writeStackTraceElements(throwable: Throwable, writeln: (String) -> Unit) {

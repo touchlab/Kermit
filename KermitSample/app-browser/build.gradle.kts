@@ -23,7 +23,7 @@ kotlin.target.browser {
 dependencies {
     implementation(project(":shared"))
     implementation(kotlin("stdlib-js"))
-    implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.6.12")
+    implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.3")
 }
 
 tasks.withType<KotlinJsCompile> {

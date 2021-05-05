@@ -13,7 +13,6 @@ allprojects {
         mavenLocal()
         mavenCentral()
         google()
-        jcenter()
     }
 
     tasks.register("publishMac") {
@@ -35,12 +34,14 @@ allprojects {
                 "publishWatchosArm32PublicationToMavenRepository",
                 "publishWatchosArm64PublicationToMavenRepository",
                 "publishWatchosX86PublicationToMavenRepository",
+                "publishWatchosX64PublicationToMavenRepository",
                 "publishTvosArm64PublicationToMavenRepository",
                 "publishTvosX64PublicationToMavenRepository",
                 "publishLinuxArm32HfpPublicationToMavenRepository",
                 "publishLinuxArm64PublicationToMavenRepository",
                 "publishLinuxX64PublicationToMavenRepository",
-                "publishWasm32PublicationToMavenRepository")
+                "publishWasm32PublicationToMavenRepository"
+            )
         }
     }
 

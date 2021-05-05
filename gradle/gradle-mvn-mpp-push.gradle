@@ -84,13 +84,6 @@ publishing {
     }
   }
 
-  afterEvaluate {
-    publications.getByName('kotlinMultiplatform') {
-      // Source jars are only created for platforms, not the common artifact.
-      artifact emptySourcesJar
-    }
-  }
-
   repositories {
     maven {
       url isReleaseBuild() ? getReleaseRepositoryUrl() : getSnapshotRepositoryUrl()
