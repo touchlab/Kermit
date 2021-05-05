@@ -31,7 +31,7 @@ kotlin {
         publishAllLibraryVariants()
     }
     jvm()
-    js() {
+    js(BOTH) {
         browser()
         nodejs()
     }
