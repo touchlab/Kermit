@@ -18,7 +18,6 @@ allprojects {
     tasks.register("publishMac") {
         if (tasks.findByName("publish") != null) {
             dependsOn("publishKotlinMultiplatformPublicationToMavenRepository",
-                "publishMetadataPublicationToMavenRepository",
                 "publishJvmPublicationToMavenRepository",
                 "publishAndroidDebugPublicationToMavenRepository",
                 "publishAndroidReleasePublicationToMavenRepository",
