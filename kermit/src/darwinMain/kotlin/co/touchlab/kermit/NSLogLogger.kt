@@ -11,13 +11,14 @@
 package co.touchlab.kermit
 
 import platform.Foundation.NSLog
+import platform.Foundation.NSString
 
 class NSLogLogger : Logger() {
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        NSLog("%s: (%s) %s", severity.name, tag, message)
+        NSLog("%s: (%@) %@", severity.name, tag as NSString, message as NSString)
         throwable?.let {
             val string = PlatformThrowableStringProvider().getThrowableString(it)
-            NSLog("%s", string)
+            NSLog("%@", string as NSString)
         }
     }
 }
