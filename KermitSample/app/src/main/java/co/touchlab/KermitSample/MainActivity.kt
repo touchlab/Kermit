@@ -14,11 +14,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import co.touchlab.kermit.CommonLogger
+import co.touchlab.KermitSample.databinding.ActivityMainBinding
 import co.touchlab.kermit.Kermit
 import co.touchlab.kermit.LogcatLogger
 import co.touchlab.kermitsample.SampleCommon
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,13 +28,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
         kermit.i("MainActivity") { "onCreate" }
         kermitWithTag.d { "Log Without Tag (Kermit With Tag)" }
 
-        fab.setOnClickListener { view ->
+        binding.fab.setOnClickListener {
             sample.onClick()
         }
     }
