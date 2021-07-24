@@ -9,6 +9,7 @@
  */
 
 include(":kermit")
+include(":crashlytics")
 
 pluginManagement {
     resolutionStrategy {
