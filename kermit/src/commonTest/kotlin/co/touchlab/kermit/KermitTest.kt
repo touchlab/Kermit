@@ -26,6 +26,18 @@ class KermitTest {
     }
 
     @Test
+    fun directLogTest() {
+        val kimber = Kermit(testLogger)
+        kimber.v("Message")
+        kimber.d("Message")
+        kimber.i("Message")
+        kimber.w("Message")
+        kimber.e("Message")
+        kimber.wtf("Message")
+        testLogger.assertCount(6)
+    }
+
+    @Test
     fun testIsLoggable() {
         val errorLogger = TestLogger(Severity.Error)
         val kermit = Kermit(errorLogger)

@@ -36,9 +36,19 @@ class Kermit(
             log(Severity.Verbose, defaultTag, throwable, message())
     }
 
+    fun v(message: String, throwable: Throwable? = null){
+        if(minSeverity <= Severity.Verbose)
+            log(Severity.Verbose, defaultTag, throwable, message)
+    }
+
     inline fun d(throwable: Throwable? = null, message: () -> String) {
         if(minSeverity <= Severity.Debug)
             log(Severity.Debug, defaultTag, throwable, message())
+    }
+
+    fun d(message: String, throwable: Throwable? = null){
+        if(minSeverity <= Severity.Debug)
+            log(Severity.Debug, defaultTag, throwable, message)
     }
 
     inline fun i(throwable: Throwable? = null, message: () -> String) {
@@ -46,9 +56,19 @@ class Kermit(
             log(Severity.Info, defaultTag, throwable, message())
     }
 
+    fun i(message: String, throwable: Throwable? = null){
+        if(minSeverity <= Severity.Info)
+            log(Severity.Info, defaultTag, throwable, message)
+    }
+
     inline fun w(throwable: Throwable? = null, message: () -> String) {
         if(minSeverity <= Severity.Warn)
             log(Severity.Warn, defaultTag, throwable, message())
+    }
+
+    fun w(message: String, throwable: Throwable? = null){
+        if(minSeverity <= Severity.Warn)
+            log(Severity.Warn, defaultTag, throwable, message)
     }
 
     inline fun e(throwable: Throwable? = null, message: () -> String) {
@@ -56,9 +76,19 @@ class Kermit(
             log(Severity.Error, defaultTag, throwable, message())
     }
 
+    fun e(message: String, throwable: Throwable? = null){
+        if(minSeverity <= Severity.Error)
+            log(Severity.Error, defaultTag, throwable, message)
+    }
+
     inline fun wtf(throwable: Throwable? = null, message: () -> String) {
         if(minSeverity <= Severity.Assert)
             log(Severity.Assert, defaultTag, throwable, message())
+    }
+
+    fun wtf(message: String, throwable: Throwable? = null){
+        if(minSeverity <= Severity.Assert)
+            log(Severity.Assert, defaultTag, throwable, message)
     }
 
     fun log(
