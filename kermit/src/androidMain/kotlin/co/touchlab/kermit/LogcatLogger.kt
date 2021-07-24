@@ -29,7 +29,7 @@ class LogcatLogger : Logger() {
             Log.println(
                 getSeverity(severity),
                 tag,
-                PlatformThrowableStringProvider().getThrowableString(it)
+                it.stackTraceToString()
             )
         }
     }

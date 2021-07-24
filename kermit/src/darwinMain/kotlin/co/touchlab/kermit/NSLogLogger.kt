@@ -17,7 +17,7 @@ class NSLogLogger : Logger() {
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         NSLog("%s: (%@) %@", severity.name, tag as NSString, message as NSString)
         throwable?.let {
-            val string = PlatformThrowableStringProvider().getThrowableString(it)
+            val string = it.stackTraceToString()
             NSLog("%@", string as NSString)
         }
     }

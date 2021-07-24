@@ -65,29 +65,16 @@ class KermitTest {
     }
 
     @Test
-    fun testLogParameters() {
-        val kermit = Kermit(testLogger)
-        val testTag = "TESTTAG"
-        val testMessage = "This Is My Message"
-        kermit.e(testTag) { testMessage }
-        testLogger.assertLast { tag == testTag && message == testMessage }
-    }
-  
-    @Test
     fun testingDefaultTag(){
         val kermit = Kermit(testLogger)
         val kermitWithTag = kermit.withTag("My Custom Tag")
 
-        kermit.i("MainActivity") { "onCreate" }
-        testLogger.assertLast { tag == "MainActivity" }
         kermit.d { "Log Without Tag (Original Kermit)" }
-
         testLogger.assertLast { tag == "Kermit" }
-        kermitWithTag.d { "Log Without Tag (Kermit With Tag)" }
 
+        kermitWithTag.d { "Log Without Tag (Kermit With Tag)" }
         testLogger.assertLast { tag == "My Custom Tag" }
-        kermit.d("Tag") { "Log WITH Tag (Original Kermit" }
-        testLogger.assertLast { tag == "Tag" }
+
         kermit.d { "Log Without Tag (Original Kermit)" }  // Ensuring first Kermit isn't affected by withTag
         testLogger.assertLast { tag == "Kermit" }
     }

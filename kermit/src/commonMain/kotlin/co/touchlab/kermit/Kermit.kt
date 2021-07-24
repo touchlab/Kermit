@@ -36,19 +36,9 @@ class Kermit(
             log(Severity.Verbose, defaultTag, throwable, message())
     }
 
-    inline fun v(tag:String, throwable: Throwable? = null, message: () -> String){
-        if(minSeverity <= Severity.Verbose)
-            log(Severity.Verbose, tag, throwable, message())
-    }
-
     inline fun d(throwable: Throwable? = null, message: () -> String) {
         if(minSeverity <= Severity.Debug)
             log(Severity.Debug, defaultTag, throwable, message())
-    }
-
-    inline fun d(tag:String, throwable: Throwable? = null, message: () -> String){
-        if(minSeverity <= Severity.Debug)
-            log(Severity.Debug, tag, throwable, message())
     }
 
     inline fun i(throwable: Throwable? = null, message: () -> String) {
@@ -56,19 +46,9 @@ class Kermit(
             log(Severity.Info, defaultTag, throwable, message())
     }
 
-    inline fun i(tag:String, throwable: Throwable? = null, message: () -> String){
-        if(minSeverity <= Severity.Info)
-            log(Severity.Info, tag, throwable, message())
-    }
-
     inline fun w(throwable: Throwable? = null, message: () -> String) {
         if(minSeverity <= Severity.Warn)
             log(Severity.Warn, defaultTag, throwable, message())
-    }
-
-    inline fun w(tag:String, throwable: Throwable? = null, message: () -> String){
-        if(minSeverity <= Severity.Warn)
-            log(Severity.Warn, tag, throwable, message())
     }
 
     inline fun e(throwable: Throwable? = null, message: () -> String) {
@@ -76,19 +56,9 @@ class Kermit(
             log(Severity.Error, defaultTag, throwable, message())
     }
 
-    inline fun e(tag:String, throwable: Throwable? = null, message: () -> String){
-        if(minSeverity <= Severity.Error)
-            log(Severity.Error, tag, throwable, message())
-    }
-
     inline fun wtf(throwable: Throwable? = null, message: () -> String) {
         if(minSeverity <= Severity.Assert)
             log(Severity.Assert, defaultTag, throwable, message())
-    }
-
-    inline fun wtf(tag:String, throwable: Throwable? = null, message: () -> String){
-        if(minSeverity <= Severity.Assert)
-            log(Severity.Assert, tag, throwable, message())
     }
 
     fun log(
@@ -107,7 +77,7 @@ class Kermit(
         }
     }
 
-    private fun processLog(
+    private inline fun processLog(
         severity: Severity,
         tag: String,
         throwable: Throwable?,

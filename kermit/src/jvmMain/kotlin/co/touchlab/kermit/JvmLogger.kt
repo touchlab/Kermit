@@ -1,6 +1,6 @@
 package co.touchlab.kermit
 
-class SystemLogger(private val throwableStringProvider: ThrowableStringProvider = PlatformThrowableStringProvider()) : Logger(){
+class SystemLogger : Logger(){
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         val str = "$severity: ($tag) $message\")"
@@ -10,7 +10,12 @@ class SystemLogger(private val throwableStringProvider: ThrowableStringProvider 
             println(str)
         }
         throwable?.let {
-            println(throwableStringProvider.getThrowableString(it))
+            val thString = it.stackTraceToString()
+            if(severity == Severity.Error){
+                System.err.println(thString)
+            }else{
+                println(thString)
+            }
         }
     }
 }
