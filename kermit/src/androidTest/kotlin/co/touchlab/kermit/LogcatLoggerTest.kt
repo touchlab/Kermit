@@ -67,8 +67,9 @@ class LogcatLoggerTest {
             throwable = RuntimeException(
                 "Root Exception Message",
                 IllegalStateException("Cause Exception Message")
-            )
-        ) { "Error Message" }
+            ),
+            message = "Error Message"
+        )
 
         ShadowLog.getLogs().apply {
             assert(size > 0)

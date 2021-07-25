@@ -5,6 +5,7 @@ target 'KermitSampleIOS' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
+  pod 'Firebase/Crashlytics'
   # Pods for KermitSampleIOS
   pod 'shared', :path => '../shared'
 

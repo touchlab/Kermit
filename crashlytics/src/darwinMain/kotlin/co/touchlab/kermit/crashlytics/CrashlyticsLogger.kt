@@ -8,10 +8,20 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-package co.touchlab.kermit
-import co.touchlab.kermit.crashlytics.FIRCrashlytics
-class HeyHo {
-    fun arst(){
-        FIRCrashlytics()
+package co.touchlab.kermit.crashlytics
+
+import co.touchlab.kermit.Logger
+import co.touchlab.kermit.Severity
+
+class CrashlyticsLogger(private val minSeverity: Severity = Severity.Info, private val printTag:Boolean = true): Logger() {
+    private val cl:FIRCrashlytics
+    init {
+        cl = FIRCrashlytics.crashlytics()
+    }
+
+    override fun isLoggable(severity: Severity): Boolean = severity >= minSeverity
+
+    override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
+        cl.log(if(printTag){"$tag : $message"}else{message})
     }
 }

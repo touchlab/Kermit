@@ -14,13 +14,13 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-    let kermit = Kermit(loggerList: [OSLogLogger(), NSLogLogger()], defaultTag: "iOSTag")
+    let kermit = Kermit(loggerList: [OSLogLogger(), NSLogLogger(), CrashlyticsLogger()], defaultTag: "iOSTag")
     let common: SampleCommon
     let cb = CrashBot()
 
     init() {
         self.common = SampleCommon(kermit: kermit)
-        self.kermit.i(withMessage: {"loaded"})
+        self.kermit.i(message: {"loaded"})
     }
 
     var body: some View {
@@ -41,8 +41,22 @@ struct ContentView: View {
                .foregroundColor(.white)
                .font(.title)
            }
+            
+            Button(action: {
+               realCrash()
+           }){
+               Text("Real Crash").padding()
+               .background(Color.blue)
+               .foregroundColor(.white)
+               .font(.title)
+           }
         }
     }
+}
+
+func realCrash() {
+    let numbers = [0]
+    let _ = numbers[1]
 }
 
 struct ContentView_Previews: PreviewProvider {

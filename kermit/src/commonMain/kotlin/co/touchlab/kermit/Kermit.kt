@@ -31,7 +31,16 @@ class Kermit(
         return Kermit(this.loggerList, defaultTag)
     }
 
-    inline fun v(throwable: Throwable? = null, message: () -> String){
+    /**
+     * We could reduce the methods on this object, but the native objc
+     * export can't use default arguments, so we have a few extra methods defined.
+     */
+    inline fun v(message: () -> String){
+        if(minSeverity <= Severity.Verbose)
+            log(Severity.Verbose, defaultTag, null, message())
+    }
+
+    inline fun v(throwable: Throwable, message: () -> String){
         if(minSeverity <= Severity.Verbose)
             log(Severity.Verbose, defaultTag, throwable, message())
     }
@@ -41,7 +50,12 @@ class Kermit(
             log(Severity.Verbose, defaultTag, throwable, message)
     }
 
-    inline fun d(throwable: Throwable? = null, message: () -> String) {
+    inline fun d(message: () -> String){
+        if(minSeverity <= Severity.Debug)
+            log(Severity.Debug, defaultTag, null, message())
+    }
+
+    inline fun d(throwable: Throwable, message: () -> String) {
         if(minSeverity <= Severity.Debug)
             log(Severity.Debug, defaultTag, throwable, message())
     }
@@ -51,7 +65,12 @@ class Kermit(
             log(Severity.Debug, defaultTag, throwable, message)
     }
 
-    inline fun i(throwable: Throwable? = null, message: () -> String) {
+    inline fun i(message: () -> String){
+        if(minSeverity <= Severity.Info)
+            log(Severity.Info, defaultTag, null, message())
+    }
+
+    inline fun i(throwable: Throwable, message: () -> String) {
         if(minSeverity <= Severity.Info)
             log(Severity.Info, defaultTag, throwable, message())
     }
@@ -61,7 +80,12 @@ class Kermit(
             log(Severity.Info, defaultTag, throwable, message)
     }
 
-    inline fun w(throwable: Throwable? = null, message: () -> String) {
+    inline fun w(message: () -> String){
+        if(minSeverity <= Severity.Warn)
+            log(Severity.Warn, defaultTag, null, message())
+    }
+
+    inline fun w(throwable: Throwable, message: () -> String) {
         if(minSeverity <= Severity.Warn)
             log(Severity.Warn, defaultTag, throwable, message())
     }
@@ -71,7 +95,12 @@ class Kermit(
             log(Severity.Warn, defaultTag, throwable, message)
     }
 
-    inline fun e(throwable: Throwable? = null, message: () -> String) {
+    inline fun e(message: () -> String){
+        if(minSeverity <= Severity.Error)
+            log(Severity.Error, defaultTag, null, message())
+    }
+
+    inline fun e(throwable: Throwable, message: () -> String) {
         if(minSeverity <= Severity.Error)
             log(Severity.Error, defaultTag, throwable, message())
     }
@@ -81,7 +110,13 @@ class Kermit(
             log(Severity.Error, defaultTag, throwable, message)
     }
 
-    inline fun wtf(throwable: Throwable? = null, message: () -> String) {
+
+    inline fun wtf(message: () -> String){
+        if(minSeverity <= Severity.Assert)
+            log(Severity.Assert, defaultTag, null, message())
+    }
+
+    inline fun wtf(throwable: Throwable, message: () -> String) {
         if(minSeverity <= Severity.Assert)
             log(Severity.Assert, defaultTag, throwable, message())
     }
