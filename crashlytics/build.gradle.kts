@@ -34,14 +34,18 @@ fun configInterop(target: org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTar
 }
 
 kotlin {
-    val knTargets = listOf(
-        macosX64(),
-        iosX64(),
-        iosArm64(),
-        iosArm32(),
-        tvosArm64(),
-        tvosX64()
-    )
+    val knTargets = if(ideaActive){
+        listOf(macosX64("darwin"))
+    }else{
+        listOf(
+            macosX64(),
+            iosX64(),
+            iosArm64(),
+            iosArm32(),
+            tvosArm64(),
+            tvosX64()
+        )
+    }
 
     presets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.AbstractKotlinNativeTargetPreset<*>>().forEach { preset ->
         println("HEY Preset ${preset.name}")
@@ -69,16 +73,18 @@ kotlin {
             }
         }
 
-        val darwinMain = sourceSets.maybeCreate("darwinMain").apply {
-            dependsOn(sourceSets.maybeCreate("commonMain"))
-        }
-        val darwinTest = sourceSets.maybeCreate("darwinTest").apply {
-            dependsOn(sourceSets.maybeCreate("commonTest"))
-        }
+        if(!ideaActive) {
+            val darwinMain = sourceSets.maybeCreate("darwinMain").apply {
+                dependsOn(sourceSets.maybeCreate("commonMain"))
+            }
+            val darwinTest = sourceSets.maybeCreate("darwinTest").apply {
+                dependsOn(sourceSets.maybeCreate("commonTest"))
+            }
 
-        knTargets.forEach { target ->
-            target.compilations.getByName("main").source(darwinMain)
-            target.compilations.getByName("test").source(darwinTest)
+            knTargets.forEach { target ->
+                target.compilations.getByName("main").source(darwinMain)
+                target.compilations.getByName("test").source(darwinTest)
+            }
         }
     }
 }

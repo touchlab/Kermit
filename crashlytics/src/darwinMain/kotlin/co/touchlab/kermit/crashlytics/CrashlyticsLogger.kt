@@ -12,16 +12,42 @@ package co.touchlab.kermit.crashlytics
 
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.Severity
+import co.touchlab.kermit.crashlogging.transformException
+import kotlinx.cinterop.convert
 
-class CrashlyticsLogger(private val minSeverity: Severity = Severity.Info, private val printTag:Boolean = true): Logger() {
-    private val cl:FIRCrashlytics
+class CrashlyticsLogger(
+    private val minSeverity: Severity = Severity.Info,
+    private val minCrashSeverity: Severity = Severity.Warn,
+    private val printTag: Boolean = true
+) : Logger() {
+    private val cl: FIRCrashlytics = FIRCrashlytics.crashlytics()
+
     init {
-        cl = FIRCrashlytics.crashlytics()
+        assert(minSeverity <= minCrashSeverity) {
+            "minSeverity ($minSeverity) cannot be greater than minCrashSeverity ($minCrashSeverity)"
+        }
     }
 
     override fun isLoggable(severity: Severity): Boolean = severity >= minSeverity
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        cl.log(if(printTag){"$tag : $message"}else{message})
+        cl.log(
+            if (printTag) {
+                "$tag : $message"
+            } else {
+                message
+            }
+        )
+        if (throwable != null && severity >= minCrashSeverity) {
+            sendException(throwable)
+        }
+    }
+
+    private fun sendException(throwable: Throwable) {
+        transformException(throwable) { name, description, addresses ->
+            val exModel = FIRExceptionModel.exceptionModelWithName(name, description)
+            exModel.setStackTrace(addresses.map { FIRStackFrame.stackFrameWithAddress(it.convert()) })
+            cl.recordExceptionModel(exModel)
+        }
     }
 }

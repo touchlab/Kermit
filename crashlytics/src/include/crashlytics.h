@@ -14,6 +14,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "FIRExceptionModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -42,6 +44,18 @@ NS_SWIFT_NAME(Crashlytics)
  * @param msg Message to log
  */
 - (void)log:(NSString *)msg;
+
+/**
+ * Records an Exception Model described by an FIRExceptionModel object. The events are
+ * grouped and displayed similarly to crashes. Keep in mind that this method can be expensive.
+ * The total number of FIRExceptionModels that can be recorded during your app's life-cycle is
+ * limited by a fixed-size circular buffer. If the buffer is overrun, the oldest data is dropped.
+ * Exception Models are relayed to Crashlytics on a subsequent launch of your application.
+ *
+ * @param exceptionModel Instance of the FIRExceptionModel to be recorded
+ */
+- (void)recordExceptionModel:(FIRExceptionModel *)exceptionModel
+    NS_SWIFT_NAME(record(exceptionModel:));
 
 @end
 
