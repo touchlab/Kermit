@@ -47,13 +47,6 @@ kotlin {
         )
     }
 
-    presets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.AbstractKotlinNativeTargetPreset<*>>().forEach { preset ->
-        println("HEY Preset ${preset.name}")
-    }
-
-    targets.forEach { t ->
-        println("HEY t ${t.name}, ${t.javaClass}")
-    }
     knTargets
         .forEach { target ->
             configInterop(target)

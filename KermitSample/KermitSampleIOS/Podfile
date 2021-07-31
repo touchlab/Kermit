@@ -6,6 +6,7 @@ target 'KermitSampleIOS' do
   use_frameworks!
 
   pod 'Firebase/Crashlytics'
+  pod 'Bugsnag'
   # Pods for KermitSampleIOS
   pod 'shared', :path => '../shared'
 

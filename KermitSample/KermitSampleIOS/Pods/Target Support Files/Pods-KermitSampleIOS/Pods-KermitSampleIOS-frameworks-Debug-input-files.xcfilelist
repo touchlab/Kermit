@@ -1,4 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-KermitSampleIOS/Pods-KermitSampleIOS-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Bugsnag/Bugsnag.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework

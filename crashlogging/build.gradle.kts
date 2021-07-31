@@ -43,7 +43,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-//                implementation(project(":kermit"))
+                implementation(project(":kermit"))
             }
         }
         commonTest {

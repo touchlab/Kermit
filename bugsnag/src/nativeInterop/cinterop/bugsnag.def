@@ -1,0 +1,4 @@
+package = co.touchlab.kermit.bugsnag
+language = Objective-C
+headers = Bugsnag.h
+

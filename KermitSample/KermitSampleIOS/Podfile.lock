@@ -1,4 +1,5 @@
 PODS:
+  - Bugsnag (6.10.2)
   - Firebase/CoreOnly (8.3.0):
     - FirebaseCore (= 8.3.0)
   - Firebase/Crashlytics (8.3.0):
@@ -43,11 +44,13 @@ PODS:
   - shared (0.0.1)
 
 DEPENDENCIES:
+  - Bugsnag
   - Firebase/Crashlytics
   - shared (from `../shared`)
 
 SPEC REPOS:
   trunk:
+    - Bugsnag
     - Firebase
     - FirebaseCore
     - FirebaseCoreDiagnostics
@@ -63,6 +66,7 @@ EXTERNAL SOURCES:
     :path: "../shared"
 
 SPEC CHECKSUMS:
+  Bugsnag: 748913b16f50f3345c97080a14410207860e2d7f
   Firebase: 817b9171d0d51dccc458b94a5e8edff6b1dd323d
   FirebaseCore: a6dba751680d7033b9d3831e1cfc95ead0605118
   FirebaseCoreDiagnostics: 7e873baabcfaa9512f538554ae4fa0817aaafbdb
@@ -74,6 +78,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   shared: b75e5f057ba49e468256c4497ec0ca2c12017073
 
-PODFILE CHECKSUM: 5249566fd71e97e3c9e4645329903b92e1b8457f
+PODFILE CHECKSUM: 21b12774f4dc7d6043402d6ead043dc43de48c88
 
 COCOAPODS: 1.10.1

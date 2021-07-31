@@ -40,7 +40,8 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 api("co.touchlab:kermit:0.2.0")
-                api("co.touchlab:crashlytics:0.2.0")
+//                api("co.touchlab:crashlytics:0.2.0")
+                api("co.touchlab:bugsnag:0.2.0")
             }
         }
 
@@ -95,7 +96,8 @@ kotlin {
         homepage = "https://www.touchlab.co"
         framework {
             export("co.touchlab:kermit:0.2.0")
-            export("co.touchlab:crashlytics:0.2.0")
+//            export("co.touchlab:crashlytics:0.2.0")
+            export("co.touchlab:bugsnag:0.2.0")
             transitiveExport = true
         }
     }

@@ -11,6 +11,7 @@
 include(":kermit")
 include(":crashlogging")
 include(":crashlytics")
+include(":bugsnag")
 
 pluginManagement {
     resolutionStrategy {
