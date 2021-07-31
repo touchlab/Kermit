@@ -9,6 +9,7 @@
  */
 
 include(":kermit")
+include(":crashlogging")
 include(":crashlytics")
 
 pluginManagement {
