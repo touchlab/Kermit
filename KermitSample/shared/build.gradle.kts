@@ -64,9 +64,6 @@ kotlin {
 //            }
 //        }
         val iosMain by sourceSets.getting {
-            dependencies {
-                implementation("co.touchlab:crashkios:0.3.2")
-            }
         }
 //        val jsMain by sourceSets.getting {
 //            dependencies {

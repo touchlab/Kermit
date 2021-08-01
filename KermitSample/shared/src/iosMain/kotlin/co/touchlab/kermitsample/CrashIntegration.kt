@@ -10,15 +10,14 @@
 
 package co.touchlab.kermitsample
 
-import co.touchlab.crashkios.CrashHandler
-import co.touchlab.crashkios.setupCrashHandler
 import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.bugsnag.setupBugsnagExceptionHook
 import co.touchlab.kermit.crashlytics.setupCrashlyticsExceptionHook
 
-fun crashInit(handler: CrashHandler){
-    setupCrashHandler(handler)
-}
-
-fun kermitCrashInit(kermit: Kermit){
-    setupCrashlyticsExceptionHook(kermit)
+fun kermitCrashInit(kermit: Kermit, useCrashlytics: Boolean) {
+    if (useCrashlytics) {
+        setupCrashlyticsExceptionHook(kermit)
+    } else {
+        setupBugsnagExceptionHook(kermit)
+    }
 }

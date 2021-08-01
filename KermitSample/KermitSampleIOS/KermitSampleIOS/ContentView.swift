@@ -14,14 +14,12 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-    let kermit = Kermit(loggerList: [OSLogLogger(), NSLogLogger(), CrashlyticsLogger(minSeverity: Severity.warn, minCrashSeverity: Severity.warn, printTag: true)], defaultTag: "iOSTaghhh")
     
+    let kermit = (UIApplication.shared.delegate as! AppDelegate).kermit
     let common: SampleCommon
     let cb = CrashBot()
 
     init() {
-        CrashIntegrationKt.kermitCrashInit(kermit: kermit)
-        
         self.common = SampleCommon(kermit: kermit)
         self.kermit.i(message: {"loaded"})
     }
@@ -31,7 +29,15 @@ struct ContentView: View {
             Button(action: {
                 self.common.onClick()
             }){
-                Text("Click Me").padding()
+                Text("Click Count").padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .font(.title)
+            }
+            Button(action: {
+                self.common.logException()
+            }){
+                Text("Log Exception").padding()
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .font(.title)
@@ -39,7 +45,7 @@ struct ContentView: View {
             Button(action: {
                self.cb.goCrash()
            }){
-               Text("Crash").padding()
+               Text("Kotlin Crash").padding()
                .background(Color.blue)
                .foregroundColor(.white)
                .font(.title)
@@ -48,7 +54,7 @@ struct ContentView: View {
             Button(action: {
                realCrash()
            }){
-               Text("Real Crash").padding()
+               Text("Swift Crash").padding()
                .background(Color.blue)
                .foregroundColor(.white)
                .font(.title)
