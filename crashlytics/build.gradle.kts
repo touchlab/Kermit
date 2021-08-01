@@ -30,6 +30,7 @@ fun configInterop(target: org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTar
     val main by target.compilations.getting
     val crashlytics by main.cinterops.creating {
         includeDirs("$projectDir/src/include")
+//        extraOpts = listOf("-mode","sourcecode")
     }
 }
 

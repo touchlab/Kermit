@@ -46,6 +46,16 @@ NS_SWIFT_NAME(Crashlytics)
 - (void)log:(NSString *)msg;
 
 /**
+ * Sets a custom key and value to be associated with subsequent fatal and non-fatal reports.
+ * When setting an object value, the object is converted to a string. This is
+ * typically done by calling "-[NSObject description]".
+ *
+ * @param value The value to be associated with the key
+ * @param key A unique key
+ */
+- (void)setCustomValue:(id)value forKey:(NSString *)key;
+
+/**
  * Records an Exception Model described by an FIRExceptionModel object. The events are
  * grouped and displayed similarly to crashes. Keep in mind that this method can be expensive.
  * The total number of FIRExceptionModels that can be recorded during your app's life-cycle is

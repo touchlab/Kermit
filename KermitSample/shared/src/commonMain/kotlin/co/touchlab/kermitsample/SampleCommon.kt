@@ -16,6 +16,6 @@ class SampleCommon(private val kermit: Kermit) {
     private var count = 0
     fun onClick() {
         count++
-        kermit.w(throwable = Exception("Mo Throw Ho ha")) { "Common click count: $count" }
+        kermit.w(throwable = Exception("Handled")) { "Common click count: $count" }
     }
 }

@@ -11,16 +11,19 @@
 package co.touchlab.kermit.bugsnag
 
 import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.crashlogging.generateCrashId
+import co.touchlab.kermit.crashlogging.ktCrashKey
 import co.touchlab.kermit.crashlogging.setupUnhandledExceptionHook
 import platform.Foundation.NSUUID
 
-fun setupBugsnagExceptionHook(kermit: Kermit, crashMessage: () -> String) {
-    setupUnhandledExceptionHook(kermit, crashMessage) {
-        val crashId = NSUUID().UUIDString
+fun setupBugsnagExceptionHook(kermit: Kermit) {
+    setupUnhandledExceptionHook(kermit) {
+        val crashId = generateCrashId()
         Bugsnag.leaveBreadcrumbWithMessage(
             "Kotlin Crash",
-            mapOf(Pair("kotlin_crash_id", crashId)),
+            mapOf(Pair(ktCrashKey, crashId)),
             BSGBreadcrumbType.BSGBreadcrumbTypeError
         )
+        crashId
     }
 }

@@ -11,13 +11,12 @@
 package co.touchlab.kermit.crashlogging
 
 import co.touchlab.kermit.Kermit
+import platform.Foundation.NSUUID
 import kotlin.native.concurrent.freeze
 
-fun setupUnhandledExceptionHook(kermit: Kermit, crashMessage: () -> String, onCrash: () -> Unit = {}) {
+fun setupUnhandledExceptionHook(kermit: Kermit, onCrash: () -> String) {
     val unhandMe: ReportUnhandledExceptionHook = { t ->
-        onCrash()
-        kermit.w { "Ah dammit" }
-        kermit.e(t, crashMessage)
+        kermit.e(t, onCrash)
     }
 
     setUnhandledExceptionHook(unhandMe.freeze())
@@ -54,3 +53,6 @@ fun transformException(t: Throwable, block: (String, String, addresses: List<Lon
         trimmedAddresses
     )
 }
+
+fun generateCrashId():String = NSUUID().UUIDString.substring(0, 8)
+val ktCrashKey = "ktcrash"
