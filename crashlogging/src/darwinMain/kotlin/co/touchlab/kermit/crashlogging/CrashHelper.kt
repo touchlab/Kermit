@@ -13,15 +13,17 @@ package co.touchlab.kermit.crashlogging
 import co.touchlab.kermit.Kermit
 import kotlin.native.concurrent.freeze
 
-fun setupUnhandledExceptionHook(kermit:Kermit, crashMessage:() -> String){
+fun setupUnhandledExceptionHook(kermit: Kermit, crashMessage: () -> String, onCrash: () -> Unit = {}) {
     val unhandMe: ReportUnhandledExceptionHook = { t ->
+        onCrash()
+        kermit.w { "Ah dammit" }
         kermit.e(t, crashMessage)
     }
 
     setUnhandledExceptionHook(unhandMe.freeze())
 }
 
-fun transformException(t:Throwable, block:(String, String, addresses:List<Long>)->Unit){
+fun transformException(t: Throwable, block: (String, String, addresses: List<Long>) -> Unit) {
     fun throwableBoilerplate(frameString: String, lookFor: String) =
         !frameString.contains("kotlin.${lookFor}")
                 &&

@@ -15,10 +15,13 @@ import shared
 
 struct ContentView: View {
     let kermit = Kermit(loggerList: [OSLogLogger(), NSLogLogger(), BugsnagLogger(minSeverity: Severity.warn, minCrashSeverity: Severity.warn, printTag: true)], defaultTag: "iOSTag")
+    
     let common: SampleCommon
     let cb = CrashBot()
 
     init() {
+        CrashIntegrationKt.kermitCrashInit(kermit: kermit)
+        
         self.common = SampleCommon(kermit: kermit)
         self.kermit.i(message: {"loaded"})
     }

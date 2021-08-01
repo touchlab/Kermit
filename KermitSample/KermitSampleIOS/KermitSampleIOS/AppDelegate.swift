@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        FirebaseApp.configure()
         Bugsnag.start()
         
-        CrashIntegrationKt.crashInit(handler: KermitCrashHandler())
+//        CrashIntegrationKt.crashInit(handler: KermitCrashHandler())
         
         return true
     }

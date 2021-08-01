@@ -30,6 +30,7 @@ fun configInterop(target: org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTar
     val main by target.compilations.getting
     val bugsnag by main.cinterops.creating {
         includeDirs("$projectDir/src/include")
+//        extraOpts = listOf("-mode","sourcecode")
     }
 }
 
@@ -41,7 +42,7 @@ kotlin {
             macosX64(),
             iosX64(),
             iosArm64(),
-            iosArm32(),
+//            iosArm32(),
             tvosArm64(),
             tvosX64()
         )

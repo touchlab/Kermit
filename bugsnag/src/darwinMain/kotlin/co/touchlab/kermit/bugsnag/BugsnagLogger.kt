@@ -14,6 +14,9 @@ import co.touchlab.kermit.Logger
 import co.touchlab.kermit.Severity
 import co.touchlab.kermit.crashlogging.transformException
 import kotlinx.cinterop.convert
+import platform.Foundation.NSException
+import platform.Foundation.NSNumber
+import platform.darwin.NSInteger
 
 
 class BugsnagLogger(
@@ -43,48 +46,19 @@ class BugsnagLogger(
     }
 
     private fun sendException(throwable: Throwable) {
-        /*transformException(throwable) { name, description, addresses ->
-            val exModel = FIRExceptionModel.exceptionModelWithName(name, description)
-            exModel.setStackTrace(addresses.map { FIRStackFrame.stackFrameWithAddress(it.convert()) })
-            cl.recordExceptionModel(exModel)
-        }*/
+        transformException(throwable) { name, description, addresses ->
+            Bugsnag.notify(BugsnagNSException(addresses, name, description))
+        }
     }
 }
-/*
 
-class CrashlyticsLogger(
-    private val minSeverity: Severity = Severity.Info,
-    private val minCrashSeverity: Severity = Severity.Warn,
-    private val printTag: Boolean = true
-) : Logger() {
-    private val cl: FIRCrashlytics = FIRCrashlytics.crashlytics()
-
+private class BugsnagNSException(stackTrace: List<Long>, exceptionType: String, message: String) : NSException(name = exceptionType, reason = message, userInfo = null) {
+    private val _callStackReturnAddresses:List<NSNumber>
     init {
-        assert(minSeverity <= minCrashSeverity) {
-            "minSeverity ($minSeverity) cannot be greater than minCrashSeverity ($minCrashSeverity)"
-        }
+        _callStackReturnAddresses = stackTrace.map { it.convert<NSInteger>() as NSNumber }
     }
 
-    override fun isLoggable(severity: Severity): Boolean = severity >= minSeverity
-
-    override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        cl.log(
-            if (printTag) {
-                "$tag : $message"
-            } else {
-                message
-            }
-        )
-        if (throwable != null && severity >= minCrashSeverity) {
-            sendException(throwable)
-        }
+    override fun callStackReturnAddresses(): List<*> {
+        return _callStackReturnAddresses
     }
-
-    private fun sendException(throwable: Throwable) {
-        transformException(throwable) { name, description, addresses ->
-            val exModel = FIRExceptionModel.exceptionModelWithName(name, description)
-            exModel.setStackTrace(addresses.map { FIRStackFrame.stackFrameWithAddress(it.convert()) })
-            cl.recordExceptionModel(exModel)
-        }
-    }
-}*/
+}
