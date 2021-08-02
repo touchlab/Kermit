@@ -20,11 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     static let useCrashlytics:Bool = true
     
-    let kermit = Kermit(loggerList: [
-                            OSLogLogger(),
-                            NSLogLogger(),
-                            useCrashlytics ? CrashlyticsLogger(minSeverity: Severity.warn, minCrashSeverity: Severity.warn, printTag: true) : BugsnagLogger(minSeverity: Severity.warn, minCrashSeverity: Severity.warn, printTag: true)],
-                        defaultTag: "iOSTag")
+    let kermit:Kermit = Kermit(loggerList: [
+                                OSLogLogger(),
+                                NSLogLogger(),
+                                AppDelegate.useCrashlytics ? CrashlyticsLogger(minSeverity: Severity.info, minCrashSeverity: Severity.warn, printTag: true) : BugsnagLogger(minSeverity: Severity.info, minCrashSeverity: Severity.warn, printTag: true)
+    ],
+                            defaultTag: "iOSTag")
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

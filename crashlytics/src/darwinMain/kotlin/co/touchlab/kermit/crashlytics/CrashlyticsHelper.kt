@@ -20,7 +20,7 @@ fun setupCrashlyticsExceptionHook(kermit: Kermit) {
     setupUnhandledExceptionHook(kermit) {
         val crashId = generateCrashId()
         val cr = FIRCrashlytics.crashlytics()
-        cr.setCustomValue(ktCrashKey, crashId)
+        cr.setCustomValue(crashId, ktCrashKey)
         cr.log("${ktCrashKey}: $crashId")
         crashId
     }
