@@ -11,31 +11,36 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
+//    id("com.android.library")
     kotlin("multiplatform")
     kotlin("native.cocoapods")
 }
 
 repositories {
+    mavenLocal()
     google()
     mavenCentral()
 }
 
 kotlin {
     version = "0.0.1"
+//    android()
+//    jvm()
     val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")?:false
     if(onPhone){
         iosArm64("ios")
     }else{
         iosX64("ios")
     }
+//    js {
+//        browser()
+//    }
 
     sourceSets {
         commonMain {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 api("co.touchlab:kermit")
-                api("co.touchlab:crashlytics")
-                api("co.touchlab:bugsnag")
             }
         }
 
@@ -46,11 +51,42 @@ kotlin {
             }
         }
 
+//        val androidMain by sourceSets.getting {
+//            dependencies {
+//                implementation(kotlin("stdlib"))
+//            }
+//        }
+//        val androidTest by sourceSets.getting {
+//            dependencies {
+//                implementation(kotlin("test"))
+//                implementation(kotlin("test-junit"))
+//            }
+//        }
         val iosMain by sourceSets.getting {
         }
-
+//        val jsMain by sourceSets.getting {
+//            dependencies {
+//                implementation(kotlin("stdlib-js"))
+//            }
+//        }
+//        val jsTest by sourceSets.getting {
+//            dependencies {
+//                implementation(kotlin("test-js"))
+//            }
+//        }
+//        val jvmMain by sourceSets.getting {
+//            dependsOn(commonMain.get())
+//            dependencies {
+//                implementation(kotlin("stdlib"))
+//            }
+//        }
+//        val jvmTest by sourceSets.getting {
+//            dependsOn(commonTest.get())
+//            dependencies {
+//                implementation(kotlin("stdlib"))
+//            }
+//        }
     }
-
     cocoapods {
         summary = "Sample for Kermit"
         homepage = "https://www.touchlab.co"
@@ -59,9 +95,21 @@ kotlin {
     targets.withType<KotlinNativeTarget> {
         binaries.withType<Framework> {
             export("co.touchlab:kermit")
-            export("co.touchlab:crashlytics")
-            export("co.touchlab:bugsnag")
             transitiveExport = true
         }
     }
 }
+
+//android {
+//    compileSdkVersion(29)
+//    defaultConfig {
+//        minSdkVersion(15)
+//        targetSdkVersion(29)
+//        versionCode = 1
+//        versionName = "1.0"
+//    }
+//
+//    val main by sourceSets.getting {
+//        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+//    }
+//}
