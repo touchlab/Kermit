@@ -20,7 +20,10 @@ class CrashlyticsLogger(
     private val minCrashSeverity: Severity = Severity.Warn,
     private val printTag: Boolean = true
 ) : Logger() {
-    private val cl: FIRCrashlytics = FIRCrashlytics.crashlytics()
+    //This was originally stored as a field on class init, but if your client app hasn't initialized
+    //Crashlytics yet, you'll get a log warning, but otherwise the logger will silently fail.
+    private val cl: FIRCrashlytics
+        get() = FIRCrashlytics.crashlytics()
 
     init {
         assert(minSeverity <= minCrashSeverity) {

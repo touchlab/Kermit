@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Touchlab
+ * Copyright (c) 2020 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -8,20 +8,18 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-package co.touchlab.kermit.crashlytics
+package co.touchlab.kermitsample
 
 import co.touchlab.kermit.Kermit
-import co.touchlab.kermit.crashlogging.generateCrashId
-import co.touchlab.kermit.crashlogging.ktCrashKey
-import co.touchlab.kermit.crashlogging.setupUnhandledExceptionHook
-import platform.Foundation.NSUUID
 
-fun setupCrashlyticsExceptionHook(kermit: Kermit) {
-    setupUnhandledExceptionHook(kermit) {
-        val crashId = generateCrashId()
-        val cr = FIRCrashlytics.crashlytics()
-        cr.setCustomValue(crashId, ktCrashKey)
-        cr.log("${ktCrashKey}: $crashId")
-        crashId
+class SampleCommon(private val kermit: Kermit) {
+    private var count = 0
+    fun onClick() {
+        count++
+        kermit.i { "Common click count: $count" }
+    }
+
+    fun logException(){
+        kermit.w(throwable = Exception("Handled")) { "Common click count: $count" }
     }
 }
