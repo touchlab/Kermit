@@ -4,6 +4,11 @@ Kermit is a Kotlin Multiplatform logging utility with composable log outputs. Th
 
 > Check out [KaMP Kit](https://github.com/touchlab/KaMPKit) to get started developing for Kotlin Multiplatform
 
+## Version Note - August 2021
+
+Kermit is getting some updates. The docs below and published releases correspond, but 
+the code in this repo is a little newer. We should have a formal release and doc update soon.
+
 ### Pre-release
 Kermit is in a pre-release stage. We are still working to improve usage and future versions may change the public api.
 
