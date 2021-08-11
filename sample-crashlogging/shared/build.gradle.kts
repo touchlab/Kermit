@@ -39,9 +39,9 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                api("co.touchlab:kermit:0.2.0")
-                api("co.touchlab:crashlytics:0.2.0")
-                api("co.touchlab:bugsnag:0.2.0")
+                api("co.touchlab:kermit")
+                api("co.touchlab:crashlytics")
+                api("co.touchlab:bugsnag")
             }
         }
 

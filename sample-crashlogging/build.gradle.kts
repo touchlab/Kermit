@@ -7,9 +7,24 @@
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        fun readParentKotlin():String = java.util.Properties().apply { load(java.io.StringReader(File("../gradle.properties").readText())) }.get("KOTLIN_VERSION") as String
 
-include(/*":app", ":app-browser",*/ ":shared")
+        classpath("com.android.tools.build:gradle:4.0.2")
+        classpath(kotlin("gradle-plugin", readParentKotlin()))
+        classpath("co.touchlab:kotlinnativecocoapods:0.11")
+    }
+}
+allprojects{
+    repositories{
+        mavenLocal()
+        mavenCentral()
+        google()
+    }
+}
 
-rootProject.name = "KermitSample"
-
-enableFeaturePreview("GRADLE_METADATA")
