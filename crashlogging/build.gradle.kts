@@ -18,54 +18,37 @@ val VERSION_NAME: String by project
 group = GROUP
 version = VERSION_NAME
 
-val ideaActive = System.getProperty("idea.active") == "true"
-
-repositories {
-    google()
-    mavenCentral()
-}
-
 kotlin {
-    val knTargets = if(ideaActive){
-        listOf(macosX64("darwin"))
-    }else{
-        listOf(
-            macosX64(),
-            iosX64(),
-            iosArm64(),
-            iosArm32(),
-            tvosArm64(),
-            tvosX64()
-        )
+    macosX64()
+    iosX64()
+    iosArm64()
+    iosArm32()
+    tvosArm64()
+    tvosX64()
+
+    val commonMain by sourceSets.getting
+    val commonTest by sourceSets.getting
+
+    val darwinMain by sourceSets.creating
+
+    darwinMain.dependsOn(commonMain)
+
+    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
+        val mainSourceSet = compilations.getByName("main").defaultSourceSet
+        val testSourceSet = compilations.getByName("test").defaultSourceSet
+
+        mainSourceSet.dependsOn(darwinMain)
+        testSourceSet.dependsOn(commonTest)
     }
 
-    sourceSets {
-        commonMain {
-            dependencies {
-                implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-                implementation(project(":kermit"))
-            }
-        }
-        commonTest {
-            dependencies {
-                implementation("org.jetbrains.kotlin:kotlin-test-common")
-                implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
-            }
-        }
+    commonMain.dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
+        implementation(project(":kermit"))
+    }
 
-        if(!ideaActive) {
-            val darwinMain = sourceSets.maybeCreate("darwinMain").apply {
-                dependsOn(sourceSets.maybeCreate("commonMain"))
-            }
-            val darwinTest = sourceSets.maybeCreate("darwinTest").apply {
-                dependsOn(sourceSets.maybeCreate("commonTest"))
-            }
-
-            knTargets.forEach { target ->
-                target.compilations.getByName("main").source(darwinMain)
-                target.compilations.getByName("test").source(darwinTest)
-            }
-        }
+    commonTest.dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-test-common")
+        implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
     }
 }
 
