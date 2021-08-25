@@ -18,11 +18,6 @@ val VERSION_NAME: String by project
 group = GROUP
 version = VERSION_NAME
 
-repositories {
-    google()
-    mavenCentral()
-}
-
 kotlin {
     macosX64()
     iosX64()

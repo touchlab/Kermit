@@ -21,11 +21,6 @@ version = VERSION_NAME
 
 val ideaActive = System.getProperty("idea.active") == "true"
 
-repositories {
-    google()
-    mavenCentral()
-}
-
 fun configInterop(target: org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget) {
     val main by target.compilations.getting
     val crashlytics by main.cinterops.creating {

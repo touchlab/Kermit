@@ -24,8 +24,7 @@ allprojects {
 
     tasks.register("publishLinux") {
         if (tasks.findByName("publish") != null) {
-            dependsOn("publishLinuxMips32PublicationToMavenRepository",
-                "publishLinuxMipsel32PublicationToMavenRepository")
+            dependsOn("publishLinuxMips32PublicationToMavenRepository")
         }
     }
 }
