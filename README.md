@@ -6,11 +6,7 @@ Kermit is a Kotlin Multiplatform logging utility with composable log outputs. Th
 
 ## Version Note - August 2021
 
-Kermit is getting some updates. The docs below and published releases correspond, but 
-the code in this repo is a little newer. We should have a formal release and doc update soon.
-
-### Pre-release
-Kermit is in a pre-release stage. We are still working to improve usage and future versions may change the public api.
+Kermit is getting some updates. Docs and samples are also in the refresh process and may be a little outdated.
 
 ### Design Philosophy
 Read more about our api and architecture decisions here: [DESIGN](DESIGN.md)
@@ -23,29 +19,7 @@ The Kermit dependency should added to your `commonMain` source set in your Kotli
 commonMain {
     dependencies {
         implementation(kotlin("stdlib-common"))
-        api("co.touchlab:kermit:0.1.9")
-    }
-}
-```
-
-Notice the use of the `api` configuration. This is to expose Kermit to the native Android & iOS code which includes your shared library. If using an iOS framework (including through CocoaPods) you will also need to transitively export kermit to make it available for use in swift. Learn more under "Exporting dependencies to binaries" [Here](https://kotlinlang.org/docs/reference/building-mpp-with-gradle.html#building-final-native-binaries)
-
-```kotlin
-framework {
-    export("co.touchlab:kermit:0.1.9")
-    transitiveExport = true
-}
-```
-
-When using cocoapods to package your shared module (we've found this to be the best way right now), you can use [Touchlab's cocoapods plugin](https://github.com/touchlab/KotlinCocoapods) to configure the framework. 
-
-```kotlin
-cocoapodsext {
-    summary = "Sample for Kermit"
-    homepage = "https://www.touchlab.co"
-    framework {
-        export("co.touchlab:kermit:0.1.9")
-        transitiveExport = true
+        implementation("co.touchlab:kermit") //Add latest version
     }
 }
 ```
@@ -67,7 +41,18 @@ kermit.i("CustomTag", optionalThrowable) { "Message" }
 * `e()` - Error
 * `wtf()` - Assert
 
-Each call takes optional parameters for tag and throwable and a function parameter which returns the string to be logged. The message function will only be invoked if there are loggers configured to log that particular message.
+Log messages are passed as lambda function args which return a String. The message function will only be invoked if 
+there are loggers configured to log that particular message.
+
+Each log function can take either the lambda by itself or a Throwable and a lambda.
+
+```kotlin
+val kermit:Kermit = Kermit()
+val ex = Exception()
+
+kermit.i { "Just Log" }
+kermit.i(ex) { "Also an exception" }
+```
 
 ### Tags
 
@@ -77,7 +62,6 @@ Tags can be set for logs in a few different ways:
 * If no tag is specified, a default tag of "Kermit" will be used
 * The default tag can be overridden in the `Kermit` constructor
 * A copy of `Kermit` with a new default tag can be obtained with `kermit.withTag("newTag")`. This is handy for using a tag within a particular scope
-* Each log can specify it's own tag with the optional tag parameter
 
 ### Loggers
 
