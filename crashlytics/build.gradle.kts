@@ -9,7 +9,6 @@
  */
 
 plugins {
-//    id("com.android.library") version "4.1.2"
     kotlin("multiplatform")
 }
 
@@ -19,20 +18,22 @@ val VERSION_NAME: String by project
 group = GROUP
 version = VERSION_NAME
 
-val ideaActive = System.getProperty("idea.active") == "true"
+fun org.gradle.api.Project.configBugReporter(){
+    //Write generated Kotlin to disk. This tends to mess up
+    //the compiler, but quite useful to see the output during dev
+    val printCInteropKotlin = false
 
-fun configInterop(target: org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget) {
-    val main by target.compilations.getting
-    val crashlytics by main.cinterops.creating {
-        includeDirs("$projectDir/src/include")
-//        extraOpts = listOf("-mode","sourcecode")
+    fun configInterop(target: org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget) {
+        val main by target.compilations.getting
+        val crashlytics by main.cinterops.creating {
+            includeDirs("$projectDir/src/include")
+            if (printCInteropKotlin) {
+                extraOpts = listOf("-mode", "sourcecode")
+            }
+        }
     }
-}
 
-kotlin {
-    val knTargets = if(ideaActive){
-        listOf(macosX64("darwin"))
-    }else{
+    kotlin {
         listOf(
             macosX64(),
             iosX64(),
@@ -40,128 +41,36 @@ kotlin {
             iosArm32(),
             tvosArm64(),
             tvosX64()
-        )
-    }
+        ).apply { forEach { target -> configInterop(target) } }
 
-    knTargets
-        .forEach { target ->
-            configInterop(target)
+        val commonMain by sourceSets.getting
+        val commonTest by sourceSets.getting
+
+        val darwinMain by sourceSets.creating
+
+        darwinMain.dependsOn(commonMain)
+
+        targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
+            val mainSourceSet = compilations.getByName("main").defaultSourceSet
+            val testSourceSet = compilations.getByName("test").defaultSourceSet
+
+            mainSourceSet.dependsOn(darwinMain)
+            testSourceSet.dependsOn(commonTest)
         }
 
-    sourceSets {
-        commonMain {
-            dependencies {
-                implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-                implementation(project(":kermit"))
-                implementation(project(":crashlogging"))
-            }
-        }
-        commonTest {
-            dependencies {
-                implementation("org.jetbrains.kotlin:kotlin-test-common")
-                implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
-            }
+        commonMain.dependencies {
+            implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
+            implementation(project(":kermit"))
+            implementation(project(":crashlogging"))
         }
 
-        if(!ideaActive) {
-            val darwinMain = sourceSets.maybeCreate("darwinMain").apply {
-                dependsOn(sourceSets.maybeCreate("commonMain"))
-            }
-            val darwinTest = sourceSets.maybeCreate("darwinTest").apply {
-                dependsOn(sourceSets.maybeCreate("commonTest"))
-            }
-
-            knTargets.forEach { target ->
-                target.compilations.getByName("main").source(darwinMain)
-                target.compilations.getByName("test").source(darwinTest)
-            }
+        commonTest.dependencies {
+            implementation("org.jetbrains.kotlin:kotlin-test-common")
+            implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
         }
     }
 }
 
-//kotlin {
-//    android {
-//        publishAllLibraryVariants()
-//    }
-
-//    val darwinTargets = listOf(
-//        "macosX64",
-//        "iosArm32",
-//        "iosArm64",
-//        "iosX64",
-//        "tvosArm64",
-//        "tvosX64"
-//    )
-//
-//    if (ideaActive) {
-//        val target = macosX64("darwin")
-//        configInterop(target)
-//    } else {
-//        presets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.AbstractKotlinNativeTargetPreset<*>>().forEach { preset ->
-//            if(darwinTargets.contains(preset.name)){
-//                val t = targetFromPreset(preset)
-//                configInterop(t as org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget)
-//            }
-//        }
-//    }
-//
-//    sourceSets {
-//        commonMain {
-//            dependencies {
-//                implementation(kotlin("stdlib-common"))
-//            }
-//        }
-//
-//        commonTest {
-//            dependencies {
-//                implementation(kotlin("test-common"))
-//                implementation(kotlin("test-annotations-common"))
-//            }
-//        }
-//
-//        /*val androidMain by sourceSets.getting {
-//            dependencies {
-//                implementation(kotlin("stdlib"))
-//            }
-//        }
-//        val androidTest by sourceSets.getting {
-//            dependencies {
-//                implementation(kotlin("test"))
-//                implementation(kotlin("test-junit"))
-//                implementation("androidx.test:runner:1.2.0")
-//                implementation("org.robolectric:robolectric:4.3.1")
-//            }
-//        }*/
-////        val nativeMain = sourceSets.maybeCreate("nativeMain").apply {
-////            dependsOn(commonMain.get())
-////        }
-//        val darwinMain = sourceSets.maybeCreate("darwinMain").apply {
-//            dependsOn(commonMain.get())
-//        }
-//
-//        if (!ideaActive) {
-//            configure(
-//                darwinTargets.map { targets.findByName(it) }.filterNotNull()
-//            ) {
-//                compilations.findByName("main")?.source(darwinMain)
-//
-//                sourceSets.findByName("darwinTest")?.let {
-//                    compilations.findByName("test")?.source(it)
-//                }
-//            }
-//        }
-//    }
-//}
-
-//android {
-//    compileSdkVersion(29)
-//    defaultConfig {
-//        minSdkVersion(15)
-//    }
-//
-//    val main by sourceSets.getting {
-//        manifest.srcFile("src/androidMain/AndroidManifest.xml")
-//    }
-//}
+configBugReporter()
 
 apply(from = "../gradle/gradle-mvn-mpp-push.gradle")

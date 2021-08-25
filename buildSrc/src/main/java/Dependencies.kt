@@ -1,0 +1,5 @@
+object Versions {
+}
+
+object Deps {
+}

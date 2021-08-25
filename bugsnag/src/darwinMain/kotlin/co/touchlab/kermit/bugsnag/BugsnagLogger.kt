@@ -18,7 +18,6 @@ import platform.Foundation.NSException
 import platform.Foundation.NSNumber
 import platform.darwin.NSInteger
 
-
 class BugsnagLogger(
     private val minSeverity: Severity = Severity.Info,
     private val minCrashSeverity: Severity = Severity.Warn,

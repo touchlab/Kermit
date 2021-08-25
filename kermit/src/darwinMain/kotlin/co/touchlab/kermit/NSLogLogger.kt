@@ -13,6 +13,7 @@ package co.touchlab.kermit
 import platform.Foundation.NSLog
 import platform.Foundation.NSString
 
+@Suppress("CAST_NEVER_SUCCEEDS")
 class NSLogLogger : Logger() {
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         NSLog("%s: (%@) %@", severity.name, tag as NSString, message as NSString)
