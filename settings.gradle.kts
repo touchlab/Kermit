@@ -10,8 +10,8 @@
 
 include(":kermit")
 include(":crashlogging")
-include(":crashlytics")
-include(":bugsnag")
+//include(":crashlytics")
+//include(":bugsnag")
 
 pluginManagement {
     resolutionStrategy {
@@ -24,7 +24,6 @@ pluginManagement {
     repositories {
         google()
         gradlePluginPortal()
-        maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
     }
     val KOTLIN_VERSION: String by settings
     plugins {

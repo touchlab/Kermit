@@ -19,8 +19,6 @@ val VERSION_NAME: String by project
 group = GROUP
 version = VERSION_NAME
 
-val ideaActive = System.getProperty("idea.active") == "true"
-
 repositories {
     google()
     mavenCentral()
@@ -36,113 +34,89 @@ kotlin {
         nodejs()
     }
 
-    val darwinTargets = listOf(
-        "macosX64",
-        "iosArm32",
-        "iosArm64",
-        "iosX64",
-        "watchosArm32",
-        "watchosArm64",
-        "watchosX86",
-        "watchosX64",
-        "tvosArm64",
-        "tvosX64"
-    )
+    macosX64()
+    iosX64()
+    iosArm64()
+    iosArm32()
+    watchosArm32()
+    watchosArm64()
+    watchosX86()
+    watchosX64()
+    tvosArm64()
+    tvosX64()
+    mingwX64()
+    mingwX86()
+    linuxX64()
+    linuxArm32Hfp()
+    linuxMips32()
 
-    val nonDarwinTargets = mutableListOf<String>()
+    val commonMain by sourceSets.getting
+    val commonTest by sourceSets.getting
 
-    if (ideaActive) {
-        macosX64("darwin")
-    } else {
-        presets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.AbstractKotlinNativeTargetPreset<*>>().forEach { preset ->
-            if(!darwinTargets.contains(preset.name)){
-                nonDarwinTargets.add(preset.name)
+    val jvmMain by sourceSets.getting
+    val jvmTest by sourceSets.getting
+
+    val androidMain by sourceSets.getting
+    val androidTest by sourceSets.getting
+
+    val jsMain by sourceSets.getting
+    val jsTest by sourceSets.getting
+
+    val darwinMain by sourceSets.creating
+
+    darwinMain.dependsOn(commonMain)
+
+    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
+        val mainSourceSet = compilations.getByName("main").defaultSourceSet
+        val testSourceSet = compilations.getByName("test").defaultSourceSet
+
+        val useDarwin = konanTarget.family.isAppleFamily
+
+        mainSourceSet.dependsOn(
+            if (useDarwin) {
+                darwinMain
+            } else {
+                commonMain
             }
-            targetFromPreset(preset)
-        }
+        )
+        testSourceSet.dependsOn(commonTest)
     }
 
-    sourceSets {
-        commonMain {
-            dependencies {
-                implementation(kotlin("stdlib-common"))
-            }
-        }
+    commonMain.dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
+    }
 
-        commonTest {
-            dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-            }
-        }
+    commonTest.dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-test-common")
+        implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
+    }
 
-        val androidMain by sourceSets.getting {
-            dependencies {
-                implementation(kotlin("stdlib"))
-            }
-        }
-        val androidTest by sourceSets.getting {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(kotlin("test-junit"))
-                implementation("androidx.test:runner:1.2.0")
-                implementation("org.robolectric:robolectric:4.3.1")
-            }
-        }
-        val nativeMain = sourceSets.maybeCreate("nativeMain").apply {
-            dependsOn(commonMain.get())
-        }
-        val darwinMain = sourceSets.maybeCreate("darwinMain").apply {
-            dependsOn(nativeMain)
-        }
-        val jsMain = sourceSets.maybeCreate("jsMain").apply {
-            dependsOn(commonMain.get())
-            dependencies {
-                implementation(kotlin("stdlib-js"))
-            }
-        }
-        val jsTest = sourceSets.maybeCreate("jsTest").apply {
-            dependsOn(commonTest.get())
-            dependencies {
-                implementation(kotlin("test-js"))
-            }
-        }
+    androidMain.dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib")
+    }
 
-        if (!ideaActive) {
-            configure(
-                darwinTargets.map { targets.findByName(it) }.filterNotNull()
-            ) {
-                compilations.findByName("main")?.source(darwinMain)
+    androidTest.dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-test")
+        implementation("org.jetbrains.kotlin:kotlin-test-junit")
+        implementation("androidx.test:runner:1.2.0")
+        implementation("org.robolectric:robolectric:4.3.1")
+    }
 
-                sourceSets.findByName("darwinTest")?.let {
-                    compilations.findByName("test")?.source(it)
-                }
-            }
+    jvmMain.dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib")
+    }
 
-            configure(
-                nonDarwinTargets.map { targets.findByName(it) }.filterNotNull()
-            ) {
-                compilations.findByName("main")?.source(nativeMain)
+    jvmTest.dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-test")
+        implementation("org.jetbrains.kotlin:kotlin-test-junit")
+    }
 
-                sourceSets.findByName("nativeTest")?.let {
-                    compilations.findByName("test")?.source(it)
-                }
-            }
-        }
-        val jvmMain = sourceSets.maybeCreate("jvmMain").apply {
-            dependsOn(commonMain.get())
-            dependencies {
-                implementation(kotlin("stdlib"))
-            }
-        }
-        val jvmTest = sourceSets.maybeCreate("jvmTest").apply {
-            dependsOn(commonTest.get())
-            dependencies {
-                implementation(kotlin("stdlib"))
-                implementation(kotlin("test"))
-                implementation(kotlin("test-junit"))
-            }
-        }
+    jsMain.dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-js")
+    }
+
+    jsTest.dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-test-js")
     }
 }
 

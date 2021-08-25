@@ -15,35 +15,6 @@ allprojects {
         google()
     }
 
-    tasks.register("publishMac") {
-        if (tasks.findByName("publish") != null) {
-            dependsOn("publishKotlinMultiplatformPublicationToMavenRepository",
-                "publishJvmPublicationToMavenRepository",
-                "publishAndroidDebugPublicationToMavenRepository",
-                "publishAndroidReleasePublicationToMavenRepository",
-                "publishAndroidNativeArm32PublicationToMavenRepository",
-                "publishAndroidNativeArm64PublicationToMavenRepository",
-                "publishAndroidNativeX64PublicationToMavenRepository",
-                "publishAndroidNativeX86PublicationToMavenRepository",
-                "publishIosArm32PublicationToMavenRepository",
-                "publishIosArm64PublicationToMavenRepository",
-                "publishIosX64PublicationToMavenRepository",
-                "publishMacosX64PublicationToMavenRepository",
-                "publishJsPublicationToMavenRepository",
-                "publishWatchosArm32PublicationToMavenRepository",
-                "publishWatchosArm64PublicationToMavenRepository",
-                "publishWatchosX86PublicationToMavenRepository",
-                "publishWatchosX64PublicationToMavenRepository",
-                "publishTvosArm64PublicationToMavenRepository",
-                "publishTvosX64PublicationToMavenRepository",
-                "publishLinuxArm32HfpPublicationToMavenRepository",
-                "publishLinuxArm64PublicationToMavenRepository",
-                "publishLinuxX64PublicationToMavenRepository",
-                "publishWasm32PublicationToMavenRepository"
-            )
-        }
-    }
-
     tasks.register("publishWindows") {
         if (tasks.findByName("publish") != null) {
             dependsOn("publishMingwX64PublicationToMavenRepository",
