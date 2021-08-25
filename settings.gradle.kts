@@ -13,6 +13,7 @@ include(":crashlogging")
 include(":crashlytics")
 include(":bugsnag")
 
+
 pluginManagement {
     resolutionStrategy {
         eachPlugin {
