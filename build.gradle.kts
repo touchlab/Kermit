@@ -19,17 +19,4 @@ allprojects {
         mavenCentral()
         google()
     }
-
-    tasks.register("publishWindows") {
-        if (tasks.findByName("publish") != null) {
-            dependsOn("publishMingwX64PublicationToMavenRepository",
-                "publishMingwX86PublicationToMavenRepository")
-        }
-    }
-
-    tasks.register("publishLinux") {
-        if (tasks.findByName("publish") != null) {
-            dependsOn("publishLinuxMips32PublicationToMavenRepository")
-        }
-    }
 }
