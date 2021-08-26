@@ -20,11 +20,19 @@ version = VERSION_NAME
 
 kotlin {
     macosX64()
+    macosArm64()
     iosX64()
     iosArm64()
     iosArm32()
+    iosSimulatorArm64()
     tvosArm64()
+    tvosSimulatorArm64()
     tvosX64()
+    watchosArm32()
+    watchosArm64()
+    watchosSimulatorArm64()
+    watchosX86()
+    watchosX64()
 
     val commonMain by sourceSets.getting
     val commonTest by sourceSets.getting
