@@ -9,9 +9,9 @@
  */
 
 include(":kermit")
-include(":crashlogging")
-include(":crashlytics")
-include(":bugsnag")
+//include(":crashlogging")
+//include(":crashlytics")
+//include(":bugsnag")
 
 
 pluginManagement {
