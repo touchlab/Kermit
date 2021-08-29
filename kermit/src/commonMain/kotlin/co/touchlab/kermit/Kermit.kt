@@ -110,18 +110,17 @@ class Kermit(
             log(Severity.Error, defaultTag, throwable, message)
     }
 
-
-    inline fun wtf(message: () -> String){
+    inline fun a(message: () -> String){
         if(minSeverity <= Severity.Assert)
             log(Severity.Assert, defaultTag, null, message())
     }
 
-    inline fun wtf(throwable: Throwable, message: () -> String) {
+    inline fun a(throwable: Throwable, message: () -> String) {
         if(minSeverity <= Severity.Assert)
             log(Severity.Assert, defaultTag, throwable, message())
     }
 
-    fun wtf(message: String, throwable: Throwable? = null){
+    fun a(message: String, throwable: Throwable? = null){
         if(minSeverity <= Severity.Assert)
             log(Severity.Assert, defaultTag, throwable, message)
     }

@@ -30,6 +30,6 @@ abstract class Logger{
     open fun e(message: String, tag: String, throwable: Throwable? = null) =
         log(Severity.Error, message, tag, throwable)
 
-    open fun wtf(message: String, tag: String, throwable: Throwable? = null) =
+    open fun a(message: String, tag: String, throwable: Throwable? = null) =
         log(Severity.Assert, message, tag, throwable)
 }

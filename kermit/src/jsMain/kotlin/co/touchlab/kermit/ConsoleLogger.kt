@@ -31,7 +31,7 @@ class ConsoleLogger : Logger() {
     override fun e(message: String, tag: String, throwable: Throwable?){
         console.error(tag,message,throwable)
     }
-    override fun wtf(message: String, tag: String, throwable: Throwable?){
+    override fun a(message: String, tag: String, throwable: Throwable?){
         console.error(tag,message,throwable)
     }
 }

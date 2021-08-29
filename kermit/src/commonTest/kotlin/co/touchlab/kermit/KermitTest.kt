@@ -33,7 +33,7 @@ class KermitTest {
         kimber.i("Message")
         kimber.w("Message")
         kimber.e("Message")
-        kimber.wtf("Message")
+        kimber.a("Message")
         testLogger.assertCount(6)
     }
 
@@ -51,9 +51,9 @@ class KermitTest {
         kermit.e { "error" }
         errorLogger.assertLast { message == "error" && severity == Severity.Error }
 
-        kermit.wtf { "wtf" }
+        kermit.a { "assert" }
         errorLogger.assertCount(2)
-        errorLogger.assertLast { message == "wtf" && severity == Severity.Assert }
+        errorLogger.assertLast { message == "assert" && severity == Severity.Assert }
     }
 
     @Test

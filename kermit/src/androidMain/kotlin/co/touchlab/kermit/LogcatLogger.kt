@@ -54,7 +54,7 @@ class LogcatLogger : Logger() {
         Log.e(tag, message, throwable)
     }
 
-    override fun wtf(message: String, tag: String, throwable: Throwable?) {
+    override fun a(message: String, tag: String, throwable: Throwable?) {
         Log.wtf(tag, message, throwable)
     }
 }
