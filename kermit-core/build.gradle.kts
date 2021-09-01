@@ -15,7 +15,6 @@ plugins {
 
 val GROUP: String by project
 val VERSION_NAME: String by project
-val STATELY_VERSION: String by project
 
 group = GROUP
 version = VERSION_NAME
@@ -63,21 +62,27 @@ kotlin {
     val jsMain by sourceSets.getting
     val jsTest by sourceSets.getting
 
-    val nativeMain by sourceSets.creating
-    nativeMain.dependsOn(commonMain)
+    val darwinMain by sourceSets.creating
+    darwinMain.dependsOn(commonMain)
 
     targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
         val mainSourceSet = compilations.getByName("main").defaultSourceSet
         val testSourceSet = compilations.getByName("test").defaultSourceSet
 
-        mainSourceSet.dependsOn(nativeMain)
+        val useDarwin = konanTarget.family.isAppleFamily
+
+        mainSourceSet.dependsOn(
+            if (useDarwin) {
+                darwinMain
+            } else {
+                commonMain
+            }
+        )
         testSourceSet.dependsOn(commonTest)
     }
 
     commonMain.dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-        implementation(project(":kermit-core"))
-        implementation("co.touchlab:stately-concurrency:$STATELY_VERSION")
     }
 
     commonTest.dependencies {
@@ -111,10 +116,6 @@ kotlin {
 
     jsTest.dependencies {
         implementation("org.jetbrains.kotlin:kotlin-test-js")
-    }
-
-    nativeMain.dependencies {
-        implementation("co.touchlab:stately-common:$STATELY_VERSION")
     }
 }
 

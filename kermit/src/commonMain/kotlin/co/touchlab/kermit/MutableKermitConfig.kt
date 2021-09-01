@@ -10,4 +10,8 @@
 
 package co.touchlab.kermit
 
-object Kermit : KermitInstance(KermitGlobal.defaultConfig)
+interface MutableKermitConfig:KermitConfig {
+    override var minSeverity:Severity
+    override var loggerList: List<Logger>
+    override var defaultTag: String
+}

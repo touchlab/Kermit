@@ -10,4 +10,4 @@
 
 package co.touchlab.kermit
 
-object Kermit : KermitInstance(KermitGlobal.defaultConfig)
+internal actual fun mutableKermitConfigInit(): MutableKermitConfig = LockMutableKermitConfig()

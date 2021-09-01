@@ -10,4 +10,8 @@
 
 package co.touchlab.kermit
 
-object Kermit : KermitInstance(KermitGlobal.defaultConfig)
+object KermitGlobal {
+    val defaultConfig = mutableKermitConfigInit()
+}
+
+internal expect fun mutableKermitConfigInit(): MutableKermitConfig

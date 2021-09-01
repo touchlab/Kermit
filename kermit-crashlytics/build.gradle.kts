@@ -76,7 +76,7 @@ fun org.gradle.api.Project.configBugReporter(){
 
         commonMain.dependencies {
             implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-            implementation(project(":kermit"))
+            implementation(project(":kermit-core"))
             implementation("co.touchlab:crashkios-core:$CRASHKIOS_CORE_VERSION")
         }
 
