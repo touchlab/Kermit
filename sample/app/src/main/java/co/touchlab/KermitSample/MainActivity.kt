@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        kermit.i("MainActivity") { "onCreate" }
+        kermit.withTag("mainact").i{"oncreae"}
         kermitWithTag.d { "Log Without Tag (Kermit With Tag)" }
 
         binding.fab.setOnClickListener {
