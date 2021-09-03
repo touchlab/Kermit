@@ -22,7 +22,7 @@ repositories {
 android {
     compileSdkVersion(29)
     defaultConfig {
-        applicationId = "co.touchlab.kermitsample"
+        applicationId = "co.touchlab.kermitsamplecrashlog"
         minSdkVersion(15)
         targetSdkVersion(29)
         versionCode = 1
@@ -47,6 +47,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":shared"))
     implementation("androidx.core:core-ktx:1.2.0")
     implementation("androidx.appcompat:appcompat:1.1.0")
     implementation("com.google.android.material:material:1.1.0")

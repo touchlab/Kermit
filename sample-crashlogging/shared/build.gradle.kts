@@ -11,6 +11,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
+    id("com.android.library")
     kotlin("multiplatform")
     kotlin("native.cocoapods")
 }
@@ -28,6 +29,7 @@ kotlin {
     }else{
         iosX64("ios")
     }
+    android()
 
     sourceSets {
         commonMain {
@@ -49,6 +51,8 @@ kotlin {
         val iosMain by sourceSets.getting {
         }
 
+       val androidMain by sourceSets.getting {
+       }
     }
 
     cocoapods {
@@ -63,5 +67,18 @@ kotlin {
 //            export("co.touchlab:bugsnag")
             transitiveExport = true
         }
+    }
+}
+android {
+    compileSdkVersion(29)
+    defaultConfig {
+        minSdkVersion(15)
+        targetSdkVersion(29)
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    val main by sourceSets.getting {
+        manifest.srcFile("src/androidMain/AndroidManifest.xml")
     }
 }
