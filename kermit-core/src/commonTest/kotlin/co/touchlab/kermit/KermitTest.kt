@@ -17,24 +17,21 @@ import kotlin.test.Test
 
 class KermitTest {
     private val testLogger = TestLogger(loggable = Severity.Verbose)
+    private val testConfig = TestConfig(
+        minSeverity = Severity.Verbose,
+        loggerList = listOf(testLogger),
+        defaultTag = "Kermit"
+    )
 
     @Test
     fun configSeverityCheckFailedTest() {
-        val testConfig = TestConfig(
-            minSeverity = Severity.Error,
-            loggerList = listOf(testLogger),
-        )
-        val kermit = KermitInstance(testConfig)
+        val kermit = KermitInstance(testConfig.copy(minSeverity = Severity.Error))
         kermit.v { "Message" }
         testLogger.assertCount(0)
     }
 
     @Test
     fun simpleLogTest() {
-        val testConfig = TestConfig(
-            minSeverity = Severity.Verbose,
-            loggerList = listOf(testLogger),
-        )
         val kermit = KermitInstance(testConfig)
         kermit.e { "Message" }
         testLogger.assertCount(1)
@@ -42,10 +39,6 @@ class KermitTest {
 
     @Test
     fun directLogTest() {
-        val testConfig = TestConfig(
-            minSeverity = Severity.Verbose,
-            loggerList = listOf(testLogger),
-        )
         val kermit = KermitInstance(testConfig)
         kermit.v("Message")
         kermit.d("Message")
@@ -59,11 +52,7 @@ class KermitTest {
     @Test
     fun testIsLoggable() {
         val errorLogger = TestLogger(Severity.Error)
-        val testConfig = TestConfig(
-            minSeverity = Severity.Verbose,
-            loggerList = listOf(errorLogger),
-        )
-        val kermit = KermitInstance(testConfig)
+        val kermit = KermitInstance(testConfig.copy(loggerList = listOf(errorLogger)))
 
         kermit.v { "verbose" }
         kermit.d { "debug" }
@@ -82,11 +71,8 @@ class KermitTest {
     @Test
     fun testMultipleLoggers() {
         val secondaryLogger = TestLogger(loggable = Severity.Verbose)
-        val testConfig = TestConfig(
-            minSeverity = Severity.Verbose,
-            loggerList = listOf(testLogger, secondaryLogger),
-        )
-        val kermit = KermitInstance(testConfig)
+        val loggerList = listOf(testLogger, secondaryLogger)
+        val kermit = KermitInstance(testConfig.copy(loggerList = loggerList))
         kermit.e { "Message" }
 
         testLogger.assertLast { message == "Message" }
@@ -96,10 +82,6 @@ class KermitTest {
     @Test
     fun testSingleLogger() {
         val secondaryLogger = TestLogger(loggable = Severity.Verbose)
-        val testConfig = TestConfig(
-            minSeverity = Severity.Verbose,
-            loggerList = listOf(testLogger),
-        )
         val kermit = KermitInstance(testConfig)
         kermit.e { "Message" }
 
@@ -109,11 +91,6 @@ class KermitTest {
 
     @Test
     fun testingDefaultTag() {
-        val testConfig = TestConfig(
-            minSeverity = Severity.Verbose,
-            loggerList = listOf(testLogger),
-            defaultTag = "Kermit"
-        )
         val kermit = KermitInstance(testConfig)
         val kermitWithTag = kermit.withTag("My Custom Tag")
 

@@ -16,9 +16,9 @@ package co.touchlab.kermit
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class TestConfig(override val minSeverity: Severity,
+data class TestConfig(override val minSeverity: Severity,
                  override val loggerList: List<Logger>,
-                 override val defaultTag: String = ""): KermitConfig
+                 override val defaultTag: String): KermitConfig
 
 class TestLogger(val loggable:Severity) : Logger() {
     data class LogEntry(

@@ -23,12 +23,18 @@ import kotlin.test.assertNotNull
 @RunWith(RobolectricTestRunner::class)
 class LogcatLoggerTest {
 
+    companion object {
+        private const val DEFAULT_TAG = "Kermit"
+    }
+
+    private val testConfig = TestConfig(
+        minSeverity = Severity.Verbose,
+        loggerList = listOf(LogcatLogger()),
+        defaultTag = DEFAULT_TAG
+    )
+
     @Test
     fun logsToLogcatTest() {
-        val testConfig = TestConfig(
-            minSeverity = Severity.Verbose,
-            loggerList = listOf(LogcatLogger()),
-        )
         val kermit = KermitInstance(testConfig)
         kermit.e { "Message" }
 
@@ -39,19 +45,14 @@ class LogcatLoggerTest {
 
     @Test
     fun testingDefaultTag() {
-        val defaultTag = "Kermit"
         val message = "TestingTag"
-        val testConfig = TestConfig(
-            minSeverity = Severity.Verbose,
-            loggerList = listOf(LogcatLogger()),
-        )
-        val kermit = KermitInstance(config = testConfig, tag = defaultTag)
+        val kermit = KermitInstance(config = testConfig, tag = DEFAULT_TAG)
         kermit.e { message }
 
         ShadowLog.getLogs().apply {
             assert(size > 0)
             val logsWithMessage = this.filter { it.msg == message }
-            assertEquals(logsWithMessage.last().tag, defaultTag)
+            assertEquals(logsWithMessage.last().tag, DEFAULT_TAG)
         }
     }
 
@@ -59,10 +60,6 @@ class LogcatLoggerTest {
     fun testingCustomTags() {
         val tag = "MyCustomTag"
         val message = "TestingCustomTag"
-        val testConfig = TestConfig(
-            minSeverity = Severity.Verbose,
-            loggerList = listOf(LogcatLogger()),
-        )
         val kermit = KermitInstance(config = testConfig, tag = tag)
         kermit.e { message }
 
@@ -75,10 +72,6 @@ class LogcatLoggerTest {
 
     @Test
     fun testLogThrowable() {
-        val testConfig = TestConfig(
-            minSeverity = Severity.Verbose,
-            loggerList = listOf(LogcatLogger()),
-        )
         val kermit = KermitInstance(testConfig)
         kermit.log(
             severity = Severity.Error,
