@@ -24,6 +24,13 @@ class KermitTest {
     )
 
     @Test
+    fun defaultConfigTest() {
+        val kermit = KermitInstance(KermitConfig.default.copy(loggerList = listOf(testLogger)))
+        kermit.v { "Message" }
+        testLogger.assertCount(0)
+    }
+
+    @Test
     fun configSeverityCheckFailedTest() {
         val kermit = KermitInstance(testConfig.copy(minSeverity = Severity.Error))
         kermit.v { "Message" }
