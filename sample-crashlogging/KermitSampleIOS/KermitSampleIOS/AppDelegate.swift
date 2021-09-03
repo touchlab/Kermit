@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let kermit:Kermit = Kermit(loggerList: [
                                 OSLogLogger(),
-                                NSLogLogger(),
-                                AppDelegate.useCrashlytics ? CrashlyticsLogger(minSeverity: Severity.info, minCrashSeverity: Severity.warn, printTag: true) : BugsnagLogger(minSeverity: Severity.info, minCrashSeverity: Severity.warn, printTag: true)
+                                NSLogLogger()
+//                                AppDelegate.useCrashlytics ? CrashlyticsLogger(minSeverity: Severity.info, minCrashSeverity: Severity.warn, printTag: true) : BugsnagLogger(minSeverity: Severity.info, minCrashSeverity: Severity.warn, printTag: true)
     ],
                             defaultTag: "iOSTag")
     
