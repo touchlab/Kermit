@@ -24,7 +24,7 @@ repositories {
 kotlin {
     version = "0.0.1"
     android()
-    jvm()
+//    jvm()
     val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")?:false
     if(onPhone){
         iosArm64("ios")

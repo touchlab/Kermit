@@ -9,10 +9,3 @@
  */
 
 include(":app", ":app-browser", ":shared")
-
-includeBuild(".."){
-    dependencySubstitution {
-        substitute(module("co.touchlab:crashlytics")).with(project(":kermit-crashlytics"))
-        substitute(module("co.touchlab:bugsnag")).with(project(":kermit-bugsnag"))
-    }
-}
