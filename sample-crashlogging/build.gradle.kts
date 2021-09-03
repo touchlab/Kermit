@@ -16,7 +16,7 @@ buildscript {
         fun readParentKotlin():String = java.util.Properties().apply { load(java.io.StringReader(File("${projectDir.path}/../gradle.properties").readText())) }.get("KOTLIN_VERSION") as String
 
         classpath("com.android.tools.build:gradle:4.0.2")
-        classpath(kotlin("gradle-plugin", readParentKotlin()))
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30")
     }
 }
 allprojects{
