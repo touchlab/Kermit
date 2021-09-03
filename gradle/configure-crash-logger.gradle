@@ -47,16 +47,17 @@ kotlin {
     }
 
     commonMain.dependencies {
-        def crashKIOsVersion = project.property("CRASHKIOS_CORE_VERSION").toString()
-
         implementation project(":kermit")
-
         implementation "org.jetbrains.kotlin:kotlin-stdlib-common"
-        implementation "co.touchlab:crashkios-core:$crashKIOsVersion"
     }
 
     commonTest.dependencies {
         implementation "org.jetbrains.kotlin:kotlin-test-common"
         implementation "org.jetbrains.kotlin:kotlin-test-annotations-common"
+    }
+
+    darwinMain.dependencies {
+        def crashKIOsVersion = project.property("CRASHKIOS_CORE_VERSION").toString()
+        implementation "co.touchlab:crashkios-core:$crashKIOsVersion"
     }
 }

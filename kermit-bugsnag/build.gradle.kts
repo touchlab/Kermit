@@ -26,10 +26,22 @@ kotlin {
         publishAllLibraryVariants()
     }
 
+    js(BOTH) {
+        browser()
+        nodejs()
+    }
+
     val androidMain by sourceSets.getting {
         dependencies {
             implementation("org.jetbrains.kotlin:kotlin-stdlib")
             implementation("com.bugsnag:bugsnag-android:$BUGSNAG_ANDROID_VERSION")
+        }
+    }
+
+    val jsMain by sourceSets.getting {
+        dependencies {
+            implementation("org.jetbrains.kotlin:kotlin-stdlib-js")
+            implementation(npm("@bugsnag/js", "7.11.0"))
         }
     }
 }
