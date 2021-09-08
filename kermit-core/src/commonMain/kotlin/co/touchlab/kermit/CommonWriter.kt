@@ -10,16 +10,11 @@
 
 package co.touchlab.kermit
 
-import platform.Foundation.NSLog
-import platform.Foundation.NSString
-
-@Suppress("CAST_NEVER_SUCCEEDS")
-class NSLogLogger : Logger() {
+class CommonWriter : LogWriter() {
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        NSLog("%s: (%@) %@", severity.name, tag as NSString, message as NSString)
+        println("$severity: ($tag) $message")
         throwable?.let {
-            val string = it.stackTraceToString()
-            NSLog("%@", string as NSString)
+            it.printStackTrace()
         }
     }
 }

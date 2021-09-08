@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Touchlab
+ * Copyright (c) 2021 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -10,11 +10,4 @@
 
 package co.touchlab.kermit
 
-class CommonLogger : Logger() {
-    override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        println("$severity: ($tag) $message")
-        throwable?.let {
-            it.printStackTrace()
-        }
-    }
-}
+object KLogger : Logger(KermitGlobal.defaultConfig)
