@@ -21,71 +21,15 @@ val CRASHLYTICS_ANDROID_VERSION: String by project
 group = GROUP
 version = VERSION_NAME
 
-fun org.gradle.api.Project.configBugReporter(){
-    //Write generated Kotlin to disk. This tends to mess up
-    //the compiler, but quite useful to see the output during dev
-    val printCInteropKotlin = false
+apply(from = "../gradle/configure-crash-logger.gradle")
 
-    fun configInterop(target: org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget) {
-        val main by target.compilations.getting
-        val crashlytics by main.cinterops.creating {
-            includeDirs("$projectDir/src/include")
-            if (printCInteropKotlin) {
-                extraOpts = listOf("-mode", "sourcecode")
-            }
-        }
+kotlin {
+    android {
+        publishAllLibraryVariants()
     }
 
-    kotlin {
-        android {
-            publishAllLibraryVariants()
-        }
-        listOf(
-            macosX64(),
-            macosArm64(),
-            iosX64(),
-            iosArm64(),
-            iosArm32(),
-            iosSimulatorArm64(),
-            tvosArm64(),
-            tvosSimulatorArm64(),
-            tvosX64(),
-            watchosArm32(),
-            watchosArm64(),
-            watchosSimulatorArm64(),
-            watchosX86(),
-            watchosX64()
-        ).apply { forEach { target -> configInterop(target) } }
-
-        val commonMain by sourceSets.getting
-        val commonTest by sourceSets.getting
-
-        val androidMain by sourceSets.getting
-
-        val darwinMain by sourceSets.creating
-
-        darwinMain.dependsOn(commonMain)
-
-        targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
-            val mainSourceSet = compilations.getByName("main").defaultSourceSet
-            val testSourceSet = compilations.getByName("test").defaultSourceSet
-
-            mainSourceSet.dependsOn(darwinMain)
-            testSourceSet.dependsOn(commonTest)
-        }
-
-        commonMain.dependencies {
-            implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-            implementation(project(":kermit-core"))
-            implementation("co.touchlab:crashkios-core:$CRASHKIOS_CORE_VERSION")
-        }
-
-        commonTest.dependencies {
-            implementation("org.jetbrains.kotlin:kotlin-test-common")
-            implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
-        }
-
-        androidMain.dependencies {
+    val androidMain by sourceSets.getting {
+        dependencies {
             implementation("org.jetbrains.kotlin:kotlin-stdlib")
             implementation("com.google.firebase:firebase-crashlytics:$CRASHLYTICS_ANDROID_VERSION")
         }
@@ -102,7 +46,5 @@ android {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
     }
 }
-
-configBugReporter()
 
 apply(from = "../gradle/gradle-mvn-mpp-push.gradle")
