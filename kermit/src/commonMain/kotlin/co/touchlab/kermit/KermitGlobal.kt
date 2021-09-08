@@ -14,4 +14,4 @@ object KermitGlobal {
     val defaultConfig = mutableKermitConfigInit()
 }
 
-internal expect fun mutableKermitConfigInit(): MutableKermitConfig
+internal expect fun mutableKermitConfigInit(): MutableLoggerConfig
