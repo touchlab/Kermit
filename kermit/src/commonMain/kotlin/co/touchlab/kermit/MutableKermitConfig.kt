@@ -10,8 +10,8 @@
 
 package co.touchlab.kermit
 
-interface MutableKermitConfig:KermitConfig {
+interface MutableKermitConfig:LoggerConfig {
     override var minSeverity:Severity
-    override var loggerList: List<Logger>
+    override var loggerList: List<LogWriter>
     override var defaultTag: String
 }
