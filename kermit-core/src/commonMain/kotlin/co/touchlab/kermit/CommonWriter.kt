@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Touchlab
+ * Copyright (c) 2020 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -10,8 +10,11 @@
 
 package co.touchlab.kermit
 
-interface MutableKermitConfig:KermitConfig {
-    override var minSeverity:Severity
-    override var loggerList: List<Logger>
-    override var defaultTag: String
+class CommonWriter : LogWriter() {
+    override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
+        println("$severity: ($tag) $message")
+        throwable?.let {
+            it.printStackTrace()
+        }
+    }
 }

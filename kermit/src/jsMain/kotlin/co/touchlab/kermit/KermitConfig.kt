@@ -10,4 +10,4 @@
 
 package co.touchlab.kermit
 
-internal actual fun mutableKermitConfigInit(): MutableKermitConfig = LockMutableKermitConfig()
+internal actual fun mutableKermitConfigInit(): MutableLoggerConfig = LockMutableLoggerConfig()

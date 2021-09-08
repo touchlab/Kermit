@@ -11,7 +11,7 @@
 package co.touchlab.kermit.crashlytics
 
 import co.touchlab.crashkios.transformException
-import co.touchlab.kermit.Logger
+import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Severity
 import kotlinx.cinterop.convert
 
@@ -19,7 +19,7 @@ actual class CrashlyticsLogger actual constructor(
     private val minSeverity: Severity,
     private val minCrashSeverity: Severity,
     private val printTag: Boolean
-) : Logger() {
+) : LogWriter() {
     //This was originally stored as a field on class init, but if your client app hasn't initialized
     //Crashlytics yet, you'll get a log warning, but otherwise the logger will silently fail.
     private val cl: FIRCrashlytics

@@ -10,11 +10,11 @@
 
 package co.touchlab.kermit.bugsnag
 
-import co.touchlab.kermit.KermitInstance
+import co.touchlab.kermit.Logger
 import co.touchlab.kermit.setupUnhandledExceptionHook
 import platform.Foundation.NSUUID
 
-fun setupBugsnagExceptionHook(kermit: KermitInstance) {
+fun setupBugsnagExceptionHook(kermit: Logger) {
     setupUnhandledExceptionHook(kermit) {
         val crashId = generateCrashId()
         Bugsnag.leaveBreadcrumbWithMessage(

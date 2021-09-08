@@ -13,10 +13,10 @@ package co.touchlab.kermit
 import co.touchlab.stately.concurrency.Lock
 import co.touchlab.stately.concurrency.withLock
 
-internal class LockMutableKermitConfig : MutableKermitConfig {
+internal class LockMutableLoggerConfig : MutableLoggerConfig {
     private var _minSeverity: Severity = Severity.Debug
-    private var _loggerList: List<Logger> = listOf(
-        CommonLogger()
+    private var _loggerList: List<LogWriter> = listOf(
+        CommonWriter()
     )
     private var _defaultTag: String = "Kermit"
     private val lock = Lock()
@@ -29,7 +29,7 @@ internal class LockMutableKermitConfig : MutableKermitConfig {
             }
         }
 
-    override var loggerList: List<Logger>
+    override var loggerList: List<LogWriter>
         get() = _loggerList
         set(value) {
             lock.withLock {

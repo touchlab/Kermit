@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Touchlab
+ * Copyright (c) 2021 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -10,16 +10,8 @@
 
 package co.touchlab.kermit
 
-import platform.Foundation.NSLog
-import platform.Foundation.NSString
-
-@Suppress("CAST_NEVER_SUCCEEDS")
-class NSLogLogger : Logger() {
-    override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        NSLog("%s: (%@) %@", severity.name, tag as NSString, message as NSString)
-        throwable?.let {
-            val string = it.stackTraceToString()
-            NSLog("%@", string as NSString)
-        }
-    }
+interface MutableLoggerConfig:LoggerConfig {
+    override var minSeverity:Severity
+    override var loggerList: List<LogWriter>
+    override var defaultTag: String
 }

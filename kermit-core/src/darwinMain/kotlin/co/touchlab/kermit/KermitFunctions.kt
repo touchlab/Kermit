@@ -12,7 +12,7 @@ package co.touchlab.kermit
 
 import kotlin.native.concurrent.freeze
 
-fun setupUnhandledExceptionHook(kermit: KermitInstance, onCrash: () -> String) {
+fun setupUnhandledExceptionHook(kermit: Logger, onCrash: () -> String) {
     val unhandMe: ReportUnhandledExceptionHook = { t ->
         kermit.e(t, onCrash)
     }

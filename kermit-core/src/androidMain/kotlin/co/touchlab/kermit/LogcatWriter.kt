@@ -12,7 +12,7 @@ package co.touchlab.kermit
 
 import android.util.Log
 
-class LogcatLogger : Logger() {
+class LogcatWriter : LogWriter() {
 
     private fun getSeverity(severity: Severity) = when (severity) {
         Severity.Verbose -> 2

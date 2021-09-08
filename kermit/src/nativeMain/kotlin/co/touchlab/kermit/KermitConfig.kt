@@ -13,9 +13,9 @@ package co.touchlab.kermit
 import kotlin.native.concurrent.AtomicReference
 import kotlin.native.concurrent.freeze
 
-internal class AtomicMutableKermitConfig : MutableKermitConfig {
+internal class AtomicMutableLoggerConfig : MutableLoggerConfig {
     private val _minSeverity = AtomicReference(Severity.Debug)
-    private val _loggerList = AtomicReference<List<Logger>>(listOf(CommonLogger()))
+    private val _loggerList = AtomicReference<List<LogWriter>>(listOf(CommonWriter()))
     private val _defaultTag = AtomicReference<String>("Kermit")
 
     override var minSeverity: Severity
@@ -23,7 +23,7 @@ internal class AtomicMutableKermitConfig : MutableKermitConfig {
         set(value) {
             _minSeverity.value = value
         }
-    override var loggerList: List<Logger>
+    override var loggerList: List<LogWriter>
         get() = _loggerList.value
         set(value) {
             _loggerList.value = value.freeze()
@@ -36,8 +36,8 @@ internal class AtomicMutableKermitConfig : MutableKermitConfig {
 }
 
 internal val isStrictMemoryModel = Platform.memoryModel == MemoryModel.STRICT
-internal actual fun mutableKermitConfigInit(): MutableKermitConfig = if (isStrictMemoryModel) {
-    AtomicMutableKermitConfig()
+internal actual fun mutableKermitConfigInit(): MutableLoggerConfig = if (isStrictMemoryModel) {
+    AtomicMutableLoggerConfig()
 } else {
-    LockMutableKermitConfig()
+    LockMutableLoggerConfig()
 }
