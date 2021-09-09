@@ -49,7 +49,7 @@ kotlin {
     commonMain.dependencies {
         def crashKIOsVersion = project.property("CRASHKIOS_CORE_VERSION").toString()
 
-        implementation project(":kermit-core")
+        implementation project(":kermit")
 
         implementation "org.jetbrains.kotlin:kotlin-stdlib-common"
         implementation "co.touchlab:crashkios-core:$crashKIOsVersion"

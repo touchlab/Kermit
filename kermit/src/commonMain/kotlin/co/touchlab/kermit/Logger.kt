@@ -11,104 +11,104 @@
 package co.touchlab.kermit
 
 open class Logger(
-    val config:LoggerConfig,
+    val config: LoggerConfig,
     val tag: String = config.defaultTag
 ) {
     fun withTag(tag: String): Logger {
         return Logger(this.config, tag)
     }
 
-    /**
+    /*
      * We could reduce the methods on this object, but the native objc
      * export can't use default arguments, so we have a few extra methods defined.
      */
-    inline fun v(message: () -> String){
-        if(config.minSeverity <= Severity.Verbose)
+    inline fun v(message: () -> String) {
+        if (config.minSeverity <= Severity.Verbose)
             log(Severity.Verbose, tag, null, message())
     }
 
-    inline fun v(throwable: Throwable, message: () -> String){
-        if(config.minSeverity <= Severity.Verbose)
+    inline fun v(throwable: Throwable, message: () -> String) {
+        if (config.minSeverity <= Severity.Verbose)
             log(Severity.Verbose, tag, throwable, message())
     }
 
-    fun v(message: String, throwable: Throwable? = null){
-        if(config.minSeverity <= Severity.Verbose)
+    fun v(message: String, throwable: Throwable? = null) {
+        if (config.minSeverity <= Severity.Verbose)
             log(Severity.Verbose, tag, throwable, message)
     }
 
-    inline fun d(message: () -> String){
-        if(config.minSeverity <= Severity.Debug)
+    inline fun d(message: () -> String) {
+        if (config.minSeverity <= Severity.Debug)
             log(Severity.Debug, tag, null, message())
     }
 
     inline fun d(throwable: Throwable, message: () -> String) {
-        if(config.minSeverity <= Severity.Debug)
+        if (config.minSeverity <= Severity.Debug)
             log(Severity.Debug, tag, throwable, message())
     }
 
-    fun d(message: String, throwable: Throwable? = null){
-        if(config.minSeverity <= Severity.Debug)
+    fun d(message: String, throwable: Throwable? = null) {
+        if (config.minSeverity <= Severity.Debug)
             log(Severity.Debug, tag, throwable, message)
     }
 
-    inline fun i(message: () -> String){
-        if(config.minSeverity <= Severity.Info)
+    inline fun i(message: () -> String) {
+        if (config.minSeverity <= Severity.Info)
             log(Severity.Info, tag, null, message())
     }
 
     inline fun i(throwable: Throwable, message: () -> String) {
-        if(config.minSeverity <= Severity.Info)
+        if (config.minSeverity <= Severity.Info)
             log(Severity.Info, tag, throwable, message())
     }
 
-    fun i(message: String, throwable: Throwable? = null){
-        if(config.minSeverity <= Severity.Info)
+    fun i(message: String, throwable: Throwable? = null) {
+        if (config.minSeverity <= Severity.Info)
             log(Severity.Info, tag, throwable, message)
     }
 
-    inline fun w(message: () -> String){
-        if(config.minSeverity <= Severity.Warn)
+    inline fun w(message: () -> String) {
+        if (config.minSeverity <= Severity.Warn)
             log(Severity.Warn, tag, null, message())
     }
 
     inline fun w(throwable: Throwable, message: () -> String) {
-        if(config.minSeverity <= Severity.Warn)
+        if (config.minSeverity <= Severity.Warn)
             log(Severity.Warn, tag, throwable, message())
     }
 
-    fun w(message: String, throwable: Throwable? = null){
-        if(config.minSeverity <= Severity.Warn)
+    fun w(message: String, throwable: Throwable? = null) {
+        if (config.minSeverity <= Severity.Warn)
             log(Severity.Warn, tag, throwable, message)
     }
 
-    inline fun e(message: () -> String){
-        if(config.minSeverity <= Severity.Error)
+    inline fun e(message: () -> String) {
+        if (config.minSeverity <= Severity.Error)
             log(Severity.Error, tag, null, message())
     }
 
     inline fun e(throwable: Throwable, message: () -> String) {
-        if(config.minSeverity <= Severity.Error)
+        if (config.minSeverity <= Severity.Error)
             log(Severity.Error, tag, throwable, message())
     }
 
-    fun e(message: String, throwable: Throwable? = null){
-        if(config.minSeverity <= Severity.Error)
+    fun e(message: String, throwable: Throwable? = null) {
+        if (config.minSeverity <= Severity.Error)
             log(Severity.Error, tag, throwable, message)
     }
 
-    inline fun a(message: () -> String){
-        if(config.minSeverity <= Severity.Assert)
+    inline fun a(message: () -> String) {
+        if (config.minSeverity <= Severity.Assert)
             log(Severity.Assert, tag, null, message())
     }
 
     inline fun a(throwable: Throwable, message: () -> String) {
-        if(config.minSeverity <= Severity.Assert)
+        if (config.minSeverity <= Severity.Assert)
             log(Severity.Assert, tag, throwable, message())
     }
 
-    fun a(message: String, throwable: Throwable? = null){
-        if(config.minSeverity <= Severity.Assert)
+    fun a(message: String, throwable: Throwable? = null) {
+        if (config.minSeverity <= Severity.Assert)
             log(Severity.Assert, tag, throwable, message)
     }
 
@@ -141,5 +141,34 @@ open class Logger(
             }
         }
     }
+
+    companion object : Logger(LoggerGlobal.defaultConfig) {
+        fun setMinSeverity(severity: Severity) {
+            LoggerGlobal.defaultConfig.minSeverity = severity
+        }
+
+        fun setLogWriters(logWriters: List<LogWriter>) {
+            LoggerGlobal.defaultConfig.loggerList = logWriters
+        }
+
+        fun setLogWriters(vararg logWriter: LogWriter) {
+            LoggerGlobal.defaultConfig.loggerList = logWriter.toList()
+        }
+
+        fun addLogWriter(vararg logWriter: LogWriter) {
+            LoggerGlobal.defaultConfig.loggerList = logWriter.toList() + LoggerGlobal.defaultConfig.loggerList
+        }
+
+        fun setDefaultTag(tag: String) {
+            LoggerGlobal.defaultConfig.defaultTag = tag
+        }
+    }
 }
 
+object LoggerGlobal {
+    val defaultConfig = mutableKermitConfigInit()
+}
+
+internal val DEFAULT_MIN_SEVERITY = Severity.Verbose
+
+internal expect fun mutableKermitConfigInit(): MutableLoggerConfig

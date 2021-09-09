@@ -10,8 +10,17 @@
 
 package co.touchlab.kermit
 
-object KermitGlobal {
-    val defaultConfig = mutableKermitConfigInit()
+interface LoggerConfig {
+    val minSeverity:Severity
+    val loggerList: List<LogWriter>
+    val defaultTag: String
+    companion object {
+        val default = StaticConfig()
+    }
 }
 
-internal expect fun mutableKermitConfigInit(): MutableLoggerConfig
+data class StaticConfig(
+    override val minSeverity: Severity = DEFAULT_MIN_SEVERITY,
+    override val loggerList: List<LogWriter> = listOf(CommonWriter()),
+    override val defaultTag: String = "Kermit"
+): LoggerConfig

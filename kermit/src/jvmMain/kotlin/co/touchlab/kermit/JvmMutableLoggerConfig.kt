@@ -10,21 +10,24 @@
 
 package co.touchlab.kermit
 
-import co.touchlab.stately.concurrency.Lock
-import co.touchlab.stately.concurrency.withLock
+import kotlin.jvm.Volatile
 
-internal class LockMutableLoggerConfig : MutableLoggerConfig {
-    private var _minSeverity: Severity = Severity.Debug
+internal class JvmMutableLoggerConfig : MutableLoggerConfig {
+    @Volatile
+    private var _minSeverity: Severity = DEFAULT_MIN_SEVERITY
+
+    @Volatile
     private var _loggerList: List<LogWriter> = listOf(
         CommonWriter()
     )
+
+    @Volatile
     private var _defaultTag: String = "Kermit"
-    private val lock = Lock()
 
     override var minSeverity: Severity
         get() = _minSeverity
         set(value) {
-            lock.withLock {
+            synchronized(this) {
                 _minSeverity = value
             }
         }
@@ -32,7 +35,7 @@ internal class LockMutableLoggerConfig : MutableLoggerConfig {
     override var loggerList: List<LogWriter>
         get() = _loggerList
         set(value) {
-            lock.withLock {
+            synchronized(this) {
                 _loggerList = value
             }
         }
@@ -40,7 +43,7 @@ internal class LockMutableLoggerConfig : MutableLoggerConfig {
     override var defaultTag: String
         get() = _defaultTag
         set(value) {
-            lock.withLock {
+            synchronized(this) {
                 _defaultTag = value
             }
         }

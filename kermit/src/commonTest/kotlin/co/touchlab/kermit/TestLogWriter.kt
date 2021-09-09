@@ -12,8 +12,9 @@ package co.touchlab.kermit
 
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import co.touchlab.stately.collections.frozenLinkedList
 
-class TestLogger(val loggable:Severity = Severity.Verbose) : LogWriter() {
+class TestLogWriter(val loggable:Severity = Severity.Verbose) : LogWriter() {
     data class LogEntry(
         val severity: Severity,
         val message: String,
@@ -21,7 +22,7 @@ class TestLogger(val loggable:Severity = Severity.Verbose) : LogWriter() {
         val throwable: Throwable?
     )
 
-    val _logs = mutableListOf<LogEntry>()
+    val _logs = frozenLinkedList<LogEntry>()
     val logs: List<LogEntry>
         get() = _logs.toList()
 

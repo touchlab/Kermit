@@ -66,23 +66,36 @@ kotlin {
     val nativeMain by sourceSets.creating
     nativeMain.dependsOn(commonMain)
 
+    val darwinMain by sourceSets.creating
+    darwinMain.dependsOn(nativeMain)
+
+    androidMain.dependsOn(jvmMain)
+
     targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
         val mainSourceSet = compilations.getByName("main").defaultSourceSet
         val testSourceSet = compilations.getByName("test").defaultSourceSet
 
-        mainSourceSet.dependsOn(nativeMain)
+
+        val useDarwin = konanTarget.family.isAppleFamily
+
+        mainSourceSet.dependsOn(
+            if (useDarwin) {
+                darwinMain
+            } else {
+                nativeMain
+            }
+        )
         testSourceSet.dependsOn(commonTest)
     }
 
     commonMain.dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-        implementation(project(":kermit-core"))
-        implementation("co.touchlab:stately-concurrency:$STATELY_VERSION")
     }
 
     commonTest.dependencies {
         implementation("org.jetbrains.kotlin:kotlin-test-common")
         implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
+        implementation("co.touchlab:stately-collections:$STATELY_VERSION")
     }
 
     androidMain.dependencies {
@@ -111,10 +124,6 @@ kotlin {
 
     jsTest.dependencies {
         implementation("org.jetbrains.kotlin:kotlin-test-js")
-    }
-
-    nativeMain.dependencies {
-        implementation("co.touchlab:stately-common:$STATELY_VERSION")
     }
 }
 

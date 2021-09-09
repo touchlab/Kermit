@@ -10,17 +10,15 @@
 
 package co.touchlab.kermit
 
-interface LoggerConfig {
-    val minSeverity:Severity
-    val loggerList: List<LogWriter>
-    val defaultTag: String
-    companion object {
-        val default = StaticConfig()
+import kotlin.test.Test
+import kotlin.test.assertEquals
+
+class LoggerTest {
+    @Test
+    fun testGlobal(){
+        val logWriter = TestLogWriter()
+        Logger.setLogWriters(logWriter)
+        Logger.i { "Does global log?" }
+        assertEquals(logWriter.logs.first().message, "Does global log?")
     }
 }
-
-data class StaticConfig(
-    override val minSeverity: Severity = Severity.Debug,
-    override val loggerList: List<LogWriter> = listOf(CommonWriter()),
-    override val defaultTag: String = "Kermit"
-): LoggerConfig
