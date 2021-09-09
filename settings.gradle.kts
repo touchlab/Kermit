@@ -11,7 +11,6 @@
  * the License.
  */
 
-include(":kermit-core")
 include(":kermit")
 include(":kermit-crashlytics")
 include(":kermit-bugsnag")
