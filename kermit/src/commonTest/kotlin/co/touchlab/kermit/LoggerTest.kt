@@ -10,8 +10,15 @@
 
 package co.touchlab.kermit
 
-object KermitGlobal {
-    val defaultConfig = mutableKermitConfigInit()
-}
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
-internal expect fun mutableKermitConfigInit(): MutableLoggerConfig
+class LoggerTest {
+    @Test
+    fun testGlobal(){
+        val logWriter = TestLogWriter()
+        Logger.setLogWriters(logWriter)
+        Logger.i { "Does global log?" }
+        assertEquals(logWriter.logs.first().message, "Does global log?")
+    }
+}
