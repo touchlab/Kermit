@@ -66,6 +66,8 @@ kotlin {
     val nativeMain by sourceSets.creating
     nativeMain.dependsOn(commonMain)
 
+    androidMain.dependsOn(jvmMain)
+
     targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
         val mainSourceSet = compilations.getByName("main").defaultSourceSet
         val testSourceSet = compilations.getByName("test").defaultSourceSet
@@ -77,7 +79,6 @@ kotlin {
     commonMain.dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
         implementation(project(":kermit-core"))
-        implementation("co.touchlab:stately-concurrency:$STATELY_VERSION")
     }
 
     commonTest.dependencies {
@@ -111,10 +112,6 @@ kotlin {
 
     jsTest.dependencies {
         implementation("org.jetbrains.kotlin:kotlin-test-js")
-    }
-
-    nativeMain.dependencies {
-        implementation("co.touchlab:stately-common:$STATELY_VERSION")
     }
 }
 

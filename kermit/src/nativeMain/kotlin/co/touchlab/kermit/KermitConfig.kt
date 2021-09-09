@@ -15,7 +15,7 @@ import kotlin.native.concurrent.freeze
 
 internal class AtomicMutableLoggerConfig : MutableLoggerConfig {
     private val _minSeverity = AtomicReference(Severity.Debug)
-    private val _loggerList = AtomicReference<List<LogWriter>>(listOf(CommonWriter()))
+    private val _loggerList = AtomicReference<List<LogWriter>>(listOf(CommonWriter()).freeze())
     private val _defaultTag = AtomicReference<String>("Kermit")
 
     override var minSeverity: Severity
@@ -35,9 +35,4 @@ internal class AtomicMutableLoggerConfig : MutableLoggerConfig {
         }
 }
 
-internal val isStrictMemoryModel = Platform.memoryModel == MemoryModel.STRICT
-internal actual fun mutableKermitConfigInit(): MutableLoggerConfig = if (isStrictMemoryModel) {
-    AtomicMutableLoggerConfig()
-} else {
-    LockMutableLoggerConfig()
-}
+internal actual fun mutableKermitConfigInit(): MutableLoggerConfig = AtomicMutableLoggerConfig()
