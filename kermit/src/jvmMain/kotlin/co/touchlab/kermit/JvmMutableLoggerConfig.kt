@@ -12,12 +12,9 @@ package co.touchlab.kermit
 
 import kotlin.jvm.Volatile
 
-/**
- * JVM-focused config.
- */
 internal class JvmMutableLoggerConfig : MutableLoggerConfig {
     @Volatile
-    private var _minSeverity: Severity = Severity.Debug
+    private var _minSeverity: Severity = DEFAULT_MIN_SEVERITY
 
     @Volatile
     private var _loggerList: List<LogWriter> = listOf(

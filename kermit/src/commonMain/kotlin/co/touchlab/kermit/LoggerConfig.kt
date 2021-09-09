@@ -20,7 +20,7 @@ interface LoggerConfig {
 }
 
 data class StaticConfig(
-    override val minSeverity: Severity = Severity.Debug,
+    override val minSeverity: Severity = DEFAULT_MIN_SEVERITY,
     override val loggerList: List<LogWriter> = listOf(CommonWriter()),
     override val defaultTag: String = "Kermit"
 ): LoggerConfig

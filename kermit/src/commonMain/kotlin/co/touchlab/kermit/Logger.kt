@@ -18,7 +18,7 @@ open class Logger(
         return Logger(this.config, tag)
     }
 
-    /**
+    /*
      * We could reduce the methods on this object, but the native objc
      * export can't use default arguments, so we have a few extra methods defined.
      */
@@ -168,5 +168,7 @@ open class Logger(
 object LoggerGlobal {
     val defaultConfig = mutableKermitConfigInit()
 }
+
+internal val DEFAULT_MIN_SEVERITY = Severity.Verbose
 
 internal expect fun mutableKermitConfigInit(): MutableLoggerConfig

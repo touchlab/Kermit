@@ -11,7 +11,7 @@
 package co.touchlab.kermit
 
 internal class JsMutableLoggerConfig : MutableLoggerConfig {
-    override var minSeverity: Severity = Severity.Debug
+    override var minSeverity: Severity = DEFAULT_MIN_SEVERITY
     override var loggerList: List<LogWriter> = listOf(
         CommonWriter()
     )
