@@ -11,7 +11,7 @@
 package co.touchlab.kermit
 
 
-class ConsoleLogger : Logger() {
+class ConsoleWriter : LogWriter() {
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         console.log(severity.name, tag, message)
     }
@@ -31,7 +31,7 @@ class ConsoleLogger : Logger() {
     override fun e(message: String, tag: String, throwable: Throwable?){
         console.error(tag,message,throwable)
     }
-    override fun wtf(message: String, tag: String, throwable: Throwable?){
+    override fun a(message: String, tag: String, throwable: Throwable?){
         console.error(tag,message,throwable)
     }
 }

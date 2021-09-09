@@ -11,7 +11,7 @@
 package co.touchlab.kermit.bugsnag
 
 import co.touchlab.crashkios.transformException
-import co.touchlab.kermit.Logger
+import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Severity
 import kotlinx.cinterop.convert
 import platform.Foundation.NSException
@@ -22,7 +22,7 @@ actual class BugsnagLogger actual constructor(
     private val minSeverity: Severity,
     private val minCrashSeverity: Severity,
     private val printTag: Boolean
-) : Logger() {
+) : LogWriter() {
     init {
         assert(minSeverity <= minCrashSeverity) {
             "minSeverity ($minSeverity) cannot be greater than minCrashSeverity ($minCrashSeverity)"

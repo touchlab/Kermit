@@ -10,12 +10,17 @@
 
 package co.touchlab.kermit
 
-import kotlin.native.concurrent.freeze
-
-fun setupUnhandledExceptionHook(kermit: Logger, onCrash: () -> String) {
-    val unhandMe: ReportUnhandledExceptionHook = { t ->
-        kermit.e(t, onCrash)
+interface LoggerConfig {
+    val minSeverity:Severity
+    val loggerList: List<LogWriter>
+    val defaultTag: String
+    companion object {
+        val default = StaticConfig()
     }
-
-    setUnhandledExceptionHook(unhandMe.freeze())
 }
+
+data class StaticConfig(
+    override val minSeverity: Severity = DEFAULT_MIN_SEVERITY,
+    override val loggerList: List<LogWriter> = listOf(CommonWriter()),
+    override val defaultTag: String = "Kermit"
+): LoggerConfig

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.8" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="Kermit.kermit-core.commonMain" target="1.8" />
+      <module name="Kermit.kermit-core.commonTest" target="1.8" />
+      <module name="Kermit.kermit-core.jvmMain" target="1.8" />
+      <module name="Kermit.kermit-core.jvmTest" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
