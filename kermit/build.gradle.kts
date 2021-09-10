@@ -15,6 +15,7 @@ plugins {
 
 val GROUP: String by project
 val VERSION_NAME: String by project
+val STATELY_VERSION: String by project
 
 group = GROUP
 version = VERSION_NAME
@@ -43,6 +44,7 @@ kotlin {
     tvosArm64()
     tvosSimulatorArm64()
     tvosX64()
+
     mingwX64()
     mingwX86()
     linuxX64()
@@ -61,13 +63,18 @@ kotlin {
     val jsMain by sourceSets.getting
     val jsTest by sourceSets.getting
 
-    val darwinMain by sourceSets.creating
+    val nativeMain by sourceSets.creating
+    nativeMain.dependsOn(commonMain)
 
-    darwinMain.dependsOn(commonMain)
+    val darwinMain by sourceSets.creating
+    darwinMain.dependsOn(nativeMain)
+
+    androidMain.dependsOn(jvmMain)
 
     targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
         val mainSourceSet = compilations.getByName("main").defaultSourceSet
         val testSourceSet = compilations.getByName("test").defaultSourceSet
+
 
         val useDarwin = konanTarget.family.isAppleFamily
 
@@ -75,7 +82,7 @@ kotlin {
             if (useDarwin) {
                 darwinMain
             } else {
-                commonMain
+                nativeMain
             }
         )
         testSourceSet.dependsOn(commonTest)
@@ -88,6 +95,7 @@ kotlin {
     commonTest.dependencies {
         implementation("org.jetbrains.kotlin:kotlin-test-common")
         implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
+        implementation("co.touchlab:stately-collections:$STATELY_VERSION")
     }
 
     androidMain.dependencies {

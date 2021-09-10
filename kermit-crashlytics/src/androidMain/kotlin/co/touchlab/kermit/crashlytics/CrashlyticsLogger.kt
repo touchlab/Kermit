@@ -10,7 +10,7 @@
 
 package co.touchlab.kermit.crashlytics
 
-import co.touchlab.kermit.Logger
+import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Severity
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 
@@ -18,7 +18,7 @@ actual class CrashlyticsLogger actual constructor(
     private val minSeverity: Severity,
     private val minCrashSeverity: Severity,
     private val printTag: Boolean
-) : Logger() {
+) : LogWriter() {
     private val cl: FirebaseCrashlytics
         get() = FirebaseCrashlytics.getInstance()
 

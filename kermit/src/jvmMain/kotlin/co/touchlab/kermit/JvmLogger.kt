@@ -1,6 +1,6 @@
 package co.touchlab.kermit
 
-class SystemLogger : Logger(){
+class SystemWriter : LogWriter(){
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         val str = "$severity: ($tag) $message\")"

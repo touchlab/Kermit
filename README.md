@@ -39,7 +39,7 @@ kermit.i("CustomTag", optionalThrowable) { "Message" }
 * `i()` - Info
 * `w()` - Warn
 * `e()` - Error
-* `wtf()` - Assert
+* `a()` - Assert
 
 Log messages are passed as lambda function args which return a String. The message function will only be invoked if 
 there are loggers configured to log that particular message.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Touchlab
+ * Copyright (c) 2020 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -10,12 +10,16 @@
 
 package co.touchlab.kermit
 
-import kotlin.native.concurrent.freeze
+import platform.Foundation.NSLog
+import platform.Foundation.NSString
 
-fun setupUnhandledExceptionHook(kermit: Logger, onCrash: () -> String) {
-    val unhandMe: ReportUnhandledExceptionHook = { t ->
-        kermit.e(t, onCrash)
+@Suppress("CAST_NEVER_SUCCEEDS")
+class NSLogWriter : LogWriter() {
+    override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
+        NSLog("%s: (%@) %@", severity.name, tag as NSString, message as NSString)
+        throwable?.let {
+            val string = it.stackTraceToString()
+            NSLog("%@", string as NSString)
+        }
     }
-
-    setUnhandledExceptionHook(unhandMe.freeze())
 }
