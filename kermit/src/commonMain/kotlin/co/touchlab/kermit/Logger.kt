@@ -139,7 +139,7 @@ open class Logger(
         message: String,
         loggingCall: LogWriter.(message: String, tag: String, throwable: Throwable?) -> Unit
     ) {
-        config.loggerList.forEach {
+        config.logWriterList.forEach {
             if (it.isLoggable(severity)) {
                 it.loggingCall(message, tag, throwable)
             }
@@ -153,15 +153,15 @@ open class Logger(
         }
 
         fun setLogWriters(logWriters: List<LogWriter>) {
-            LoggerGlobal.defaultConfig.loggerList = logWriters
+            LoggerGlobal.defaultConfig.logWriterList = logWriters
         }
 
         fun setLogWriters(vararg logWriter: LogWriter) {
-            LoggerGlobal.defaultConfig.loggerList = logWriter.toList()
+            LoggerGlobal.defaultConfig.logWriterList = logWriter.toList()
         }
 
         fun addLogWriter(vararg logWriter: LogWriter) {
-            LoggerGlobal.defaultConfig.loggerList = logWriter.toList() + LoggerGlobal.defaultConfig.loggerList
+            LoggerGlobal.defaultConfig.logWriterList = logWriter.toList() + LoggerGlobal.defaultConfig.logWriterList
         }
 
         fun setDefaultTag(tag: String) {

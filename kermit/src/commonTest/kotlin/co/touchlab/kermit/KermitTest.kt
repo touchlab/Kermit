@@ -19,13 +19,13 @@ class KermitTest {
     private val testLogWriter = TestLogWriter(loggable = Severity.Verbose)
     private val testConfig = TestConfig(
         minSeverity = Severity.Verbose,
-        loggerList = listOf(testLogWriter),
+        logWriterList = listOf(testLogWriter),
         defaultTag = "Kermit"
     )
 
     @Test
     fun defaultConfigTest() {
-        val logger = Logger(LoggerConfig.default.copy(loggerList = listOf(testLogWriter)))
+        val logger = Logger(LoggerConfig.default.copy(logWriterList = listOf(testLogWriter)))
         logger.v { "Message" }
         testLogWriter.assertCount(1)
     }
@@ -59,7 +59,7 @@ class KermitTest {
     @Test
     fun testIsLoggable() {
         val errorLogWriter = TestLogWriter(Severity.Error)
-        val logger = Logger(testConfig.copy(loggerList = listOf(errorLogWriter)))
+        val logger = Logger(testConfig.copy(logWriterList = listOf(errorLogWriter)))
 
         logger.v { "verbose" }
         logger.d { "debug" }
@@ -78,8 +78,8 @@ class KermitTest {
     @Test
     fun testMultipleLoggers() {
         val secondaryLogWriter = TestLogWriter(loggable = Severity.Verbose)
-        val loggerList = listOf(testLogWriter, secondaryLogWriter)
-        val logger = Logger(testConfig.copy(loggerList = loggerList))
+        val logWriterList = listOf(testLogWriter, secondaryLogWriter)
+        val logger = Logger(testConfig.copy(logWriterList = logWriterList))
         logger.e { "Message" }
 
         testLogWriter.assertLast { message == "Message" }
