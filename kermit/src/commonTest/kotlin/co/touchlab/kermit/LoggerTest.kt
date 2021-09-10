@@ -16,7 +16,7 @@ import kotlin.test.assertEquals
 class LoggerTest {
     @Test
     fun testGlobal(){
-        val logWriter = TestLogWriter()
+        val logWriter = TestLogWriter(loggable = Severity.Verbose)
         Logger.setLogWriters(logWriter)
         Logger.i { "Does global log?" }
         assertEquals(logWriter.logs.first().message, "Does global log?")
