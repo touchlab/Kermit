@@ -69,22 +69,25 @@ kotlin {
     val darwinMain by sourceSets.creating
     darwinMain.dependsOn(nativeMain)
 
-    androidMain.dependsOn(jvmMain)
+    val linuxMain by sourceSets.creating
+    linuxMain.dependsOn(nativeMain)
+
+    val mingwMain by sourceSets.creating
+    mingwMain.dependsOn(nativeMain)
 
     targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
         val mainSourceSet = compilations.getByName("main").defaultSourceSet
         val testSourceSet = compilations.getByName("test").defaultSourceSet
 
-
-        val useDarwin = konanTarget.family.isAppleFamily
-
         mainSourceSet.dependsOn(
-            if (useDarwin) {
-                darwinMain
-            } else {
-                nativeMain
+            when {
+                konanTarget.family.isAppleFamily -> darwinMain
+                konanTarget.family == org.jetbrains.kotlin.konan.target.Family.LINUX -> linuxMain
+                konanTarget.family == org.jetbrains.kotlin.konan.target.Family.MINGW -> mingwMain
+                else -> nativeMain
             }
         )
+
         testSourceSet.dependsOn(commonTest)
     }
 
