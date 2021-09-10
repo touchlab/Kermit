@@ -13,8 +13,7 @@ By default `Kermit` provides default `LogWriter` for each platform
 
 These can be created and passed into the `Logger` object during initialization
 ```kotlin
-val list = listOf(LogcatWriter(), CommonWriter())
-val logger = Logger(LoggerConfig.default.copy(logWriterList = list))
+Logger.setLogWriters(listOf(LogcatWriter(), CommonWriter())
 ```
 ### Custom Logger
 
