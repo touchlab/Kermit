@@ -8,12 +8,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-package co.touchlab.kermit
+package co.touchlab.kermit.bugsnag
 
-internal class JsMutableLoggerConfig : MutableLoggerConfig {
-    override var minSeverity: Severity = DEFAULT_MIN_SEVERITY
-    override var logWriterList: List<LogWriter> = listOf(
-        CommonWriter()
-    )
-    override var defaultTag: String = "Kermit"
+@JsModule("@bugsnag/js")
+@JsNonModule
+external val Bugsnag: BugsnagStatic
+
+abstract external class BugsnagStatic {
+    fun start(apiKey: String)
+    fun leaveBreadcrumb(breadcrumb: String)
+    fun notify(throwable: Throwable)
 }

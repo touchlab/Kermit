@@ -171,7 +171,7 @@ val newTagLogger = logger.withTag("newTag")
 
 ## iOS
 
-Generally speaking, Kermit's SDK was designed to be called from Kotlin, but you can initialzie and call logging from any
+Generally speaking, Kermit's SDK was designed to be called from Kotlin, but you can initialize and call logging from any
 platform that has interop with Kotlin. For iOS and Swift-specific considerations, see [IOS_CONSIDERATIONS](docs/IOS_CONSIDERATIONS.md)
 
 ## Sample
