@@ -1,93 +1,113 @@
 /*
- * Copyright (c) 2020 Touchlab
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Copyright (c) 2021 Touchlab
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 package co.touchlab.kermit
 
 import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
-import kotlin.test.fail
 
 class KermitTest {
-//    private val testLogger = TestLogger()
-//
-//    @Test
-//    fun simpleLogTest() {
-//        val kimber = KermitInstance(testLogger)
-//        kimber.e { "Message" }
-//        testLogger.assertCount(1)
-//    }
-//
-//    @Test
-//    fun directLogTest() {
-//        val kimber = KermitInstance(testLogger)
-//        kimber.v("Message")
-//        kimber.d("Message")
-//        kimber.i("Message")
-//        kimber.w("Message")
-//        kimber.e("Message")
-//        kimber.a("Message")
-//        testLogger.assertCount(6)
-//    }
-//
-//    @Test
-//    fun testIsLoggable() {
-//        val errorLogger = TestLogger(Severity.Error)
-//        val kermit = KermitInstance(errorLogger)
-//
-//        kermit.v { "verbose" }
-//        kermit.d { "debug" }
-//        kermit.i { "info" }
-//        kermit.w { "warn" }
-//
-//        testLogger.assertCount(0)
-//        kermit.e { "error" }
-//        errorLogger.assertLast { message == "error" && severity == Severity.Error }
-//
-//        kermit.a { "assert" }
-//        errorLogger.assertCount(2)
-//        errorLogger.assertLast { message == "assert" && severity == Severity.Assert }
-//    }
-//
-//    @Test
-//    fun testMultipleLoggers() {
-//        val secondaryLogger = TestLogger()
-//        val kermit = KermitInstance(testLogger, secondaryLogger)
-//        kermit.e { "Message" }
-//
-//        testLogger.assertLast { message == "Message" }
-//        secondaryLogger.assertLast { message == "Message" }
-//    }
-//
-//    @Test
-//    fun testSingleLogger() {
-//        val secondaryLogger = TestLogger()
-//        val kermit = KermitInstance(testLogger)
-//        kermit.e { "Message" }
-//
-//        testLogger.assertCount(1)
-//        secondaryLogger.assertCount(0)
-//    }
-//
-//    @Test
-//    fun testingDefaultTag(){
-//        val kermit = KermitInstance(testLogger)
-//        val kermitWithTag = kermit.withTag("My Custom Tag")
-//
-//        kermit.d { "Log Without Tag (Original Kermit)" }
-//        testLogger.assertLast { tag == "Kermit" }
-//
-//        kermitWithTag.d { "Log Without Tag (Kermit With Tag)" }
-//        testLogger.assertLast { tag == "My Custom Tag" }
-//
-//        kermit.d { "Log Without Tag (Original Kermit)" }  // Ensuring first Kermit isn't affected by withTag
-//        testLogger.assertLast { tag == "Kermit" }
-//    }
+    private val testLogWriter = TestLogWriter(loggable = Severity.Verbose)
+    private val testConfig = TestConfig(
+        minSeverity = Severity.Verbose,
+        loggerList = listOf(testLogWriter),
+        defaultTag = "Kermit"
+    )
+
+    @Test
+    fun defaultConfigTest() {
+        val logger = Logger(LoggerConfig.default.copy(loggerList = listOf(testLogWriter)))
+        logger.v { "Message" }
+        testLogWriter.assertCount(1)
+    }
+
+    @Test
+    fun configSeverityCheckFailedTest() {
+        val logger = Logger(testConfig.copy(minSeverity = Severity.Error))
+        logger.v { "Message" }
+        testLogWriter.assertCount(0)
+    }
+
+    @Test
+    fun simpleLogTest() {
+        val logger = Logger(testConfig)
+        logger.e { "Message" }
+        testLogWriter.assertCount(1)
+    }
+
+    @Test
+    fun directLogTest() {
+        val logger = Logger(testConfig)
+        logger.v("Message")
+        logger.d("Message")
+        logger.i("Message")
+        logger.w("Message")
+        logger.e("Message")
+        logger.a("Message")
+        testLogWriter.assertCount(6)
+    }
+
+    @Test
+    fun testIsLoggable() {
+        val errorLogWriter = TestLogWriter(Severity.Error)
+        val logger = Logger(testConfig.copy(loggerList = listOf(errorLogWriter)))
+
+        logger.v { "verbose" }
+        logger.d { "debug" }
+        logger.i { "info" }
+        logger.w { "warn" }
+
+        errorLogWriter.assertCount(0)
+        logger.e { "error" }
+        errorLogWriter.assertLast { message == "error" && severity == Severity.Error }
+
+        logger.a { "assert" }
+        errorLogWriter.assertCount(2)
+        errorLogWriter.assertLast { message == "assert" && severity == Severity.Assert }
+    }
+
+    @Test
+    fun testMultipleLoggers() {
+        val secondaryLogWriter = TestLogWriter(loggable = Severity.Verbose)
+        val loggerList = listOf(testLogWriter, secondaryLogWriter)
+        val logger = Logger(testConfig.copy(loggerList = loggerList))
+        logger.e { "Message" }
+
+        testLogWriter.assertLast { message == "Message" }
+        secondaryLogWriter.assertLast { message == "Message" }
+    }
+
+    @Test
+    fun testSingleLogger() {
+        val secondaryLogWriter = TestLogWriter(loggable = Severity.Verbose)
+        val logger = Logger(testConfig)
+        logger.e { "Message" }
+
+        testLogWriter.assertCount(1)
+        secondaryLogWriter.assertCount(0)
+    }
+
+    @Test
+    fun testingDefaultTag() {
+        val logger = Logger(testConfig)
+        val loggerWithTag = logger.withTag("My Custom Tag")
+
+        logger.d { "Log Without Tag (Original Kermit)" }
+        testLogWriter.assertLast { tag == "Kermit" }
+
+        loggerWithTag.d { "Log Without Tag (Kermit With Tag)" }
+        testLogWriter.assertLast { tag == "My Custom Tag" }
+
+        logger.d { "Log Without Tag (Original Kermit)" }  // Ensuring first Kermit isn't affected by withTag
+        testLogWriter.assertLast { tag == "Kermit" }
+    }
 }

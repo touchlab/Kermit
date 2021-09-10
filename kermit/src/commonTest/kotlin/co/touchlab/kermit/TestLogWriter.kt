@@ -1,20 +1,29 @@
 /*
- * Copyright (c) 2020 Touchlab
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Copyright (c) 2021 Touchlab
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 package co.touchlab.kermit
 
+import co.touchlab.stately.collections.frozenLinkedList
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
-import co.touchlab.stately.collections.frozenLinkedList
 
-class TestLogWriter(val loggable:Severity = Severity.Verbose) : LogWriter() {
+data class TestConfig(
+    override val minSeverity: Severity,
+    override val loggerList: List<LogWriter>,
+    override val defaultTag: String
+) : LoggerConfig
+
+class TestLogWriter(private val loggable: Severity) : LogWriter() {
     data class LogEntry(
         val severity: Severity,
         val message: String,
@@ -22,7 +31,7 @@ class TestLogWriter(val loggable:Severity = Severity.Verbose) : LogWriter() {
         val throwable: Throwable?
     )
 
-    val _logs = frozenLinkedList<LogEntry>()
+    private val _logs = frozenLinkedList<LogEntry>()
     val logs: List<LogEntry>
         get() = _logs.toList()
 
