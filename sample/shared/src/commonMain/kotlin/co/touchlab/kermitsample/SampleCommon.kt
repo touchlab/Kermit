@@ -10,9 +10,9 @@
 
 package co.touchlab.kermitsample
 
-import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.Logger
 
-class SampleCommon(private val kermit: Kermit) {
+class SampleCommon(private val kermit: Logger) {
     private var count = 0
     fun onClick() {
         count++

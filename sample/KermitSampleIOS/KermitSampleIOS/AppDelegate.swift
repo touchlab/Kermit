@@ -17,12 +17,7 @@ import shared
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     static let useCrashlytics:Bool = true
-    
-    let kermit:Kermit = Kermit(loggerList: [
-                                OSLogLogger(),
-                                NSLogLogger()
-    ],
-                            defaultTag: "iOSTag")
+    let kermit:Logger = Logger(config: StaticConfig(minSeverity: .verbose, loggerList: [NSLogWriter(), OSLogWriter()], defaultTag: "iosTag" ), tag: "iosTag")
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

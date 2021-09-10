@@ -15,13 +15,14 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import co.touchlab.KermitSample.databinding.ActivityMainBinding
-import co.touchlab.kermit.Kermit
-import co.touchlab.kermit.LogcatLogger
+import co.touchlab.kermit.Logger
+import co.touchlab.kermit.LogcatWriter
+import co.touchlab.kermit.StaticConfig
 import co.touchlab.kermitsample.SampleCommon
 
 class MainActivity : AppCompatActivity() {
 
-    val kermit = Kermit(LogcatLogger())
+    val kermit = Logger(StaticConfig(loggerList = listOf(LogcatWriter())))
     val kermitWithTag = kermit.withTag("My Custom Tag")
 
     private val sample = SampleCommon(kermit)
