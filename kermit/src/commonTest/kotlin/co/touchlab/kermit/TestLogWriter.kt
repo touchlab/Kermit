@@ -19,7 +19,7 @@ import kotlin.test.assertTrue
 
 data class TestConfig(
     override val minSeverity: Severity,
-    override val loggerList: List<LogWriter>,
+    override val logWriterList: List<LogWriter>,
     override val defaultTag: String
 ) : LoggerConfig
 

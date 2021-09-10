@@ -23,7 +23,7 @@ internal class AtomicMutableLoggerConfig : MutableLoggerConfig {
         set(value) {
             _minSeverity.value = value
         }
-    override var loggerList: List<LogWriter>
+    override var logWriterList: List<LogWriter>
         get() = _loggerList.value
         set(value) {
             _loggerList.value = value.freeze()

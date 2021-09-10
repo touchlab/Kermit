@@ -15,6 +15,6 @@ package co.touchlab.kermit
 
 interface MutableLoggerConfig : LoggerConfig {
     override var minSeverity: Severity
-    override var loggerList: List<LogWriter>
+    override var logWriterList: List<LogWriter>
     override var defaultTag: String
 }
