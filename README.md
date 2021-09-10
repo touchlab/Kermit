@@ -64,7 +64,7 @@ A `LogWriter` actually sends log messages to different log outputs. You add `Log
 Kermit includes a `CommonWriter` and various platform-specific `LogWriter` instances. Through other modules, Kermit
 also allows logging crash info to Crashlytics and Bugsnag.
 
-You can create you own `LogWriter` instances of your own. See [LOG_WRITER](docs/LOG_WRITER.md)
+For more info on included `LogWriter` types, and to create your own, see [LOG_WRITER](docs/LOG_WRITER.md)
 
 ### Severity
 
@@ -78,7 +78,7 @@ You call logging methods on a `Logger` instance. There are methods for each seve
 `Throwable` instance, and a lambda which returns a string. The Logger will only evaluate
 the lambda if there is an enabled log writer that will write.
 
-In it's most basic form, logging looks like this:
+In its most basic form, logging looks like this:
 
 ```kotlin
 Logger.i { "Hello World" }
@@ -86,7 +86,7 @@ Logger.i { "Hello World" }
 
 If you are not familiar with the curly bracket syntax, that is a [trailing lambda with special syntax](https://kotlinlang.org/docs/lambdas.html#passing-trailing-lambdas).
 Again, that will not be evaluated if no log writer needs it. String creation can be relatively costly if you don't need it,
-so Kermit will avoid creating the string if it is not needed.
+so Kermit will avoid creating the string if it is not being logged.
 
 The call above is on the global `Logger` instance. You can make all of your logging on the global instance, but for custom 
 tags, and potentially for performance reasons, you can use local instances as well.
@@ -117,7 +117,7 @@ is platform-default. There is a convenience function for that.
 Logger.setLogWriters(platformLogWriter())
 ```
 
-For more fine-grained control, you can supply log writers individually.
+For more fine-grained control, you can supply log writers individually. See [LOG_WRITER](docs/LOG_WRITER.md).
 
 ### Default Tag
 
@@ -155,7 +155,7 @@ See [PERFORMANCE](docs/PERFORMANCE.md) for more info.
 
 ## Tags
 
-Each `Logger` instance has a tag assoticated with it, which is initialzied by the default tag if none is provided. Tags
+Each `Logger` instance has a tag associated with it, which is initialized by the default tag if none is provided. Tags
 help categorize log statements. This feature is largely derived from Android, but can be useful in other contexts.
 
 Tags are passed to `LogWriter` implementations which can decide how to use them (or ignore them). For example, `LogcatWriter` on Android
