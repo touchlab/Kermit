@@ -16,13 +16,8 @@ plugins {
     kotlin("multiplatform")
 }
 
-val GROUP: String by project
-val VERSION_NAME: String by project
 val CRASHKIOS_CORE_VERSION: String by project
 val CRASHLYTICS_ANDROID_VERSION: String by project
-
-group = GROUP
-version = VERSION_NAME
 
 apply(from = "../gradle/configure-crash-logger.gradle")
 

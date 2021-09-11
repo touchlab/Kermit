@@ -6,6 +6,10 @@
       <module name="Kermit.kermit-core.commonTest" target="1.8" />
       <module name="Kermit.kermit-core.jvmMain" target="1.8" />
       <module name="Kermit.kermit-core.jvmTest" target="1.8" />
+      <module name="Kermit.kermit.commonMain" target="1.8" />
+      <module name="Kermit.kermit.commonTest" target="1.8" />
+      <module name="Kermit.kermit.jvmMain" target="1.8" />
+      <module name="Kermit.kermit.jvmTest" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

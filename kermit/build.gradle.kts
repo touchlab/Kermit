@@ -16,12 +16,7 @@ plugins {
     kotlin("multiplatform")
 }
 
-val GROUP: String by project
-val VERSION_NAME: String by project
 val STATELY_VERSION: String by project
-
-group = GROUP
-version = VERSION_NAME
 
 kotlin {
     android {

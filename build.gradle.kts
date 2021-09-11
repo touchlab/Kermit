@@ -11,9 +11,22 @@
  * the License.
  */
 
+buildscript {
+    extra["kotlin_plugin_id"] = "com.bnorm.template.kotlin-ir-plugin"
+}
+
 plugins {
     kotlin("multiplatform") apply false
     id("com.android.library") version "4.1.2" apply false
+    id("com.github.gmazzo.buildconfig") version "2.1.0" apply false
+}
+
+val GROUP: String by project
+val VERSION_NAME: String by project
+
+allprojects {
+    group = GROUP
+    version = VERSION_NAME
 }
 
 allprojects {
