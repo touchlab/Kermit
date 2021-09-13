@@ -17,6 +17,7 @@ buildscript {
 
         classpath("com.android.tools.build:gradle:4.0.2")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30")
+        classpath("com.bugsnag:bugsnag-android-gradle-plugin:7.0.0")
     }
 }
 allprojects{

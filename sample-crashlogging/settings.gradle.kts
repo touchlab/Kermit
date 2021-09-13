@@ -8,15 +8,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-include(":app", /*":app-browser",*/ ":shared", ":kermit-crashlytics", ":kermit-core", "kermit-bugsnag")
+include(":app", /*":app-browser",*/ ":shared" /*,":kermit-crashlytics", ":kermit-core", "kermit-bugsnag"*/)
 //project(":kermit-crashlytics").projectDir = file("../kermit-crashlytics")
 //project(":kermit-bugsnag").projectDir = file("../kermit-bugsnag")
-project(":kermit-core").projectDir = file("../kermit-core")
+//project(":kermit-core").projectDir = file("../kermit-core")
 
-includeBuild(".."){
-    dependencySubstitution {
-        substitute(module("co.touchlab:kermit")).with(project(":kermit-core"))
-        substitute(module("co.touchlab:crashlytics")).with(project(":kermit-crashlytics"))
-        substitute(module("co.touchlab:bugsnag")).with(project(":kermit-bugsnag"))
-    }
-}
+//includeBuild(".."){
+//    dependencySubstitution {
+//        substitute(module("co.touchlab:kermit")).with(project(":kermit-core"))
+//        substitute(module("co.touchlab:crashlytics")).with(project(":kermit-crashlytics"))
+//        substitute(module("co.touchlab:bugsnag")).with(project(":kermit-bugsnag"))
+//    }
+//}

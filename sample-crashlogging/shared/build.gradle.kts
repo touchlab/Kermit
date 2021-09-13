@@ -17,6 +17,7 @@ plugins {
 }
 
 repositories {
+    mavenLocal()
     google()
     mavenCentral()
 }
@@ -35,10 +36,9 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-//                api("co.touchlab:kermit")
-                api(project(":kermit-core"))
-//                api("co.touchlab:crashlytics")
-//                api("co.touchlab:bugsnag")
+                api("co.touchlab:kermit:0.3.1-m1")
+                api("co.touchlab:kermit-bugsnag:0.3.1-m1")
+                api("co.touchlab:kermit-crashlytics:0.3.1-m1")
             }
         }
 
@@ -64,8 +64,8 @@ kotlin {
     targets.withType<KotlinNativeTarget> {
         binaries.withType<Framework> {
             export("co.touchlab:kermit")
-//            export("co.touchlab:crashlytics")
-//            export("co.touchlab:bugsnag")
+            export("co.touchlab:kermit-crashlytics")
+            export("co.touchlab:kermit-bugsnag")
             transitiveExport = true
         }
     }
@@ -73,7 +73,7 @@ kotlin {
 android {
     compileSdkVersion(29)
     defaultConfig {
-        minSdkVersion(15)
+        minSdkVersion(26)
         targetSdkVersion(29)
         versionCode = 1
         versionName = "1.0"

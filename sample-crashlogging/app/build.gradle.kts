@@ -11,6 +11,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("com.bugsnag.android.gradle")
 }
 
 repositories {
@@ -23,7 +24,7 @@ android {
     compileSdkVersion(29)
     defaultConfig {
         applicationId = "co.touchlab.kermitsamplecrashlog"
-        minSdkVersion(15)
+        minSdkVersion(26)
         targetSdkVersion(29)
         versionCode = 1
         versionName = "0.0.1"
