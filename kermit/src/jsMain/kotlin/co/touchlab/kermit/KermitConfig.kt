@@ -10,4 +10,15 @@
 
 package co.touchlab.kermit
 
+<<<<<<< HEAD:kermit/src/commonMain/kotlin/co/touchlab/kermit/CommonWriter.kt
+class CommonWriter : LogWriter() {
+    override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
+        println("$severity: ($tag) $message")
+        throwable?.let {
+            it.printStackTrace()
+        }
+    }
+}
+=======
 internal actual fun mutableKermitConfigInit(): MutableLoggerConfig = JsMutableLoggerConfig()
+>>>>>>> 86e02e7557f5a457675ffaaf7c466236d06e3959:kermit/src/jsMain/kotlin/co/touchlab/kermit/KermitConfig.kt

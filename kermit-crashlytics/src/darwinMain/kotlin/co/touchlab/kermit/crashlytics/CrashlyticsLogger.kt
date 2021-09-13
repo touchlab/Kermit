@@ -1,11 +1,14 @@
 /*
  * Copyright (c) 2021 Touchlab
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 package co.touchlab.kermit.crashlytics
@@ -20,8 +23,9 @@ actual class CrashlyticsLogger actual constructor(
     private val minCrashSeverity: Severity,
     private val printTag: Boolean
 ) : LogWriter() {
-    //This was originally stored as a field on class init, but if your client app hasn't initialized
-    //Crashlytics yet, you'll get a log warning, but otherwise the logger will silently fail.
+    // This was originally stored as a field on class init, but if your client app hasn't
+    // initialized Crashlytics yet, you'll get a log warning, but otherwise the logger will silently
+    // fail.
     private val cl: FIRCrashlytics
         get() = FIRCrashlytics.crashlytics()
 

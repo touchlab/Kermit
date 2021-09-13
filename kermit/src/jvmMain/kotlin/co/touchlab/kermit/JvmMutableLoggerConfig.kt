@@ -32,7 +32,7 @@ internal class JvmMutableLoggerConfig : MutableLoggerConfig {
             }
         }
 
-    override var loggerList: List<LogWriter>
+    override var logWriterList: List<LogWriter>
         get() = _loggerList
         set(value) {
             synchronized(this) {
