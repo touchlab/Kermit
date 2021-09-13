@@ -18,25 +18,26 @@ import Bugsnag
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    static let useCrashlytics:Bool = true
-    
-    let kermit:Kermit = Kermit(loggerList: [
-                                OSLogLogger(),
-                                NSLogLogger()
+    static let useCrashlytics:Bool = false
+
+//        Logger(loggerList: [
+//                                OSLogLogger(),
+//                                NSLogLogger()
 //                                AppDelegate.useCrashlytics ? CrashlyticsLogger(minSeverity: Severity.info, minCrashSeverity: Severity.warn, printTag: true) : BugsnagLogger(minSeverity: Severity.info, minCrashSeverity: Severity.warn, printTag: true)
-    ],
-                            defaultTag: "iOSTag")
+//    ],
+//                            defaultTag: "iOSTag")
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
         if(AppDelegate.useCrashlytics){
+            Logger.Companion.companion().setLogWriters(logWriters: [OSLogWriter(), NSLogWriter()])
             FirebaseApp.configure()
         }else{
-            Bugsnag.start()
+            Logger.Companion.companion().setLogWriters(logWriters: [OSLogWriter(), NSLogWriter(), BugsnagLogger(minSeverity: .verbose, minCrashSeverity: .warn, printTag: true)])
+            Bugsnag.start(withApiKey: "PUT YOUR API KEY HERE")
         }
         
-        CrashIntegrationKt.kermitCrashInit(kermit: kermit, useCrashlytics: AppDelegate.useCrashlytics)
+        CrashIntegrationKt.kermitCrashInit(kermit: Logger.Companion.companion(), useCrashlytics: AppDelegate.useCrashlytics)
         
         return true
     }
