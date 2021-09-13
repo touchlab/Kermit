@@ -21,11 +21,11 @@ repositories {
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdk = 29
     defaultConfig {
         applicationId = "co.touchlab.kermitsamplecrashlog"
-        minSdkVersion(26)
-        targetSdkVersion(29)
+        minSdk = 26
+        targetSdk = 29
         versionCode = 1
         versionName = "0.0.1"
     }
@@ -55,4 +55,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
     implementation("androidx.navigation:navigation-fragment-ktx:2.2.1")
     implementation("androidx.navigation:navigation-ui-ktx:2.2.1")
+
+    // Crash reporters
+    implementation("com.bugsnag:bugsnag-android:5.12.0")
 }
