@@ -15,7 +15,7 @@ import co.touchlab.kermit.LogcatWriter
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.bugsnag.BugsnagLogger
 import co.touchlab.kermit.crashlytics.CrashlyticsLogger
-import java.util.logging.Logger
+import com.bugsnag.android.Bugsnag
 
 const val useCrashlytics = true
 
@@ -28,7 +28,8 @@ class SampleApp : Application() {
             // TODO crashlytics start
             CrashlyticsLogger()
         } else {
-            // TODO Bugsnag start
+            // TODO add api key
+            Bugsnag.start(this)
             BugsnagLogger()
         }
         Logger.setLogWriters(LogcatWriter(), crashLogWriter)

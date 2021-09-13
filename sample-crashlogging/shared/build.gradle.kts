@@ -75,8 +75,6 @@ android {
     defaultConfig {
         minSdkVersion(26)
         targetSdkVersion(29)
-        versionCode = 1
-        versionName = "1.0"
     }
 
     val main by sourceSets.getting {
