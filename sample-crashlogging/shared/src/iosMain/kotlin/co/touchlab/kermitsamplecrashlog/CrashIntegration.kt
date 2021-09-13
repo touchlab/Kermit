@@ -10,13 +10,15 @@
 
 package co.touchlab.kermitsamplecrashlog
 
-import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.Logger
+import co.touchlab.kermit.bugsnag.setupBugsnagExceptionHook
+import co.touchlab.kermit.crashlytics.setupCrashlyticsExceptionHook
 
 
-fun kermitCrashInit(kermit: Kermit, useCrashlytics: Boolean) {
-//    if (useCrashlytics) {
-//        setupCrashlyticsExceptionHook(kermit)
-//    } else {
-//        setupBugsnagExceptionHook(kermit)
-//    }
+fun kermitCrashInit(kermit: Logger, useCrashlytics: Boolean) {
+    if (useCrashlytics) {
+        setupCrashlyticsExceptionHook(kermit)
+    } else {
+        setupBugsnagExceptionHook(kermit)
+    }
 }

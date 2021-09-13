@@ -12,12 +12,14 @@ package co.touchlab.kermitsamplecrashlog
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import co.touchlab.kermit.Kermit
-import co.touchlab.kermit.LogcatLogger
+import co.touchlab.kermit.Logger
+import co.touchlab.kermit.LogcatWriter
+import co.touchlab.kermit.LoggerConfig
+import co.touchlab.kermit.bugsnag.BugsnagLogger
 import co.touchlab.kermitsamplecrashlog.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    val kermit = Kermit(LogcatLogger())
+    val kermit = Logger(LoggerConfig.default.copy(loggerList = listOf(LogcatWriter(), BugsnagLogger())))
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
