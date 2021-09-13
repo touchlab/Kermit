@@ -63,9 +63,9 @@ kotlin {
 
     targets.withType<KotlinNativeTarget> {
         binaries.withType<Framework> {
-            export("co.touchlab:kermit")
-            export("co.touchlab:kermit-crashlytics")
-            export("co.touchlab:kermit-bugsnag")
+            export("co.touchlab:kermit:0.3.1-m1")
+//            export("co.touchlab:kermit-crashlytics")
+            export("co.touchlab:kermit-bugsnag:0.3.1-m1")
             transitiveExport = true
         }
     }
