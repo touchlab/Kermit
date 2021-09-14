@@ -1,54 +1,32 @@
+# LogWriter
 
+LogWriter takes care of deciding where to log the messages.
 
+### Prebuilt LogWriters
 
+By default `Kermit` provides default `LogWriter` for each platform
 
+- `CommonWriter` - Uses println to send logs in Kotlin
+- `LogcatWriter` - Uses LogCat to send logs in Android
+- `NSLogWriter` - Uses NSLog to send logs in iOS
+- `ConsoleWriter` - Uses console to log in JS
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-!!!!! EVERYTHING BELOW HERE WAS FROM THE ORIGINAL README !!!!!
-There may be some info here that would be useful to update, but otherwise delete it. It is likely outdated. The
-names are old, btw ("Logger" is now "LowWriter" and "Kermit" is now "Logger")
-
-
-### Loggers
-
-Implementations of the `Logger` interface are passed into Kermit and determine the destination(s) of each log statement.
-
-#### Prebuilt Loggers
-
-The Kermit library provides prebuilt loggers for common mobile cases:
-
-* `CommonLogger` - Uses println to send logs in Kotlin
-* `LogCatLogger` - Uses LogCat to send logs in Android
-* `NSLogLogger`  - Uses NSLog to send logs in iOS
-
-These can be created and passed into the Kermit object during initialization
+These can be created and passed into the `Logger` object during initialization
 ```kotlin
-val kermit = Kermit(LogcatLogger(),CommonLogger())
+Logger.setLogWriters(listOf(LogcatWriter(), CommonWriter())
 ```
+### Custom LogWriter
 
-#### Custom Logger
+If you want to have a custom implementation to send logs to your own server, or a 3rd party tool or simply because default implementation doesn't fit your need, then you would need to extend the `LogWriter` class and provide your own instance.
 
-If you want to customize what happens when a log is received, you can create a customized logger. For a simple `Logger` you only need to implement the `log` method, which handles all logs of every Severity.
+For a simple `LogWriter` you only need to implement the `log` method, which handles all logs of every Severity.
 
+Simple implementation would look like below,
 ```kotlin
-class NSLogLogger : Logger() {
+class YourCustomWriter : LogWriter() {
+
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        NSLog("%s: (%s) %s", severity.name, tag, message)
+        // Handle logging here
     }
 }
 ```
@@ -60,7 +38,26 @@ override fun v(message: String, tag: String, throwable: Throwable?) {
     Log.v(tag, message, throwable)
 }
 ```
-
 #### isLoggable
 
-Custom loggers may also override `fun isLoggable(severity: Severity): Boolean`. Kermit will check this value before logging to this Logger
+Custom loggers may also override `fun isLoggable(severity: Severity): Boolean`. Kermit will check this value before logging to this LogWriter.
+
+Simple example of that would be: If on your Android build, you have your own `LogWriter` and you want to handle logs only on `debug` build then you could do that using `isLoggable`
+
+```kotlin
+// Custom Implementation
+class YourCustomWriter(private val shouldLog: Boolean) : LogWriter() {
+
+    override fun isLoggable(severity: Severity): Boolean {
+        return shouldLog
+    }
+
+    override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
+        // Handle logging here
+    }
+}
+
+// Usage 
+val logWriter = YourCustomWriter(shouldLog = BuildConfig.DEBUG)
+val logger = Logger(LoggerConfig.default.copy(logWriterList = listOf(logWriter)))
+```
