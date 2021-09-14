@@ -2,12 +2,12 @@
 
 LogWriter takes care of deciding where to log the messages.
 
-### Prebuilt Loggers
+### Prebuilt LogWriters
 
 By default `Kermit` provides default `LogWriter` for each platform
 
-- `LogcatWriter` - Uses LogCat to send logs in Android
 - `CommonWriter` - Uses println to send logs in Kotlin
+- `LogcatWriter` - Uses LogCat to send logs in Android
 - `NSLogWriter` - Uses NSLog to send logs in iOS
 - `ConsoleWriter` - Uses console to log in JS
 
@@ -15,7 +15,7 @@ These can be created and passed into the `Logger` object during initialization
 ```kotlin
 Logger.setLogWriters(listOf(LogcatWriter(), CommonWriter())
 ```
-### Custom Logger
+### Custom LogWriter
 
 If you want to have a custom implementation to send logs to your own server, or a 3rd party tool or simply because default implementation doesn't fit your need, then you would need to extend the `LogWriter` class and provide your own instance.
 
