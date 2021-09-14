@@ -25,27 +25,23 @@ import org.junit.Test
 class IrPluginTest {
   @Test
   fun `IR plugin success`() {
-    val result = compile(
-      sourceFile = SourceFile.kotlin(
-        "main.kt", """
-class HiHo {
-  fun a(mess:String){
-    println(mess)
-  }
-  fun b(mess:String){
-    println(mess)
-  }
-}
+    val sourceFiles = listOf(SourceFile.kotlin(
+      "Logger.kt", LoggerString
+    ), SourceFile.kotlin(
+      "main.kt", """
+import co.touchlab.kermit.Logger
+class HeyoLogs:Logger()
 fun main() {
-  println(debug())
-
-  val hh = HiHo()
-  hh.b("ttttarst")
+  Logger.v { "arst" }
+  val l = Logger()
+  l.i { "ttt" }
+  val heyo = HeyoLogs()
+  heyo.w { "www" }
 }
-
-fun debug() = "Hello, World!"
-"""
-      )
+      """.trimIndent()
+    ))
+    val result = compile(
+      sourceFiles = sourceFiles
     )
     assertEquals(KotlinCompilation.ExitCode.OK, result.exitCode)
   }
