@@ -17,7 +17,7 @@ import co.touchlab.kermit.bugsnag.BugsnagLogger
 import co.touchlab.kermit.crashlytics.CrashlyticsLogger
 import com.bugsnag.android.Bugsnag
 
-const val useCrashlytics = false
+const val useCrashlytics = true
 
 class SampleApp : Application() {
 
