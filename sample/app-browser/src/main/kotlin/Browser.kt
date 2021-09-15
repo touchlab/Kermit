@@ -10,9 +10,9 @@
 
 package co.touchlab.kermitsample.js
 
-import co.touchlab.kermit.CommonLogger
-import co.touchlab.kermit.ConsoleLogger
-import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.Logger
+import co.touchlab.kermit.StaticConfig
+import co.touchlab.kermit.platformLogWriter
 import co.touchlab.kermitsample.SampleCommon
 import kotlinx.html.button
 import kotlinx.html.div
@@ -20,7 +20,7 @@ import kotlinx.html.dom.append
 import kotlinx.html.js.onClickFunction
 import kotlin.browser.document
 
-val kermit = Kermit(listOf(CommonLogger(), ConsoleLogger()), "jsTag")
+val kermit = Logger(StaticConfig(logWriterList = listOf(platformLogWriter())))
 val common = SampleCommon(kermit)
 
 fun main() {
