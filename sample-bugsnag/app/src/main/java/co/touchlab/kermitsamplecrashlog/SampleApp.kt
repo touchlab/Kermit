@@ -14,24 +14,15 @@ import android.app.Application
 import co.touchlab.kermit.LogcatWriter
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.bugsnag.BugsnagLogger
-import co.touchlab.kermit.crashlytics.CrashlyticsLogger
+import co.touchlab.kermit.platformLogWriter
 import com.bugsnag.android.Bugsnag
-import java.util.logging.Logger
-
-const val useCrashlytics = true
 
 class SampleApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
         // Setup crash crash reporting service and static log writer on app creation
-        val crashLogWriter = if (useCrashlytics) {
-            // TODO crashlytics start
-            CrashlyticsLogger()
-        } else {
-            Bugsnag.start(this, "ADD YOUR API KEY HERE")
-            BugsnagLogger()
-        }
-        Logger.setLogWriters(LogcatWriter(), crashLogWriter)
+        Bugsnag.start(this, "ADD YOUR API KEY HERE")
+        Logger.setLogWriters(platformLogWriter(), BugsnagLogger())
     }
 }

@@ -11,11 +11,13 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
+    id("com.android.library")
     kotlin("multiplatform")
     kotlin("native.cocoapods")
 }
 
 repositories {
+    mavenLocal()
     google()
     mavenCentral()
 }
@@ -28,6 +30,7 @@ kotlin {
     }else{
         iosX64("ios")
     }
+    android()
 
     sourceSets {
         commonMain {
@@ -46,6 +49,7 @@ kotlin {
             }
         }
 
+        val androidMain by sourceSets.getting {}
         val iosMain by sourceSets.getting {
         }
 
@@ -62,5 +66,16 @@ kotlin {
             export("co.touchlab:kermit-bugsnag:0.3.1-m1")
             transitiveExport = true
         }
+    }
+}
+android {
+    compileSdk =29
+    defaultConfig {
+        minSdk =26
+        targetSdk = 29
+    }
+
+    val main by sourceSets.getting {
+        manifest.srcFile("src/androidMain/AndroidManifest.xml")
     }
 }

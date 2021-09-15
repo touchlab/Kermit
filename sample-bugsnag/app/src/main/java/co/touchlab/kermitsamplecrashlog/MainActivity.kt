@@ -12,10 +12,8 @@ package co.touchlab.kermitsamplecrashlog
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import co.touchlab.kermit.Logger
-import co.touchlab.kermit.LogcatWriter
-import co.touchlab.kermit.LoggerConfig
-import co.touchlab.kermit.bugsnag.BugsnagLogger
+import co.touchlab.kermitsample.CrashBot
+import co.touchlab.kermitsample.SampleCommon
 import co.touchlab.kermitsamplecrashlog.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

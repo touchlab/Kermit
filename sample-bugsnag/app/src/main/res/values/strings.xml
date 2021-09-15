@@ -9,5 +9,5 @@
   -->
 
 <resources>
-    <string name="app_name">CrashLogging Sample</string>
+    <string name="app_name">Bugsnag Sample</string>
 </resources>
