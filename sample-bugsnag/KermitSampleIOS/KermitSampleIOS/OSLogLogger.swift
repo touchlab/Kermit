@@ -14,7 +14,7 @@ import UIKit
 import shared
 import os.log
 
-class OSLogLogger: shared.Logger {
+class OSLogWriter: shared.LogWriter {
     
     private func getSeverity(severity: Severity) -> OSLogType {
         switch severity {

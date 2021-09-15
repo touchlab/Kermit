@@ -14,14 +14,15 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-    
-    let kermit = (UIApplication.shared.delegate as! AppDelegate).kermit
+
+    //    let kermit = (UIApplication.shared.delegate as! AppDelegate).kermit
     let common: SampleCommon
     let cb = CrashBot()
 
     init() {
-        self.common = SampleCommon(kermit: kermit)
-        self.kermit.i(message: {"loaded"})
+        // TODO make this better
+        Logger.Companion.companion().i(message: {"Loaded"})
+        self.common = SampleCommon(kermit: Logger.Companion.companion())
     }
 
     var body: some View {
