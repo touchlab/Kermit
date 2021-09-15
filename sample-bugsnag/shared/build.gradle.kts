@@ -33,9 +33,9 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                api("co.touchlab:kermit")
-                api("co.touchlab:crashlytics")
-                api("co.touchlab:bugsnag")
+                api("co.touchlab:kermit:0.3.1-m1")
+//                api("co.touchlab:crashlytics")
+                api("co.touchlab:kermit-bugsnag:0.3.1-m1")
             }
         }
 
@@ -58,9 +58,8 @@ kotlin {
 
     targets.withType<KotlinNativeTarget> {
         binaries.withType<Framework> {
-            export("co.touchlab:kermit")
-            export("co.touchlab:crashlytics")
-            export("co.touchlab:bugsnag")
+            export("co.touchlab:kermit:0.3.1-m1")
+            export("co.touchlab:kermit-bugsnag:0.3.1-m1")
             transitiveExport = true
         }
     }
