@@ -11,8 +11,8 @@
 package co.touchlab.kermitsample
 
 import co.touchlab.kermit.Logger
-import co.touchlab.kermit.bugsnag.setupBugsnagExceptionHook
+import co.touchlab.kermit.crashlytics.setupCrashlyticsExceptionHook
 
 fun kermitCrashInit(kermit: Logger) {
-    setupBugsnagExceptionHook(kermit)
+    setupCrashlyticsExceptionHook(kermit)
 }

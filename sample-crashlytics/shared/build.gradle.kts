@@ -31,17 +31,13 @@ kotlin {
         iosX64("ios")
     }
     android()
-    js {
-        browser()
-    }
 
     sourceSets {
         commonMain {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 api("co.touchlab:kermit:0.3.1-m1")
-//                api("co.touchlab:crashlytics")
-                api("co.touchlab:kermit-bugsnag:0.3.1-m1")
+                api("co.touchlab:kermit-crashlytics:0.3.1-m1")
             }
         }
 
@@ -55,12 +51,6 @@ kotlin {
         val androidMain by sourceSets.getting {}
         val iosMain by sourceSets.getting {
         }
-        val jsMain by sourceSets.getting {
-            dependencies {
-                implementation(kotlin("stdlib-js"))
-            }
-        }
-
     }
 
     cocoapods {
@@ -71,7 +61,7 @@ kotlin {
     targets.withType<KotlinNativeTarget> {
         binaries.withType<Framework> {
             export("co.touchlab:kermit:0.3.1-m1")
-            export("co.touchlab:kermit-bugsnag:0.3.1-m1")
+            export("co.touchlab:kermit-crashlytics:0.3.1-m1")
             transitiveExport = true
         }
     }
