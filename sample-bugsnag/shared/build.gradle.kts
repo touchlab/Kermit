@@ -31,6 +31,9 @@ kotlin {
         iosX64("ios")
     }
     android()
+    js {
+        browser()
+    }
 
     sourceSets {
         commonMain {
@@ -51,6 +54,11 @@ kotlin {
 
         val androidMain by sourceSets.getting {}
         val iosMain by sourceSets.getting {
+        }
+        val jsMain by sourceSets.getting {
+            dependencies {
+                implementation(kotlin("stdlib-js"))
+            }
         }
 
     }
