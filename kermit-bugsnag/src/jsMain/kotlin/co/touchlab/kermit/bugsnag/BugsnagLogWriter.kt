@@ -12,15 +12,14 @@ package co.touchlab.kermit.bugsnag
 
 import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Severity
-import com.bugsnag.android.Bugsnag
 
-actual class BugsnagLogger actual constructor(
+actual class BugsnagLogWriter actual constructor(
     private val minSeverity: Severity,
     private val minCrashSeverity: Severity,
     private val printTag: Boolean
 ) : LogWriter() {
     init {
-        assert(minSeverity <= minCrashSeverity) {
+        require(minSeverity <= minCrashSeverity) {
             "minSeverity ($minSeverity) cannot be greater than minCrashSeverity ($minCrashSeverity)"
         }
     }
