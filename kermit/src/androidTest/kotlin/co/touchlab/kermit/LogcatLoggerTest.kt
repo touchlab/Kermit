@@ -30,7 +30,6 @@ class LogcatLoggerTest {
     private val testConfig = TestConfig(
         minSeverity = Severity.Verbose,
         logWriterList = listOf(LogcatWriter()),
-        defaultTag = DEFAULT_TAG
     )
 
     @Test

@@ -20,7 +20,6 @@ class KermitTest {
     private val testConfig = TestConfig(
         minSeverity = Severity.Verbose,
         logWriterList = listOf(testLogWriter),
-        defaultTag = "Kermit"
     )
 
     @Test

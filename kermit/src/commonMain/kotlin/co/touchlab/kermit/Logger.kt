@@ -149,7 +149,7 @@ open class Logger(
     @Suppress("unused")
     companion object : Logger(LoggerGlobal.defaultConfig) {
         override val tag:String
-            get() = LoggerGlobal.globalTag
+            get() = defaultTag
 
         fun setMinSeverity(severity: Severity) {
             LoggerGlobal.defaultConfig.minSeverity = severity
@@ -168,16 +168,17 @@ open class Logger(
         }
 
         fun setTag(tag: String) {
-            LoggerGlobal.globalTag = tag
+            defaultTag = tag
         }
     }
 }
 
 internal object LoggerGlobal {
     val defaultConfig = mutableKermitConfigInit()
-    var globalTag = "Kermit"
 }
 
 internal val DEFAULT_MIN_SEVERITY = Severity.Verbose
+internal const val DEFAULT_TAG = "Kermit"
 
 internal expect fun mutableKermitConfigInit(): MutableLoggerConfig
+internal expect var defaultTag: String

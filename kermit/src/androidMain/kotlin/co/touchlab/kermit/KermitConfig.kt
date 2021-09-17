@@ -10,4 +10,16 @@
 
 package co.touchlab.kermit
 
+private val lock = Any()
+
+private var internalDefaultTag: String = DEFAULT_TAG
+
 internal actual fun mutableKermitConfigInit(): MutableLoggerConfig = JvmMutableLoggerConfig()
+
+internal actual var defaultTag: String
+    get() = internalDefaultTag
+    set(value) {
+        synchronized(lock) {
+            internalDefaultTag = value
+        }
+    }

@@ -10,8 +10,6 @@
 
 package co.touchlab.kermit
 
-import kotlin.jvm.Volatile
-
 internal class JvmMutableLoggerConfig : MutableLoggerConfig {
     @Volatile
     private var _minSeverity: Severity = DEFAULT_MIN_SEVERITY
@@ -20,9 +18,6 @@ internal class JvmMutableLoggerConfig : MutableLoggerConfig {
     private var _loggerList: List<LogWriter> = listOf(
         CommonWriter()
     )
-
-    @Volatile
-    private var _defaultTag: String = "Kermit"
 
     override var minSeverity: Severity
         get() = _minSeverity
@@ -37,14 +32,6 @@ internal class JvmMutableLoggerConfig : MutableLoggerConfig {
         set(value) {
             synchronized(this) {
                 _loggerList = value
-            }
-        }
-
-    override var defaultTag: String
-        get() = _defaultTag
-        set(value) {
-            synchronized(this) {
-                _defaultTag = value
             }
         }
 }

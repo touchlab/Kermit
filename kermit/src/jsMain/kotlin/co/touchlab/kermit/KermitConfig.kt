@@ -11,3 +11,5 @@
 package co.touchlab.kermit
 
 internal actual fun mutableKermitConfigInit(): MutableLoggerConfig = JsMutableLoggerConfig()
+
+internal actual var defaultTag: String = DEFAULT_TAG
