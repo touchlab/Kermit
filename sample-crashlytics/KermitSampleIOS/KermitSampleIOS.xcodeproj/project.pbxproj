@@ -49,6 +49,7 @@
 		95FA420C243F7F7100A0104F = {
 			isa = PBXGroup;
 			children = (
+				7687C96926F4F42B00ED8911 /* GoogleService-Info.plist */,
 				95FA4217243F7F7100A0104F /* KermitSampleIOS */,
 				95FA4216243F7F7100A0104F /* Products */,
 				D3ABC2FB8D4B42332FF4D4AC /* Pods */,
@@ -118,6 +119,7 @@
 				95FA4213243F7F7100A0104F /* Resources */,
 				21DCBE6746EC92862A3F67BF /* [CP] Embed Pods Frameworks */,
 				63BA05D226AE16E3000498DF /* ShellScript */,
+				7687C96B26F4F69100ED8911 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -232,6 +234,25 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		7687C96B26F4F69100ED8911 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

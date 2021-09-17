@@ -12,7 +12,7 @@
 
 import UIKit
 import shared
-import Bugsnag
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         Logger.Companion.companion().setLogWriters(logWriters: [OSLogWriter(), NSLogWriter(), CrashlyticsLogger(minSeverity: .verbose, minCrashSeverity: .warn, printTag: true)])
-        Bugsnag.start(withApiKey: "PUT YOUR API KEY HERE")
+        FirebaseApp.configure()
 
         CrashIntegrationKt.kermitCrashInit(kermit: Logger.Companion.companion())
 
