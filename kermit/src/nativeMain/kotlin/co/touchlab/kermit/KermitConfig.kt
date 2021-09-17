@@ -16,7 +16,6 @@ import kotlin.native.concurrent.freeze
 internal class AtomicMutableLoggerConfig : MutableLoggerConfig {
     private val _minSeverity = AtomicReference(DEFAULT_MIN_SEVERITY)
     private val _loggerList = AtomicReference<List<LogWriter>>(listOf(CommonWriter()).freeze())
-    private val _defaultTag = AtomicReference<String>("Kermit")
 
     override var minSeverity: Severity
         get() = _minSeverity.value
@@ -27,11 +26,6 @@ internal class AtomicMutableLoggerConfig : MutableLoggerConfig {
         get() = _loggerList.value
         set(value) {
             _loggerList.value = value.freeze()
-        }
-    override var defaultTag: String
-        get() = _defaultTag.value
-        set(value) {
-            _defaultTag.value = value
         }
 }
 

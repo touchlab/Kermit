@@ -16,7 +16,7 @@ package co.touchlab.kermit
 @Suppress("unused")
 open class Logger(
     val config: LoggerConfig,
-    val tag: String = config.defaultTag
+    open val tag: String = "Kermit"
 ) {
     fun withTag(tag: String): Logger {
         return Logger(this.config, tag)
@@ -148,6 +148,9 @@ open class Logger(
 
     @Suppress("unused")
     companion object : Logger(LoggerGlobal.defaultConfig) {
+        override val tag:String
+            get() = LoggerGlobal.globalTag
+
         fun setMinSeverity(severity: Severity) {
             LoggerGlobal.defaultConfig.minSeverity = severity
         }
@@ -164,14 +167,15 @@ open class Logger(
             LoggerGlobal.defaultConfig.logWriterList = logWriter.toList() + LoggerGlobal.defaultConfig.logWriterList
         }
 
-        fun setDefaultTag(tag: String) {
-            LoggerGlobal.defaultConfig.defaultTag = tag
+        fun setTag(tag: String) {
+            LoggerGlobal.globalTag = tag
         }
     }
 }
 
-object LoggerGlobal {
+internal object LoggerGlobal {
     val defaultConfig = mutableKermitConfigInit()
+    var globalTag = "Kermit"
 }
 
 internal val DEFAULT_MIN_SEVERITY = Severity.Verbose

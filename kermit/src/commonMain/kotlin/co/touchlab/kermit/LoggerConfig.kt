@@ -16,7 +16,6 @@ package co.touchlab.kermit
 interface LoggerConfig {
     val minSeverity:Severity
     val logWriterList: List<LogWriter>
-    val defaultTag: String
     companion object {
         @Suppress("unused")
         val default = StaticConfig()
@@ -26,5 +25,4 @@ interface LoggerConfig {
 data class StaticConfig(
     override val minSeverity: Severity = DEFAULT_MIN_SEVERITY,
     override val logWriterList: List<LogWriter> = listOf(CommonWriter()),
-    override val defaultTag: String = "Kermit"
 ): LoggerConfig
