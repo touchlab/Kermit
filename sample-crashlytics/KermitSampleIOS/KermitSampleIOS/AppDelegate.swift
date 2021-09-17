@@ -17,11 +17,9 @@ import Firebase
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    static let useCrashlytics: Bool = true
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        Logger.Companion.companion().setLogWriters(logWriters: [OSLogWriter(), NSLogWriter(), CrashlyticsLogger(minSeverity: .verbose, minCrashSeverity: .warn, printTag: true)])
+        Logger.Companion.companion().setLogWriters(logWriters: [OSLogWriter(), NSLogWriter(), CrashlyticsLogWriter(minSeverity: .verbose, minCrashSeverity: .warn, printTag: true)])
         FirebaseApp.configure()
 
         CrashIntegrationKt.kermitCrashInit(kermit: Logger.Companion.companion())

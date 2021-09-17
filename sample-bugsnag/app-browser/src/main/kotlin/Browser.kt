@@ -11,9 +11,8 @@
 package co.touchlab.kermitsample.js
 
 import co.touchlab.kermit.Logger
-import co.touchlab.kermit.StaticConfig
 import co.touchlab.kermit.bugsnag.Bugsnag
-import co.touchlab.kermit.bugsnag.BugsnagLogger
+import co.touchlab.kermit.bugsnag.BugsnagLogWriter
 import co.touchlab.kermit.platformLogWriter
 import co.touchlab.kermitsample.CrashBot
 import co.touchlab.kermitsample.SampleCommon
@@ -25,7 +24,7 @@ import kotlin.browser.document
 
 
 fun main() {
-    Logger.setLogWriters(platformLogWriter(), BugsnagLogger())
+    Logger.setLogWriters(platformLogWriter(), BugsnagLogWriter())
     Bugsnag.start("54981b8cd6a9df574efddcef0cd0f7cc")
     val common = SampleCommon()
     val crashBot = CrashBot()
