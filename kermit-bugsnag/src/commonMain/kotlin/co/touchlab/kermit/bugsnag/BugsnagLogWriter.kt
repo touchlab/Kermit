@@ -13,7 +13,7 @@ package co.touchlab.kermit.bugsnag
 import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Severity
 
-expect class BugsnagLogger(
+expect class BugsnagLogWriter(
     minSeverity: Severity = Severity.Info,
     minCrashSeverity: Severity = Severity.Warn,
     printTag: Boolean = true
