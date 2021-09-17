@@ -47,8 +47,9 @@ class DebugLogTransformer(
             val stripCall = functionName == "v" || functionName == "d" || functionName == "i" || functionName == "w" || functionName == "e" || functionName == "a"
             if(stripCall){
                 println("Strip Call ${className}, $functionName")
-                irCall()
-                return DeclarationIrBuilder(pluginContext, null).irBlockBody
+
+
+//                return DeclarationIrBuilder(pluginContext, null).irBlockBody
             }
         }
 

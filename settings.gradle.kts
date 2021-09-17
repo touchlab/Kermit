@@ -11,9 +11,9 @@
  * the License.
  */
 
-//include(":kermit")
-//include(":kermit-crashlytics")
-//include(":kermit-bugsnag")
+include(":kermit")
+include(":kermit-crashlytics")
+include(":kermit-bugsnag")
 
 include(":kermit-stripper-plugin-gradle")
 include(":kermit-stripper-plugin")
