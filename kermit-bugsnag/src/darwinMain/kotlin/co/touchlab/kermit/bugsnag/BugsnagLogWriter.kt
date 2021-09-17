@@ -18,7 +18,7 @@ import platform.Foundation.NSException
 import platform.Foundation.NSNumber
 import platform.darwin.NSInteger
 
-actual class BugsnagLogger actual constructor(
+actual class BugsnagLogWriter actual constructor(
     private val minSeverity: Severity,
     private val minCrashSeverity: Severity,
     private val printTag: Boolean
