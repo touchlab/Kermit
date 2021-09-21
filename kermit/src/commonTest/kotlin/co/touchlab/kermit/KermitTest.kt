@@ -279,18 +279,19 @@ class KermitTest {
             logWriterList = listOf(testLogWriter)
         }
         val logger = Logger(config)
-        val operations = 100
+        val operations = 200
         val ops = ThreadOperations {}
         val threads = 10
-        repeat(operations) { count ->
+        repeat(operations / 2) {
             ops.exe {
-                if (count % 2 == 0) {
-                    config.minSeverity = Severity.Info
-                } else {
-                    config.minSeverity = Severity.Debug
-                }
+                config.minSeverity = Severity.Info
                 logger.d { "message" }
-
+            }
+        }
+        repeat(operations / 2) {
+            ops.exe {
+                config.minSeverity = Severity.Debug
+                logger.d { "message" }
             }
         }
         ops.run(threads)
