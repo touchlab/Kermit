@@ -13,6 +13,7 @@
 
 package co.touchlab.kermit
 
+import co.touchlab.testhelp.concurrency.ThreadOperations
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -249,5 +250,25 @@ class KermitTest {
         assertEquals(2, testLogWriter.logs.size)
         testLogWriter.assertLast { message == "Message4" }
         testLogWriter.assertLast { tag == "New Tag" }
+    }
+
+    @Test
+    fun testMutableLoggerConfig_MultiThreading() {
+        val testLogWriter = getTestLogWriter()
+        val config = object : MutableLoggerConfig {
+            override var minSeverity: Severity = Severity.Verbose
+            override var logWriterList: List<LogWriter> = listOf(testLogWriter)
+        }
+        val logger = Logger(config)
+        val operations = 100
+        val ops = ThreadOperations {}
+        val threads = 10
+        (0 until operations).forEach { _ ->
+            ops.exe {
+                logger.d { "message" }
+            }
+        }
+        ops.run(threads)
+        assertEquals(operations, testLogWriter.logs.size)
     }
 }
