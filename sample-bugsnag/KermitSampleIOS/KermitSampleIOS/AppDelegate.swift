@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  KermitSampleIOS
 
-// Copyright (c) 2020 Touchlab
+// Copyright (c) 2021 Touchlab
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
@@ -17,15 +17,12 @@ import Bugsnag
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    static let useCrashlytics: Bool = true
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        Logger.Companion.companion().setLogWriters(logWriters: [OSLogWriter(), NSLogWriter(), BugsnagLogWriter(minSeverity: .verbose, minCrashSeverity: .warn, printTag: true)])
+        Logger.companion.setLogWriters(logWriters: [OSLogWriter(), NSLogWriter(), BugsnagLogWriter(minSeverity: .verbose, minCrashSeverity: .warn, printTag: true)])
         Bugsnag.start(withApiKey: "PUT YOUR API KEY HERE")
-
-        CrashIntegrationKt.kermitCrashInit(kermit: Logger.Companion.companion())
-
+        BugsnagHelperKt.setupBugsnagExceptionHook(kermit: Logger.companion)
         return true
     }
 

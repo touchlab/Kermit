@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Touchlab
+ * Copyright (c) 2021 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -25,7 +25,7 @@ import kotlin.browser.document
 
 fun main() {
     Logger.setLogWriters(platformLogWriter(), BugsnagLogWriter())
-    Bugsnag.start("54981b8cd6a9df574efddcef0cd0f7cc")
+    Bugsnag.start("YOUR API KEY HERE")
     val common = SampleCommon()
     val crashBot = CrashBot()
     Logger.i { "loaded" }

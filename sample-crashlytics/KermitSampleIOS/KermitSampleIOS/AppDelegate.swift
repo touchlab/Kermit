@@ -19,10 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        Logger.Companion.companion().setLogWriters(logWriters: [OSLogWriter(), NSLogWriter(), CrashlyticsLogWriter(minSeverity: .verbose, minCrashSeverity: .warn, printTag: true)])
+        Logger.companion.setLogWriters(logWriters: [OSLogWriter(), NSLogWriter(), CrashlyticsLogWriter(minSeverity: .verbose, minCrashSeverity: .warn, printTag: true)])
         FirebaseApp.configure()
 
-        CrashIntegrationKt.kermitCrashInit(kermit: Logger.Companion.companion())
+        CrashlyticsHelperKt.setupCrashlyticsExceptionHook(kermit: Logger.companion)
 
         return true
     }

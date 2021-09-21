@@ -12,8 +12,6 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("com.bugsnag.android.gradle")
-//    id("com.google.gms.google-services")
-//    id("com.google.firebase.crashlytics")
 }
 
 repositories {
@@ -60,8 +58,4 @@ dependencies {
 
     // Crash reporters
     implementation("com.bugsnag:bugsnag-android:5.12.0")
-//    implementation (platform("com.google.firebase:firebase-bom:28.4.0"))
-//    implementation("com.google.firebase:firebase-analytics-ktx")
-//    implementation("com.google.firebase:firebase-crashlytics-ktx")
-//    implementation("com.google.firebase:firebase-analytics-ktx")
 }

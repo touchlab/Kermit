@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Touchlab
+ * Copyright (c) 2021 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -40,7 +40,6 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 api("co.touchlab:kermit:0.3.1-m1")
-//                api("co.touchlab:crashlytics")
                 api("co.touchlab:kermit-bugsnag:0.3.1-m1")
             }
         }
