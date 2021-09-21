@@ -16,6 +16,7 @@ package co.touchlab.kermit
 import kotlin.test.Test
 
 class KermitTest {
+
     private val testLogWriter = TestLogWriter(loggable = Severity.Verbose)
     private val testConfig = TestConfig(
         minSeverity = Severity.Verbose,

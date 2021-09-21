@@ -177,6 +177,7 @@ internal object LoggerGlobal {
     val defaultConfig = mutableKermitConfigInit()
 }
 
+@kotlin.native.concurrent.SharedImmutable
 internal val DEFAULT_MIN_SEVERITY = Severity.Verbose
 internal const val DEFAULT_TAG = "Kermit"
 

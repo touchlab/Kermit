@@ -32,6 +32,7 @@ internal class AtomicMutableLoggerConfig : MutableLoggerConfig {
 }
 
 internal actual fun mutableKermitConfigInit(): MutableLoggerConfig = AtomicMutableLoggerConfig()
+
 internal actual var defaultTag: String
     get() = internalDefaultTag.value
     set(value) {
