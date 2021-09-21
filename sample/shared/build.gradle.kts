@@ -101,12 +101,10 @@ kotlin {
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdk = 29
     defaultConfig {
-        minSdkVersion(15)
-        targetSdkVersion(29)
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = 26
+        targetSdk = 29
     }
 
     val main by sourceSets.getting {
