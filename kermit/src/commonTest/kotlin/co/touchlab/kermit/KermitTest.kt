@@ -275,9 +275,8 @@ class KermitTest {
     @Test
     fun testMutableLoggerConfig_MultiThreading_Severity() {
         val testLogWriter = TestLogWriter(loggable = Severity.Verbose)
-        val config = object : MutableLoggerConfig {
-            override var minSeverity: Severity = Severity.Debug
-            override var logWriterList: List<LogWriter> = listOf(testLogWriter)
+        val config = mutableKermitConfigInit().apply {
+            logWriterList = listOf(testLogWriter)
         }
         val logger = Logger(config)
         val operations = 100
