@@ -263,7 +263,7 @@ class KermitTest {
         val operations = 100
         val ops = ThreadOperations {}
         val threads = 10
-        (0 until operations).forEach { _ ->
+        repeat(operations) {
             ops.exe {
                 logger.d { "message" }
             }
