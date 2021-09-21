@@ -56,31 +56,31 @@ class KermitTest {
     @Test
     fun testGlobal_MultipleLoggers_SetVararg() {
         val firstLogWriter = getTestLogWriter()
-        val secondaryLogWriter = TestLogWriter(loggable = Severity.Verbose)
+        val secondLogWriter = TestLogWriter(loggable = Severity.Verbose)
         Logger.apply {
             setMinSeverity(Severity.Verbose)
-            setLogWriters(firstLogWriter, secondaryLogWriter)
+            setLogWriters(firstLogWriter, secondLogWriter)
         }
         Logger.e { "Message" }
         assertTrue(firstLogWriter.logs.size == 1)
-        assertTrue(secondaryLogWriter.logs.size == 1)
+        assertTrue(secondLogWriter.logs.size == 1)
         firstLogWriter.assertLast { message == "Message" }
-        secondaryLogWriter.assertLast { message == "Message" }
+        secondLogWriter.assertLast { message == "Message" }
     }
 
     @Test
     fun testGlobal_MultipleLoggers_SetList() {
         val firstLogWriter = getTestLogWriter()
-        val secondaryLogWriter = TestLogWriter(loggable = Severity.Verbose)
+        val secondLogWriter = TestLogWriter(loggable = Severity.Verbose)
         Logger.apply {
             setMinSeverity(Severity.Verbose)
-            setLogWriters(listOf(firstLogWriter, secondaryLogWriter))
+            setLogWriters(listOf(firstLogWriter, secondLogWriter))
         }
         Logger.e { "Message" }
         assertTrue(firstLogWriter.logs.size == 1)
-        assertTrue(secondaryLogWriter.logs.size == 1)
+        assertTrue(secondLogWriter.logs.size == 1)
         firstLogWriter.assertLast { message == "Message" }
-        secondaryLogWriter.assertLast { message == "Message" }
+        secondLogWriter.assertLast { message == "Message" }
     }
 
     @Test
@@ -94,14 +94,14 @@ class KermitTest {
         assertTrue(firstLogWriter.logs.size == 1)
         firstLogWriter.assertLast { message == "Message" }
 
-        val secondaryLogWriter = TestLogWriter(loggable = Severity.Verbose)
-        Logger.addLogWriter(secondaryLogWriter)
+        val secondLogWriter = TestLogWriter(loggable = Severity.Verbose)
+        Logger.addLogWriter(secondLogWriter)
         Logger.e { "Message again" }
         assertTrue(firstLogWriter.logs.size == 2)
         firstLogWriter.assertLast { message == "Message again" }
 
-        assertTrue(secondaryLogWriter.logs.size == 1)
-        secondaryLogWriter.assertLast { message == "Message again" }
+        assertTrue(secondLogWriter.logs.size == 1)
+        secondLogWriter.assertLast { message == "Message again" }
     }
 
     @Test
@@ -181,27 +181,27 @@ class KermitTest {
 
     @Test
     fun testMultipleLoggers() {
-        val testLogWriter = getTestLogWriter()
-        val testConfig = getTestConfig(listOf(testLogWriter))
-        val secondaryLogWriter = TestLogWriter(loggable = Severity.Verbose)
-        val logWriterList = listOf(testLogWriter, secondaryLogWriter)
+        val firstLogWriter = getTestLogWriter()
+        val testConfig = getTestConfig(listOf(firstLogWriter))
+        val secondLogWriter = TestLogWriter(loggable = Severity.Verbose)
+        val logWriterList = listOf(firstLogWriter, secondLogWriter)
         val logger = Logger(testConfig.copy(logWriterList = logWriterList))
         logger.e { "Message" }
 
-        testLogWriter.assertLast { message == "Message" }
-        secondaryLogWriter.assertLast { message == "Message" }
+        firstLogWriter.assertLast { message == "Message" }
+        secondLogWriter.assertLast { message == "Message" }
     }
 
     @Test
     fun testSingleLogger() {
-        val testLogWriter = getTestLogWriter()
-        val testConfig = getTestConfig(listOf(testLogWriter))
-        val secondaryLogWriter = TestLogWriter(loggable = Severity.Verbose)
+        val firstLogWriter = getTestLogWriter()
+        val testConfig = getTestConfig(listOf(firstLogWriter))
+        val secondLogWriter = TestLogWriter(loggable = Severity.Verbose)
         val logger = Logger(testConfig)
         logger.e { "Message" }
 
-        testLogWriter.assertCount(1)
-        secondaryLogWriter.assertCount(0)
+        firstLogWriter.assertCount(1)
+        secondLogWriter.assertCount(0)
     }
 
     @Test
@@ -270,5 +270,31 @@ class KermitTest {
         }
         ops.run(threads)
         assertEquals(operations, testLogWriter.logs.size)
+    }
+
+    @Test
+    fun testMutableLoggerConfig_MultiThreading_Severity() {
+        val testLogWriter = TestLogWriter(loggable = Severity.Verbose)
+        val config = object : MutableLoggerConfig {
+            override var minSeverity: Severity = Severity.Debug
+            override var logWriterList: List<LogWriter> = listOf(testLogWriter)
+        }
+        val logger = Logger(config)
+        val operations = 100
+        val ops = ThreadOperations {}
+        val threads = 10
+        repeat(operations) { count ->
+            ops.exe {
+                if (count % 2 == 0) {
+                    config.minSeverity = Severity.Info
+                } else {
+                    config.minSeverity = Severity.Debug
+                }
+                logger.d { "message" }
+
+            }
+        }
+        ops.run(threads)
+        assertEquals(operations / 2, testLogWriter.logs.size)
     }
 }
