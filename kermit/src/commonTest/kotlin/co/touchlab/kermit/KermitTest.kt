@@ -14,6 +14,7 @@
 package co.touchlab.kermit
 
 import co.touchlab.testhelp.concurrency.ThreadOperations
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -272,29 +273,29 @@ class KermitTest {
         assertEquals(operations, testLogWriter.logs.size)
     }
 
-//    @Test
-//    fun testMutableLoggerConfig_MultiThreading_Severity() {
-//        val testLogWriter = TestLogWriter(loggable = Severity.Verbose)
-//        val config = mutableKermitConfigInit().apply {
-//            logWriterList = listOf(testLogWriter)
-//        }
-//        val logger = Logger(config)
-//        val operations = 200
-//        val ops = ThreadOperations {}
-//        val threads = 10
-//        repeat(operations / 2) {
-//            ops.exe {
-//                config.minSeverity = Severity.Info
-//                logger.d { "message" }
-//            }
-//        }
-//        repeat(operations / 2) {
-//            ops.exe {
-//                config.minSeverity = Severity.Debug
-//                logger.d { "message" }
-//            }
-//        }
-//        ops.run(threads)
-//        assertEquals(operations / 2, testLogWriter.logs.size)
-//    }
+    @Ignore
+    fun testMutableLoggerConfig_MultiThreading_Severity() {
+        val testLogWriter = TestLogWriter(loggable = Severity.Verbose)
+        val config = mutableKermitConfigInit().apply {
+            logWriterList = listOf(testLogWriter)
+        }
+        val logger = Logger(config)
+        val operations = 200
+        val ops = ThreadOperations {}
+        val threads = 10
+        repeat(operations / 2) {
+            ops.exe {
+                config.minSeverity = Severity.Info
+                logger.d { "message" }
+            }
+        }
+        repeat(operations / 2) {
+            ops.exe {
+                config.minSeverity = Severity.Debug
+                logger.d { "message" }
+            }
+        }
+        ops.run(threads)
+        assertEquals(operations / 2, testLogWriter.logs.size)
+    }
 }
