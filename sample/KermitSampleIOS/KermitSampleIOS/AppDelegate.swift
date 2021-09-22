@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     static let useCrashlytics:Bool = true
 
-    let kermit:Logger = Logger(config: StaticConfig(minSeverity: .verbose, logWriterList: [NSLogWriter(), OSLogWriter()], defaultTag: "iosTag" ), tag: "iosTag")
+    let kermit:Logger = Logger(config: StaticConfig(minSeverity: .verbose, logWriterList: [NSLogWriter(), OSLogWriter()]), tag: "iosTag")
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

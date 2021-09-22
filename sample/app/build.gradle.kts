@@ -20,10 +20,10 @@ repositories {
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdk = 29
     defaultConfig {
-        minSdkVersion(15)
-        targetSdkVersion(29)
+        minSdk = 26
+        targetSdk = 29
         versionCode = 1
         versionName = "0.0.1"
     }
