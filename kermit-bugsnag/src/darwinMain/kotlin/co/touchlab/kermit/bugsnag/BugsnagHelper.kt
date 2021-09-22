@@ -14,8 +14,8 @@ import co.touchlab.kermit.Logger
 import co.touchlab.kermit.setupUnhandledExceptionHook
 import platform.Foundation.NSUUID
 
-fun setupBugsnagExceptionHook(kermit: Logger) {
-    setupUnhandledExceptionHook(kermit) {
+fun setupBugsnagExceptionHook(logger: Logger) {
+    setupUnhandledExceptionHook(logger) {
         val crashId = generateCrashId()
         Bugsnag.leaveBreadcrumbWithMessage(
             "Kotlin Crash",

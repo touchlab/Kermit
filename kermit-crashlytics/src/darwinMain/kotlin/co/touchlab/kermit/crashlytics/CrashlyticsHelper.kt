@@ -14,8 +14,8 @@ import co.touchlab.kermit.Logger
 import co.touchlab.kermit.setupUnhandledExceptionHook
 import platform.Foundation.NSUUID
 
-fun setupCrashlyticsExceptionHook(kermit: Logger) {
-    setupUnhandledExceptionHook(kermit) {
+fun setupCrashlyticsExceptionHook(logger: Logger) {
+    setupUnhandledExceptionHook(logger) {
         val crashId = generateCrashId()
         val cr = FIRCrashlytics.crashlytics()
         cr.setCustomValue(crashId, ktCrashKey)
