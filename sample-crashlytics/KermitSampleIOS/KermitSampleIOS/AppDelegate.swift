@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Logger.companion.setLogWriters(logWriters: [OSLogWriter(), NSLogWriter(), CrashlyticsLogWriter(minSeverity: .verbose, minCrashSeverity: .warn, printTag: true)])
         FirebaseApp.configure()
 
-        CrashlyticsHelperKt.setupCrashlyticsExceptionHook(kermit: Logger.companion)
+        CrashlyticsHelperKt.setupCrashlyticsExceptionHook(logger: Logger.companion)
 
         return true
     }

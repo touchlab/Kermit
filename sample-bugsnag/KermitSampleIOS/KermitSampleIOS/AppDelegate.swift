@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         Logger.companion.setLogWriters(logWriters: [OSLogWriter(), NSLogWriter(), BugsnagLogWriter(minSeverity: .verbose, minCrashSeverity: .warn, printTag: true)])
         Bugsnag.start(withApiKey: "PUT YOUR API KEY HERE")
-        BugsnagHelperKt.setupBugsnagExceptionHook(kermit: Logger.companion)
+        BugsnagHelperKt.setupBugsnagExceptionHook(logger: Logger.companion)
         return true
     }
 
