@@ -15,5 +15,4 @@ internal class JsMutableLoggerConfig : MutableLoggerConfig {
     override var logWriterList: List<LogWriter> = listOf(
         CommonWriter()
     )
-    override var defaultTag: String = "Kermit"
 }

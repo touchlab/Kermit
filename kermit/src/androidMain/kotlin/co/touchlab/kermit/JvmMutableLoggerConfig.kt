@@ -21,9 +21,6 @@ internal class JvmMutableLoggerConfig : MutableLoggerConfig {
         CommonWriter()
     )
 
-    @Volatile
-    private var _defaultTag: String = "Kermit"
-
     override var minSeverity: Severity
         get() = _minSeverity
         set(value) {
@@ -37,14 +34,6 @@ internal class JvmMutableLoggerConfig : MutableLoggerConfig {
         set(value) {
             synchronized(this) {
                 _loggerList = value
-            }
-        }
-
-    override var defaultTag: String
-        get() = _defaultTag
-        set(value) {
-            synchronized(this) {
-                _defaultTag = value
             }
         }
 }
