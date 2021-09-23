@@ -16,8 +16,6 @@ import shared
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    static let useCrashlytics:Bool = true
-
     let kermit:Logger = Logger(config: StaticConfig(minSeverity: .verbose, logWriterList: [NSLogWriter(), OSLogWriter()]), tag: "iosTag")
 
 
