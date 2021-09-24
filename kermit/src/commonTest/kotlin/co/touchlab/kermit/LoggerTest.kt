@@ -19,7 +19,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class KermitTest {
+class LoggerTest {
 
     private fun getTestConfig(logWriterList: List<LogWriter>): TestConfig {
         return TestConfig(
@@ -276,9 +276,7 @@ class KermitTest {
     @Ignore
     fun testMutableLoggerConfig_MultiThreading_Severity() {
         val testLogWriter = TestLogWriter(loggable = Severity.Verbose)
-        val config = mutableKermitConfigInit().apply {
-            logWriterList = listOf(testLogWriter)
-        }
+        val config = mutableKermitConfigInit(listOf(testLogWriter))
         val logger = Logger(config)
         val operations = 200
         val ops = ThreadOperations {}
