@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-package com.bnorm.template
+package co.touchlab.kermit.stripper
 
-import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
 
-open class TemplateGradleExtension(objects: ObjectFactory) {
-  val stringProperty: Property<String> = objects.property(String::class.java)
-  val fileProperty: RegularFileProperty = objects.fileProperty()
+open class KermitStripperGradleExtension(objects: ObjectFactory) {
+  val stripBelowProperty: Property<StripSeverity> = objects.property(StripSeverity::class.java)
 }

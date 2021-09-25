@@ -14,21 +14,17 @@
  * limitations under the License.
  */
 
-package com.bnorm.template
+package co.touchlab.kermit.stripper
 
-import com.bnorm.template.kg.DebugLogTransformer
-import com.bnorm.template.kg.PlayVisitor
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
 import org.jetbrains.kotlin.ir.util.dump
-import org.jetbrains.kotlin.ir.visitors.acceptChildrenVoid
 
-class TemplateIrGenerationExtension(
+class KermitStripperIrGenerationExtension(
   private val messageCollector: MessageCollector,
-  private val string: String,
-  private val file: String
+  private val stripBelow: String
 ) : IrGenerationExtension {
   override fun generate(moduleFragment: IrModuleFragment, pluginContext: IrPluginContext) {
 //    messageCollector.report(CompilerMessageSeverity.INFO, "Argument 'string' = $string")
@@ -37,7 +33,7 @@ class TemplateIrGenerationExtension(
 //    moduleFragment.acceptChildrenVoid(PlayVisitor(pluginContext))
     dumpModule(moduleFragment)
 
-    moduleFragment.transform(DebugLogTransformer(pluginContext), null)
+    moduleFragment.transform(KermitStripperTransformer(pluginContext, stripBelow), null)
 
     dumpModule(moduleFragment)
   }

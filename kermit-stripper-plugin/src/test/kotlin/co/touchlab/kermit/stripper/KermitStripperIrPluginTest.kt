@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.bnorm.template
+package co.touchlab.kermit.stripper
 
 import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
@@ -30,13 +30,15 @@ class IrPluginTest {
     ), SourceFile.kotlin(
       "main.kt", """
 import co.touchlab.kermit.Logger
-class HeyoLogs:Logger()
+//class HeyoLogs:Logger()
 fun main() {
+  println("abc")
   Logger.v { "arst" }
-  val l = Logger()
-  l.i { "ttt" }
-  val heyo = HeyoLogs()
-  heyo.w { "www" }
+  println("def")
+//  val l = Logger()
+//  l.i { "ttt" }
+//  val heyo = HeyoLogs()
+//  heyo.w { "www" }
 }
       """.trimIndent()
     ))
@@ -49,7 +51,7 @@ fun main() {
 
 fun compile(
   sourceFiles: List<SourceFile>,
-  plugin: ComponentRegistrar = TemplateComponentRegistrar(),
+  plugin: ComponentRegistrar = KermitStripperComponentRegistrar(),
 ): KotlinCompilation.Result {
   return KotlinCompilation().apply {
     sources = sourceFiles
@@ -61,7 +63,7 @@ fun compile(
 
 fun compile(
   sourceFile: SourceFile,
-  plugin: ComponentRegistrar = TemplateComponentRegistrar(),
+  plugin: ComponentRegistrar = KermitStripperComponentRegistrar(),
 ): KotlinCompilation.Result {
   return compile(listOf(sourceFile), plugin)
 }

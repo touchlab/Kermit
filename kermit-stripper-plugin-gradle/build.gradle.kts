@@ -10,7 +10,7 @@ dependencies {
 
 buildConfig {
   val project = project(":kermit-stripper-plugin")
-  packageName(project.group.toString())
+  packageName("co.touchlab.kermit.stripper")
   buildConfigField("String", "KOTLIN_PLUGIN_ID", "\"${rootProject.extra["kotlin_plugin_id"]}\"")
   buildConfigField("String", "KOTLIN_PLUGIN_GROUP", "\"${project.group}\"")
   buildConfigField("String", "KOTLIN_PLUGIN_NAME", "\"${project.name}\"")
@@ -21,9 +21,9 @@ gradlePlugin {
   plugins {
     create("kotlinIrPluginTemplate") {
       id = rootProject.extra["kotlin_plugin_id"] as String
-      displayName = "Kotlin Ir Plugin Template"
-      description = "Kotlin Ir Plugin Template"
-      implementationClass = "com.bnorm.template.TemplateGradlePlugin"
+      displayName = "Kermit Log Stripper"
+      description = "Kermit Log Stripper"
+      implementationClass = "co.touchlab.kermit.stripper.KermitStripperGradlePlugin"
     }
   }
 }

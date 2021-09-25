@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.bnorm.template
+package co.touchlab.kermit.stripper
 
 import co.touchlab.BuildConfig
 import com.google.auto.service.AutoService
@@ -25,28 +25,19 @@ import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.config.CompilerConfigurationKey
 
 @AutoService(CommandLineProcessor::class)
-class TemplateCommandLineProcessor : CommandLineProcessor {
+class KermitStripperCommandLineProcessor : CommandLineProcessor {
   companion object {
-    private const val OPTION_STRING = "string"
-    private const val OPTION_FILE = "file"
-
-    val ARG_STRING = CompilerConfigurationKey<String>(OPTION_STRING)
-    val ARG_FILE = CompilerConfigurationKey<String>(OPTION_FILE)
+    private const val OPTION_STRIP_BELOW = "stripBelow"
+    val ARG_STRIP_BELOW = CompilerConfigurationKey<String>(OPTION_STRIP_BELOW)
   }
 
   override val pluginId: String = BuildConfig.KOTLIN_PLUGIN_ID
 
   override val pluginOptions: Collection<CliOption> = listOf(
     CliOption(
-      optionName = OPTION_STRING,
-      valueDescription = "string",
-      description = "sample string argument",
-      required = false,
-    ),
-    CliOption(
-      optionName = OPTION_FILE,
-      valueDescription = "file",
-      description = "sample file argument",
+      optionName = OPTION_STRIP_BELOW,
+      valueDescription = "strip log calls below severity",
+      description = "strip severity",
       required = false,
     ),
   )
@@ -57,8 +48,7 @@ class TemplateCommandLineProcessor : CommandLineProcessor {
     configuration: CompilerConfiguration
   ) {
     return when (option.optionName) {
-      OPTION_STRING -> configuration.put(ARG_STRING, value)
-      OPTION_FILE -> configuration.put(ARG_FILE, value)
+      OPTION_STRIP_BELOW -> configuration.put(ARG_STRIP_BELOW, value)
       else -> throw IllegalArgumentException("Unexpected config option ${option.optionName}")
     }
   }
