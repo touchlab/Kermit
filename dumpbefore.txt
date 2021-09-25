@@ -1,0 +1,400 @@
+MODULE_FRAGMENT name:<main>
+  FILE fqName:co.touchlab.kermit fileName:/var/folders/_0/np8nwzyj0c3gpll6ctrkhyp80000gn/T/Kotlin-Compilation9074936057816824350/sources/Logger.kt
+    CLASS CLASS name:Logger modality:OPEN visibility:public superTypes:[kotlin.Any]
+      $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:co.touchlab.kermit.Logger
+      CONSTRUCTOR visibility:public <> () returnType:co.touchlab.kermit.Logger [primary]
+        BLOCK_BODY
+          DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in kotlin.Any'
+          INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Logger modality:OPEN visibility:public superTypes:[kotlin.Any]'
+      FUN name:v visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline]
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.Function0<kotlin.String>
+        BLOCK_BODY
+      FUN name:v visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, throwable:kotlin.Throwable, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline]
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:throwable index:0 type:kotlin.Throwable
+        VALUE_PARAMETER name:message index:1 type:kotlin.Function0<kotlin.String>
+        BLOCK_BODY
+      FUN name:v visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.String, throwable:kotlin.Throwable?) returnType:kotlin.Unit
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.String
+        VALUE_PARAMETER name:throwable index:1 type:kotlin.Throwable?
+          EXPRESSION_BODY
+            CONST Null type=kotlin.Nothing? value=null
+        BLOCK_BODY
+      FUN name:d visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline]
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.Function0<kotlin.String>
+        BLOCK_BODY
+      FUN name:d visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, throwable:kotlin.Throwable, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline]
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:throwable index:0 type:kotlin.Throwable
+        VALUE_PARAMETER name:message index:1 type:kotlin.Function0<kotlin.String>
+        BLOCK_BODY
+      FUN name:d visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.String, throwable:kotlin.Throwable?) returnType:kotlin.Unit
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.String
+        VALUE_PARAMETER name:throwable index:1 type:kotlin.Throwable?
+          EXPRESSION_BODY
+            CONST Null type=kotlin.Nothing? value=null
+        BLOCK_BODY
+      FUN name:i visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline]
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.Function0<kotlin.String>
+        BLOCK_BODY
+      FUN name:i visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, throwable:kotlin.Throwable, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline]
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:throwable index:0 type:kotlin.Throwable
+        VALUE_PARAMETER name:message index:1 type:kotlin.Function0<kotlin.String>
+        BLOCK_BODY
+      FUN name:i visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.String, throwable:kotlin.Throwable?) returnType:kotlin.Unit
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.String
+        VALUE_PARAMETER name:throwable index:1 type:kotlin.Throwable?
+          EXPRESSION_BODY
+            CONST Null type=kotlin.Nothing? value=null
+        BLOCK_BODY
+      FUN name:w visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline]
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.Function0<kotlin.String>
+        BLOCK_BODY
+      FUN name:w visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, throwable:kotlin.Throwable, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline]
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:throwable index:0 type:kotlin.Throwable
+        VALUE_PARAMETER name:message index:1 type:kotlin.Function0<kotlin.String>
+        BLOCK_BODY
+      FUN name:w visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.String, throwable:kotlin.Throwable?) returnType:kotlin.Unit
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.String
+        VALUE_PARAMETER name:throwable index:1 type:kotlin.Throwable?
+          EXPRESSION_BODY
+            CONST Null type=kotlin.Nothing? value=null
+        BLOCK_BODY
+      FUN name:e visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline]
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.Function0<kotlin.String>
+        BLOCK_BODY
+      FUN name:e visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, throwable:kotlin.Throwable, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline]
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:throwable index:0 type:kotlin.Throwable
+        VALUE_PARAMETER name:message index:1 type:kotlin.Function0<kotlin.String>
+        BLOCK_BODY
+      FUN name:e visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.String, throwable:kotlin.Throwable?) returnType:kotlin.Unit
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.String
+        VALUE_PARAMETER name:throwable index:1 type:kotlin.Throwable?
+          EXPRESSION_BODY
+            CONST Null type=kotlin.Nothing? value=null
+        BLOCK_BODY
+      FUN name:a visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline]
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.Function0<kotlin.String>
+        BLOCK_BODY
+      FUN name:a visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, throwable:kotlin.Throwable, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline]
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:throwable index:0 type:kotlin.Throwable
+        VALUE_PARAMETER name:message index:1 type:kotlin.Function0<kotlin.String>
+        BLOCK_BODY
+      FUN name:a visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.String, throwable:kotlin.Throwable?) returnType:kotlin.Unit
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.String
+        VALUE_PARAMETER name:throwable index:1 type:kotlin.Throwable?
+          EXPRESSION_BODY
+            CONST Null type=kotlin.Nothing? value=null
+        BLOCK_BODY
+      FUN name:noop visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger) returnType:kotlin.Unit [inline]
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        BLOCK_BODY
+      CLASS OBJECT name:Companion modality:FINAL visibility:public [companion] superTypes:[co.touchlab.kermit.Logger]
+        annotations:
+          Suppress(names = ['unused'])
+        $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:co.touchlab.kermit.Logger.Companion
+        CONSTRUCTOR visibility:private <> () returnType:co.touchlab.kermit.Logger.Companion [primary]
+          BLOCK_BODY
+            DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in co.touchlab.kermit.Logger'
+            INSTANCE_INITIALIZER_CALL classDescriptor='CLASS OBJECT name:Companion modality:FINAL visibility:public [companion] superTypes:[co.touchlab.kermit.Logger]'
+        FUN FAKE_OVERRIDE name:a visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.String, throwable:kotlin.Throwable?) returnType:kotlin.Unit [fake_override]
+          overridden:
+            public final fun a (message: kotlin.String, throwable: kotlin.Throwable?): kotlin.Unit declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+          VALUE_PARAMETER name:message index:0 type:kotlin.String
+          VALUE_PARAMETER name:throwable index:1 type:kotlin.Throwable?
+        FUN FAKE_OVERRIDE name:d visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.String, throwable:kotlin.Throwable?) returnType:kotlin.Unit [fake_override]
+          overridden:
+            public final fun d (message: kotlin.String, throwable: kotlin.Throwable?): kotlin.Unit declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+          VALUE_PARAMETER name:message index:0 type:kotlin.String
+          VALUE_PARAMETER name:throwable index:1 type:kotlin.Throwable?
+        FUN FAKE_OVERRIDE name:e visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.String, throwable:kotlin.Throwable?) returnType:kotlin.Unit [fake_override]
+          overridden:
+            public final fun e (message: kotlin.String, throwable: kotlin.Throwable?): kotlin.Unit declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+          VALUE_PARAMETER name:message index:0 type:kotlin.String
+          VALUE_PARAMETER name:throwable index:1 type:kotlin.Throwable?
+        FUN FAKE_OVERRIDE name:i visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.String, throwable:kotlin.Throwable?) returnType:kotlin.Unit [fake_override]
+          overridden:
+            public final fun i (message: kotlin.String, throwable: kotlin.Throwable?): kotlin.Unit declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+          VALUE_PARAMETER name:message index:0 type:kotlin.String
+          VALUE_PARAMETER name:throwable index:1 type:kotlin.Throwable?
+        FUN FAKE_OVERRIDE name:v visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.String, throwable:kotlin.Throwable?) returnType:kotlin.Unit [fake_override]
+          overridden:
+            public final fun v (message: kotlin.String, throwable: kotlin.Throwable?): kotlin.Unit declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+          VALUE_PARAMETER name:message index:0 type:kotlin.String
+          VALUE_PARAMETER name:throwable index:1 type:kotlin.Throwable?
+        FUN FAKE_OVERRIDE name:w visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.String, throwable:kotlin.Throwable?) returnType:kotlin.Unit [fake_override]
+          overridden:
+            public final fun w (message: kotlin.String, throwable: kotlin.Throwable?): kotlin.Unit declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+          VALUE_PARAMETER name:message index:0 type:kotlin.String
+          VALUE_PARAMETER name:throwable index:1 type:kotlin.Throwable?
+        FUN FAKE_OVERRIDE name:a visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+          overridden:
+            public final fun a (message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+          VALUE_PARAMETER name:message index:0 type:kotlin.Function0<kotlin.String>
+        FUN FAKE_OVERRIDE name:a visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, throwable:kotlin.Throwable, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+          overridden:
+            public final fun a (throwable: kotlin.Throwable, message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+          VALUE_PARAMETER name:throwable index:0 type:kotlin.Throwable
+          VALUE_PARAMETER name:message index:1 type:kotlin.Function0<kotlin.String>
+        FUN FAKE_OVERRIDE name:d visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+          overridden:
+            public final fun d (message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+          VALUE_PARAMETER name:message index:0 type:kotlin.Function0<kotlin.String>
+        FUN FAKE_OVERRIDE name:d visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, throwable:kotlin.Throwable, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+          overridden:
+            public final fun d (throwable: kotlin.Throwable, message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+          VALUE_PARAMETER name:throwable index:0 type:kotlin.Throwable
+          VALUE_PARAMETER name:message index:1 type:kotlin.Function0<kotlin.String>
+        FUN FAKE_OVERRIDE name:e visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+          overridden:
+            public final fun e (message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+          VALUE_PARAMETER name:message index:0 type:kotlin.Function0<kotlin.String>
+        FUN FAKE_OVERRIDE name:e visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, throwable:kotlin.Throwable, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+          overridden:
+            public final fun e (throwable: kotlin.Throwable, message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+          VALUE_PARAMETER name:throwable index:0 type:kotlin.Throwable
+          VALUE_PARAMETER name:message index:1 type:kotlin.Function0<kotlin.String>
+        FUN FAKE_OVERRIDE name:i visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+          overridden:
+            public final fun i (message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+          VALUE_PARAMETER name:message index:0 type:kotlin.Function0<kotlin.String>
+        FUN FAKE_OVERRIDE name:i visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, throwable:kotlin.Throwable, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+          overridden:
+            public final fun i (throwable: kotlin.Throwable, message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+          VALUE_PARAMETER name:throwable index:0 type:kotlin.Throwable
+          VALUE_PARAMETER name:message index:1 type:kotlin.Function0<kotlin.String>
+        FUN FAKE_OVERRIDE name:noop visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger) returnType:kotlin.Unit [inline,fake_override]
+          overridden:
+            public final fun noop (): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        FUN FAKE_OVERRIDE name:v visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+          overridden:
+            public final fun v (message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+          VALUE_PARAMETER name:message index:0 type:kotlin.Function0<kotlin.String>
+        FUN FAKE_OVERRIDE name:v visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, throwable:kotlin.Throwable, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+          overridden:
+            public final fun v (throwable: kotlin.Throwable, message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+          VALUE_PARAMETER name:throwable index:0 type:kotlin.Throwable
+          VALUE_PARAMETER name:message index:1 type:kotlin.Function0<kotlin.String>
+        FUN FAKE_OVERRIDE name:w visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+          overridden:
+            public final fun w (message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+          VALUE_PARAMETER name:message index:0 type:kotlin.Function0<kotlin.String>
+        FUN FAKE_OVERRIDE name:w visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, throwable:kotlin.Throwable, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+          overridden:
+            public final fun w (throwable: kotlin.Throwable, message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+          VALUE_PARAMETER name:throwable index:0 type:kotlin.Throwable
+          VALUE_PARAMETER name:message index:1 type:kotlin.Function0<kotlin.String>
+        FUN FAKE_OVERRIDE name:equals visibility:public modality:OPEN <> ($this:kotlin.Any, other:kotlin.Any?) returnType:kotlin.Boolean [fake_override,operator]
+          overridden:
+            public open fun equals (other: kotlin.Any?): kotlin.Boolean [fake_override,operator] declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:kotlin.Any
+          VALUE_PARAMETER name:other index:0 type:kotlin.Any?
+        FUN FAKE_OVERRIDE name:hashCode visibility:public modality:OPEN <> ($this:kotlin.Any) returnType:kotlin.Int [fake_override]
+          overridden:
+            public open fun hashCode (): kotlin.Int [fake_override] declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:kotlin.Any
+        FUN FAKE_OVERRIDE name:toString visibility:public modality:OPEN <> ($this:kotlin.Any) returnType:kotlin.String [fake_override]
+          overridden:
+            public open fun toString (): kotlin.String [fake_override] declared in co.touchlab.kermit.Logger
+          $this: VALUE_PARAMETER name:<this> type:kotlin.Any
+      FUN FAKE_OVERRIDE name:equals visibility:public modality:OPEN <> ($this:kotlin.Any, other:kotlin.Any?) returnType:kotlin.Boolean [fake_override,operator]
+        overridden:
+          public open fun equals (other: kotlin.Any?): kotlin.Boolean [operator] declared in kotlin.Any
+        $this: VALUE_PARAMETER name:<this> type:kotlin.Any
+        VALUE_PARAMETER name:other index:0 type:kotlin.Any?
+      FUN FAKE_OVERRIDE name:hashCode visibility:public modality:OPEN <> ($this:kotlin.Any) returnType:kotlin.Int [fake_override]
+        overridden:
+          public open fun hashCode (): kotlin.Int declared in kotlin.Any
+        $this: VALUE_PARAMETER name:<this> type:kotlin.Any
+      FUN FAKE_OVERRIDE name:toString visibility:public modality:OPEN <> ($this:kotlin.Any) returnType:kotlin.String [fake_override]
+        overridden:
+          public open fun toString (): kotlin.String declared in kotlin.Any
+        $this: VALUE_PARAMETER name:<this> type:kotlin.Any
+  FILE fqName:<root> fileName:/var/folders/_0/np8nwzyj0c3gpll6ctrkhyp80000gn/T/Kotlin-Compilation9074936057816824350/sources/main.kt
+    CLASS CLASS name:HeyoLogs modality:FINAL visibility:public superTypes:[co.touchlab.kermit.Logger]
+      $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:<root>.HeyoLogs
+      CONSTRUCTOR visibility:public <> () returnType:<root>.HeyoLogs [primary]
+        BLOCK_BODY
+          DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in co.touchlab.kermit.Logger'
+          INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:HeyoLogs modality:FINAL visibility:public superTypes:[co.touchlab.kermit.Logger]'
+      FUN FAKE_OVERRIDE name:a visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.String, throwable:kotlin.Throwable?) returnType:kotlin.Unit [fake_override]
+        overridden:
+          public final fun a (message: kotlin.String, throwable: kotlin.Throwable?): kotlin.Unit declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.String
+        VALUE_PARAMETER name:throwable index:1 type:kotlin.Throwable?
+      FUN FAKE_OVERRIDE name:d visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.String, throwable:kotlin.Throwable?) returnType:kotlin.Unit [fake_override]
+        overridden:
+          public final fun d (message: kotlin.String, throwable: kotlin.Throwable?): kotlin.Unit declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.String
+        VALUE_PARAMETER name:throwable index:1 type:kotlin.Throwable?
+      FUN FAKE_OVERRIDE name:e visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.String, throwable:kotlin.Throwable?) returnType:kotlin.Unit [fake_override]
+        overridden:
+          public final fun e (message: kotlin.String, throwable: kotlin.Throwable?): kotlin.Unit declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.String
+        VALUE_PARAMETER name:throwable index:1 type:kotlin.Throwable?
+      FUN FAKE_OVERRIDE name:i visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.String, throwable:kotlin.Throwable?) returnType:kotlin.Unit [fake_override]
+        overridden:
+          public final fun i (message: kotlin.String, throwable: kotlin.Throwable?): kotlin.Unit declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.String
+        VALUE_PARAMETER name:throwable index:1 type:kotlin.Throwable?
+      FUN FAKE_OVERRIDE name:v visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.String, throwable:kotlin.Throwable?) returnType:kotlin.Unit [fake_override]
+        overridden:
+          public final fun v (message: kotlin.String, throwable: kotlin.Throwable?): kotlin.Unit declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.String
+        VALUE_PARAMETER name:throwable index:1 type:kotlin.Throwable?
+      FUN FAKE_OVERRIDE name:w visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.String, throwable:kotlin.Throwable?) returnType:kotlin.Unit [fake_override]
+        overridden:
+          public final fun w (message: kotlin.String, throwable: kotlin.Throwable?): kotlin.Unit declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.String
+        VALUE_PARAMETER name:throwable index:1 type:kotlin.Throwable?
+      FUN FAKE_OVERRIDE name:a visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+        overridden:
+          public final fun a (message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.Function0<kotlin.String>
+      FUN FAKE_OVERRIDE name:a visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, throwable:kotlin.Throwable, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+        overridden:
+          public final fun a (throwable: kotlin.Throwable, message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:throwable index:0 type:kotlin.Throwable
+        VALUE_PARAMETER name:message index:1 type:kotlin.Function0<kotlin.String>
+      FUN FAKE_OVERRIDE name:d visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+        overridden:
+          public final fun d (message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.Function0<kotlin.String>
+      FUN FAKE_OVERRIDE name:d visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, throwable:kotlin.Throwable, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+        overridden:
+          public final fun d (throwable: kotlin.Throwable, message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:throwable index:0 type:kotlin.Throwable
+        VALUE_PARAMETER name:message index:1 type:kotlin.Function0<kotlin.String>
+      FUN FAKE_OVERRIDE name:e visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+        overridden:
+          public final fun e (message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.Function0<kotlin.String>
+      FUN FAKE_OVERRIDE name:e visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, throwable:kotlin.Throwable, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+        overridden:
+          public final fun e (throwable: kotlin.Throwable, message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:throwable index:0 type:kotlin.Throwable
+        VALUE_PARAMETER name:message index:1 type:kotlin.Function0<kotlin.String>
+      FUN FAKE_OVERRIDE name:i visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+        overridden:
+          public final fun i (message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.Function0<kotlin.String>
+      FUN FAKE_OVERRIDE name:i visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, throwable:kotlin.Throwable, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+        overridden:
+          public final fun i (throwable: kotlin.Throwable, message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:throwable index:0 type:kotlin.Throwable
+        VALUE_PARAMETER name:message index:1 type:kotlin.Function0<kotlin.String>
+      FUN FAKE_OVERRIDE name:noop visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger) returnType:kotlin.Unit [inline,fake_override]
+        overridden:
+          public final fun noop (): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+      FUN FAKE_OVERRIDE name:v visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+        overridden:
+          public final fun v (message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.Function0<kotlin.String>
+      FUN FAKE_OVERRIDE name:v visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, throwable:kotlin.Throwable, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+        overridden:
+          public final fun v (throwable: kotlin.Throwable, message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:throwable index:0 type:kotlin.Throwable
+        VALUE_PARAMETER name:message index:1 type:kotlin.Function0<kotlin.String>
+      FUN FAKE_OVERRIDE name:w visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+        overridden:
+          public final fun w (message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:message index:0 type:kotlin.Function0<kotlin.String>
+      FUN FAKE_OVERRIDE name:w visibility:public modality:FINAL <> ($this:co.touchlab.kermit.Logger, throwable:kotlin.Throwable, message:kotlin.Function0<kotlin.String>) returnType:kotlin.Unit [inline,fake_override]
+        overridden:
+          public final fun w (throwable: kotlin.Throwable, message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:co.touchlab.kermit.Logger
+        VALUE_PARAMETER name:throwable index:0 type:kotlin.Throwable
+        VALUE_PARAMETER name:message index:1 type:kotlin.Function0<kotlin.String>
+      FUN FAKE_OVERRIDE name:equals visibility:public modality:OPEN <> ($this:kotlin.Any, other:kotlin.Any?) returnType:kotlin.Boolean [fake_override,operator]
+        overridden:
+          public open fun equals (other: kotlin.Any?): kotlin.Boolean [fake_override,operator] declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:kotlin.Any
+        VALUE_PARAMETER name:other index:0 type:kotlin.Any?
+      FUN FAKE_OVERRIDE name:hashCode visibility:public modality:OPEN <> ($this:kotlin.Any) returnType:kotlin.Int [fake_override]
+        overridden:
+          public open fun hashCode (): kotlin.Int [fake_override] declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:kotlin.Any
+      FUN FAKE_OVERRIDE name:toString visibility:public modality:OPEN <> ($this:kotlin.Any) returnType:kotlin.String [fake_override]
+        overridden:
+          public open fun toString (): kotlin.String [fake_override] declared in co.touchlab.kermit.Logger
+        $this: VALUE_PARAMETER name:<this> type:kotlin.Any
+    FUN name:main visibility:public modality:FINAL <> () returnType:kotlin.Unit
+      BLOCK_BODY
+        CALL 'public final fun v (message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline,fake_override] declared in co.touchlab.kermit.Logger.Companion' type=kotlin.Unit origin=null
+          $this: GET_OBJECT 'CLASS OBJECT name:Companion modality:FINAL visibility:public [companion] superTypes:[co.touchlab.kermit.Logger]' type=co.touchlab.kermit.Logger.Companion
+          message: FUN_EXPR type=kotlin.Function0<kotlin.String> origin=LAMBDA
+            FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> () returnType:kotlin.String
+              BLOCK_BODY
+                RETURN type=kotlin.Nothing from='local final fun <anonymous> (): kotlin.String declared in <root>.main'
+                  CONST String type=kotlin.String value="arst"
+        VAR name:l type:co.touchlab.kermit.Logger [val]
+          CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in co.touchlab.kermit.Logger' type=co.touchlab.kermit.Logger origin=null
+        CALL 'public final fun i (message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline] declared in co.touchlab.kermit.Logger' type=kotlin.Unit origin=null
+          $this: GET_VAR 'val l: co.touchlab.kermit.Logger [val] declared in <root>.main' type=co.touchlab.kermit.Logger origin=null
+          message: FUN_EXPR type=kotlin.Function0<kotlin.String> origin=LAMBDA
+            FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> () returnType:kotlin.String
+              BLOCK_BODY
+                RETURN type=kotlin.Nothing from='local final fun <anonymous> (): kotlin.String declared in <root>.main'
+                  CONST String type=kotlin.String value="ttt"
+        VAR name:heyo type:<root>.HeyoLogs [val]
+          CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in <root>.HeyoLogs' type=<root>.HeyoLogs origin=null
+        CALL 'public final fun w (message: kotlin.Function0<kotlin.String>): kotlin.Unit [inline,fake_override] declared in <root>.HeyoLogs' type=kotlin.Unit origin=null
+          $this: GET_VAR 'val heyo: <root>.HeyoLogs [val] declared in <root>.main' type=<root>.HeyoLogs origin=null
+          message: FUN_EXPR type=kotlin.Function0<kotlin.String> origin=LAMBDA
+            FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> () returnType:kotlin.String
+              BLOCK_BODY
+                RETURN type=kotlin.Nothing from='local final fun <anonymous> (): kotlin.String declared in <root>.main'
+                  CONST String type=kotlin.String value="www"

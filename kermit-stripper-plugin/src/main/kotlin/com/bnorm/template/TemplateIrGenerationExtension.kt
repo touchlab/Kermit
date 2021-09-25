@@ -35,6 +35,16 @@ class TemplateIrGenerationExtension(
 //    messageCollector.report(CompilerMessageSeverity.INFO, "Argument 'file' = $file")
 //    println(moduleFragment.dump())
 //    moduleFragment.acceptChildrenVoid(PlayVisitor(pluginContext))
+    dumpModule(moduleFragment)
+
     moduleFragment.transform(DebugLogTransformer(pluginContext), null)
+
+    dumpModule(moduleFragment)
+  }
+
+  private fun dumpModule(moduleFragment: IrModuleFragment) {
+//    println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+//    println(moduleFragment.dump())
+//    println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
   }
 }

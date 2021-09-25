@@ -146,11 +146,6 @@ open class Logger(
         }
     }
 
-    @Deprecated(level = DeprecationLevel.HIDDEN)
-    inline fun noop(){
-
-    }
-
     @Suppress("unused")
     companion object : Logger(LoggerGlobal.defaultConfig) {
         fun setMinSeverity(severity: Severity) {

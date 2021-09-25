@@ -46,10 +46,9 @@ class DebugLogTransformer(
             val functionName = expression.symbol.owner.name.identifier
             val stripCall = functionName == "v" || functionName == "d" || functionName == "i" || functionName == "w" || functionName == "e" || functionName == "a"
             if(stripCall){
-                println("Strip Call ${className}, $functionName")
+//                println("Strip Call ${className}, $functionName")
 
-
-//                return DeclarationIrBuilder(pluginContext, null).irBlockBody
+                return DeclarationIrBuilder(pluginContext, expression.symbol).irUnit()
             }
         }
 
