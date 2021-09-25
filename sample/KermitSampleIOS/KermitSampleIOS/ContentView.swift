@@ -19,7 +19,7 @@ struct ContentView: View {
     let common: SampleCommon
     
     init() {
-        self.common = SampleCommon(kermit: kermit)
+        self.common = SampleCommon(logger: kermit)
         self.kermit.i(message: {"loaded"})
     }
 

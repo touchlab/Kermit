@@ -13,10 +13,11 @@ package co.touchlab.kermit
 import kotlin.native.concurrent.AtomicReference
 import kotlin.native.concurrent.freeze
 
+private val internalDefaultTag = AtomicReference(DEFAULT_TAG)
+
 internal class AtomicMutableLoggerConfig : MutableLoggerConfig {
     private val _minSeverity = AtomicReference(DEFAULT_MIN_SEVERITY)
     private val _loggerList = AtomicReference<List<LogWriter>>(listOf(CommonWriter()).freeze())
-    private val _defaultTag = AtomicReference<String>("Kermit")
 
     override var minSeverity: Severity
         get() = _minSeverity.value
@@ -28,11 +29,12 @@ internal class AtomicMutableLoggerConfig : MutableLoggerConfig {
         set(value) {
             _loggerList.value = value.freeze()
         }
-    override var defaultTag: String
-        get() = _defaultTag.value
-        set(value) {
-            _defaultTag.value = value
-        }
 }
 
 internal actual fun mutableKermitConfigInit(): MutableLoggerConfig = AtomicMutableLoggerConfig()
+
+internal actual var defaultTag: String
+    get() = internalDefaultTag.value
+    set(value) {
+        internalDefaultTag.value = value
+    }

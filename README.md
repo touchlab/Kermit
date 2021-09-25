@@ -100,13 +100,13 @@ val logger = Logger.withTag("MyLogger")
 logger.i { "Hello World" }
 ```
 
-You can supply a different tag for the logger through global config, but also through local instances. This is more
-meaningful in an Android context. However, there are also potential performance related reasons for local loggers. 
+You can supply a different tag for the logger through local instances. This is more
+meaningful in an Android context. However, there are also potential performance related reasons for local loggers.
 See [PERFORMANCE](PERFORMANCE.md) for more info.
 
 ## Configuration
 
-You can configure three parameters for Kermit: `LogWriter` instances, default tag, and minimum severity.
+You can configure two parameters for LoggerConfig: `LogWriter` instances and minimum severity.
 
 ### LogWriter Instances
 
@@ -147,7 +147,7 @@ The configuration above is on the global instance. For a number of reason, you m
 We provide a static config instance for situations where you con't need mutable config or global logging.
 
 ```kotlin
-val logger = Logger(StaticConfig(minSeverity = Severity.Warn, defaultTag = "MyTag", loggerList = listOf(CommonWriter())))
+val logger = Logger(StaticConfig(minSeverity = Severity.Warn, loggerList = listOf(CommonWriter())))
 logger.i { "Hello Local!" }
 ```
 
@@ -161,7 +161,7 @@ help categorize log statements. This feature is largely derived from Android, bu
 Tags are passed to `LogWriter` implementations which can decide how to use them (or ignore them). For example, `LogcatWriter` on Android
 passes it along to Logcat's tag field.
 
-You can override the global default tag [(see Default Tag)](#Default-Tag). You can also supply a default tag to `StaticConfig`.
+You can override the global default tag [(see Default Tag)](#Default-Tag).
 
 To have a tag other than default, create a new `Logger` instance with:
 
