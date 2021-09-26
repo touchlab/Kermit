@@ -27,7 +27,9 @@ class KermitIrGenerationExtension(
 //    moduleFragment.acceptChildrenVoid(PlayVisitor(pluginContext))
     dumpModule(moduleFragment)
 
-    moduleFragment.transform(KermitStripperTransformer(pluginContext, stripBelow), null)
+    if(stripBelow != "None" && stripBelow != "Verbose") {
+      moduleFragment.transform(KermitStripperTransformer(pluginContext, stripBelow), null)
+    }
 
     dumpModule(moduleFragment)
   }
