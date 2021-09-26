@@ -174,10 +174,50 @@ val newTagLogger = logger.withTag("newTag")
 Generally speaking, Kermit's SDK was designed to be called from Kotlin, but you can initialize and call logging from any
 platform that has interop with Kotlin. For iOS and Swift-specific considerations, see [IOS_CONSIDERATIONS](docs/IOS_CONSIDERATIONS.md)
 
-## Sample
+## Samples
 
-Kermit comes with a Sample Multiplatform project which gives a brief example of how it can be used in both Android and iOS. 
-The example demonstrates logs being called from within common code as well as from each platform.
+There are multiple sample apps showing various configurations.
+
+## Kermit Stripper
+
+For some situations, disabling logging is desirable. For example, when building release versions of apps. You can disable
+logging by defining minSeverity on the logging config, but you can also run a compiler plugin an strip out logging calls
+entirely.
+
+To run the log stripper, add the classpath to your buildscript:
+
+```kotlin
+buildscript {
+    dependencies {
+        classpath("co.touchlab:kermit-stripper-plugin-gradle:x.y.z")
+    }
+}
+```
+
+Then apply the plugin in your gradle file:
+
+```kotlin
+plugins {
+    id("co.touchlab.kermit.stripper")
+    //etc
+}
+```
+
+By default, running the plugin does nothing. You should configure the plugin with a severity:
+
+```kotlin
+kermitStripper {
+    stripBelow.set(StripSeverity.Warn)
+}
+```
+
+Any log call below the configured severity will be removed. So, if you pass `Warn`, warn, error, and assert calls remain
+but info and below are removed. There are some special values: `None` and `All`. `None` is default (removes nothing). `All` removes
+all logging calls.
+
+See the "sample-stripper" example. You can change the `stripBelow` and test various logging levels in the app.
+
+Note: the log stripper is new and configuration is likely to change in the near future.
 
 ### OSLogLogger
 

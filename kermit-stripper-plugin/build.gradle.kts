@@ -2,6 +2,7 @@ plugins {
   kotlin("jvm")
   kotlin("kapt")
   id("com.github.gmazzo.buildconfig")
+  id("com.vanniktech.maven.publish")
 }
 
 dependencies {
@@ -19,3 +20,4 @@ buildConfig {
   packageName(group.toString())
   buildConfigField("String", "KOTLIN_PLUGIN_ID", "\"${rootProject.extra["kotlin_plugin_id"]}\"")
 }
+

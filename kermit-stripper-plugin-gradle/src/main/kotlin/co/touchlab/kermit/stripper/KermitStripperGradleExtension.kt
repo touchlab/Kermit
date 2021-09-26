@@ -16,9 +16,8 @@
 
 package co.touchlab.kermit.stripper
 
-import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
 
-open class KermitStripperGradleExtension(objects: ObjectFactory) {
-  val stripBelowProperty: Property<StripSeverity> = objects.property(StripSeverity::class.java)
+interface KermitStripperGradleExtension{
+  val stripBelow: Property<StripSeverity>
 }

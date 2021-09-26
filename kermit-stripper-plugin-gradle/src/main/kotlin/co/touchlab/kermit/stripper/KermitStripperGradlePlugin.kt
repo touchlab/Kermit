@@ -25,7 +25,7 @@ import org.jetbrains.kotlin.gradle.plugin.SubpluginOption
 
 class KermitStripperGradlePlugin : KotlinCompilerPluginSupportPlugin {
   override fun apply(target: Project): Unit = with(target) {
-    extensions.create("kermitStripper", KermitStripperGradleExtension::class.java)
+    extensions.create<KermitStripperGradleExtension>("kermitStripper", KermitStripperGradleExtension::class.java)
   }
 
   override fun isApplicable(kotlinCompilation: KotlinCompilation<*>): Boolean = true
@@ -51,7 +51,7 @@ class KermitStripperGradlePlugin : KotlinCompilerPluginSupportPlugin {
     val extension = project.extensions.getByType(KermitStripperGradleExtension::class.java)
     return project.provider {
       listOf(
-        SubpluginOption(key = "stripBelow", value = extension.stripBelowProperty.get().toString()),
+        SubpluginOption(key = "stripBelow", value = extension.stripBelow.orNull?.toString()?:"None"),
       )
     }
   }

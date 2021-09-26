@@ -2,6 +2,7 @@ plugins {
   id("java-gradle-plugin")
   kotlin("jvm")
   id("com.github.gmazzo.buildconfig")
+  id("com.vanniktech.maven.publish")
 }
 
 dependencies {

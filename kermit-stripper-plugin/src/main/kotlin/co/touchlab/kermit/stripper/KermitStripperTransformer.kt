@@ -32,14 +32,11 @@ class KermitStripperTransformer(
 
     override fun visitCall(expression: IrCall): IrExpression {
         val recType = expression.dispatchReceiver?.type
-        val className = recType?.classFqName?.toString() as String?
 
         if (recType != null && recType.isSubtypeOfClass(classLogger)) {
             val functionName = expression.symbol.owner.name.identifier
             val stripCall = stripFunctionSet.contains(functionName)
             if (stripCall) {
-//                println("Strip Call ${className}, $functionName")
-
                 return DeclarationIrBuilder(pluginContext, expression.symbol).irUnit()
             }
         }
