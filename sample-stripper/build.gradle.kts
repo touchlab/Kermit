@@ -18,7 +18,7 @@ buildscript {
 
         classpath(kotlin("gradle-plugin", readParentKotlin()))
         val KERMIT_VERSION: String by project
-        classpath("co.touchlab:kermit-stripper-plugin-gradle:$KERMIT_VERSION")
+        classpath("co.touchlab:kermit-gradle-plugin:$KERMIT_VERSION")
     }
 }
 allprojects{

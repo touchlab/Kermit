@@ -15,13 +15,13 @@ include(":kermit")
 include(":kermit-crashlytics")
 include(":kermit-bugsnag")
 
-include(":kermit-stripper-plugin-gradle")
-include(":kermit-stripper-plugin")
-include(":kermit-stripper-plugin-native")
+include(":kermit-gradle-plugin")
+include(":kermit-ir-plugin")
+include(":kermit-ir-plugin-native")
 
-project(":kermit-stripper-plugin-gradle").projectDir = File("stripper/kermit-stripper-plugin-gradle")
-project(":kermit-stripper-plugin").projectDir = File("stripper/kermit-stripper-plugin")
-project(":kermit-stripper-plugin-native").projectDir = File("stripper/kermit-stripper-plugin-native")
+project(":kermit-gradle-plugin").projectDir = File("plugin/kermit-gradle-plugin")
+project(":kermit-ir-plugin").projectDir = File("plugin/kermit-ir-plugin")
+project(":kermit-ir-plugin-native").projectDir = File("plugin/kermit-ir-plugin-native")
 
 pluginManagement {
     resolutionStrategy {

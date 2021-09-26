@@ -181,7 +181,7 @@ There are multiple sample apps showing various configurations.
 ## Kermit Stripper
 
 For some situations, disabling logging is desirable. For example, when building release versions of apps. You can disable
-logging by defining minSeverity on the logging config, but you can also run a compiler plugin an strip out logging calls
+logging by defining minSeverity on the logging config, but you can also run a compiler plugin and strip out logging calls
 entirely.
 
 To run the log stripper, add the classpath to your buildscript:
@@ -189,7 +189,7 @@ To run the log stripper, add the classpath to your buildscript:
 ```kotlin
 buildscript {
     dependencies {
-        classpath("co.touchlab:kermit-stripper-plugin-gradle:x.y.z")
+        classpath("co.touchlab:kermit-gradle-plugin:x.y.z")
     }
 }
 ```
@@ -198,7 +198,7 @@ Then apply the plugin in your gradle file:
 
 ```kotlin
 plugins {
-    id("co.touchlab.kermit.stripper")
+    id("co.touchlab.kermit")
     //etc
 }
 ```
@@ -206,8 +206,8 @@ plugins {
 By default, running the plugin does nothing. You should configure the plugin with a severity:
 
 ```kotlin
-kermitStripper {
-    stripBelow.set(StripSeverity.Warn)
+kermit {
+    stripBelow = StripSeverity.Warn
 }
 ```
 
@@ -216,6 +216,22 @@ but info and below are removed. There are some special values: `None` and `All`.
 all logging calls.
 
 See the "sample-stripper" example. You can change the `stripBelow` and test various logging levels in the app.
+
+In our production applications, we generally send error and warning level throwables to remote crash reporters, info level
+is tracked in "breadcrumbs" for remote crash reporters. Debug and verbose are local-only. Sticking to that pattern, you could
+configure your build as follows:
+
+```kotlin
+val releaseBuild: String by project
+
+kermit {
+    if(releaseBuild.toBoolean()) {
+        stripBelow = StripSeverity.Info
+    }
+}
+```
+
+Add `releaseBuild=false` to `gradle.properties`, then pass in an override when building a release version.
 
 Note: the log stripper is new and configuration is likely to change in the near future.
 

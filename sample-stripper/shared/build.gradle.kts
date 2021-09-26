@@ -9,11 +9,12 @@
  */
 import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import co.touchlab.kermit.gradle.StripSeverity
 
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-    id("co.touchlab.kermit.stripper")
+    id("co.touchlab.kermit")
 }
 
 repositories {
@@ -58,6 +59,8 @@ kotlin {
     }
 }
 
-kermitStripper {
-    stripBelow.set(co.touchlab.kermit.stripper.StripSeverity.Warn)
+val releaseBuild: String by project
+
+kermit {
+    stripBelow = StripSeverity.Warn
 }

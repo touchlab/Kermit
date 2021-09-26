@@ -12,7 +12,7 @@
  */
 
 buildscript {
-    extra["kotlin_plugin_id"] = "co.touchlab.kermit.stripper"
+    extra["kotlin_plugin_id"] = "co.touchlab.kermit"
     dependencies {
         classpath("com.vanniktech:gradle-maven-publish-plugin:0.18.0")
     }
