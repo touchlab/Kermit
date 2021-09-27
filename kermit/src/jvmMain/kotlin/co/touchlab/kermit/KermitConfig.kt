@@ -18,7 +18,7 @@ private val lock = Any()
 @Volatile
 private var internalDefaultTag: String = DEFAULT_TAG
 
-internal actual fun mutableKermitConfigInit(): MutableLoggerConfig = JvmMutableLoggerConfig()
+internal actual fun mutableKermitConfigInit(logWriters: List<LogWriter>): MutableLoggerConfig = JvmMutableLoggerConfig(logWriters)
 
 internal actual var defaultTag: String
     get() = internalDefaultTag
