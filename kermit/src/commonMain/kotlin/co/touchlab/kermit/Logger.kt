@@ -174,12 +174,12 @@ open class Logger(
 }
 
 internal object LoggerGlobal {
-    val defaultConfig = mutableKermitConfigInit()
+    val defaultConfig = mutableKermitConfigInit(listOf(platformLogWriter()))
 }
 
 @kotlin.native.concurrent.SharedImmutable
 internal val DEFAULT_MIN_SEVERITY = Severity.Verbose
 internal const val DEFAULT_TAG = "Kermit"
 
-internal expect fun mutableKermitConfigInit(): MutableLoggerConfig
+internal expect fun mutableKermitConfigInit(logWriters: List<LogWriter>): MutableLoggerConfig
 internal expect var defaultTag: String
