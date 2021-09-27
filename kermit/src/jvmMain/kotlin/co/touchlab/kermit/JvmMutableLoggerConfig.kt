@@ -10,14 +10,12 @@
 
 package co.touchlab.kermit
 
-internal class JvmMutableLoggerConfig : MutableLoggerConfig {
+internal class JvmMutableLoggerConfig(logWriters: List<LogWriter>) : MutableLoggerConfig {
     @Volatile
     private var _minSeverity: Severity = DEFAULT_MIN_SEVERITY
 
     @Volatile
-    private var _loggerList: List<LogWriter> = listOf(
-        CommonWriter()
-    )
+    private var _loggerList: List<LogWriter> = logWriters
 
     override var minSeverity: Severity
         get() = _minSeverity
