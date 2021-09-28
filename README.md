@@ -178,13 +178,13 @@ platform that has interop with Kotlin. For iOS and Swift-specific considerations
 
 There are multiple sample apps showing various configurations.
 
-## Kermit Stripper
+## Kermit Chisel
 
 For some situations, disabling logging is desirable. For example, when building release versions of apps. You can disable
 logging by defining minSeverity on the logging config, but you can also run a compiler plugin and strip out logging calls
 entirely.
 
-To run the log stripper, add the classpath to your buildscript:
+To run the log strip plugin, add the classpath to your buildscript:
 
 ```kotlin
 buildscript {
@@ -215,7 +215,7 @@ Any log call below the configured severity will be removed. So, if you pass `War
 but info and below are removed. There are some special values: `None` and `All`. `None` is default (removes nothing). `All` removes
 all logging calls.
 
-See the "sample-stripper" example. You can change the `stripBelow` and test various logging levels in the app.
+See the "sample-chisel" example. You can change the `stripBelow` and test various logging levels in the app.
 
 In our production applications, we generally send error and warning level throwables to remote crash reporters, info level
 is tracked in "breadcrumbs" for remote crash reporters. Debug and verbose are local-only. Sticking to that pattern, you could
@@ -233,7 +233,7 @@ kermit {
 
 Add `releaseBuild=false` to `gradle.properties`, then pass in an override when building a release version.
 
-Note: the log stripper is new and configuration is likely to change in the near future.
+Note: Chisel is new and configuration is likely to change in the near future.
 
 ### OSLogLogger
 

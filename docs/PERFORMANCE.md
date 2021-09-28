@@ -54,7 +54,7 @@ The lambda log calls are inline, and if your minimum severity is configured such
 do so without any deeper function calls. Just a check to minimum severity. In summary that means performance should be 
 about as good as we can make it in normal situations.
 
-## Log Call Stripping
+## Log Call Stripping (AKA Chisel)
 
 If you plan to disable logging in release builds, rather that doing so by config, you can run a compiler plugin to simply 
 strip logging calls entirely. This will avoid the checking logic, as well as (slightly) reduce binary output size.

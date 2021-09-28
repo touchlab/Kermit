@@ -21,7 +21,7 @@ import org.jetbrains.kotlin.ir.types.classFqName
 import org.jetbrains.kotlin.ir.types.isSubtypeOfClass
 import org.jetbrains.kotlin.name.FqName
 
-class KermitStripperTransformer(
+class KermitChiselTransformer(
     private val pluginContext: IrPluginContext,
     stripBelow: String
 ) : IrElementTransformerVoidWithContext() {

@@ -14,7 +14,6 @@ import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
-import org.jetbrains.kotlin.ir.util.dump
 
 class KermitIrGenerationExtension(
   private val messageCollector: MessageCollector,
@@ -28,7 +27,7 @@ class KermitIrGenerationExtension(
     dumpModule(moduleFragment)
 
     if(stripBelow != "None" && stripBelow != "Verbose") {
-      moduleFragment.transform(KermitStripperTransformer(pluginContext, stripBelow), null)
+      moduleFragment.transform(KermitChiselTransformer(pluginContext, stripBelow), null)
     }
 
     dumpModule(moduleFragment)
