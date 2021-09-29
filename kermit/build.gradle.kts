@@ -57,11 +57,16 @@ kotlin {
     val commonMain by sourceSets.getting
     val commonTest by sourceSets.getting
 
+    val commonJvmMain by sourceSets.creating
+    commonJvmMain.dependsOn(commonMain)
+
     val jvmMain by sourceSets.getting
     val jvmTest by sourceSets.getting
+    jvmMain.dependsOn(commonJvmMain)
 
     val androidMain by sourceSets.getting
     val androidTest by sourceSets.getting
+    androidMain.dependsOn(commonJvmMain)
 
     val jsMain by sourceSets.getting
     val jsTest by sourceSets.getting
