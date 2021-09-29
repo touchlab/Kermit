@@ -14,13 +14,16 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-    
+
     let kermit = (UIApplication.shared.delegate as! AppDelegate).kermit
     let common: SampleCommon
-    
+
     init() {
         self.common = SampleCommon(logger: kermit)
         self.kermit.i(message: {"loaded"})
+        LoggerKt.v(message: {""})
+        LoggerKt.d{ "" }
+        LoggerKt.e(message: "", throwable: KotlinThrowable())
     }
 
     var body: some View {

@@ -36,7 +36,11 @@ open class Logger(
             log(Severity.Verbose, tag, throwable, message())
     }
 
-    fun v(message: String, throwable: Throwable? = null) {
+    fun v(message: String) {
+        if (config.minSeverity <= Severity.Verbose)
+            log(Severity.Verbose, tag, null, message)
+    }
+    fun v(message: String, throwable: Throwable) {
         if (config.minSeverity <= Severity.Verbose)
             log(Severity.Verbose, tag, throwable, message)
     }
@@ -51,7 +55,11 @@ open class Logger(
             log(Severity.Debug, tag, throwable, message())
     }
 
-    fun d(message: String, throwable: Throwable? = null) {
+    fun d(message: String) {
+        if (config.minSeverity <= Severity.Debug)
+            log(Severity.Debug, tag, null, message)
+    }
+    fun d(message: String, throwable: Throwable) {
         if (config.minSeverity <= Severity.Debug)
             log(Severity.Debug, tag, throwable, message)
     }
@@ -66,7 +74,11 @@ open class Logger(
             log(Severity.Info, tag, throwable, message())
     }
 
-    fun i(message: String, throwable: Throwable? = null) {
+    fun i(message: String) {
+        if (config.minSeverity <= Severity.Info)
+            log(Severity.Info, tag, null, message)
+    }
+    fun i(message: String, throwable: Throwable) {
         if (config.minSeverity <= Severity.Info)
             log(Severity.Info, tag, throwable, message)
     }
@@ -81,7 +93,11 @@ open class Logger(
             log(Severity.Warn, tag, throwable, message())
     }
 
-    fun w(message: String, throwable: Throwable? = null) {
+    fun w(message: String) {
+        if (config.minSeverity <= Severity.Warn)
+            log(Severity.Warn, tag, null, message)
+    }
+    fun w(message: String, throwable: Throwable) {
         if (config.minSeverity <= Severity.Warn)
             log(Severity.Warn, tag, throwable, message)
     }
@@ -96,7 +112,11 @@ open class Logger(
             log(Severity.Error, tag, throwable, message())
     }
 
-    fun e(message: String, throwable: Throwable? = null) {
+    fun e(message: String) {
+        if (config.minSeverity <= Severity.Error)
+            log(Severity.Error, tag, null, message)
+    }
+    fun e(message: String, throwable: Throwable) {
         if (config.minSeverity <= Severity.Error)
             log(Severity.Error, tag, throwable, message)
     }
@@ -111,7 +131,11 @@ open class Logger(
             log(Severity.Assert, tag, throwable, message())
     }
 
-    fun a(message: String, throwable: Throwable? = null) {
+    fun a(message: String) {
+        if (config.minSeverity <= Severity.Assert)
+            log(Severity.Assert, tag, null, message)
+    }
+    fun a(message: String, throwable: Throwable) {
         if (config.minSeverity <= Severity.Assert)
             log(Severity.Assert, tag, throwable, message)
     }
