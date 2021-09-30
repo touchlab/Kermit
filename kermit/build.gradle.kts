@@ -61,6 +61,7 @@ kotlin {
         dependsOn(commonMain)
     }
     val commonJvmTest by sourceSets.creating {
+        dependsOn(commonTest)
         dependsOn(commonJvmMain)
     }
 
