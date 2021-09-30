@@ -57,16 +57,28 @@ kotlin {
     val commonMain by sourceSets.getting
     val commonTest by sourceSets.getting
 
-    val commonJvmMain by sourceSets.creating
-    commonJvmMain.dependsOn(commonMain)
+    val commonJvmMain by sourceSets.creating {
+        dependsOn(commonMain)
+    }
+    val commonJvmTest by sourceSets.creating {
+        dependsOn(commonJvmMain)
+    }
 
-    val jvmMain by sourceSets.getting
-    val jvmTest by sourceSets.getting
-    jvmMain.dependsOn(commonJvmMain)
+    val jvmMain by sourceSets.getting {
+        dependsOn(commonJvmMain)
+    }
+    val jvmTest by sourceSets.getting {
+        dependsOn(jvmMain)
+        dependsOn(commonJvmTest)
+    }
 
-    val androidMain by sourceSets.getting
-    val androidTest by sourceSets.getting
-    androidMain.dependsOn(commonJvmMain)
+    val androidMain by sourceSets.getting {
+        dependsOn(commonJvmMain)
+    }
+    val androidTest by sourceSets.getting {
+        dependsOn(androidMain)
+        dependsOn(commonJvmTest)
+    }
 
     val jsMain by sourceSets.getting
     val jsTest by sourceSets.getting
@@ -74,14 +86,17 @@ kotlin {
     val nativeMain by sourceSets.creating
     nativeMain.dependsOn(commonMain)
 
-    val darwinMain by sourceSets.creating
-    darwinMain.dependsOn(nativeMain)
+    val darwinMain by sourceSets.creating {
+        dependsOn(nativeMain)
+    }
 
-    val linuxMain by sourceSets.creating
-    linuxMain.dependsOn(nativeMain)
+    val linuxMain by sourceSets.creating {
+        dependsOn(nativeMain)
+    }
 
-    val mingwMain by sourceSets.creating
-    mingwMain.dependsOn(nativeMain)
+    val mingwMain by sourceSets.creating {
+        dependsOn(nativeMain)
+    }
 
     targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
         val mainSourceSet = compilations.getByName("main").defaultSourceSet
