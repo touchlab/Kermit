@@ -15,31 +15,16 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import co.touchlab.KermitSample.databinding.ActivityMainBinding
-import co.touchlab.kermit.LogcatWriter
-import co.touchlab.kermit.Logger
-import co.touchlab.kermit.StaticConfig
-import co.touchlab.kermit.platformLogWriter
-import co.touchlab.kermitsample.SampleCommon
 
 class MainActivity : AppCompatActivity() {
 
-    val kermit = Logger(StaticConfig(logWriterList = listOf(platformLogWriter())))
-    val kermitWithTag = kermit.withTag("My Custom Tag")
 
-    private val sample = SampleCommon(kermit)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-
-        kermit.i { "onCreate" }
-        kermitWithTag.d { "Log Without Tag (Kermit With Tag)" }
-
-        binding.fab.setOnClickListener {
-            sample.onClick()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

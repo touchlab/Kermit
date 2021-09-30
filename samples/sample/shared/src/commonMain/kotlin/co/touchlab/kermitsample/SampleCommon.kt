@@ -12,14 +12,14 @@ package co.touchlab.kermitsample
 
 import co.touchlab.kermit.Logger
 
-class SampleCommon(private val logger: Logger) {
+class SampleCommon {
     private var count = 0
     fun onClick() {
         count++
-        logger.i { "Common click count: $count" }
+        Logger.i { "Common click count: $count" }
     }
 
     fun logException(){
-        logger.w(throwable = Exception("Handled")) { "Common click count: $count" }
+        Logger.w(throwable = Exception("Handled")) { "Common click count: $count" }
     }
 }

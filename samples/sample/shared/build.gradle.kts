@@ -96,7 +96,6 @@ kotlin {
 
     targets.withType<KotlinNativeTarget> {
         binaries.withType<Framework> {
-            export("co.touchlab:kermit:${KERMIT_VERSION}")
             transitiveExport = true
         }
     }
