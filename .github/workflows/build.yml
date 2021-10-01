@@ -42,6 +42,8 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Build
         run: ./gradlew build --no-daemon --stacktrace
+      - name: Build 1.6 nmm
+        run: ./gradlew build -PKOTLIN_VERSION=1.6.0-M1 -Pkotlin.native.binary.memoryModel=experimental --no-daemon --stacktrace
 
 env:
   GRADLE_OPTS: -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:MaxMetaspaceSize=512m"
