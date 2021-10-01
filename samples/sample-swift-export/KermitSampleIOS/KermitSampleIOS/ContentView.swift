@@ -19,7 +19,6 @@ struct ContentView: View {
 
     init() {
         LoggerKt.withTag(tag: "MainScreen").v {"Main Screen Loaded"}
-        LoggerKt.withTag(tag: "MainScreen").v(message: "")
         self.common = SampleCommon()
     }
 
