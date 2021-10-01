@@ -12,7 +12,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [macOS-latest]
+        os: [macOS-11]
     runs-on: ${{matrix.os}}
     steps:
       - name: Checkout the repo
