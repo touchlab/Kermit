@@ -12,18 +12,11 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [macOS-latest, windows-latest]
+        os: [macOS-latest]
     runs-on: ${{matrix.os}}
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
-      - name: Install msys2
-        if: matrix.os == 'windows-latest'
-        uses: msys2/setup-msys2@v2
-        with:
-          msystem: MINGW64
-          update: true
-          install: git mingw-w64-x86_64-toolchain
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
       - name: Cache gradle
@@ -42,7 +35,7 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Build
         run: ./gradlew build --no-daemon --stacktrace
-      - name: Build 1.6 nmm
+      - name: Build 1.6
         run: ./gradlew build -PKOTLIN_VERSION=1.6.0-M1 --no-daemon --stacktrace
       - name: Build 1.6 nmm
         run: ./gradlew build -PKOTLIN_VERSION=1.6.0-M1 -Pkotlin.native.binary.memoryModel=experimental --no-daemon --stacktrace
