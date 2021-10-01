@@ -43,6 +43,8 @@ jobs:
       - name: Build
         run: ./gradlew build --no-daemon --stacktrace
       - name: Build 1.6 nmm
+        run: ./gradlew build -PKOTLIN_VERSION=1.6.0-M1 --no-daemon --stacktrace
+      - name: Build 1.6 nmm
         run: ./gradlew build -PKOTLIN_VERSION=1.6.0-M1 -Pkotlin.native.binary.memoryModel=experimental --no-daemon --stacktrace
 
 env:
