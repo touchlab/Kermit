@@ -31,6 +31,7 @@ open class Logger(
             log(Severity.Verbose, tag, null, message())
     }
 
+    fun newFun() = 3
     inline fun v(throwable: Throwable, message: () -> String) {
         if (config.minSeverity <= Severity.Verbose)
             log(Severity.Verbose, tag, throwable, message())
