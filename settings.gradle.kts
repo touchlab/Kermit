@@ -13,6 +13,7 @@
 
 include(":kermit")
 include(":kermit-crashlytics")
+include(":kermit-crashlytics-test")
 include(":kermit-bugsnag")
 
 include(":kermit-gradle-plugin")
@@ -32,6 +33,7 @@ pluginManagement {
         }
     }
     repositories {
+        mavenLocal()
         google()
         gradlePluginPortal()
         mavenCentral()

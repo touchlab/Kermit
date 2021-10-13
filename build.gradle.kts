@@ -13,8 +13,10 @@
 
 buildscript {
     extra["kotlin_plugin_id"] = "co.touchlab.kermit"
+    val KOTLIN_VERSION: String by project
     dependencies {
         classpath("com.vanniktech:gradle-maven-publish-plugin:0.18.0")
+        classpath("co.touchlab:cklib-gradle-plugin:${KOTLIN_VERSION}.4")
     }
 }
 
