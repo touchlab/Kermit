@@ -4,7 +4,7 @@ With the `kermit-crashlytics` module, you can setup kermit to automatically send
 Note on Dynamic Frameworks: Exporting your Kotlin module as a dynamic framework creates linking issues that prevent `kermit-crashlytics` from working, so you'll have to copy implementations into your source if a dynamic framework is a must have. Docs coming soon to explain this process, in the mean time reach out Michael Friend or Kevin Galligan in the kotlinlang slack with any questions.  
 
 ## Step 1: Add Crashlytics to Your Project
-If you already have your app setup with crashlytics, you can skip this step
+If you already have your app setup with Crashlytics, you can skip this step, otherwise follow the steps in the Firebase docs to add Crashlytics crash reporting to both your [Android](https://firebase.google.com/docs/crashlytics/get-started?authuser=0&platform=android) and [iOS](https://firebase.google.com/docs/crashlytics/get-started?authuser=0&platform=ios) 
 
 ## Step 2: Setup Kermit Crashlogging 
 First, make sure you have a dependency on `kermit` and `kermit-crashlytics` artifacts in your `commonMain` source set in your shared modules `build.gradle`
@@ -27,13 +27,13 @@ If you're providing instances built from a base `Logger` instance via dependency
 
 Example in Koin syntax
 ```kotlin
-val baseLogger = Logger(StaticConfig(logWriterList = listOf(platformWriter(), CrashlyticsWriter)))
+val baseLogger = Logger(StaticConfig(logWriterList = listOf(platformWriter(), CrashlyticsLogWriter)))
 // Creates a new Logger instance using baseLogger's config with an updated tag 
 factory { (tag: String?) -> if (tag!= null) baseLogger.withTag(tag) else baseKermit }
 ```
 
 ### iOS
-Like in Android, you need to add the `CrashlyticsLogWriter` to your `Logger` instance in `application:didFinishLaunchingWithOptions:`, but for native theres one more step that needs to happen to make sure exceptions in kotlin code are properly reported. `kermit-crashlytics` provides the `setupCrashlyticsExceptionHook` helper function. 
+Like in Android, you need to add the `CrashlyticsLogWriter` to your `Logger` instance in `application:didFinishLaunchingWithOptions:`, but for Kotlin native theres one more step that needs to happen to make sure exceptions in kotlin code are properly reported. `kermit-crashlytics` provides the `setupCrashlyticsExceptionHook` helper function to handle this for you. 
 
 If you don't need to make kermit logging calls from Swift/Objective C code, we recommend not exporting Kermit in the framework exposed to your iOS app. To setup Kermit configuration you can make a top level helper method in the `iosMain` sourceset that you call from Swift code to avoid binary bloat. The same rule of thumb applies to `kermit-crashlytics` and since the added api is only needed for configuration, a Kotlin helper method is almost always the best option. For using static logging, this is as simple as the example below. 
 ```swift
