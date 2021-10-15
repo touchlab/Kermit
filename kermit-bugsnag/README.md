@@ -95,4 +95,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 # Reading iOS Crash Logs
 When a crash occurs in Kotlin code, the stack trace in Bugsnag gets lost at the Swift-Kotlin barrier, which can make it difficult to determine the root cause of a crash that happens in Kotlin. 
 
+// BUGSNAG CRASH EVENT IMAGE 
+
 To remedy this, `kermit-bugsnag` reports unhandled Kotlin exceptions as separate, non-fatal exceptions, which will show up in Bugsnag with a readable stack trace. Each Kotlin crash event will have a non-fatal even with a matching unique value for the `ktcrash` key that will allow you to see the stacktrace of the exception. 
+
+// BUGSNAG NON FATAL EVENT IMAGE 
