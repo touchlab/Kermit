@@ -1,4 +1,4 @@
-name: deploy
+name: private-deploy
 on: workflow_dispatch
 #on:
 #  pull_request:
