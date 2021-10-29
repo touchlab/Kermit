@@ -39,7 +39,9 @@ jobs:
         env:
           ORG_GRADLE_PROJECT_AWS_ACCESS_KEY: ${{secrets.AWS_ACCESS_KEY}}
           ORG_GRADLE_PROJECT_AWS_SECRET_KEY: ${{secrets.AWS_SECRET_KEY}}
-          ORG_GRADLE_PROJECT_AWS_REPO_URL: ${{secrets.AWS_REPO_URL}}
+          ORG_GRADLE_PROJECT_AWS_REPO_URL: ${{secrets.AWS_REPO_URL}}          
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.AWS_ACCESS_KEY }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.AWS_SECRET_KEY }}
       - name: Publish Windows Artifacts
         if: matrix.os == 'windows-latest'
         run: ./gradlew publishWindows --no-daemon --stacktrace
@@ -47,6 +49,8 @@ jobs:
           ORG_GRADLE_PROJECT_AWS_ACCESS_KEY: ${{secrets.AWS_ACCESS_KEY}}
           ORG_GRADLE_PROJECT_AWS_SECRET_KEY: ${{secrets.AWS_SECRET_KEY}}
           ORG_GRADLE_PROJECT_AWS_REPO_URL: ${{secrets.AWS_REPO_URL}}
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.AWS_ACCESS_KEY }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.AWS_SECRET_KEY }}
       - name: Publish Linux Artifacts
         if: matrix.os == 'ubuntu-latest'
         run: ./gradlew publishLinux --no-daemon --stacktrace
@@ -54,6 +58,8 @@ jobs:
           ORG_GRADLE_PROJECT_AWS_ACCESS_KEY: ${{secrets.AWS_ACCESS_KEY}}
           ORG_GRADLE_PROJECT_AWS_SECRET_KEY: ${{secrets.AWS_SECRET_KEY}}
           ORG_GRADLE_PROJECT_AWS_REPO_URL: ${{secrets.AWS_REPO_URL}}
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.AWS_ACCESS_KEY }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.AWS_SECRET_KEY }}
 
 env:
   GRADLE_OPTS: -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:MaxMetaspaceSize=512m"
