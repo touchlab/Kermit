@@ -4,6 +4,21 @@
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
+def isPrivateBuild() {
+  return hasProperty('AWS_REPO_URL')
+}
+def getAwsRepoUrl() {
+  return hasProperty('AWS_ACCESS_KEY') ? AWS_ACCESS_KEY :
+          ""
+}
+def getAwsAccessKey() {
+  return hasProperty('AWS_ACCESS_KEY') ? AWS_ACCESS_KEY :
+          ""
+}
+def getAwsSecretKey() {
+  return hasProperty('AWS_SECRET_KEY') ? AWS_SECRET_KEY :
+          ""
+}
 def isReleaseBuild() {
   return VERSION_NAME.contains("SNAPSHOT") == false
 }
@@ -82,16 +97,23 @@ publishing {
   }
 
   repositories {
-    maven {
-      url isReleaseBuild() ? getReleaseRepositoryUrl() : getSnapshotRepositoryUrl()
-      credentials {
-        username getRepositoryUsername()
-        password getRepositoryPassword()
+    if (isPrivateBuild()) {
+      maven {
+        name "AWS"
+        url AWS_REPO_URL
+        credentials(AwsCredentials.class) {
+          accessKey(getAwsAccessKey())
+          secretKey(getAwsSecretKey())
+        }
       }
-    }
-    maven {
-      name 'test'
-      url "file://${rootProject.buildDir}/localMaven"
+    } else {
+      maven {
+        url isReleaseBuild() ? getReleaseRepositoryUrl() : getSnapshotRepositoryUrl()
+        credentials {
+          username getRepositoryUsername()
+          password getRepositoryPassword()
+        }
+      }
     }
   }
 }
