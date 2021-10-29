@@ -33,15 +33,6 @@ commonMain {
 }
 ```
 
-### Basic Config
-
-Kermit will log to `println()` by default. To get platform-specific loggers (which you probably want), do this
-somewhere on init:
-
-```kotlin
-Logger.setLogWriters(platformLogWriter())
-```
-
 ### Log
 
 ```kotlin
