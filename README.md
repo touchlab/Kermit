@@ -175,6 +175,15 @@ platform that has interop with Kotlin. For iOS and Swift-specific considerations
 
 There are multiple sample apps showing various configurations.
 
+## Crash Reporting
+
+Kermit includes crash reporting implementations for Crashlytics and Bugsnag. These will write breadcrumb statements to 
+those crash reporting tools, and can be triggered to report unhandled crash reports when there's an uncaught Kotlin 
+exception.
+
+**Note: ** Crash reporter integration currently only supports static frameworks. Dynamic frameworks create linking issues,
+so you'll need to add implementations directly to your source. See the documentation for more info.
+
 ## Kermit Chisel
 
 For some situations, disabling logging is desirable. For example, when building release versions of apps. You can disable
