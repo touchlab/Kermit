@@ -105,7 +105,8 @@ typedef NS_ENUM(NSUInteger, BSGBreadcrumbType) {
  * a type.
  *
  * @param message The log message to leave.
- * @param metadata Additional metadata included with the breadcrumb.
+ * @param metadata Diagnostic data relating to the breadcrumb.
+ *                 Values should be serializable to JSON with NSJSONSerialization.
  * @param type A BSGBreadcrumbTypeValue denoting the type of breadcrumb.
  */
 + (void)leaveBreadcrumbWithMessage:(NSString *_Nonnull)message
