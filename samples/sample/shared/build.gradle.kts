@@ -41,7 +41,6 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(kotlin("stdlib-common"))
                 api("co.touchlab:kermit:${KERMIT_VERSION}")
             }
         }
@@ -96,7 +95,6 @@ kotlin {
 
     targets.withType<KotlinNativeTarget> {
         binaries.withType<Framework> {
-            export("co.touchlab:kermit:${KERMIT_VERSION}")
             transitiveExport = true
         }
     }
