@@ -15,23 +15,58 @@ import shared
 
 struct ContentView: View {
 
-    let kermit = (UIApplication.shared.delegate as! AppDelegate).kermit
     let common: SampleCommon
 
     init() {
-        self.common = SampleCommon(logger: kermit)
-        self.kermit.i(message: {"loaded"})
-        LoggerKt.v(message: {""})
-        LoggerKt.d{ "" }
-        LoggerKt.e(message: "", throwable: KotlinThrowable())
+        self.common = SampleCommon()
     }
 
     var body: some View {
-        VStack(spacing: 50){
+        VStack(spacing: 10){
             Button(action: {
-                self.common.onClick()
+                self.common.onClickV()
             }){
-                Text("Click Count").padding()
+                Text("Click Count V").padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .font(.title)
+            }
+            Button(action: {
+                self.common.onClickD()
+            }){
+                Text("Click Count D").padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .font(.title)
+            }
+            Button(action: {
+                self.common.onClickI()
+            }){
+                Text("Click Count I").padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .font(.title)
+            }
+            Button(action: {
+                self.common.onClickW()
+            }){
+                Text("Click Count W").padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .font(.title)
+            }
+            Button(action: {
+                self.common.onClickE()
+            }){
+                Text("Click Count E").padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .font(.title)
+            }
+            Button(action: {
+                self.common.onClickA()
+            }){
+                Text("Click Count A").padding()
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .font(.title)

@@ -13,8 +13,10 @@
 
 buildscript {
     extra["kotlin_plugin_id"] = "co.touchlab.kermit"
+    val KOTLIN_VERSION: String by project
     dependencies {
         classpath("com.vanniktech:gradle-maven-publish-plugin:0.18.0")
+        classpath("co.touchlab:cklib-gradle-plugin:${KOTLIN_VERSION}.4")
     }
 }
 
@@ -22,6 +24,10 @@ plugins {
     kotlin("multiplatform") apply false
     id("com.android.library") version "4.1.2" apply false
     id("com.github.gmazzo.buildconfig") version "2.1.0" apply false
+    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.8.0-RC"
+}
+apiValidation {
+    ignoredProjects.addAll(listOf("kermit-gradle-plugin", "kermit-ir-plugin", "kermit-ir-plugin-native"))
 }
 
 val GROUP: String by project

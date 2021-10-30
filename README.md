@@ -9,6 +9,12 @@ outputting to platform logging tools such as Logcat and NSLog.
 
 Kermit is getting some updates. Docs and samples are also in the refresh process and may be a little outdated.
 
+
+> ## Touchlab's Hiring!
+>
+> We're looking for a Mobile Developer, with Android/Kotlin experience, who is eager to dive into Kotlin Multiplatform Mobile (KMM) development. Come join the remote-first team putting KMM in production. [More info here](https://go.touchlab.co/careers-gh).
+
+
 ## Most Users Read This
 
 If you don't care about the philosophy of logging, custom configurations, and especially if you're writing for native mobile (KMM), 
@@ -25,15 +31,6 @@ commonMain {
         implementation("co.touchlab:kermit:x.y.z") //Add latest version
     }
 }
-```
-
-### Basic Config
-
-Kermit will log to `println()` by default. To get platform-specific loggers (which you probably want), do this
-somewhere on init:
-
-```kotlin
-Logger.setLogWriters(platformLogWriter())
 ```
 
 ### Log
@@ -177,6 +174,15 @@ platform that has interop with Kotlin. For iOS and Swift-specific considerations
 ## Samples
 
 There are multiple sample apps showing various configurations.
+
+## Crash Reporting
+
+Kermit includes crash reporting implementations for Crashlytics and Bugsnag. These will write breadcrumb statements to 
+those crash reporting tools, and can be triggered to report unhandled crash reports when there's an uncaught Kotlin 
+exception.
+
+**Note: ** Crash reporter integration currently only supports static frameworks. Dynamic frameworks create linking issues,
+so you'll need to add implementations directly to your source. See the documentation for more info.
 
 ## Kermit Chisel
 

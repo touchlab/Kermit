@@ -40,6 +40,7 @@ kotlin {
     ].forEach { target ->
         target.compilations.main.cinterops.create(project.name) {
             includeDirs("$projectDir/src/include")
+            compilerOpts("-DNS_FORMAT_ARGUMENT(A)=", "-D_Nullable_result=_Nullable")
             if (printCInteropKotlin) {
                 extraOpts = listOf("-mode", "sourcecode")
             }
