@@ -27,7 +27,7 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         Logger.withTag("FirstFragment").v("First fragment loaded")
         val sample = SampleCommon()
         val binding = FragmentFirstBinding.bind(view)
-        binding.btnClickCount.setOnClickListener { sample.onClick() }
+        binding.btnClickCount.setOnClickListener { sample.onClickI() }
         binding.btnException.setOnClickListener { sample.logException() }
     }
 }

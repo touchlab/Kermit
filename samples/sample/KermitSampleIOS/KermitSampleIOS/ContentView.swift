@@ -22,7 +22,7 @@ struct ContentView: View {
     }
 
     var body: some View {
-        VStack(spacing: 50){
+        VStack(spacing: 10){
             Button(action: {
                 self.common.onClickV()
             }){
