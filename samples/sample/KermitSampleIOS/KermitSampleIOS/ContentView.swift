@@ -29,9 +29,49 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 50){
             Button(action: {
-                self.common.onClick()
+                self.common.onClickV()
             }){
-                Text("Click Count").padding()
+                Text("Click Count V").padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .font(.title)
+            }
+            Button(action: {
+                self.common.onClickD()
+            }){
+                Text("Click Count D").padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .font(.title)
+            }
+            Button(action: {
+                self.common.onClickI()
+            }){
+                Text("Click Count I").padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .font(.title)
+            }
+            Button(action: {
+                self.common.onClickW()
+            }){
+                Text("Click Count W").padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .font(.title)
+            }
+            Button(action: {
+                self.common.onClickE()
+            }){
+                Text("Click Count E").padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .font(.title)
+            }
+            Button(action: {
+                self.common.onClickA()
+            }){
+                Text("Click Count A").padding()
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .font(.title)

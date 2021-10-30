@@ -16,7 +16,7 @@ import shared
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    let kermit:Logger = Logger(config: StaticConfig(minSeverity: .verbose, logWriterList: [NSLogWriter(), OSLogWriter()]), tag: "iosTag")
+    let kermit:Logger = Logger.companion
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
