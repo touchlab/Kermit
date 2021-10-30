@@ -13,7 +13,7 @@
 
 package co.touchlab.kermit
 
-class CommonWriter : LogWriter() {
+open class CommonWriter : LogWriter() {
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         println("$severity: ($tag) $message")
         throwable?.printStackTrace()
