@@ -1,5 +1,6 @@
 public class co/touchlab/kermit/CommonWriter : co/touchlab/kermit/LogWriter {
 	public fun <init> ()V
+	public fun formatMessage (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)Ljava/lang/String;
 	public fun log (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
 }
 
