@@ -14,9 +14,33 @@ import co.touchlab.kermit.Logger
 
 class SampleCommon {
     private var count = 0
-    fun onClick() {
+    fun onClickI() {
         count++
         Logger.i { "Common click count: $count" }
+    }
+
+    fun onClickW() {
+        count++
+        Logger.w { "Common click count: $count" }
+    }
+
+    fun onClickE() {
+        count++
+        Logger.e { "Common click count: $count" }
+    }
+
+    fun onClickA() {
+        count++
+        Logger.a { "Common click count: $count" }
+    }
+
+    fun onClickD() {
+        count++
+        Logger.d { "Common click count: $count" }
+    }
+    fun onClickV() {
+        count++
+        Logger.v { "Common click count: $count" }
     }
 
     fun logException(){
