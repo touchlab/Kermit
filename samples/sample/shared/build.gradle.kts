@@ -35,7 +35,6 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(kotlin("stdlib-common"))
                 api("co.touchlab:kermit:${KERMIT_VERSION}")
             }
         }
