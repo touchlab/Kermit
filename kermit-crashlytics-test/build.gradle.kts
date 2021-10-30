@@ -26,7 +26,7 @@ kotlin {
     macosArm64()
     iosX64()
     iosArm64()
-    iosArm32()
+//    iosArm32()
     iosSimulatorArm64()
     tvosArm64()
     tvosSimulatorArm64()
@@ -71,7 +71,7 @@ cklib {
         language = co.touchlab.cklib.gradle.CompileToBitcode.Language.OBJC
         compilerArgs.addAll(
             listOf(
-                "-DKONAN_MI_MALLOC=1"
+                "-DKONAN_MI_MALLOC=1", "-DNS_FORMAT_ARGUMENT(A)=", "-D_Nullable_result=_Nullable"
             )
         )
     }
