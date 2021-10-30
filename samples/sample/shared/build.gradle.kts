@@ -27,13 +27,7 @@ val KERMIT_VERSION: String by project
 kotlin {
     version = "0.0.1"
     android()
-//    jvm()
-    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")?:false
-    if(onPhone){
-        iosArm64("ios")
-    }else{
-        iosX64("ios")
-    }
+    ios()
     js {
         browser()
     }
@@ -76,28 +70,12 @@ kotlin {
                 implementation(kotlin("test-js"))
             }
         }
-//        val jvmMain by sourceSets.getting {
-//            dependsOn(commonMain.get())
-//            dependencies {
-//                implementation(kotlin("stdlib"))
-//            }
-//        }
-//        val jvmTest by sourceSets.getting {
-//            dependsOn(commonTest.get())
-//            dependencies {
-//                implementation(kotlin("stdlib"))
-//            }
-//        }
     }
     cocoapods {
         summary = "Sample for Kermit"
         homepage = "https://www.touchlab.co"
-    }
-
-    targets.withType<KotlinNativeTarget> {
-        binaries.withType<Framework> {
+        framework {
             export("co.touchlab:kermit:${KERMIT_VERSION}")
-            transitiveExport = true
         }
     }
 }

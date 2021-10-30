@@ -21,13 +21,10 @@ struct ContentView: View {
     init() {
         self.common = SampleCommon(logger: kermit)
         self.kermit.i(message: {"loaded"})
-        LoggerKt.v(message: {""})
-        LoggerKt.d{ "" }
-        LoggerKt.e(message: "", throwable: KotlinThrowable())
     }
 
     var body: some View {
-        VStack(spacing: 50){
+        VStack(spacing: 10){
             Button(action: {
                 self.common.onClickV()
             }){
