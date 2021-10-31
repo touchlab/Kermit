@@ -54,7 +54,10 @@ actual class BugsnagLogWriter actual constructor(
 private class BugsnagNSException(stackTrace: List<Long>, exceptionType: String, message: String) : NSException(name = exceptionType, reason = message, userInfo = null) {
     private val _callStackReturnAddresses:List<NSNumber>
     init {
-        _callStackReturnAddresses = stackTrace.map { it.convert<NSInteger>() as NSNumber }
+        _callStackReturnAddresses = stackTrace.map {
+            @Suppress("CAST_NEVER_SUCCEEDS")
+            it.convert<NSInteger>() as NSNumber
+        }
     }
 
     override fun callStackReturnAddresses(): List<*> {

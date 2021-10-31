@@ -110,10 +110,6 @@ kotlin {
         testSourceSet.dependsOn(commonTest)
     }
 
-    commonMain.dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-    }
-
     commonTest.dependencies {
         implementation("org.jetbrains.kotlin:kotlin-test-common")
         implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
@@ -121,19 +117,11 @@ kotlin {
         implementation("co.touchlab:testhelp:0.5.5")
     }
 
-    androidMain.dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib")
-    }
-
     androidTest.dependencies {
         implementation("org.jetbrains.kotlin:kotlin-test")
         implementation("org.jetbrains.kotlin:kotlin-test-junit")
         implementation("androidx.test:runner:1.4.0")
         implementation("org.robolectric:robolectric:4.5.1")
-    }
-
-    jvmMain.dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib")
     }
 
     jvmTest.dependencies {
