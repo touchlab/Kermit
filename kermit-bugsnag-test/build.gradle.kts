@@ -16,12 +16,7 @@ plugins {
     id("co.touchlab.cklib")
 }
 
-val CRASHKIOS_CORE_VERSION: String by project
-val CRASHLYTICS_ANDROID_VERSION: String by project
-
-
 kotlin {
-
     macosX64()
     macosArm64()
     iosX64()
