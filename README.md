@@ -241,12 +241,6 @@ Add `releaseBuild=false` to `gradle.properties`, then pass in an override when b
 
 Note: Chisel is new and configuration is likely to change in the near future.
 
-### OSLogLogger
-
-The iOS sample also includes a custom logger for outputting using `os_log`. `os_log` is not currently available in 
-Kotlin/Native and consequently could not be included as a prebuilt logger in the library, but does serve as a good 
-demonstration of custom logger implementation.
-
 ## Primary Maintainer
 
 [Michael Friend](https://github.com/mrf7/)
