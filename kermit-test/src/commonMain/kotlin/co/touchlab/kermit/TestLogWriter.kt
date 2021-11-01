@@ -17,12 +17,15 @@ import co.touchlab.stately.collections.frozenLinkedList
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
+@ExperimentalKermitApi
 data class TestConfig(
     override val minSeverity: Severity,
     override val logWriterList: List<LogWriter>,
 ) : LoggerConfig
 
+@ExperimentalKermitApi
 class TestLogWriter(private val loggable: Severity) : LogWriter() {
+    @ExperimentalKermitApi
     data class LogEntry(
         val severity: Severity,
         val message: String,

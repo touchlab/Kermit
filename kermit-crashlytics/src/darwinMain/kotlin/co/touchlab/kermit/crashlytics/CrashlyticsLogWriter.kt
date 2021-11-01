@@ -14,10 +14,12 @@
 package co.touchlab.kermit.crashlytics
 
 import co.touchlab.crashkios.transformException
+import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Severity
 import kotlinx.cinterop.convert
 
+@ExperimentalKermitApi
 actual class CrashlyticsLogWriter actual constructor(
     private val minSeverity: Severity,
     private val minCrashSeverity: Severity,

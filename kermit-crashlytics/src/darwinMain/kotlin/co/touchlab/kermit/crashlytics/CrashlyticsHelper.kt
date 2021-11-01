@@ -10,10 +10,12 @@
 
 package co.touchlab.kermit.crashlytics
 
+import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.setupUnhandledExceptionHook
 import platform.Foundation.NSUUID
 
+@ExperimentalKermitApi
 fun setupCrashlyticsExceptionHook(logger: Logger) {
     setupUnhandledExceptionHook(logger) {
         val crashId = generateCrashId()

@@ -8,20 +8,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-package co.touchlab.kermitsamplecrashlog
+package co.touchlab.kermit
 
-import android.app.Application
-import co.touchlab.kermit.ExperimentalKermitApi
-import co.touchlab.kermit.Logger
-import co.touchlab.kermit.crashlytics.CrashlyticsLogWriter
-import co.touchlab.kermit.platformLogWriter
-
-class SampleApp : Application() {
-
-    @OptIn(ExperimentalKermitApi::class)
-    override fun onCreate() {
-        super.onCreate()
-        // Setup crash crash reporting service and static log writer on app creation
-        Logger.setLogWriters(platformLogWriter(), CrashlyticsLogWriter())
-    }
-}
+@RequiresOptIn(level = RequiresOptIn.Level.WARNING)
+annotation class ExperimentalKermitApi()

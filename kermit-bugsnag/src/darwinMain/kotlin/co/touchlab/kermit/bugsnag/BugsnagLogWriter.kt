@@ -11,6 +11,7 @@
 package co.touchlab.kermit.bugsnag
 
 import co.touchlab.crashkios.transformException
+import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Severity
 import kotlinx.cinterop.convert
@@ -18,6 +19,7 @@ import platform.Foundation.NSException
 import platform.Foundation.NSNumber
 import platform.darwin.NSInteger
 
+@ExperimentalKermitApi
 actual class BugsnagLogWriter actual constructor(
     private val minSeverity: Severity,
     private val minCrashSeverity: Severity,

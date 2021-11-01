@@ -10,9 +10,11 @@
 
 package co.touchlab.kermit.bugsnag
 
+import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Severity
 
+@ExperimentalKermitApi
 actual class BugsnagLogWriter actual constructor(
     private val minSeverity: Severity,
     private val minCrashSeverity: Severity,
