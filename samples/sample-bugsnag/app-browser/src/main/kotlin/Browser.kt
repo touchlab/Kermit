@@ -10,6 +10,7 @@
 
 package co.touchlab.kermitsample.js
 
+import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.bugsnag.Bugsnag
 import co.touchlab.kermit.bugsnag.BugsnagLogWriter
@@ -23,6 +24,7 @@ import kotlinx.html.js.onClickFunction
 import kotlin.browser.document
 
 
+@OptIn(ExperimentalKermitApi::class)
 fun main() {
     Logger.setLogWriters(platformLogWriter(), BugsnagLogWriter())
     Bugsnag.start("YOUR API KEY HERE")

@@ -11,6 +11,7 @@
 package co.touchlab.kermitsamplecrashlog
 
 import android.app.Application
+import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.bugsnag.BugsnagLogWriter
 import co.touchlab.kermit.platformLogWriter
@@ -18,6 +19,7 @@ import com.bugsnag.android.Bugsnag
 
 class SampleApp : Application() {
 
+    @OptIn(ExperimentalKermitApi::class)
     override fun onCreate() {
         super.onCreate()
         // Setup crash crash reporting service and static log writer on app creation

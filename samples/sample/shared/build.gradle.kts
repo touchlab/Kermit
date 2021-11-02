@@ -7,8 +7,6 @@
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
-import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     id("com.android.library")
@@ -43,6 +41,8 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+
+                implementation("co.touchlab:kermit-test:${KERMIT_VERSION}")
             }
         }
 

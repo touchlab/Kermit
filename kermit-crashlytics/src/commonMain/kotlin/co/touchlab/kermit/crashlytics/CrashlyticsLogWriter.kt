@@ -10,9 +10,11 @@
 
 package co.touchlab.kermit.crashlytics
 
+import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Severity
 
+@ExperimentalKermitApi
 expect class CrashlyticsLogWriter(
     minSeverity: Severity = Severity.Info,
     minCrashSeverity: Severity = Severity.Warn,

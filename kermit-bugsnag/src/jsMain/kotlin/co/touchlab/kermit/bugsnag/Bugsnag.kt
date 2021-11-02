@@ -10,10 +10,14 @@
 
 package co.touchlab.kermit.bugsnag
 
+import co.touchlab.kermit.ExperimentalKermitApi
+
 @JsModule("@bugsnag/js")
 @JsNonModule
+@ExperimentalKermitApi
 external val Bugsnag: BugsnagStatic
 
+@ExperimentalKermitApi
 abstract external class BugsnagStatic {
     fun start(apiKey: String)
     fun leaveBreadcrumb(breadcrumb: String)

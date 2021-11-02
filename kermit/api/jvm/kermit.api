@@ -4,6 +4,9 @@ public class co/touchlab/kermit/CommonWriter : co/touchlab/kermit/LogWriter {
 	public fun log (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
 }
 
+public abstract interface annotation class co/touchlab/kermit/ExperimentalKermitApi : java/lang/annotation/Annotation {
+}
+
 public abstract class co/touchlab/kermit/LogWriter {
 	public fun <init> ()V
 	public fun a (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V

@@ -5,11 +5,3 @@ public final class co/touchlab/kermit/crashlytics/BuildConfig {
 	public fun <init> ()V
 }
 
-public final class co/touchlab/kermit/crashlytics/CrashlyticsLogWriter : co/touchlab/kermit/LogWriter {
-	public fun <init> ()V
-	public fun <init> (Lco/touchlab/kermit/Severity;Lco/touchlab/kermit/Severity;Z)V
-	public synthetic fun <init> (Lco/touchlab/kermit/Severity;Lco/touchlab/kermit/Severity;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun isLoggable (Lco/touchlab/kermit/Severity;)Z
-	public fun log (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
-}
-

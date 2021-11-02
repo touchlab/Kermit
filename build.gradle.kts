@@ -27,6 +27,7 @@ plugins {
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.8.0-RC"
 }
 apiValidation {
+    nonPublicMarkers.add("co.touchlab.kermit.ExperimentalKermitApi")
     ignoredProjects.addAll(listOf("kermit-gradle-plugin", "kermit-ir-plugin", "kermit-ir-plugin-native"))
 }
 
@@ -36,6 +37,12 @@ val VERSION_NAME: String by project
 allprojects {
     group = GROUP
     version = VERSION_NAME
+
+    extensions.findByType<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension>()?.apply {
+        sourceSets.all {
+            languageSettings.optIn("kotlin.RequiresOptIn")
+        }
+    }
 }
 
 allprojects {
