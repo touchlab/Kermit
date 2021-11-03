@@ -32,4 +32,10 @@ allprojects{
         google()
     }
 }
-
+subprojects {
+    afterEvaluate {
+        tasks.register("ciTest") {
+            dependsOn("assembleDebug")
+        }
+    }
+}

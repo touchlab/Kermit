@@ -30,4 +30,6 @@ allprojects{
         google()
     }
 }
-
+tasks.register("ciTest") {
+    dependsOn("build")
+}
