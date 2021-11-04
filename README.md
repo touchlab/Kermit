@@ -177,18 +177,24 @@ There are multiple sample apps showing various configurations.
 
 ## Crash Reporting
 
-Kermit includes crash reporting implementations for Crashlytics and Bugsnag. These will write breadcrumb statements to 
-those crash reporting tools, and can be triggered to report unhandled crash reports when there's an uncaught Kotlin 
+Kermit includes crash reporting implementations for Crashlytics and Bugsnag. These will write breadcrumb statements to
+those crash reporting tools, and can be triggered to report unhandled crash reports when there's an uncaught Kotlin
 exception.
 
-**Note: ** Crash reporter integration currently only supports static frameworks. Dynamic frameworks create linking issues,
-so you'll need to add implementations directly to your source. See the documentation for more info.
+**Note: ** Crash reporter integration currently only supports static frameworks. Dynamic frameworks create linking
+issues, so you'll need to add implementations directly to your source. See the documentation for more info.
+
+## Testing
+
+Kermit includes a test dependency, intended for use when testing application code that interacts with Kermit APIs but
+doesn't want to write to actual logs. This includes a `TestLogWriter` which holds the string outputs of log statements,
+and has APIs for asserting on what logs are present.
 
 ## Kermit Chisel
 
-For some situations, disabling logging is desirable. For example, when building release versions of apps. You can disable
-logging by defining minSeverity on the logging config, but you can also run a compiler plugin and strip out logging calls
-entirely.
+For some situations, disabling logging is desirable. For example, when building release versions of apps. You can
+disable logging by defining minSeverity on the logging config, but you can also run a compiler plugin and strip out
+logging calls entirely.
 
 To run the log strip plugin, add the classpath to your buildscript:
 

@@ -1,17 +1,33 @@
 # Kermit Crash Logging - Crashlytics
-With the `kermit-crashlytics` module, you can setup kermit to automatically send bread crumbs and crash reports to Firebase Crashlytics
 
-Note on Dynamic Frameworks: Exporting your Kotlin module as a dynamic framework creates linking issues that prevent `kermit-crashlytics` from working, so you'll have to copy implementations into your source if a dynamic framework is a must have. Docs coming soon to explain this process, in the mean time reach out Michael Friend or Kevin Galligan in the kotlinlang slack with any questions.  
+With the `kermit-crashlytics` module, you can setup kermit to automatically send bread crumbs and crash reports to
+Firebase Crashlytics
+
+Note on Dynamic Frameworks: Exporting your Kotlin module as a dynamic framework creates linking issues that
+prevent `kermit-crashlytics` from working, so you'll have to copy implementations into your source if a dynamic
+framework is a must have. Docs coming soon to explain this process, in the mean time reach out Michael Friend or Kevin
+Galligan in the kotlinlang slack with any questions.
+
+The crash reporting APIs are not yet stable, and
+require [opting into](https://kotlinlang.org/docs/opt-in-requirements.html#opt-in-to-using-api)
+the `@ExperimentalKermitApi` annotation.
 
 ## Step 1: Add Crashlytics to Your Project
-If you already have your app setup with Crashlytics, you can skip this step, otherwise follow the steps in the Firebase docs to add Crashlytics crash reporting to both your [Android](https://firebase.google.com/docs/crashlytics/get-started?authuser=0&platform=android) and [iOS](https://firebase.google.com/docs/crashlytics/get-started?authuser=0&platform=ios) 
 
-## Step 2: Setup Kermit Crashlogging 
-First, make sure you have a dependency on `kermit` and `kermit-crashlytics` artifacts in your `commonMain` source set in your shared modules `build.gradle`
+If you already have your app setup with Crashlytics, you can skip this step, otherwise follow the steps in the Firebase
+docs to add Crashlytics crash reporting to both
+your [Android](https://firebase.google.com/docs/crashlytics/get-started?authuser=0&platform=android)
+and [iOS](https://firebase.google.com/docs/crashlytics/get-started?authuser=0&platform=ios)
+
+## Step 2: Setup Kermit Crashlogging
+
+First, make sure you have a dependency on `kermit` and `kermit-crashlytics` artifacts in your `commonMain` source set in
+your shared modules `build.gradle`
+
 ```kotlin
     sourceSets {
-        commonMain {
-            dependencies {
+    commonMain {
+        dependencies {
                 api("co.touchlab:kermit:${KERMIT_VERSION}")
                 api("co.touchlab:kermit-crashlytics:${KERMIT_VERSION}")
             }

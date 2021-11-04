@@ -1,15 +1,27 @@
 # Kermit Crash Logging - Bugsnag
-With the `kermit-bugsnag` module, you can setup kermit to automatically send bread crumbs and crash reports to Firebase Bugsnag
+
+With the `kermit-bugsnag` module, you can setup kermit to automatically send bread crumbs and crash reports to Firebase
+Bugsnag
+
+The crash reporting APIs are not yet stable, and
+require [opting into](https://kotlinlang.org/docs/opt-in-requirements.html#opt-in-to-using-api)
+the `@ExperimentalKermitApi` annotation.
 
 ## Step 1: Add Bugsnag to Your Project
-If you already have your app setup with bugsnag, you can skip this step, otherwise follow the steps in the Bugsnag docs to add Bugsnag crash reporting to both your [Android](https://docs.bugsnag.com/platforms/android/) and [iOS](https://docs.bugsnag.com/platforms/ios/) apps.
 
-## Step 2: Setup Kermit Crashlogging 
-First, make sure you have a dependency on `kermit` and `kermit-bugsnag` artifacts in your `commonMain` source set in your shared modules `build.gradle`
+If you already have your app setup with bugsnag, you can skip this step, otherwise follow the steps in the Bugsnag docs
+to add Bugsnag crash reporting to both your [Android](https://docs.bugsnag.com/platforms/android/)
+and [iOS](https://docs.bugsnag.com/platforms/ios/) apps.
+
+## Step 2: Setup Kermit Crashlogging
+
+First, make sure you have a dependency on `kermit` and `kermit-bugsnag` artifacts in your `commonMain` source set in
+your shared modules `build.gradle`
+
 ```kotlin
     sourceSets {
-        commonMain {
-            dependencies {
+    commonMain {
+        dependencies {
                 api("co.touchlab:kermit:${KERMIT_VERSION}")
                 api("co.touchlab:kermit-bugsnag:${KERMIT_VERSION}")
             }
