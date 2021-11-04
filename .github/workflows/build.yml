@@ -43,6 +43,7 @@ jobs:
       - name: Build
         run: ./gradlew build --no-daemon --stacktrace
       - name: script
+        if: matrix.os == 'macOS-latest'
         run: ./ci-test-samples.sh
         shell: bash
 
