@@ -1,8 +1,9 @@
 #! /bin/bash
+set -e
 
 for i in `ls samples`; do
 echo "---- $i ----"
 cd samples/$i
-./gradlew clean ciTest --quiet
+./gradlew ciTest
 cd ../..
 done

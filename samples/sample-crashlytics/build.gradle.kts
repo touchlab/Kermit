@@ -35,7 +35,8 @@ allprojects{
 subprojects {
     afterEvaluate {
         tasks.register("ciTest") {
-            dependsOn("assembleDebug")
+//Need to copy/write google-services.json to the app folder in CI
+//            dependsOn("build")
         }
     }
 }
