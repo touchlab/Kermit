@@ -11,6 +11,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
     }
     extra.apply {
         val parentKermit = java.util.Properties().apply { load(java.io.StringReader(File("${projectDir.path}/../../gradle.properties").readText())) }.get("VERSION_NAME") as String
@@ -27,7 +28,10 @@ allprojects{
     repositories{
         mavenLocal()
         mavenCentral()
+        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
         google()
     }
 }
-
+tasks.register("ciTest") {
+    dependsOn("build")
+}

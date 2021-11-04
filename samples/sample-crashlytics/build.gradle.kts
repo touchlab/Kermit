@@ -11,6 +11,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
     }
     extra.apply {
         val parentKermit = java.util.Properties().apply { load(java.io.StringReader(File("${projectDir.path}/../../gradle.properties").readText())) }.get("VERSION_NAME") as String
@@ -29,7 +30,15 @@ allprojects{
     repositories{
         mavenLocal()
         mavenCentral()
+        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
         google()
     }
 }
-
+subprojects {
+    afterEvaluate {
+        tasks.register("ciTest") {
+//Need to copy/write google-services.json to the app folder in CI
+//            dependsOn("build")
+        }
+    }
+}

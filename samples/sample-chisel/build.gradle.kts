@@ -11,6 +11,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
         mavenLocal()
     }
     extra.apply {
@@ -29,7 +30,10 @@ allprojects{
     repositories{
         mavenLocal()
         mavenCentral()
+        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
         google()
     }
 }
-
+tasks.register("ciTest") {
+    dependsOn(":shared:build")
+}
