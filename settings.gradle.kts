@@ -45,3 +45,23 @@ pluginManagement {
         kotlin("multiplatform") version KOTLIN_VERSION
     }
 }
+
+plugins {
+    id("com.github.burrunan.s3-build-cache") version "1.2"
+}
+
+buildCache {
+    local {
+        isEnabled = false
+    }
+
+    val env = System.getenv()
+    remote<com.github.burrunan.s3cache.AwsS3BuildCache> {
+        region = env.getOrDefault("S3_BUILD_CACHE_AWS_REGION", "")
+        bucket = env.getOrDefault("S3_BUILD_CACHE_BUCKET_NAME", "")
+        awsAccessKeyId = env.getOrDefault("S3_BUILD_CACHE_ACCESS_KEY_ID", "")
+        awsSecretKey = env.getOrDefault("S3_BUILD_CACHE_SECRET_KEY", "")
+        prefix = "${rootProject.name}/"
+        isPush = env.containsKey("CI")
+    }
+}
