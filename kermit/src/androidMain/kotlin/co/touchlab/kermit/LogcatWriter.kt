@@ -18,12 +18,12 @@ import android.util.Log
 class LogcatWriter : LogWriter() {
 
     private fun getSeverity(severity: Severity) = when (severity) {
-        Severity.Verbose -> 2
-        Severity.Debug -> 3
-        Severity.Info -> 4
-        Severity.Warn -> 5
-        Severity.Error -> 6
-        Severity.Assert -> 7
+        Severity.Verbose -> Log.VERBOSE
+        Severity.Debug -> Log.DEBUG
+        Severity.Info -> Log.INFO
+        Severity.Warn -> Log.WARN
+        Severity.Error -> Log.ERROR
+        Severity.Assert -> Log.ASSERT
     }
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
