@@ -46,16 +46,16 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Build
         run: ./gradlew build --no-daemon --stacktrace
-      - name: Setup for samples testing
-        shell: bash
-        env:
-          GOOGLE_SERVICES: ${{ secrets.SERVICES_SECRET }}
-        run: |
-          echo $GOOGLE_SERVICES | base64 --decode > samples/sample-crashlytics/app/google-services.json
-      - name: script
-        if: matrix.os == 'macOS-latest'
-        run: ./ci-test-samples.sh
-        shell: bash
+#      - name: Setup for samples testing
+#        shell: bash
+#        env:
+#          GOOGLE_SERVICES: ${{ secrets.SERVICES_SECRET }}
+#        run: |
+#          echo $GOOGLE_SERVICES | base64 --decode > samples/sample-crashlytics/app/google-services.json
+#      - name: script
+#        if: matrix.os == 'macOS-latest'
+#        run: ./ci-test-samples.sh
+#        shell: bash
 
 env:
   GRADLE_OPTS: -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:MaxMetaspaceSize=512m"
