@@ -184,6 +184,10 @@ exception.
 **Note: ** Crash reporter integration currently only supports static frameworks. Dynamic frameworks create linking
 issues, so you'll need to add implementations directly to your source. See the documentation for more info.
 
+Crashlytics [docs](kermit-crashlytics/README.md) and [sample](samples/sample-crashlytics).
+
+Bugsnag [docs](kermit-bugsnag/README.md) and [sample](samples/sample-bugsnag).
+
 ## Testing
 
 Kermit includes a test dependency, intended for use when testing application code that interacts with Kermit APIs but
