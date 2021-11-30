@@ -19,7 +19,7 @@ struct ContentView: View {
     let cb = CrashBot()
 
     init() {
-        Logger.companion.i {"Loaded"}
+        LoggerKt.i {"Loaded"}
         self.common = SampleCommon(logger: Logger.companion)
     }
 

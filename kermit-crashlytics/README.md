@@ -55,7 +55,7 @@ Logger.addLogWriter(CrashlyticsLogWriter())
 
 ([Static Config](../Kermit#local-configuration) would be similar)
 
-On either  platform, you should make sure logging is configured immediately after Crashlyticis is initialized, to avoid 
+On either  platform, you should make sure logging is configured immediately after Crashlytics is initialized, to avoid 
 a gap where some other failure may happen but logging is not capturing info.
 
 ### iOS
@@ -65,7 +65,7 @@ provides the `setupCrashlyticsExceptionHook` helper function to handle this for 
 
 If you don't need to make kermit logging calls from Swift/Objective C code, we recommend not exporting Kermit in the 
 framework exposed to your iOS app. To setup Kermit configuration you can make a top level helper method in
-the `iosMain` source set that you call from Swift code to avoid binary bloat. The same rule of thumb applies
+the `iosMain` source set that you call from Swift code. The same rule of thumb applies
 to `kermit-crashlytics` and since the added api is only needed for configuration, a Kotlin helper method is
 almost always the best option. Here is a basic example.
 

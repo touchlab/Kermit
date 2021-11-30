@@ -15,7 +15,6 @@
 		95FA421F243F7F7300A0104F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95FA421E243F7F7300A0104F /* Assets.xcassets */; };
 		95FA4222243F7F7300A0104F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95FA4221243F7F7300A0104F /* Preview Assets.xcassets */; };
 		95FA4225243F7F7300A0104F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95FA4223243F7F7300A0104F /* LaunchScreen.storyboard */; };
-		F1BE031B2446163800E02658 /* OSLogLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BE031A2446163800E02658 /* OSLogLogger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +30,6 @@
 		95FA4224243F7F7300A0104F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		95FA4226243F7F7300A0104F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B6D7F23C24166543540B3767 /* Pods_KermitSampleIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KermitSampleIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F1BE031A2446163800E02658 /* OSLogLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLogLogger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,7 +47,6 @@
 		95FA420C243F7F7100A0104F = {
 			isa = PBXGroup;
 			children = (
-				7687C96926F4F42B00ED8911 /* GoogleService-Info.plist */,
 				95FA4217243F7F7100A0104F /* KermitSampleIOS */,
 				95FA4216243F7F7100A0104F /* Products */,
 				D3ABC2FB8D4B42332FF4D4AC /* Pods */,
@@ -76,7 +73,6 @@
 				95FA4223243F7F7300A0104F /* LaunchScreen.storyboard */,
 				95FA4226243F7F7300A0104F /* Info.plist */,
 				95FA4220243F7F7300A0104F /* Preview Content */,
-				F1BE031A2446163800E02658 /* OSLogLogger.swift */,
 			);
 			path = KermitSampleIOS;
 			sourceTree = "<group>";
@@ -261,7 +257,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1BE031B2446163800E02658 /* OSLogLogger.swift in Sources */,
 				95FA4219243F7F7100A0104F /* AppDelegate.swift in Sources */,
 				95FA421B243F7F7100A0104F /* SceneDelegate.swift in Sources */,
 				95FA421D243F7F7100A0104F /* ContentView.swift in Sources */,
