@@ -10,11 +10,13 @@
 
 package co.touchlab.kermit
 
+//These are all simple accessor methods to make global calls from (mostly darwin) native simpler
 fun withTag(tag: String): Logger = Logger.withTag(tag)
 
 fun v(message: () -> String) {
     Logger.v(message)
 }
+
 fun v(string: String) {
     Logger.v(string)
 }
@@ -46,6 +48,7 @@ fun d(message: String, throwable: Throwable) {
 fun i(message: () -> String) {
     Logger.i(message)
 }
+
 fun i(string: String) {
     Logger.i(string)
 }
@@ -61,6 +64,7 @@ fun i(message: String, throwable: Throwable) {
 fun w(message: () -> String) {
     Logger.w(message)
 }
+
 fun w(string: String) {
     Logger.w(string)
 }
@@ -89,7 +93,6 @@ fun e(message: String, throwable: Throwable) {
     Logger.e(message, throwable)
 }
 
-
 fun a(message: () -> String) {
     Logger.a(message)
 }
@@ -97,6 +100,7 @@ fun a(message: () -> String) {
 fun a(string: String) {
     Logger.a(string)
 }
+
 fun a(throwable: Throwable, message: () -> String) {
     Logger.a(throwable, message)
 }

@@ -1,5 +1,5 @@
 # Sensitive or high-churn files
-/.idea
+.idea
 
 !.idea/codeStyles
 !.idea/copyright

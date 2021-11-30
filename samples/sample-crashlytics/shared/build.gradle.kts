@@ -39,7 +39,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 api("co.touchlab:kermit:${KERMIT_VERSION}")
-                api("co.touchlab:kermit-crashlytics:${KERMIT_VERSION}")
+                implementation("co.touchlab:kermit-crashlytics:${KERMIT_VERSION}")
             }
         }
 
@@ -64,13 +64,9 @@ kotlin {
     cocoapods {
         summary = "Sample for Kermit"
         homepage = "https://www.touchlab.co"
-    }
-
-    targets.withType<KotlinNativeTarget> {
-        binaries.withType<Framework> {
+        framework {
             export("co.touchlab:kermit:${KERMIT_VERSION}")
-            export("co.touchlab:kermit-crashlytics:${KERMIT_VERSION}")
-            transitiveExport = true
+            isStatic = true
         }
     }
 }
