@@ -99,7 +99,7 @@ logger.i { "Hello World" }
 
 You can supply a different tag for the logger through local instances. This is more
 meaningful in an Android context. However, there are also potential performance related reasons for local loggers.
-See [PERFORMANCE](PERFORMANCE.md) for more info.
+See [PERFORMANCE](docs/PERFORMANCE.md) for more info.
 
 ## Configuration
 
