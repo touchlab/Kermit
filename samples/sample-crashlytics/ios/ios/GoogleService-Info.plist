@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>443141027708-4s3o4rkr0p1cfb251md6kdv06ei1fmsi.apps.googleusercontent.com</string>
+	<string>443141027708-dfmb32j3r3obatdss17rn12r4arbfe3q.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.443141027708-4s3o4rkr0p1cfb251md6kdv06ei1fmsi</string>
+	<string>com.googleusercontent.apps.443141027708-dfmb32j3r3obatdss17rn12r4arbfe3q</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCVWfL1bEPMYLJwMWo8Vsnk8j-m35TRPpo</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>co.touchlab.KermitSampleIOS</string>
+	<string>co.touchlab.kermit.dynamic.ios</string>
 	<key>PROJECT_ID</key>
 	<string>kermittest-2e896</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:443141027708:ios:c9884b4fabf9772c42d6f9</string>
+	<string>1:443141027708:ios:87fe0e3d909de85d42d6f9</string>
 </dict>
 </plist>
