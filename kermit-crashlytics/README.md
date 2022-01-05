@@ -5,27 +5,12 @@ Firebase Crashlytics
 
 ## Dynamic Frameworks
 
-For native/apple targets, we're using cinterop to define the underlying calls to Crashlytics. *This will only work
-with static frameworks*. This is not a Kotlin or Kermit issue, but a reality of how linking works in native builds. For
-a longer discussion about the issues involved, see [firebase_in_libraries](https://github.com/firebase/firebase-ios-sdk/blob/master/docs/firebase_in_libraries.md).
+In general, using static frameworks will be easier because you don't always need to satisfy the linker with the full
+Crashlytics library. You *can* use dynamic frameworks, but you'll need to link with Crashlytics, and the simplest way
+to do that currently is with Cocoapods.
 
-In your Kotlin config, that means you need to explicitly mark your framework as static:
-
-```kotlin
-ios {
-    binaries {
-        framework {
-            isStatic = true
-        }
-    }
-}
-```
-
-It may be possible to configure linking that will allow this to work in the future, but for now, direct Kermit integration
-requires a static framework. To use dynamic frameworks, you'll need to pass in an implementation from Swift/Objc.
-
-We'll add an example doing this in the future, but for now reach out Michael Friend or Kevin Galligan in the kotlinlang 
-slack with any questions.  
+See our [blog post for more detail](https://touchlab.co/kermit-and-crashlytics/). We will be updating these docs as
+we experiment with better ways to keep the linker happy.
 
 ## Step 1: Add Crashlytics to Your Native Project
 If you already have your app setup with Crashlytics, you can skip this step, otherwise follow the steps in the Firebase 
@@ -135,10 +120,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 # Native Test Stubs
 
-I you run tests in Kotlin from your native code, you'll need to provide binary implementations of the cinterop declarations.
-In your app, this will be supplied by the actual Crashlytics binary, but for testing purposes, you can add the `kermit-crashlytics-test`
-module. It is simply basic Objc stubs that satisfy the linker. They do not actually work, so you should not initialize your 
-tests with `CrashlyticsLogWriter`.
+If you are creating a static framework, and you have `CrashlyticsLogWriter` pulled into your tests, you'll need to satisfy
+the native linker for your Kotlin tests to run. You can either add Crashlytics as a dependency (see [blog post](https://touchlab.co/kermit-and-crashlytics/)),
+or add our test stubs. They do not function, but they satisfy the linker.
 
 ```kotlin
 sourceSets {

@@ -181,8 +181,7 @@ Kermit includes crash reporting implementations for Crashlytics and Bugsnag. The
 those crash reporting tools, and can be triggered to report unhandled crash reports when there's an uncaught Kotlin
 exception.
 
-**Note: ** Crash reporter integration currently only supports static frameworks. Dynamic frameworks create linking
-issues, so you'll need to add implementations directly to your source. See the documentation for more info.
+> Read our blog post about Kermit and Crashlytics: https://touchlab.co/kermit-and-crashlytics/
 
 Crashlytics [docs](kermit-crashlytics/README.md) and [sample](samples/sample-crashlytics).
 
