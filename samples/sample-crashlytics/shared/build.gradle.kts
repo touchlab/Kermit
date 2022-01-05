@@ -25,11 +25,11 @@ repositories {
 val KERMIT_VERSION: String by project
 
 kotlin {
-    version = "0.0.1"
-    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")?:false
-    if(onPhone){
+    version = "0.1.2"
+    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
+    if (onPhone) {
         iosArm64("ios")
-    }else{
+    } else {
         iosX64("ios")
     }
     android()
@@ -51,29 +51,42 @@ kotlin {
         }
 
         val androidMain by sourceSets.getting {}
-        val iosMain by sourceSets.getting {
-        }
+        val iosMain by sourceSets.getting {}
         val iosTest by sourceSets.getting {
             dependencies {
                 implementation("co.touchlab:kermit-crashlytics-test:${KERMIT_VERSION}")
             }
         }
-
     }
 
     cocoapods {
         summary = "Sample for Kermit"
         homepage = "https://www.touchlab.co"
+        ios.deploymentTarget = "13.5"
         framework {
             export("co.touchlab:kermit:${KERMIT_VERSION}")
             isStatic = true
         }
     }
+
+    /*
+    //Dynamic framework? Try this...
+    cocoapods {
+        summary = "Sample for Kermit"
+        homepage = "https://www.touchlab.co"
+        ios.deploymentTarget = "13.5"
+        framework {
+            export("co.touchlab:kermit:${KERMIT_VERSION}")
+            isStatic = false
+        }
+        pod("FirebaseCrashlytics")
+    }
+     */
 }
 android {
-    compileSdk =29
+    compileSdk = 29
     defaultConfig {
-        minSdk =26
+        minSdk = 26
         targetSdk = 29
     }
 
