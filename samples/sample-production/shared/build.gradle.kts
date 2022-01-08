@@ -20,7 +20,6 @@ kotlin {
     version = "0.0.1"
     android()
     ios()
-//    iosX64("ios")
 
     sourceSets {
         commonMain {
