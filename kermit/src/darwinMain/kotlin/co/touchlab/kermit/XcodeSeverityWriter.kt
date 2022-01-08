@@ -10,15 +10,11 @@
 
 package co.touchlab.kermit
 
-import platform.Foundation.*
-
-open class XcodeSeverityWriter : CommonWriter() {
-    private val df:NSDateFormatter = NSDateFormatter().apply {
-        dateFormat = "HH:mm:ss.SSS"
-    }
-
+open class XcodeSeverityWriter : OSLogWriter() {
     override fun formatMessage(severity: Severity, message: String, tag: String, throwable: Throwable?): String =
-        "${df.stringFromDate(NSDate.now)} ${emojiPrefix(severity)} $severity: ($tag) $message"
+        "${emojiPrefix(severity)} $severity: ($tag) $message\n${
+            throwable?.getStackTrace()?.joinToString(separator = "\n") ?: ""
+        }"
 
     //If this looks familiar, yes, it came directly from Napier :) https://github.com/AAkira/Napier#darwinios-macos-watchos-tvosintelapple-silicon
     open fun emojiPrefix(severity: Severity): String = when (severity) {
