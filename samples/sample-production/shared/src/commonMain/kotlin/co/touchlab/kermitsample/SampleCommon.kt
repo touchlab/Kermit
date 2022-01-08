@@ -12,7 +12,7 @@ package co.touchlab.kermitsample
 
 class SampleCommon {
     //Pretend we're injecting
-    private val logger = NotDI.logger
+    private val logger = NotDI.loggerWithTag("SampleCommon")
     private var count = 0
     fun onClickI() {
         count++

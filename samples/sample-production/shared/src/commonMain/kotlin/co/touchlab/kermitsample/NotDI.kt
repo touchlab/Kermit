@@ -17,4 +17,6 @@ import co.touchlab.kermit.Logger
  */
 object NotDI {
     lateinit var logger: Logger
+
+    fun loggerWithTag(tag: String) = logger.withTag(tag)
 }

@@ -16,6 +16,6 @@ import co.touchlab.kermitsample.startApp
 class SampleApplication: Application() {
     override fun onCreate() {
         super.onCreate()
-        startApp(false)
+        startApp(this, false)
     }
 }
