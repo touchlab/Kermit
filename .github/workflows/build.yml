@@ -46,7 +46,14 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Build
         run: ./gradlew build --no-daemon --stacktrace
+      - name: Local Publish For Samples
+        if: matrix.os == 'macOS-latest'
+        run: ./gradlew publishToMavenLocal --no-daemon --stacktrace
+        env:
+          ORG_GRADLE_PROJECT_SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
       - name: Setup for samples testing
+        if: matrix.os == 'macOS-latest'
         shell: bash
         env:
           GOOGLE_SERVICES: ${{ secrets.SERVICES_SECRET }}
