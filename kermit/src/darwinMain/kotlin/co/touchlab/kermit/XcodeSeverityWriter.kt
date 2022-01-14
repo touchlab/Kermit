@@ -11,10 +11,8 @@
 package co.touchlab.kermit
 
 open class XcodeSeverityWriter : OSLogWriter() {
-    override fun formatMessage(severity: Severity, message: String, tag: String, throwable: Throwable?): String =
-        "${emojiPrefix(severity)} $severity: ($tag) $message\n${
-            throwable?.getStackTrace()?.joinToString(separator = "\n") ?: ""
-        }"
+    override fun formatMessage(severity: Severity, message: String, tag: String): String =
+        "${emojiPrefix(severity)} $severity: ($tag) $message"
 
     //If this looks familiar, yes, it came directly from Napier :) https://github.com/AAkira/Napier#darwinios-macos-watchos-tvosintelapple-silicon
     open fun emojiPrefix(severity: Severity): String = when (severity) {

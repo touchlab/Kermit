@@ -26,8 +26,11 @@ open class OSLogWriter : LogWriter() {
             __dso_handle.ptr,
             OS_LOG_DEFAULT,
             kermitSeverityToOsLogType(severity),
-            formatMessage(severity, tag, message, throwable)
+            formatMessage(severity, tag, message)
         )
+        if(throwable != null){
+            println(throwable.getStackTrace().joinToString("\n"))
+        }
     }
 
     private fun kermitSeverityToOsLogType(severity: Severity): UByte = when (severity) {
@@ -38,5 +41,5 @@ open class OSLogWriter : LogWriter() {
         Severity.Assert -> OS_LOG_TYPE_FAULT
     }
 
-    open fun formatMessage(severity: Severity, message: String, tag: String, throwable: Throwable?): String = "${severity.name}: ($tag) $message"
+    open fun formatMessage(severity: Severity, message: String, tag: String): String = "${severity.name}: ($tag) $message"
 }
