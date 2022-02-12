@@ -43,7 +43,7 @@ actual class SentryLogWriter actual constructor(
             Severity.Info -> crumb.level = kSentryLevelInfo
             Severity.Warn -> crumb.level = kSentryLevelWarning
             Severity.Error -> crumb.level = kSentryLevelError
-            Severity.Assert,
+            Severity.Assert -> crumb.level = kSentryLevelError
             Severity.Verbose -> crumb.level = kSentryLevelNone
         }
         SentrySDK.addBreadcrumb(crumb = crumb)

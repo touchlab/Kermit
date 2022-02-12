@@ -106,6 +106,7 @@
 				6381FF97277D0BE900EF27B0 /* Frameworks */,
 				6381FF98277D0BE900EF27B0 /* Resources */,
 				68C44FAE286AE19AE12F3BDC /* [CP] Embed Pods Frameworks */,
+				637BB10727B82A4500ED549D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -162,6 +163,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		637BB10727B82A4500ED549D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which sentry-cli >/dev/null; then\nexport SENTRY_ORG=touchlab\nexport SENTRY_PROJECT=kermit-sentry-ios\nexport SENTRY_AUTH_TOKEN=01533b70fd664aba952049b6036dc00fff3d01ab26db46a9a2d28617c195418d\nERROR=$(sentry-cli upload-dif \"$DWARF_DSYM_FOLDER_PATH\" 2>&1 >/dev/null)\nif [ ! $? -eq 0 ]; then\necho \"warning: sentry-cli - $ERROR\"\nfi\nelse\necho \"warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"\nfi\n";
+		};
 		68C44FAE286AE19AE12F3BDC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

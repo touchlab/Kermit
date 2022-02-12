@@ -52,7 +52,7 @@ kotlin {
         val iosMain by sourceSets.getting {}
         val iosTest by sourceSets.getting {
             dependencies {
-                // TODO: Add ios-test implementation
+                api("co.touchlab:kermit-sentry-test:$KERMIT_VERSION")
             }
         }
     }

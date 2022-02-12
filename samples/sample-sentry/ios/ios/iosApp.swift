@@ -12,7 +12,7 @@ import Sentry
 struct iosApp: App {
     init() {
         SentrySDK.start { options in
-            options.dsn = "https://d91189f89f7d4a9daeacc42c349038c4@o1132133.ingest.sentry.io/6177444"
+            options.dsn = "https://162e7a75c8804edbb49e2d038dc9e1c5@o326303.ingest.sentry.io/6201254"
             options.debug = true // Enabled debug when first installing is always helpful
 
             // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
