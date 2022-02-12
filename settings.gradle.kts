@@ -17,6 +17,8 @@ include(":kermit-crashlytics-test")
 include(":kermit-bugsnag")
 include(":kermit-bugsnag-test")
 include(":kermit-test")
+include(":kermit-sentry")
+include(":kermit-sentry-test")
 
 include(":kermit-gradle-plugin")
 include(":kermit-ir-plugin")
