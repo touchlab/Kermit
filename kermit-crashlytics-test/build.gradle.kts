@@ -18,7 +18,7 @@ plugins {
 
 val CRASHKIOS_CORE_VERSION: String by project
 val CRASHLYTICS_ANDROID_VERSION: String by project
-
+val KOTLIN_VERSION: String by project
 
 kotlin {
 
@@ -67,6 +67,7 @@ kotlin {
 }
 
 cklib {
+    config.kotlinVersion = KOTLIN_VERSION
     create("objcsample") {
         language = co.touchlab.cklib.gradle.CompileToBitcode.Language.OBJC
         compilerArgs.addAll(

@@ -20,9 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        Logger.companion.setLogWriters(logWriters: [OSLogWriter(), NSLogWriter(), BugsnagLogWriter(minSeverity: .verbose, minCrashSeverity: .warn, printTag: true)])
         Bugsnag.start(withApiKey: "PUT YOUR API KEY HERE")
-        BugsnagHelperKt.setupBugsnagExceptionHook(logger: Logger.companion)
+        HelperKt.startKermit()
         return true
     }
 

@@ -61,7 +61,10 @@ kotlin {
     }
 }
 
+val KOTLIN_VERSION: String by project
+
 cklib {
+    config.kotlinVersion = KOTLIN_VERSION
     create("objcsample") {
         language = co.touchlab.cklib.gradle.CompileToBitcode.Language.OBJC
         compilerArgs.addAll(

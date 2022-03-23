@@ -1,29 +1,15 @@
 name: deploy
 on: workflow_dispatch
-#on:
-#  pull_request:
-#    branches:
-#      - main
-#  push:
-#    branches:
-#      - main
 
 jobs:
   build:
     strategy:
       matrix:
-        os: [macOS-latest, windows-latest, ubuntu-latest]
+        os: [macOS-latest, ubuntu-latest]
     runs-on: ${{matrix.os}}
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
-      - name: Install msys2
-        if: matrix.os == 'windows-latest'
-        uses: msys2/setup-msys2@v2
-        with:
-          msystem: MINGW64
-          update: true
-          install: git mingw-w64-x86_64-toolchain
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
       - name: Cache gradle
@@ -40,7 +26,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('*.gradle.kts') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Publish Mac Artifacts
+      - name: Publish Mac/Windows Artifacts
         if: matrix.os == 'macOS-latest'
         run: ./gradlew publish --no-daemon --stacktrace --no-build-cache
         env:
@@ -50,13 +36,6 @@ jobs:
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
           ORG_GRADLE_PROJECT_SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
-      - name: Publish Windows Artifacts
-        if: matrix.os == 'windows-latest'
-        run: ./gradlew publishWindows --no-daemon --stacktrace --no-build-cache
-        env:
-          ORG_GRADLE_PROJECT_SONATYPE_NEXUS_USERNAME: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
-          ORG_GRADLE_PROJECT_SONATYPE_NEXUS_PASSWORD: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
-          ORG_GRADLE_PROJECT_SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
       - name: Publish Linux Artifacts
         if: matrix.os == 'ubuntu-latest'
         run: ./gradlew publishLinux --no-daemon --stacktrace --no-build-cache
