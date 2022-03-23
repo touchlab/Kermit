@@ -6,7 +6,7 @@ echo "---- $i ----"
 if [ "$i" != "sample-crashlytics" ]
 then
 cd samples/$i
-./gradlew ciTest
+./gradlew ciTest --no-daemon --stacktrace --build-cache
 cd ../..
 fi
 done

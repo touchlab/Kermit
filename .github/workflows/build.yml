@@ -45,13 +45,24 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: Build
-        run: ./gradlew build --no-daemon --stacktrace
+        env:
+          S3_BUILD_CACHE_AWS_REGION: ${{ secrets.S3_BUILD_CACHE_AWS_REGION }}
+          S3_BUILD_CACHE_BUCKET_NAME: ${{ secrets.S3_BUILD_CACHE_BUCKET_NAME }}
+          S3_BUILD_CACHE_ACCESS_KEY_ID: ${{ secrets.S3_BUILD_CACHE_ACCESS_KEY_ID }}
+          S3_BUILD_CACHE_SECRET_KEY: ${{ secrets.S3_BUILD_CACHE_SECRET_KEY }}
+          CI: "true"
+        run: ./gradlew build --no-daemon --stacktrace --build-cache
       - name: Local Publish For Samples
         if: matrix.os == 'macOS-latest'
-        run: ./gradlew publishToMavenLocal --no-daemon --stacktrace
+        run: ./gradlew publishToMavenLocal --no-daemon --stacktrace --build-cache
         env:
           ORG_GRADLE_PROJECT_SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
+          S3_BUILD_CACHE_AWS_REGION: ${{ secrets.S3_BUILD_CACHE_AWS_REGION }}
+          S3_BUILD_CACHE_BUCKET_NAME: ${{ secrets.S3_BUILD_CACHE_BUCKET_NAME }}
+          S3_BUILD_CACHE_ACCESS_KEY_ID: ${{ secrets.S3_BUILD_CACHE_ACCESS_KEY_ID }}
+          S3_BUILD_CACHE_SECRET_KEY: ${{ secrets.S3_BUILD_CACHE_SECRET_KEY }}
+          CI: "true"
       - name: Setup for samples testing
         if: matrix.os == 'macOS-latest'
         shell: bash
@@ -61,6 +72,12 @@ jobs:
           echo $GOOGLE_SERVICES | base64 --decode > samples/sample-crashlytics/app/google-services.json
       - name: script
         if: matrix.os == 'macOS-latest'
+        env:
+          S3_BUILD_CACHE_AWS_REGION: ${{ secrets.S3_BUILD_CACHE_AWS_REGION }}
+          S3_BUILD_CACHE_BUCKET_NAME: ${{ secrets.S3_BUILD_CACHE_BUCKET_NAME }}
+          S3_BUILD_CACHE_ACCESS_KEY_ID: ${{ secrets.S3_BUILD_CACHE_ACCESS_KEY_ID }}
+          S3_BUILD_CACHE_SECRET_KEY: ${{ secrets.S3_BUILD_CACHE_SECRET_KEY }}
+          CI: "true"
         run: ./ci-test-samples.sh
         shell: bash
 
