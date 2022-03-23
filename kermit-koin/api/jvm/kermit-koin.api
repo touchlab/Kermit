@@ -1,0 +1,5 @@
+public final class co/touchlab/kermit/koin/KermitKoinLogger : org/koin/core/logger/Logger {
+	public fun <init> (Lco/touchlab/kermit/Logger;)V
+	public fun log (Lorg/koin/core/logger/Level;Ljava/lang/String;)V
+}
+
