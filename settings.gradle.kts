@@ -17,6 +17,7 @@ include(":kermit-crashlytics-test")
 include(":kermit-bugsnag")
 include(":kermit-bugsnag-test")
 include(":kermit-test")
+include(":kermit-koin")
 include(":kermit-sentry")
 include(":kermit-sentry-test")
 
