@@ -1,13 +1,8 @@
 # Kermit <sub>the log</sub>
 
-Kermit is a Kotlin Multiplatform logging utility with composable log outputs. The library provides prebuilt loggers for 
-outputting to platform logging tools such as Logcat and NSLog.
+Kermit is a Kotlin Multiplatform logging utility with composable log outputs. Out of the box, the library defaults to platform-specific loggers such as Logcat and OSLog, but is easy to extend and configure.
 
 > Check out [KaMP Kit](https://github.com/touchlab/KaMPKit) to get started developing for Kotlin Multiplatform
-
-## Version Note - September 2021
-
-Kermit is getting some updates. Docs and samples are also in the refresh process and may be a little outdated.
 
 
 > ## Touchlab's Hiring!
@@ -41,6 +36,12 @@ Logger.i { "Hello World" }
 
 The rest of the docs explain more detailed options, but at this point you should be able to log from common 
 code.
+
+### Defaults
+
+By default, Kermit adds one Logger instance. The choice of default logger is basically the best option for local development. On Android, it is Logcat, for JS it just logs to console. On iOS, the logs go to OSLog but also get some visual style to help hightlight the severity.
+
+Production deployments may want a different configuration.
 
 ## Basic Concepts
 
@@ -85,8 +86,11 @@ If you are not familiar with the curly bracket syntax, that is a [trailing lambd
 Again, that will not be evaluated if no log writer needs it. String creation can be relatively costly if you don't need it,
 so Kermit will avoid creating the string if it is not being logged.
 
-The call above is on the global `Logger` instance. You can make all of your logging on the global instance, but for custom 
-tags, and potentially for performance reasons, you can use local instances as well.
+The call above is on the global `Logger` instance. You can make all of your logging on the global instance, or have local instances that are injected into your classes. We tend to use the latter, which accounts for some of Kermit's design decisions, but besides some small amount of performance boost, the choice between them is really down to personal preference.
+
+### A Note About Tags
+
+Tags are a complicating factor in the design. Currently tags are part of the Logger instance because we found the tag param to be kind of verbose and Android-specific. We also wanted to keep the number of api methods to a minimum because Swift (and others) can't handle default parameters, so each log statement requires all parameters in the call. However, if just using the global logger instance, having no tag parameter is a problem. We may be adding tag as a param but only for the global instance. Stay tuned (or comment in discussions).
 
 ### Local
 
@@ -98,7 +102,7 @@ logger.i { "Hello World" }
 ```
 
 You can supply a different tag for the logger through local instances. This is more
-meaningful in an Android context. However, there are also potential performance related reasons for local loggers.
+meaningful in an Android context. As mentioned, there's also a slight performance advantage to local.
 See [PERFORMANCE](docs/PERFORMANCE.md) for more info.
 
 ## Configuration
