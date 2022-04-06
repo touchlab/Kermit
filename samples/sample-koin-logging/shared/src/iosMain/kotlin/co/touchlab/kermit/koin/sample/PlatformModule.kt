@@ -10,10 +10,15 @@
 
 package co.touchlab.kermit.koin.sample
 
+import co.touchlab.kermit.koin.getLoggerWithTag
 import org.koin.dsl.module
 
 actual val platformModule = module {
     // ios specific dependencies - SqlDelight database, for instance
 
-    single { DataStore() }
+    single {
+        DataStore(
+            getLoggerWithTag("data_store")
+        )
+    }
 }

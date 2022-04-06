@@ -10,4 +10,8 @@
 
 package co.touchlab.kermit.koin.sample
 
-actual class DataStore
+import co.touchlab.kermit.Logger
+
+actual class DataStore(
+    private val logger: Logger
+)
