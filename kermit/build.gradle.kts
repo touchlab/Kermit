@@ -49,6 +49,11 @@ kotlin {
     linuxArm32Hfp()
     linuxMips32()
 
+    androidNativeArm32()
+    androidNativeArm64()
+    androidNativeX86()
+    androidNativeX64()
+
     val commonMain by sourceSets.getting
     val commonTest by sourceSets.getting
 
@@ -94,6 +99,10 @@ kotlin {
         dependsOn(nativeMain)
     }
 
+    val androidNativeMain by sourceSets.creating {
+        dependsOn(nativeMain)
+    }
+
     targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
         val mainSourceSet = compilations.getByName("main").defaultSourceSet
         val testSourceSet = compilations.getByName("test").defaultSourceSet
@@ -103,6 +112,7 @@ kotlin {
                 konanTarget.family.isAppleFamily -> darwinMain
                 konanTarget.family == org.jetbrains.kotlin.konan.target.Family.LINUX -> linuxMain
                 konanTarget.family == org.jetbrains.kotlin.konan.target.Family.MINGW -> mingwMain
+                konanTarget.family == org.jetbrains.kotlin.konan.target.Family.ANDROID -> androidNativeMain
                 else -> nativeMain
             }
         )
