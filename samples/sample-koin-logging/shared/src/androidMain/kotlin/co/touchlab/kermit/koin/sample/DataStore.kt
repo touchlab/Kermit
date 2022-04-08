@@ -10,4 +10,10 @@
 
 package co.touchlab.kermit.koin.sample
 
-actual class DataStore
+import android.content.Context
+import co.touchlab.kermit.Logger
+
+actual class DataStore(
+    private val context: Context,
+    private val logger: Logger
+)

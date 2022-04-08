@@ -8,19 +8,19 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-package co.touchlab.kermit.koin.sample
+package co.touchlab.kermit.koin
 
-import co.touchlab.kermit.koin.getLoggerWithTag
-import org.koin.core.qualifier.named
+import co.touchlab.kermit.Logger
+import org.koin.core.parameter.parametersOf
+import org.koin.core.scope.Scope
 import org.koin.dsl.module
 
-actual val platformModule = module {
-    // android specific dependencies - SqlDelight database, for instance
-
-    single {
-        DataStore(
-            context = get(named("app_context")),
-            logger = getLoggerWithTag("data_store")
-        )
+fun kermitLoggerModule(baseLogger: Logger) = module {
+    factory { (tag: String?) ->
+        if (tag != null) baseLogger.withTag(tag) else baseLogger
     }
+}
+
+inline fun <reified L : Logger> Scope.getLoggerWithTag(tag: String): L {
+    return get(parameters = { parametersOf(tag) })
 }
