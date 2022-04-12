@@ -134,6 +134,11 @@ kotlin {
         implementation("org.robolectric:robolectric:4.5.1")
     }
 
+    commonJvmTest.dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-test")
+        implementation("org.jetbrains.kotlin:kotlin-test-junit")
+    }
+
     jvmTest.dependencies {
         implementation("org.jetbrains.kotlin:kotlin-test")
         implementation("org.jetbrains.kotlin:kotlin-test-junit")
