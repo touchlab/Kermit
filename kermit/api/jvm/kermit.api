@@ -62,12 +62,24 @@ public class co/touchlab/kermit/Logger {
 }
 
 public final class co/touchlab/kermit/Logger$Companion : co/touchlab/kermit/Logger {
+	public final fun a (Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public static synthetic fun a$default (Lco/touchlab/kermit/Logger$Companion;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 	public final fun addLogWriter ([Lco/touchlab/kermit/LogWriter;)V
+	public final fun d (Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public static synthetic fun d$default (Lco/touchlab/kermit/Logger$Companion;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
+	public final fun e (Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public static synthetic fun e$default (Lco/touchlab/kermit/Logger$Companion;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 	public fun getTag ()Ljava/lang/String;
+	public final fun i (Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public static synthetic fun i$default (Lco/touchlab/kermit/Logger$Companion;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 	public final fun setLogWriters (Ljava/util/List;)V
 	public final fun setLogWriters ([Lco/touchlab/kermit/LogWriter;)V
 	public final fun setMinSeverity (Lco/touchlab/kermit/Severity;)V
 	public final fun setTag (Ljava/lang/String;)V
+	public final fun v (Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public static synthetic fun v$default (Lco/touchlab/kermit/Logger$Companion;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
+	public final fun w (Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public static synthetic fun w$default (Lco/touchlab/kermit/Logger$Companion;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 }
 
 public abstract interface class co/touchlab/kermit/LoggerConfig {
@@ -78,21 +90,6 @@ public abstract interface class co/touchlab/kermit/LoggerConfig {
 
 public final class co/touchlab/kermit/LoggerConfig$Companion {
 	public final fun getDefault ()Lco/touchlab/kermit/StaticConfig;
-}
-
-public final class co/touchlab/kermit/LoggerFunctionsKt {
-	public static final fun a (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
-	public static synthetic fun a$default (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
-	public static final fun d (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
-	public static synthetic fun d$default (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
-	public static final fun e (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
-	public static synthetic fun e$default (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
-	public static final fun i (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
-	public static synthetic fun i$default (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
-	public static final fun v (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
-	public static synthetic fun v$default (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
-	public static final fun w (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
-	public static synthetic fun w$default (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 }
 
 public abstract interface class co/touchlab/kermit/MutableLoggerConfig : co/touchlab/kermit/LoggerConfig {
