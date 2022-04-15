@@ -10,6 +10,7 @@
 
 package co.touchlab.kermit.bugsnag
 
+import co.touchlab.crashkios.transformException
 import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.setupUnhandledExceptionHook
@@ -24,6 +25,23 @@ fun setupBugsnagExceptionHook(logger: Logger) {
             mapOf(Pair(ktCrashKey, crashId)),
             BSGBreadcrumbType.BSGBreadcrumbTypeError
         )
+
+        // Does the transformation actually run?  Will a new exception
+        // break out of the current breadcrumb trail?
+        transformException( Exception("Brand-new Wrapper Exception", it) ) { name, description, addresses ->
+            Bugsnag.leaveBreadcrumbWithMessage(
+                "Kotlin Crash - inside transformException",
+                mapOf(
+                    Pair(ktCrashKey, crashId),
+                    Pair("Name", name),
+                    Pair("Desc", description),
+                    Pair("Addr list", addresses.toString())
+                ),
+                BSGBreadcrumbType.BSGBreadcrumbTypeError
+            )
+
+            Bugsnag.notify(BugsnagNSException(addresses, name, description))
+        }
         crashId
     }
 }
