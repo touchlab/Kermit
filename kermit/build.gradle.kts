@@ -91,6 +91,10 @@ kotlin {
         dependsOn(nativeMain)
     }
 
+    val darwinTest by sourceSets.creating {
+        dependsOn(commonTest)
+    }
+
     val linuxMain by sourceSets.creating {
         dependsOn(nativeMain)
     }
@@ -117,7 +121,13 @@ kotlin {
             }
         )
 
-        testSourceSet.dependsOn(commonTest)
+        testSourceSet.dependsOn(
+            if (konanTarget.family.isAppleFamily) {
+                darwinTest
+            } else {
+                commonTest
+            }
+        )
     }
 
     commonTest.dependencies {
