@@ -28,3 +28,7 @@ allprojects {
         mavenCentral()
     }
 }
+
+tasks.register("ciTest") {
+//    dependsOn("build")
+}
