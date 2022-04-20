@@ -34,8 +34,8 @@ class LogcatLoggerTest {
 
     @Test
     fun logsToLogcatTest() {
-        val logger = Logger(testConfig)
-        logger.e { "Message" }
+        val logger = BaseLogger(testConfig)
+        logger.logBlock(Severity.Debug, "tag", null) { "Message" }
 
         ShadowLog.getLogs().apply {
             assert(size > 0)
@@ -45,8 +45,8 @@ class LogcatLoggerTest {
     @Test
     fun testingDefaultTag() {
         val message = "TestingTag"
-        val logger = Logger(config = testConfig, tag = DEFAULT_TAG)
-        logger.e { message }
+        val logger = BaseLogger(config = testConfig)
+        logger.logBlock(Severity.Error, DEFAULT_TAG, null) { message }
 
         ShadowLog.getLogs().apply {
             assert(size > 0)
@@ -59,8 +59,8 @@ class LogcatLoggerTest {
     fun testingCustomTags() {
         val tag = "MyCustomTag"
         val message = "TestingCustomTag"
-        val logger = Logger(config = testConfig, tag = tag)
-        logger.e { message }
+        val logger = BaseLogger(config = testConfig)
+        logger.logBlock(Severity.Error, tag, null) { message }
 
         ShadowLog.getLogs().apply {
             assert(size > 0)
@@ -71,7 +71,7 @@ class LogcatLoggerTest {
 
     @Test
     fun testLogThrowable() {
-        val logger = Logger(testConfig)
+        val logger = BaseLogger(testConfig)
         logger.log(
             severity = Severity.Error,
             tag = "Test Tag",
@@ -84,8 +84,8 @@ class LogcatLoggerTest {
 
         ShadowLog.getLogs().apply {
             assert(size > 0)
-            assertNotNull(find { it.msg.contains("Root Exception Message") })
-            assertNotNull(find { it.msg.contains("Cause Exception Message") })
+            assertNotNull(find { it?.throwable?.message?.contains("Root Exception Message")?:false })
+            assertNotNull(find { it?.throwable?.cause?.message?.contains("Cause Exception Message")?:false })
         }
     }
 }

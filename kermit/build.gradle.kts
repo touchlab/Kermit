@@ -54,12 +54,54 @@ kotlin {
     androidNativeX86()
     androidNativeX64()
 
-    val commonMain by sourceSets.getting
-    val commonTest by sourceSets.getting
+    val commonMain by sourceSets.getting {
+        dependencies {
+            api(project(":kermit-core"))
+        }
+    }
+    val commonTest by sourceSets.getting {
+        dependencies {
+            implementation("org.jetbrains.kotlin:kotlin-test-common")
+            implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
+            implementation("co.touchlab:stately-collections:$STATELY_VERSION")
+            implementation("co.touchlab:testhelp:0.6.3")
+            implementation(project(":kermit-test"))
+        }
+    }
+
+    val nonKotlinMain by sourceSets.creating {
+        dependsOn(commonMain)
+    }
+
+    val nativeMain by sourceSets.creating {
+        dependsOn(nonKotlinMain)
+    }
+
+    val darwinMain by sourceSets.creating {
+        dependsOn(nativeMain)
+    }
+
+    val jsMain by sourceSets.getting {
+        dependsOn(nonKotlinMain)
+        dependencies {
+            implementation("org.jetbrains.kotlin:kotlin-stdlib-js")
+        }
+    }
+
+    val jsTest by sourceSets.getting {
+        dependencies {
+            implementation("org.jetbrains.kotlin:kotlin-test-js")
+        }
+    }
 
     val commonJvmMain by sourceSets.creating {
         dependsOn(commonMain)
+        dependencies {
+            implementation("org.jetbrains.kotlin:kotlin-test")
+            implementation("org.jetbrains.kotlin:kotlin-test-junit")
+        }
     }
+
     val commonJvmTest by sourceSets.creating {
         dependsOn(commonTest)
         dependsOn(commonJvmMain)
@@ -68,39 +110,9 @@ kotlin {
     val jvmMain by sourceSets.getting {
         dependsOn(commonJvmMain)
     }
-    val jvmTest by sourceSets.getting {
-        dependsOn(jvmMain)
-        dependsOn(commonJvmTest)
-    }
 
     val androidMain by sourceSets.getting {
         dependsOn(commonJvmMain)
-    }
-    val androidTest by sourceSets.getting {
-        dependsOn(androidMain)
-        dependsOn(commonJvmTest)
-    }
-
-    val jsMain by sourceSets.getting
-    val jsTest by sourceSets.getting
-
-    val nativeMain by sourceSets.creating
-    nativeMain.dependsOn(commonMain)
-
-    val darwinMain by sourceSets.creating {
-        dependsOn(nativeMain)
-    }
-
-    val linuxMain by sourceSets.creating {
-        dependsOn(nativeMain)
-    }
-
-    val mingwMain by sourceSets.creating {
-        dependsOn(nativeMain)
-    }
-
-    val androidNativeMain by sourceSets.creating {
-        dependsOn(nativeMain)
     }
 
     targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
@@ -110,46 +122,11 @@ kotlin {
         mainSourceSet.dependsOn(
             when {
                 konanTarget.family.isAppleFamily -> darwinMain
-                konanTarget.family == org.jetbrains.kotlin.konan.target.Family.LINUX -> linuxMain
-                konanTarget.family == org.jetbrains.kotlin.konan.target.Family.MINGW -> mingwMain
-                konanTarget.family == org.jetbrains.kotlin.konan.target.Family.ANDROID -> androidNativeMain
                 else -> nativeMain
             }
         )
 
         testSourceSet.dependsOn(commonTest)
-    }
-
-    commonTest.dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-test-common")
-        implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
-        implementation("co.touchlab:stately-collections:$STATELY_VERSION")
-        implementation("co.touchlab:testhelp:0.5.5")
-    }
-
-    androidTest.dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-test")
-        implementation("org.jetbrains.kotlin:kotlin-test-junit")
-        implementation("androidx.test:runner:1.4.0")
-        implementation("org.robolectric:robolectric:4.5.1")
-    }
-
-    commonJvmTest.dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-test")
-        implementation("org.jetbrains.kotlin:kotlin-test-junit")
-    }
-
-    jvmTest.dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-test")
-        implementation("org.jetbrains.kotlin:kotlin-test-junit")
-    }
-
-    jsMain.dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-js")
-    }
-
-    jsTest.dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-test-js")
     }
 }
 

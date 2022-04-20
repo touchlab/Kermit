@@ -15,9 +15,9 @@ package co.touchlab.kermit
 
 @Suppress("unused")
 open class Logger(
-    val config: LoggerConfig,
+    config: LoggerConfig,
     open val tag: String = "Kermit"
-) {
+) : BaseLogger(config) {
     fun withTag(tag: String): Logger {
         return Logger(this.config, tag)
     }
@@ -27,152 +27,104 @@ open class Logger(
      * export can't use default arguments, so we have a few extra methods defined.
      */
     inline fun v(message: () -> String) {
-        if (config.minSeverity <= Severity.Verbose)
-            log(Severity.Verbose, tag, null, message())
+        logBlock(Severity.Verbose, tag, null, message)
     }
 
     inline fun v(throwable: Throwable, message: () -> String) {
-        if (config.minSeverity <= Severity.Verbose)
-            log(Severity.Verbose, tag, throwable, message())
+        logBlock(Severity.Verbose, tag, throwable, message)
     }
 
     fun v(message: String) {
-        if (config.minSeverity <= Severity.Verbose)
-            log(Severity.Verbose, tag, null, message)
+        log(Severity.Verbose, tag, null, message)
     }
+
     fun v(message: String, throwable: Throwable) {
-        if (config.minSeverity <= Severity.Verbose)
-            log(Severity.Verbose, tag, throwable, message)
+        log(Severity.Verbose, tag, throwable, message)
     }
 
     inline fun d(message: () -> String) {
-        if (config.minSeverity <= Severity.Debug)
-            log(Severity.Debug, tag, null, message())
+        logBlock(Severity.Debug, tag, null, message)
     }
 
     inline fun d(throwable: Throwable, message: () -> String) {
-        if (config.minSeverity <= Severity.Debug)
-            log(Severity.Debug, tag, throwable, message())
+        logBlock(Severity.Debug, tag, throwable, message)
     }
 
     fun d(message: String) {
-        if (config.minSeverity <= Severity.Debug)
-            log(Severity.Debug, tag, null, message)
+        log(Severity.Debug, tag, null, message)
     }
+
     fun d(message: String, throwable: Throwable) {
-        if (config.minSeverity <= Severity.Debug)
-            log(Severity.Debug, tag, throwable, message)
+        log(Severity.Debug, tag, throwable, message)
     }
 
     inline fun i(message: () -> String) {
-        if (config.minSeverity <= Severity.Info)
-            log(Severity.Info, tag, null, message())
+        logBlock(Severity.Info, tag, null, message)
     }
 
     inline fun i(throwable: Throwable, message: () -> String) {
-        if (config.minSeverity <= Severity.Info)
-            log(Severity.Info, tag, throwable, message())
+        logBlock(Severity.Info, tag, throwable, message)
     }
 
     fun i(message: String) {
-        if (config.minSeverity <= Severity.Info)
-            log(Severity.Info, tag, null, message)
+        log(Severity.Info, tag, null, message)
     }
+
     fun i(message: String, throwable: Throwable) {
-        if (config.minSeverity <= Severity.Info)
-            log(Severity.Info, tag, throwable, message)
+        log(Severity.Info, tag, throwable, message)
     }
 
     inline fun w(message: () -> String) {
-        if (config.minSeverity <= Severity.Warn)
-            log(Severity.Warn, tag, null, message())
+        logBlock(Severity.Warn, tag, null, message)
     }
 
     inline fun w(throwable: Throwable, message: () -> String) {
-        if (config.minSeverity <= Severity.Warn)
-            log(Severity.Warn, tag, throwable, message())
+        logBlock(Severity.Warn, tag, throwable, message)
     }
 
     fun w(message: String) {
-        if (config.minSeverity <= Severity.Warn)
-            log(Severity.Warn, tag, null, message)
+        log(Severity.Warn, tag, null, message)
     }
+
     fun w(message: String, throwable: Throwable) {
-        if (config.minSeverity <= Severity.Warn)
-            log(Severity.Warn, tag, throwable, message)
+        log(Severity.Warn, tag, throwable, message)
     }
 
     inline fun e(message: () -> String) {
-        if (config.minSeverity <= Severity.Error)
-            log(Severity.Error, tag, null, message())
+        logBlock(Severity.Error, tag, null, message)
     }
 
     inline fun e(throwable: Throwable, message: () -> String) {
-        if (config.minSeverity <= Severity.Error)
-            log(Severity.Error, tag, throwable, message())
+        logBlock(Severity.Error, tag, throwable, message)
     }
 
     fun e(message: String) {
-        if (config.minSeverity <= Severity.Error)
-            log(Severity.Error, tag, null, message)
+        log(Severity.Error, tag, null, message)
     }
+
     fun e(message: String, throwable: Throwable) {
-        if (config.minSeverity <= Severity.Error)
-            log(Severity.Error, tag, throwable, message)
+        log(Severity.Error, tag, throwable, message)
     }
 
     inline fun a(message: () -> String) {
-        if (config.minSeverity <= Severity.Assert)
-            log(Severity.Assert, tag, null, message())
+        logBlock(Severity.Assert, tag, null, message)
     }
 
     inline fun a(throwable: Throwable, message: () -> String) {
-        if (config.minSeverity <= Severity.Assert)
-            log(Severity.Assert, tag, throwable, message())
+        logBlock(Severity.Assert, tag, throwable, message)
     }
 
     fun a(message: String) {
-        if (config.minSeverity <= Severity.Assert)
-            log(Severity.Assert, tag, null, message)
+        log(Severity.Assert, tag, null, message)
     }
+
     fun a(message: String, throwable: Throwable) {
-        if (config.minSeverity <= Severity.Assert)
-            log(Severity.Assert, tag, throwable, message)
-    }
-
-    fun log(
-        severity: Severity,
-        tag: String = this.tag,
-        throwable: Throwable?,
-        message: String
-    ) {
-        processLog(
-            severity,
-            tag,
-            throwable,
-            message
-        ) { processedMessage, processedTag, processedThrowable ->
-            log(severity, processedMessage, processedTag, processedThrowable)
-        }
-    }
-
-    private inline fun processLog(
-        severity: Severity,
-        tag: String,
-        throwable: Throwable?,
-        message: String,
-        loggingCall: LogWriter.(message: String, tag: String, throwable: Throwable?) -> Unit
-    ) {
-        config.logWriterList.forEach {
-            if (it.isLoggable(severity)) {
-                it.loggingCall(message, tag, throwable)
-            }
-        }
+        log(Severity.Assert, tag, throwable, message)
     }
 
     @Suppress("unused")
     companion object : Logger(LoggerGlobal.defaultConfig) {
-        override val tag:String
+        override val tag: String
             get() = defaultTag
 
         fun setMinSeverity(severity: Severity) {
@@ -196,33 +148,27 @@ open class Logger(
         }
 
         fun v(tag: String, throwable: Throwable? = null, message: () -> String) {
-            if (config.minSeverity <= Severity.Verbose)
-                log(Severity.Verbose, tag, throwable, message())
+            logBlock(Severity.Verbose, tag, throwable, message)
         }
 
         fun d(tag: String, throwable: Throwable? = null, message: () -> String) {
-            if (config.minSeverity <= Severity.Debug)
-                log(Severity.Debug, tag, throwable, message())
+            logBlock(Severity.Debug, tag, throwable, message)
         }
 
         fun i(tag: String, throwable: Throwable? = null, message: () -> String) {
-            if (config.minSeverity <= Severity.Info)
-                log(Severity.Info, tag, throwable, message())
+            logBlock(Severity.Info, tag, throwable, message)
         }
 
         fun w(tag: String, throwable: Throwable? = null, message: () -> String) {
-            if (config.minSeverity <= Severity.Warn)
-                log(Severity.Warn, tag, throwable, message())
+            logBlock(Severity.Warn, tag, throwable, message)
         }
 
         fun e(tag: String, throwable: Throwable? = null, message: () -> String) {
-            if (config.minSeverity <= Severity.Error)
-                log(Severity.Error, tag, throwable, message())
+            logBlock(Severity.Error, tag, throwable, message)
         }
 
         fun a(tag: String, throwable: Throwable? = null, message: () -> String) {
-            if (config.minSeverity <= Severity.Assert)
-                log(Severity.Assert, tag, throwable, message())
+            logBlock(Severity.Assert, tag, throwable, message)
         }
     }
 }
@@ -231,9 +177,6 @@ internal object LoggerGlobal {
     val defaultConfig = mutableKermitConfigInit(listOf(platformLogWriter()))
 }
 
-@kotlin.native.concurrent.SharedImmutable
-internal val DEFAULT_MIN_SEVERITY = Severity.Verbose
 internal const val DEFAULT_TAG = "Kermit"
 
-internal expect fun mutableKermitConfigInit(logWriters: List<LogWriter>): MutableLoggerConfig
 internal expect var defaultTag: String

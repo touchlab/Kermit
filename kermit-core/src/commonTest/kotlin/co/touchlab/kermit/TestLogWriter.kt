@@ -47,7 +47,7 @@ class TestLogWriter(private val loggable: Severity) : LogWriter() {
         _logs.clear()
     }
 
-    override fun isLoggable(severity: Severity): Boolean {
+    override fun isLoggable(tag: String, severity: Severity): Boolean {
         return severity.ordinal >= loggable.ordinal
     }
 

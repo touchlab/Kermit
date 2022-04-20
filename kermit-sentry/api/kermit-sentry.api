@@ -9,7 +9,7 @@ public final class co/touchlab/kermit/sentry/SentryLogWriter : co/touchlab/kermi
 	public fun <init> ()V
 	public fun <init> (Lco/touchlab/kermit/Severity;Lco/touchlab/kermit/Severity;Z)V
 	public synthetic fun <init> (Lco/touchlab/kermit/Severity;Lco/touchlab/kermit/Severity;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun isLoggable (Lco/touchlab/kermit/Severity;)Z
+	public fun isLoggable (Ljava/lang/String;Lco/touchlab/kermit/Severity;)Z
 	public fun log (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
 }
 

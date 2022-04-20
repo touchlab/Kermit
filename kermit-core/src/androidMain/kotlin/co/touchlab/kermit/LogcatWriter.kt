@@ -26,38 +26,29 @@ class LogcatWriter : LogWriter() {
         Severity.Assert -> Log.ASSERT
     }
 
+    override fun isLoggable(tag: String, severity: Severity): Boolean {
+        return Log.isLoggable(tag, getSeverity(severity))
+    }
+
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        Log.println(getSeverity(severity), tag, message)
-        throwable?.let {
-            Log.println(
-                getSeverity(severity),
-                tag,
-                it.stackTraceToString()
-            )
+        if(throwable == null){
+            when(severity){
+                Severity.Verbose -> Log.v(tag, message)
+                Severity.Debug -> Log.d(tag, message)
+                Severity.Info -> Log.i(tag, message)
+                Severity.Warn -> Log.w(tag, message)
+                Severity.Error -> Log.e(tag, message)
+                Severity.Assert -> Log.wtf(tag, message)
+            }
+        }else{
+            when(severity){
+                Severity.Verbose -> Log.v(tag, message, throwable)
+                Severity.Debug -> Log.d(tag, message, throwable)
+                Severity.Info -> Log.i(tag, message, throwable)
+                Severity.Warn -> Log.w(tag, message, throwable)
+                Severity.Error -> Log.e(tag, message, throwable)
+                Severity.Assert -> Log.wtf(tag, message, throwable)
+            }
         }
-    }
-
-    override fun v(message: String, tag: String, throwable: Throwable?) {
-        Log.v(tag, message, throwable)
-    }
-
-    override fun d(message: String, tag: String, throwable: Throwable?) {
-        Log.d(tag, message, throwable)
-    }
-
-    override fun i(message: String, tag: String, throwable: Throwable?) {
-        Log.i(tag, message, throwable)
-    }
-
-    override fun w(message: String, tag: String, throwable: Throwable?) {
-        Log.w(tag, message, throwable)
-    }
-
-    override fun e(message: String, tag: String, throwable: Throwable?) {
-        Log.e(tag, message, throwable)
-    }
-
-    override fun a(message: String, tag: String, throwable: Throwable?) {
-        Log.wtf(tag, message, throwable)
     }
 }

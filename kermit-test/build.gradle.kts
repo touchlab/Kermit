@@ -65,7 +65,7 @@ kotlin {
 
     commonMain.dependencies {
         implementation(kotlin("test-common"))
-        implementation(project(":kermit"))
+        api(project(":kermit-core"))
         implementation("co.touchlab:stately-collections:$STATELY_VERSION")
     }
 

@@ -19,6 +19,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
+@OptIn(ExperimentalKermitApi::class)
 class LoggerTest {
 
     private fun getTestConfig(logWriterList: List<LogWriter>): TestConfig {

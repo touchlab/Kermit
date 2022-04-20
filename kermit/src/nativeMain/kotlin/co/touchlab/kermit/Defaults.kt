@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Touchlab
+ * Copyright (c) 2022 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -10,4 +10,12 @@
 
 package co.touchlab.kermit
 
-actual fun platformLogWriter(): LogWriter = ConsoleWriter()
+import kotlin.native.concurrent.AtomicReference
+
+private val internalDefaultTag = AtomicReference(DEFAULT_TAG)
+
+internal actual var defaultTag: String
+    get() = internalDefaultTag.value
+    set(value) {
+        internalDefaultTag.value = value
+    }

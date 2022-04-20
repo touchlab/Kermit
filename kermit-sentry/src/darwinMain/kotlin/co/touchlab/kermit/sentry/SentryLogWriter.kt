@@ -29,7 +29,7 @@ actual class SentryLogWriter actual constructor(
         }
     }
 
-    override fun isLoggable(severity: Severity): Boolean = severity >= minSeverity
+    override fun isLoggable(tag: String, severity: Severity): Boolean = severity >= minSeverity
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         val crumb = SentryBreadcrumb()
