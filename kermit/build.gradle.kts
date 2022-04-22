@@ -17,6 +17,7 @@ plugins {
 }
 
 val STATELY_VERSION: String by project
+val TESTHELP_VERSION: String by project
 
 kotlin {
     android {
@@ -64,13 +65,17 @@ kotlin {
             implementation("org.jetbrains.kotlin:kotlin-test-common")
             implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
             implementation("co.touchlab:stately-collections:$STATELY_VERSION")
-            implementation("co.touchlab:testhelp:0.6.3")
+            implementation("co.touchlab:testhelp:$TESTHELP_VERSION")
             implementation(project(":kermit-test"))
         }
     }
 
     val nonKotlinMain by sourceSets.creating {
         dependsOn(commonMain)
+    }
+
+    val nonKotlinTest by sourceSets.creating {
+        dependsOn(commonTest)
     }
 
     val nativeMain by sourceSets.creating {
@@ -89,6 +94,7 @@ kotlin {
     }
 
     val jsTest by sourceSets.getting {
+        dependsOn(nonKotlinTest)
         dependencies {
             implementation("org.jetbrains.kotlin:kotlin-test-js")
         }
@@ -126,7 +132,7 @@ kotlin {
             }
         )
 
-        testSourceSet.dependsOn(commonTest)
+        testSourceSet.dependsOn(nonKotlinTest)
     }
 }
 

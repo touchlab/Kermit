@@ -17,6 +17,7 @@ plugins {
 }
 
 val STATELY_VERSION: String by project
+val TESTHELP_VERSION: String by project
 
 kotlin {
     android {
@@ -124,7 +125,7 @@ kotlin {
         implementation("org.jetbrains.kotlin:kotlin-test-common")
         implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
         implementation("co.touchlab:stately-collections:$STATELY_VERSION")
-        implementation("co.touchlab:testhelp:0.5.5")
+        implementation("co.touchlab:testhelp:$TESTHELP_VERSION")
     }
 
     androidTest.dependencies {

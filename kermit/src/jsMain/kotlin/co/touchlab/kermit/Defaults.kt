@@ -10,4 +10,4 @@
 
 package co.touchlab.kermit
 
-internal actual var defaultTag: String = DEFAULT_TAG
+internal actual var defaultTag: String = ""

@@ -13,7 +13,7 @@ package co.touchlab.kermit
 private val lock = Any()
 
 @Volatile
-private var internalDefaultTag: String = DEFAULT_TAG
+private var internalDefaultTag: String = ""
 
 internal actual var defaultTag: String
     get() = internalDefaultTag

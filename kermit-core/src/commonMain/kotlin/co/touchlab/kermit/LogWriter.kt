@@ -13,8 +13,9 @@
 
 package co.touchlab.kermit
 
-abstract class LogWriter{
+abstract class LogWriter(){
     open fun isLoggable(tag: String, severity: Severity): Boolean = true
 
     abstract fun log(severity: Severity, message: String, tag: String, throwable: Throwable? = null)
 }
+

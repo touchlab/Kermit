@@ -10,17 +10,22 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
+val buildAllModules : String? by settings
 
 include(":kermit-core")
 include(":kermit")
-include(":kermit-crashlytics")
-include(":kermit-crashlytics-test")
-include(":kermit-bugsnag")
-include(":kermit-bugsnag-test")
+include(":kermit-legacy")
 include(":kermit-test")
-include(":kermit-koin")
-include(":kermit-sentry")
-include(":kermit-sentry-test")
+
+if(buildAllModules == "true") {
+    include(":kermit-crashlytics")
+    include(":kermit-crashlytics-test")
+    include(":kermit-bugsnag")
+    include(":kermit-bugsnag-test")
+    include(":kermit-koin")
+    include(":kermit-sentry")
+    include(":kermit-sentry-test")
+}
 
 include(":kermit-gradle-plugin")
 include(":kermit-ir-plugin")

@@ -17,9 +17,9 @@ import platform.Foundation.NSLog
 import platform.Foundation.NSString
 
 @Suppress("CAST_NEVER_SUCCEEDS")
-class NSLogWriter : LogWriter() {
+class NSLogWriter(private val logFormatter: LogFormatter = DefaultLogFormatter) : LogWriter() {
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        NSLog("%s: (%@) %@", severity.name, tag as NSString, message as NSString)
+        NSLog("%s", logFormatter.formatMessage(severity, message, tag))
         throwable?.let {
             val string = it.stackTraceToString()
             NSLog("%@", string as NSString)

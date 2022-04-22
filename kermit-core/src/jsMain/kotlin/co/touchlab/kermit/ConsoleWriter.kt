@@ -15,9 +15,9 @@
 
 package co.touchlab.kermit
 
-class ConsoleWriter : LogWriter() {
+class ConsoleWriter(private val logFormatter: LogFormatter = DefaultLogFormatter) : LogWriter() {
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        var output = "[$tag] $message"
+        var output = logFormatter.formatMessage(severity, message, tag)
         throwable?.let {
             output += " ${it.stackTraceToString()}"
         }
@@ -28,4 +28,14 @@ class ConsoleWriter : LogWriter() {
             Severity.Debug, Severity.Verbose -> console.log(output)
         }
     }
+}
+
+internal object ConsoleLogFormatter : LogFormatter {
+    override fun formatTag(tag: String): String = if (tag.isEmpty()) {
+        ""
+    } else {
+        "[$tag] "
+    }
+
+    override fun formatMessage(severity: Severity, message: Message, tag: Tag): String = "${formatTag(tag)}$message"
 }

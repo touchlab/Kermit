@@ -14,7 +14,7 @@ import kotlin.native.concurrent.freeze
 
 fun setupUnhandledExceptionHook(logger: Logger, onCrash: () -> String) {
     val unhandMe: ReportUnhandledExceptionHook = { t ->
-        logger.e(t, onCrash)
+        logger.e(throwable = t, message = onCrash)
     }
 
     setUnhandledExceptionHook(unhandMe.freeze())

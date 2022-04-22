@@ -10,5 +10,5 @@
 
 package co.touchlab.kermit
 
-actual fun mutableKermitConfigInit(logWriters: List<LogWriter>): MutableLoggerConfig = JsMutableLoggerConfig(logWriters)
+actual fun mutableLoggerConfigInit(logWriters: List<LogWriter>): MutableLoggerConfig = JsMutableLoggerConfig(logWriters)
 

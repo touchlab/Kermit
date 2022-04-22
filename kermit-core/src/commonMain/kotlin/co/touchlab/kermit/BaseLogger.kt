@@ -17,8 +17,16 @@ typealias MessageBlock = ()->String
 
 @Suppress("unused")
 open class BaseLogger(
-    val config: LoggerConfig,
+    open val config: LoggerConfig,
 ) {
+    val mutableConfig: MutableLoggerConfig
+        get() = config.let {
+            if (it !is MutableLoggerConfig) {
+                throw IllegalStateException("Logger config is not mutable")
+            }
+            it
+        }
+
     inline fun logBlock(
         severity: Severity,
         tag: String,
@@ -64,8 +72,6 @@ open class BaseLogger(
         }
     }
 }
-
-expect fun mutableKermitConfigInit(logWriters: List<LogWriter>): MutableLoggerConfig
 
 @kotlin.native.concurrent.SharedImmutable
 internal val DEFAULT_MIN_SEVERITY = Severity.Verbose

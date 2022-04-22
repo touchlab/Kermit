@@ -20,7 +20,7 @@ import platform.darwin.OS_LOG_TYPE_INFO
 import platform.darwin.__dso_handle
 import platform.darwin._os_log_internal
 
-open class OSLogWriter : LogWriter() {
+open class OSLogWriter(private val logFormatter: LogFormatter = DefaultLogFormatter) : LogWriter() {
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         _os_log_internal(
             __dso_handle.ptr,
@@ -41,5 +41,5 @@ open class OSLogWriter : LogWriter() {
         Severity.Assert -> OS_LOG_TYPE_FAULT
     }
 
-    open fun formatMessage(severity: Severity, message: String, tag: String): String = "${severity.name}: ($tag) $message"
+    open fun formatMessage(severity: Severity, message: String, tag: String): String = logFormatter.formatMessage(severity, message, tag)
 }
