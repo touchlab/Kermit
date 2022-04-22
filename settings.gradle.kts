@@ -14,7 +14,7 @@ val buildExtensions : String? = "true"//by settings
 
 include(":kermit-core")
 include(":kermit")
-include(":kermit-legacy")
+//include(":kermit-legacy")
 include(":kermit-test")
 
 if(buildExtensions == "true") {
