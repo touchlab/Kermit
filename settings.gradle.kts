@@ -10,14 +10,14 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-val buildAllModules : String? by settings
+val buildExtensions : String? = "true"//by settings
 
 include(":kermit-core")
 include(":kermit")
 include(":kermit-legacy")
 include(":kermit-test")
 
-if(buildAllModules == "true") {
+if(buildExtensions == "true") {
     include(":kermit-crashlytics")
     include(":kermit-crashlytics-test")
     include(":kermit-bugsnag")
@@ -25,6 +25,14 @@ if(buildAllModules == "true") {
     include(":kermit-koin")
     include(":kermit-sentry")
     include(":kermit-sentry-test")
+
+    project(":kermit-crashlytics").projectDir = File("extensions/kermit-crashlytics")
+    project(":kermit-crashlytics-test").projectDir = File("extensions/kermit-crashlytics-test")
+    project(":kermit-bugsnag").projectDir = File("extensions/kermit-bugsnag")
+    project(":kermit-bugsnag-test").projectDir = File("extensions/kermit-bugsnag-test")
+    project(":kermit-koin").projectDir = File("extensions/kermit-koin")
+    project(":kermit-sentry").projectDir = File("extensions/kermit-sentry")
+    project(":kermit-sentry-test").projectDir = File("extensions/kermit-sentry-test")
 }
 
 include(":kermit-gradle-plugin")

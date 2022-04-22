@@ -16,12 +16,7 @@ plugins {
     id("co.touchlab.cklib")
 }
 
-val CRASHKIOS_CORE_VERSION: String by project
-val CRASHLYTICS_ANDROID_VERSION: String by project
-val KOTLIN_VERSION: String by project
-
 kotlin {
-
     macosX64()
     macosArm64()
     iosX64()
@@ -66,6 +61,8 @@ kotlin {
     }
 }
 
+val KOTLIN_VERSION: String by project
+
 cklib {
     config.kotlinVersion = KOTLIN_VERSION
     create("objcsample") {
@@ -78,4 +75,4 @@ cklib {
     }
 }
 
-apply(from = "../gradle/gradle-mvn-mpp-push.gradle")
+apply(from = "../../gradle/gradle-mvn-mpp-push.gradle")

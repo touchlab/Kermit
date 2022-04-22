@@ -63,3 +63,37 @@ public final class co/touchlab/kermit/Logger$Companion : co/touchlab/kermit/Logg
 	public final fun setTag (Ljava/lang/String;)V
 }
 
+public final class co/touchlab/kermit/LoggerExtensionsKt {
+	public static final fun getA ()Lco/touchlab/kermit/LoggerMethods;
+	public static final fun getA (Lco/touchlab/kermit/Logger;)Lco/touchlab/kermit/LoggerMethods;
+	public static final fun getD ()Lco/touchlab/kermit/LoggerMethods;
+	public static final fun getD (Lco/touchlab/kermit/Logger;)Lco/touchlab/kermit/LoggerMethods;
+	public static final fun getE ()Lco/touchlab/kermit/LoggerMethods;
+	public static final fun getE (Lco/touchlab/kermit/Logger;)Lco/touchlab/kermit/LoggerMethods;
+	public static final fun getI ()Lco/touchlab/kermit/LoggerMethods;
+	public static final fun getI (Lco/touchlab/kermit/Logger;)Lco/touchlab/kermit/LoggerMethods;
+	public static final fun getV ()Lco/touchlab/kermit/LoggerMethods;
+	public static final fun getV (Lco/touchlab/kermit/Logger;)Lco/touchlab/kermit/LoggerMethods;
+	public static final fun getW ()Lco/touchlab/kermit/LoggerMethods;
+	public static final fun getW (Lco/touchlab/kermit/Logger;)Lco/touchlab/kermit/LoggerMethods;
+}
+
+public final class co/touchlab/kermit/LoggerMethods {
+	public fun <init> ()V
+	public fun <init> (Lco/touchlab/kermit/Logger;Lco/touchlab/kermit/Severity;)V
+	public synthetic fun <init> (Lco/touchlab/kermit/Logger;Lco/touchlab/kermit/Severity;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun applyValues (Lco/touchlab/kermit/Logger;Lco/touchlab/kermit/Severity;)Lco/touchlab/kermit/LoggerMethods;
+	public final fun getLogger ()Lco/touchlab/kermit/Logger;
+	public final fun getSeverity ()Lco/touchlab/kermit/Severity;
+	public final fun log (Ljava/lang/String;)V
+	public final fun log (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun log (Ljava/lang/String;Ljava/lang/Throwable;Ljava/lang/String;)V
+	public final fun log (Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public final fun log (Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
+	public final fun log (Ljava/lang/Throwable;Ljava/lang/String;)V
+	public final fun log (Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public final fun log (Lkotlin/jvm/functions/Function0;)V
+	public final fun setLogger (Lco/touchlab/kermit/Logger;)V
+	public final fun setSeverity (Lco/touchlab/kermit/Severity;)V
+}
+

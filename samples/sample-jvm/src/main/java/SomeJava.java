@@ -9,10 +9,12 @@
  */
 
 import co.touchlab.kermit.Logger;
+import co.touchlab.kermit.LoggerExtensionsKt;
 
 public class SomeJava {
     int doSomething(){
-        Logger.Companion.i(() -> "Hello");
+
+
 
         return 42;
     }

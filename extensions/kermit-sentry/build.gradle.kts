@@ -13,7 +13,7 @@ plugins {
     kotlin("multiplatform")
 }
 
-apply(from = "../gradle/configure-crash-logger.gradle")
+apply(from = "../../gradle/configure-crash-logger.gradle")
 
 kotlin {
     android {
@@ -39,4 +39,4 @@ android {
     }
 }
 
-apply(from = "../gradle/gradle-mvn-mpp-push.gradle")
+apply(from = "../../gradle/gradle-mvn-mpp-push.gradle")

@@ -18,7 +18,7 @@ plugins {
 
 val BUGSNAG_ANDROID_VERSION: String by project
 
-apply(from = "../gradle/configure-crash-logger.gradle")
+apply(from = "../../gradle/configure-crash-logger.gradle")
 kotlin {
     android {
         publishAllLibraryVariants()
@@ -56,4 +56,4 @@ android {
 }
 
 
-apply(from = "../gradle/gradle-mvn-mpp-push.gradle")
+apply(from = "../../gradle/gradle-mvn-mpp-push.gradle")
