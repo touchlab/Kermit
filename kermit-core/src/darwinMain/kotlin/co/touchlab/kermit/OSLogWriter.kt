@@ -26,9 +26,13 @@ open class OSLogWriter(private val logFormatter: LogFormatter = DefaultLogFormat
             __dso_handle.ptr,
             OS_LOG_DEFAULT,
             kermitSeverityToOsLogType(severity),
-            formatMessage(severity, tag, message)
+            formatMessage(
+                severity = severity,
+                tag = tag,
+                message = message
+            )
         )
-        if(throwable != null){
+        if (throwable != null) {
             println(throwable.getStackTrace().joinToString("\n"))
         }
     }
@@ -41,5 +45,6 @@ open class OSLogWriter(private val logFormatter: LogFormatter = DefaultLogFormat
         Severity.Assert -> OS_LOG_TYPE_FAULT
     }
 
-    open fun formatMessage(severity: Severity, message: String, tag: String): String = logFormatter.formatMessage(severity, message, tag)
+    open fun formatMessage(severity: Severity, message: String, tag: String): String =
+        logFormatter.formatMessage(severity, message, tag)
 }

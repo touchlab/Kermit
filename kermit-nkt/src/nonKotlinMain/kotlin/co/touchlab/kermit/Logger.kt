@@ -12,8 +12,8 @@ package co.touchlab.kermit
 
 import kotlin.native.concurrent.ThreadLocal
 
-class LoggerMethods(var logger: Logger = Logger, var severity: Severity = Severity.Verbose) {
-    fun applyValues(logger: Logger, severity: Severity): LoggerMethods {
+class LoggerMethods internal constructor(private var logger: Logger = Logger, private var severity: Severity = Severity.Verbose) {
+    internal fun applyValues(logger: Logger, severity: Severity): LoggerMethods {
         this.logger = logger
         this.severity = severity
         return this
