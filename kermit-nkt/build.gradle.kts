@@ -16,9 +16,6 @@ plugins {
     kotlin("multiplatform")
 }
 
-val STATELY_VERSION: String by project
-val TESTHELP_VERSION: String by project
-
 kotlin {
     android {
         publishAllLibraryVariants()
@@ -57,15 +54,13 @@ kotlin {
 
     val commonMain by sourceSets.getting {
         dependencies {
-            api(project(":kermit-core"))
+            api(project(":kermit"))
         }
     }
     val commonTest by sourceSets.getting {
         dependencies {
             implementation("org.jetbrains.kotlin:kotlin-test-common")
             implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
-            implementation("co.touchlab:stately-collections:$STATELY_VERSION")
-            implementation("co.touchlab:testhelp:$TESTHELP_VERSION")
             implementation(project(":kermit-test"))
         }
     }
@@ -74,12 +69,8 @@ kotlin {
         dependsOn(commonMain)
     }
 
-    val nativeMain by sourceSets.creating {
-        dependsOn(nonKotlinMain)
-    }
-
-    val darwinMain by sourceSets.creating {
-        dependsOn(nativeMain)
+    val nonKotlinTest by sourceSets.creating {
+        dependsOn(commonTest)
     }
 
     val jsMain by sourceSets.getting {
@@ -90,44 +81,18 @@ kotlin {
     }
 
     val jsTest by sourceSets.getting {
+        dependsOn(nonKotlinTest)
         dependencies {
             implementation("org.jetbrains.kotlin:kotlin-test-js")
         }
-    }
-
-    val commonJvmMain by sourceSets.creating {
-        dependsOn(commonMain)
-        dependencies {
-            implementation("org.jetbrains.kotlin:kotlin-test")
-            implementation("org.jetbrains.kotlin:kotlin-test-junit")
-        }
-    }
-
-    val commonJvmTest by sourceSets.creating {
-        dependsOn(commonTest)
-        dependsOn(commonJvmMain)
-    }
-
-    val jvmMain by sourceSets.getting {
-        dependsOn(commonJvmMain)
-    }
-
-    val androidMain by sourceSets.getting {
-        dependsOn(commonJvmMain)
     }
 
     targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
         val mainSourceSet = compilations.getByName("main").defaultSourceSet
         val testSourceSet = compilations.getByName("test").defaultSourceSet
 
-        mainSourceSet.dependsOn(
-            when {
-                konanTarget.family.isAppleFamily -> darwinMain
-                else -> nativeMain
-            }
-        )
-
-        testSourceSet.dependsOn(commonTest)
+        mainSourceSet.dependsOn(nonKotlinMain)
+        testSourceSet.dependsOn(nonKotlinTest)
     }
 }
 

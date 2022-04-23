@@ -10,14 +10,15 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-val buildExtensions : String? = "true"//by settings
+val buildExtensions : String? by settings
+val ideaActive = System.getProperty("idea.active") == "true"
 
 include(":kermit-core")
 include(":kermit")
-//include(":kermit-legacy")
+include(":kermit-nkt")
 include(":kermit-test")
 
-if(buildExtensions == "true") {
+if(buildExtensions == "true" || ideaActive) {
     include(":kermit-crashlytics")
     include(":kermit-crashlytics-test")
     include(":kermit-bugsnag")
