@@ -86,7 +86,8 @@ public final class co/touchlab/kermit/NoTagLogFormatter : co/touchlab/kermit/Log
 }
 
 public final class co/touchlab/kermit/PlatformLogWriterKt {
-	public static final fun platformLogWriter ()Lco/touchlab/kermit/LogWriter;
+	public static final fun platformLogWriter (Lco/touchlab/kermit/LogFormatter;)Lco/touchlab/kermit/LogWriter;
+	public static synthetic fun platformLogWriter$default (Lco/touchlab/kermit/LogFormatter;ILjava/lang/Object;)Lco/touchlab/kermit/LogWriter;
 }
 
 public final class co/touchlab/kermit/Severity : java/lang/Enum {

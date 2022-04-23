@@ -1,6 +1,8 @@
 # Kermit <sub>the log</sub>
 
-Kermit is a Kotlin Multiplatform logging utility with composable log outputs. Out of the box, the library defaults to platform-specific loggers such as Logcat and OSLog, but is easy to extend and configure.
+Kermit is a Kotlin Multiplatform logging library.
+
+It's primary purpose is to allow log statements from Kotlin code to be written to composable log outputs. Out of the box, the library defaults to platform-specific loggers such as Logcat and OSLog, but is easy to extend and configure.
 
 > Check out [KaMP Kit](https://github.com/touchlab/KaMPKit) to get started developing for Kotlin Multiplatform
 
@@ -9,13 +11,9 @@ Kermit is a Kotlin Multiplatform logging utility with composable log outputs. Ou
 >
 > We're looking for a Mobile Developer, with Android/Kotlin experience, who is eager to dive into Kotlin Multiplatform Mobile (KMM) development. Come join the remote-first team putting KMM in production. [More info here](https://go.touchlab.co/careers-gh).
 
+## Getting Started
 
-## Most Users Read This
-
-If you don't care about the philosophy of logging, custom configurations, and especially if you're writing for native mobile (KMM), 
-then you should just do the following.
-
-### Add Dependency
+### 1. Add Dependency
 
 The Kermit dependency should be added to your `commonMain` source set in your Kotlin Multiplatform module.
 
@@ -28,20 +26,16 @@ commonMain {
 }
 ```
 
-### Log
+### 2. Log
 
 ```kotlin
 Logger.i { "Hello World" }
 ```
 
+By default, Kermit includes a logger for each native platform that is configured for development. On Android it writes to Logcat, on iOS it writes to OSLog, and for JS it writes to console.
+
 The rest of the docs explain more detailed options, but at this point you should be able to log from common 
 code.
-
-### Defaults
-
-By default, Kermit adds one Logger instance. The choice of default logger is basically the best option for local development. On Android, it is Logcat, for JS it just logs to console. On iOS, the logs go to OSLog but also get some visual style to help hightlight the severity.
-
-Production deployments may want a different configuration.
 
 ## Basic Concepts
 
@@ -60,7 +54,7 @@ You configure the `Logger`, then call log methods on it. That's the basic intera
 A `LogWriter` actually sends log messages to different log outputs. You add `LogWriter` instances to a `Logger`.
 
 Kermit includes a `CommonWriter` and various platform-specific `LogWriter` instances. Through other modules, Kermit
-also allows logging crash info to Crashlytics and Bugsnag.
+also allows logging crash info to Crashlytics, Bugsnag, and Sentry.
 
 For more info on included `LogWriter` types, and to create your own, see [LOG_WRITER](docs/LOG_WRITER.md)
 
@@ -72,9 +66,11 @@ cover that more in [Configuration](#Configuration)
 
 ## Usage
 
-You call logging methods on a `Logger` instance. There are methods for each severity level. Each call takes an optional 
-`Throwable` instance, and a lambda which returns a string. The Logger will only evaluate
-the lambda if there is an enabled log writer that will write.
+The primary logging artifact is [Logger](https://github.com/touchlab/Kermit/blob/kpg/api_reformat2/kermit/src/commonMain/kotlin/co/touchlab/kermit/Logger.kt). It defines the severity-level logging methods. It has a Kotlin-aware api relying on default parameters and lambda syntax. To log from non-Kotlin clients, see [NON_KOTLIN](NON_KOTLIN.md).
+
+There are 2 sets of severity logging methods. One takes a `String` log message directly, the other takes a function parameter that returns a string. The function is only evaluated if the log will be written. Which you use is personal preference. They both will log to the same places, but the function paramter version may avoid unecessary `String` creation.
+
+Each logging method has one of the two message forms (`String` or function param), and an optional `Throwable` and `String` tag argument.
 
 In its most basic form, logging looks like this:
 
@@ -82,32 +78,49 @@ In its most basic form, logging looks like this:
 Logger.i { "Hello World" }
 ```
 
-If you are not familiar with the curly bracket syntax, that is a [trailing lambda with special syntax](https://kotlinlang.org/docs/lambdas.html#passing-trailing-lambdas).
-Again, that will not be evaluated if no log writer needs it. String creation can be relatively costly if you don't need it,
-so Kermit will avoid creating the string if it is not being logged.
+> If you are not familiar with the curly bracket syntax, that is a [trailing lambda with special syntax](https://kotlinlang.org/docs/lambdas.html#passing-trailing-lambdas).
+> Again, that will not be evaluated if no log writer needs it.
 
-The call above is on the global `Logger` instance. You can make all of your logging on the global instance, or have local instances that are injected into your classes. We tend to use the latter, which accounts for some of Kermit's design decisions, but besides some small amount of performance boost, the choice between them is really down to personal preference.
+Some other examples with tags and `Throwable` params.
+
+```ko
+Logger.w("MyTag") { "Hello World $someData" }
+// etc
+Logger.e(ex) { "Something failed" }
+// or
+Logger.e("Something failed", ex)
+```
 
 ### A Note About Tags
 
-Tags are a complicating factor in the design. Currently tags are part of the Logger instance because we found the tag param to be kind of verbose and Android-specific. We also wanted to keep the number of api methods to a minimum because Swift (and others) can't handle default parameters, so each log statement requires all parameters in the call. However, if just using the global logger instance, having no tag parameter is a problem. We may be adding tag as a param but only for the global instance. Stay tuned (or comment in discussions).
+Tags are much more common on Android, as Logcat has tag arguments, and it is the default logger on Android. It would be difficult to have a Kotlin Multiplatform library without them, but they don't really fit into other platforms as easily.
 
-### Local
-
-Local usage is basically the same in concept. You simply call the same method on a local instance.
+Kermit's default tag is an empty string. You can supply a tag param to each log call, change the base default tag, or create a `Logger` instance with it's own tag. For example, create a field in a ViewModel with the tag set to the class name (a common Android pattern):
 
 ```kotlin
-val logger = Logger.withTag("MyLogger")
-logger.i { "Hello World" }
+class MyViewModel:ViewModel {
+	private val log = Logger.withTag("MyViewModel")
+}
 ```
 
-You can supply a different tag for the logger through local instances. This is more
-meaningful in an Android context. As mentioned, there's also a slight performance advantage to local.
-See [PERFORMANCE](docs/PERFORMANCE.md) for more info.
+Platform-specific loggers can be configured to ignore tags on output, or you can customize their display easily. We'll discuss these options more in [Configuration](#Configuration).
 
 ## Configuration
 
-You can configure two parameters for LoggerConfig: `LogWriter` instances and minimum severity.
+Kermit basically has two modes. The global `Logger` instance, or an instance that is created and managed by your architecture (for example, injecting an instance into each component).
+
+### Global Logger
+
+The global `Logger` instance had configuration methods that allow you to set the `LogWriter` instances, the minimum severity, and set the default tag.
+
+```kotlin
+Logger.setLogWriters(platformLogWriter(NoTagLogFormatter))
+Logger.setTag("MyTag")
+```
+
+### Local Logger
+
+The local and global loggers are basically the same. Which you use is 
 
 ### LogWriter Instances
 

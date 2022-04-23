@@ -10,4 +10,4 @@
 
 package co.touchlab.kermit
 
-actual fun platformLogWriter(): LogWriter = SystemWriter()
+actual fun platformLogWriter(logFormatter: LogFormatter): LogWriter = SystemWriter(logFormatter)
