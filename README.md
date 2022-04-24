@@ -120,77 +120,156 @@ Logger.setTag("MyTag")
 
 ### Local Logger
 
-The local and global loggers are basically the same. Which you use is 
+The local and global loggers are basically the same. Which you use is mostly personal preference, with a bit of performance consideration.
 
-### LogWriter Instances
-
-By default, only the `CommonWriter` is enabled. You can swap other `LogWriter` instances. The most common scenario
-is platform-default. There is a convenience function for that.
+Our pattern has been to inject loggers into components, with the tag applied at that point, rather than specify the tag in each call. In fact, the earlier Kermit designs mandated this rather than making a tag param available.
 
 ```kotlin
-Logger.setLogWriters(platformLogWriter())
+single { 
+        BreedCallbackViewModel(
+            get(), 
+            getWith("BreedCallbackViewModel") // Convenience function to get a Logger with a tag set
+        ) 
+    }
 ```
 
-For more fine-grained control, you can supply log writers individually. See [LOG_WRITER](docs/LOG_WRITER.md).
+The code above is from the [KaMP Kit Koin config](https://github.com/touchlab/KaMPKit/blob/main/shared/src/iosMain/kotlin/co/touchlab/kampkit/KoinIOS.kt#L34). There were some historical and technical reasons for that design. See [DESIGN](DESIGN.md) for more details.
 
-### Default Tag
-
-The default tag is the tag used while logging if you have no changed a Logger-specific tag. By default, it is "Kermit".
-You can change the default global tag with:
+To create your own logger rather than use the global logger, just create an instance with the config specified.
 
 ```kotlin
-Logger.setDefaultTag("MyTag")
+val baseLogger = Logger(
+    config = loggerConfigInit(platformLogWriter(NoTagLogFormatter), minSeverity = Severity.Info),
+    tag = "MyAppTag"
+)
+
+val anotherTag = baseLogger.withTag("AnotherTag")
 ```
 
-### Minimum Severity
-
-To avoid logging lower level statements, you can set a minimum severity. This will prevent evaluating log 
-message lambdas for those severities. To configure the global minimum severity, add:
+There is a *slight* performance boost with this kind of configuration. Because this is not a mutable config, the internals don't need to be thread safe. Mutable config would look like this:
 
 ```kotlin
-Logger.setMinSeverity(Severity.Warn)
+val baseLogger = Logger(
+    config = mutableLoggerConfigInit(platformLogWriter(NoTagLogFormatter), minSeverity = Severity.Info),
+    tag = "MyAppTag"
+)
+
+val anotherTag = baseLogger.withTag("AnotherTag")
 ```
 
-You may only want to turn this on in production, or by some other flag. Be careful, as it'll be easy
-to turn this on and forget, then not see debug log statements. For that reason, it is probably best left
-alone unless in a production situation.
-
-### Local Configuration
-
-The configuration above is on the global instance. For a number of reason, you may want a local `Logger` instead.
-We provide a static config instance for situations where you con't need mutable config or global logging.
+Notice `mutableLoggerConfigInit`. The only major functional difference is you can change your config.
 
 ```kotlin
-val logger = Logger(StaticConfig(minSeverity = Severity.Warn, loggerList = listOf(CommonWriter())))
-logger.i { "Hello Local!" }
+baseLogger.mutableConfig.minSeverity = Severity.Debug
+baseLogger.mutableConfig.logWriterList = listOf(SomeCustomWriter())
 ```
 
-See [PERFORMANCE](docs/PERFORMANCE.md) for more info.
+In general, that's not something most apps will need, so it's better to avoid the mutable config. The global logger needs to be mutable because you need to change it after the code starts.
 
-## Tags
-
-Each `Logger` instance has a tag associated with it, which is initialized by the default tag if none is provided. Tags
-help categorize log statements. This feature is largely derived from Android, but can be useful in other contexts.
-
-Tags are passed to `LogWriter` implementations which can decide how to use them (or ignore them). For example, `LogcatWriter` on Android
-passes it along to Logcat's tag field.
-
-You can override the global default tag [(see Default Tag)](#Default-Tag).
-
-To have a tag other than default, create a new `Logger` instance with:
+If you really like global access, but want static config, you can just create your own global logger.
 
 ```kotlin
-val newTagLogger = logger.withTag("newTag")
+object MyLogger : Logger(
+    config = loggerConfigInit(
+        platformLogWriter(NoTagLogFormatter),
+        minSeverity = Severity.Info
+    ),
+    tag = "MyAppTag"
+)
+
+fun hello(){
+    MyLogger.i { "Hello" }
+}
 ```
 
-## iOS
+### Message Formatting
 
-Generally speaking, Kermit's SDK was designed to be called from Kotlin, but you can initialize and call logging from any
-platform that has interop with Kotlin. For iOS and Swift-specific considerations, see [IOS_CONSIDERATIONS](docs/IOS_CONSIDERATIONS.md)
+To make message formatting more uniform and flexible, many of the `LogWriter` instances can take a `LogFormatter` parameter. This allows you to control how the tags and log messages are formatted.
 
-## Samples
+We have defined a few standard `LogFormatter` instances:
 
-There are multiple sample apps showing various configurations.
+`DefaultLogFormatter` - This is the standard format that all compatible `LogWriter` instances get by default. Messages are formatted as follows:
+
+```
+"Info: (MyTag) A log message"
+```
+
+`NoTagLogFormatter` - Tags are really an Android convension. Other platforms can feel cluttered with them. You can simply ignore them with this formatter instance. Messages are formatted as follows:
+
+```
+"Info: A log message"
+```
+
+`SimpleLogFormatter` - This formatter skips tags and severity. It just prints the message.
+
+```
+"A log message"
+```
+
+Not all `LogWriter` instances take a formatter argument. Notably, Android's `LogcatWriter` does not format it's own messages. Instead, it routes calls to the appropriate severity method, and passes the tag argument to Logcat.
+
+To simplify setting platform `LogWriter` instances, you can pass a `LogFormatter` to `platformLogWriter`. Just FYI, Android will ignore the `LogFormatter` because it calls `Logcat` log methods directly.
+
+```kotlin
+platformLogWriter(NoTagLogFormatter)
+```
+
+## Non-Kotlin Callers
+
+The api design of  `Logger` favors calling from Kotlin. Specifically, to avoid having a huge number of methods, the api makes use of default parameters. This is great in Kotlin but terrible when calling from other languages. For example, calling a log statement from Swift directly on the `Logger` api would look like this:
+
+```swift
+log.i(tag: log.tag, throwable: nil) {"A log"}
+```
+
+All default params need to be provided.
+
+The original design of the `Logger` api made an attempt at compromise that would work everywhere. However, the redesign has a Kotlin-friendly api surface defined in the `kermit` module, and another module called `kermit-nkt` that you can export to other languages.
+
+> `nkt` stands for "Not Kotlin".
+
+We'll focus on calling from swift in these examples. You export the nkt module by adding it as an api dependency:
+
+```kotlin
+commonMain {
+  dependencies {
+    api("co.touchlab:kermit-nkt:x.y.z") //Add latest version
+  }
+}
+```
+
+Then export the dependency to the generated framework:
+
+```kotlin
+cocoapods {
+    summary = "Sample for Kermit"
+    homepage = "https://www.touchlab.co"
+    framework {
+        export("co.touchlab:kermit-nkt:x.y.z") //Add latest version
+    }
+}
+```
+
+If configuring frameworks directly, it would look more like this:
+
+```kotlin
+ios {
+  binaries {
+    framework {
+      export("co.touchlab:kermit-nkt:x.y.z") //Add latest version
+    }
+  }
+}
+```
+
+To call the global logger from Swift, call `LoggerKt`, select the severity, then select the method:
+
+```swift
+LoggerKt.i.log(messageString: "Hello")
+LoggerKt.i.log(tag: "MyTag") { "Hello Again" }
+```
+
+See [samples/sample](samples/sample) for a configured example.
 
 ## Crash Reporting
 

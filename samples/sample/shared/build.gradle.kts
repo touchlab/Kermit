@@ -25,7 +25,13 @@ val KERMIT_VERSION: String by project
 kotlin {
     version = "0.0.1"
     android()
-    ios()
+    ios {
+        binaries {
+            framework {
+                export("co.touchlab:kermit-nkt:x.y.z") //Add latest version
+            }
+        }
+    }
     js {
         browser()
     }
@@ -33,7 +39,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api("co.touchlab:kermit:${KERMIT_VERSION}")
+                api("co.touchlab:kermit-nkt:${KERMIT_VERSION}")
             }
         }
 
@@ -74,7 +80,7 @@ kotlin {
         summary = "Sample for Kermit"
         homepage = "https://www.touchlab.co"
         framework {
-            export("co.touchlab:kermit:${KERMIT_VERSION}")
+            export("co.touchlab:kermit-nkt:${KERMIT_VERSION}")
         }
     }
 }

@@ -24,7 +24,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api("co.touchlab:kermit:${KERMIT_VERSION}")
+                api("co.touchlab:kermit-nkt:${KERMIT_VERSION}")
                 implementation("co.touchlab:kermit-crashlytics:${KERMIT_VERSION}")
             }
         }
@@ -65,7 +65,7 @@ kotlin {
         summary = "Sample for Kermit"
         homepage = "https://www.touchlab.co"
         framework {
-            export("co.touchlab:kermit:${KERMIT_VERSION}")
+            export("co.touchlab:kermit-nkt:${KERMIT_VERSION}")
             isStatic = true
         }
     }

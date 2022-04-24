@@ -36,6 +36,15 @@ class LoggerTest {
     @Test
     fun testGlobal() {
         val testLogWriter = getTestLogWriter()
+val baseLogger = Logger(
+    config = loggerConfigInit(platformLogWriter(NoTagLogFormatter), minSeverity = Severity.Info),
+    tag = "MyAppTag"
+)
+
+val anotherTag = baseLogger.withTag("AnotherTag")
+baseLogger.mutableConfig.minSeverity = Severity.Debug
+baseLogger.mutableConfig.logWriterList = listOf(SomeCustomWriter())
+
         Logger.apply {
             setMinSeverity(Severity.Verbose)
             setLogWriters(testLogWriter)
@@ -304,4 +313,16 @@ class LoggerTest {
         val testLogWriter = CustomGlobalLogger.config.logWriterList.first() as TestLogWriter
         testLogWriter.assertLast { tag == "" && message == "Hello" }
     }
+}
+
+object MyLogger : Logger(
+    config = loggerConfigInit(
+        platformLogWriter(NoTagLogFormatter),
+        minSeverity = Severity.Info
+    ),
+    tag = "MyAppTag"
+)
+
+fun hello(){
+    MyLogger.i { "Hello" }
 }
