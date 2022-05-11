@@ -29,6 +29,8 @@ kotlin {
     macosX64()
     macosArm64()
     iosX64()
+    iosArm64()
+    iosArm32()
     iosSimulatorArm64()
     watchosArm32()
     watchosArm64()
