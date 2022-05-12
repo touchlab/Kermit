@@ -43,6 +43,15 @@ kotlin {
 
     linuxX64()
     linuxArm32Hfp()
+    linuxMips32()
+
+    // TODO: These targets aren't supported by Koin yet:
+    // mingwX64()
+    // mingwX86()
+    // androidNativeArm32()
+    // androidNativeArm64()
+    // androidNativeX86()
+    // androidNativeX64()
 
     val commonMain by sourceSets.getting
     val commonTest by sourceSets.getting
