@@ -43,7 +43,7 @@ kotlin {
 
     linuxX64()
     linuxArm32Hfp()
-    linuxMips32()
+//    linuxMips32()
 
     // TODO: These targets aren't supported by Koin yet:
     // mingwX64()
