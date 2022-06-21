@@ -191,6 +191,10 @@ Crashlytics [docs](kermit-crashlytics/README.md) and [sample](samples/sample-cra
 
 Bugsnag [docs](kermit-bugsnag/README.md) and [sample](samples/sample-bugsnag).
 
+### Sentry
+
+Sentry support exists but is experimental. We've had some reports of issues, so we may pull support until there are people available to look at it. Other users have it in production, so just be aware and verify that it works in your app.
+
 ## Testing
 
 Kermit includes a test dependency, intended for use when testing application code that interacts with Kermit APIs but
