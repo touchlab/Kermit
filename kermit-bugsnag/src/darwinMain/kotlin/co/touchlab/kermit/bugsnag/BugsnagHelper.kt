@@ -8,25 +8,18 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
+@file:Suppress("unused")
+
 package co.touchlab.kermit.bugsnag
 
+import Bugsnag.BugsnagConfiguration
 import co.touchlab.kermit.ExperimentalKermitApi
-import co.touchlab.kermit.Logger
-import co.touchlab.kermit.setupUnhandledExceptionHook
-import platform.Foundation.NSUUID
+import com.rickclephas.kmp.nsexceptionkt.bugsnag.setBugsnagUnhandledExceptionHook
 
-@ExperimentalKermitApi
-fun setupBugsnagExceptionHook(logger: Logger) {
-    setupUnhandledExceptionHook(logger) {
-        val crashId = generateCrashId()
-        Bugsnag.leaveBreadcrumbWithMessage(
-            "Kotlin Crash",
-            mapOf(Pair(ktCrashKey, crashId)),
-            BSGBreadcrumbType.BSGBreadcrumbTypeError
-        )
-        crashId
-    }
+fun configureBugsnag(config: BugsnagConfiguration){
+    com.rickclephas.kmp.nsexceptionkt.bugsnag.configureBugsnag(config)
 }
 
-private fun generateCrashId():String = NSUUID().UUIDString.substring(0, 8)
-private val ktCrashKey = "ktcrash"
+fun setupBugsnagExceptionHook() {
+    setBugsnagUnhandledExceptionHook()
+}

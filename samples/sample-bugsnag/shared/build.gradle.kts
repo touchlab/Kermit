@@ -42,7 +42,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 api("co.touchlab:kermit:${KERMIT_VERSION}")
-                implementation("co.touchlab:kermit-bugsnag:${KERMIT_VERSION}")
+                api("co.touchlab:kermit-bugsnag:${KERMIT_VERSION}")
             }
         }
 
@@ -69,6 +69,7 @@ kotlin {
         homepage = "https://www.touchlab.co"
         framework {
             export("co.touchlab:kermit:${KERMIT_VERSION}")
+            export("co.touchlab:kermit-bugsnag:${KERMIT_VERSION}")
             isStatic = true
         }
     }

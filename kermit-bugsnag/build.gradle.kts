@@ -42,6 +42,12 @@ kotlin {
             implementation(npm("@bugsnag/js", "7.11.0"))
         }
     }
+
+    val darwinMain by sourceSets.getting {
+        dependencies {
+            implementation("com.rickclephas.kmp:nsexception-kt-bugsnag:0.1.0")
+        }
+    }
 }
 
 android {

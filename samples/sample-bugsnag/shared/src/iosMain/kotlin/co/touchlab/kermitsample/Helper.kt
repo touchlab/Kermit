@@ -18,5 +18,5 @@ import co.touchlab.kermit.bugsnag.setupBugsnagExceptionHook
 fun startKermit(){
     //You may want to us a non-global logger in production, but this will work fine.
     Logger.addLogWriter(BugsnagLogWriter())
-    setupBugsnagExceptionHook(Logger)
+    setupBugsnagExceptionHook()
 }

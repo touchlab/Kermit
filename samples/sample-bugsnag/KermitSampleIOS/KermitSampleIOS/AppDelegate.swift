@@ -20,8 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        Bugsnag.start(withApiKey: "PUT YOUR API KEY HERE")
+        let config = BugsnagConfiguration.loadConfig()
+
+        BugsnagHelperKt.configureBugsnag(config: config)
+
+        Bugsnag.start(with: config)
+
         HelperKt.startKermit()
+
         return true
     }
 

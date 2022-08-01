@@ -10,14 +10,17 @@
 
 package co.touchlab.kermit.bugsnag
 
-import co.touchlab.crashkios.transformException
+import Bugsnag.Bugsnag as NSBugsnag
+import Bugsnag.BSGErrorType
+import Bugsnag.BugsnagError
+import Bugsnag.BugsnagStackframe
+import Bugsnag.stackframesWithCallStackReturnAddresses
 import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Severity
-import kotlinx.cinterop.convert
+import com.rickclephas.kmp.nsexceptionkt.core.asNSException
+import com.rickclephas.kmp.nsexceptionkt.core.causes
 import platform.Foundation.NSException
-import platform.Foundation.NSNumber
-import platform.darwin.NSInteger
 
 @ExperimentalKermitApi
 actual class BugsnagLogWriter actual constructor(
@@ -47,22 +50,27 @@ actual class BugsnagLogWriter actual constructor(
     }
 
     private fun sendException(throwable: Throwable) {
-        transformException(throwable) { name, description, addresses ->
-            Bugsnag.notify(BugsnagNSException(addresses, name, description))
-        }
+        notifyThrowable(throwable)
     }
 }
 
-private class BugsnagNSException(stackTrace: List<Long>, exceptionType: String, message: String) : NSException(name = exceptionType, reason = message, userInfo = null) {
-    private val _callStackReturnAddresses:List<NSNumber>
-    init {
-        _callStackReturnAddresses = stackTrace.map {
-            @Suppress("CAST_NEVER_SUCCEEDS")
-            it.convert<NSInteger>() as NSNumber
+internal fun notifyThrowable(throwable: Throwable) {
+    val exception = throwable.asNSException()
+    val causes = throwable.causes.map { it.asNSException() }
+    // Notify will persist unhandled events, so we can safely terminate afterwards.
+    // https://github.com/bugsnag/bugsnag-cocoa/blob/6bcd46f5f8dc06ac26537875d501f02b27d219a9/Bugsnag/Client/BugsnagClient.m#L744
+    NSBugsnag.notify(exception) { event ->
+        if (event == null) return@notify true
+        if (causes.isNotEmpty()) {
+            event.errors += causes.map { it.asBugsnagError() }
         }
+        true
     }
+}
 
-    override fun callStackReturnAddresses(): List<*> {
-        return _callStackReturnAddresses
-    }
+internal fun NSException.asBugsnagError(): BugsnagError = BugsnagError().apply {
+    errorClass = name
+    errorMessage = reason
+    stacktrace = BugsnagStackframe.stackframesWithCallStackReturnAddresses(callStackReturnAddresses)
+    type = BSGErrorType.BSGErrorTypeCocoa
 }
