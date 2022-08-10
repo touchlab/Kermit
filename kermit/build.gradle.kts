@@ -134,7 +134,7 @@ kotlin {
         implementation("org.jetbrains.kotlin:kotlin-test-common")
         implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
         implementation("co.touchlab:stately-collections:$STATELY_VERSION")
-        implementation("co.touchlab:testhelp:0.5.5")
+        implementation("co.touchlab:testhelp:0.6.4")
     }
 
     androidTest.dependencies {
