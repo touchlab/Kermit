@@ -12,14 +12,11 @@
  */
 
 include(":kermit")
-//include(":kermit-crashlytics")
-//include(":kermit-crashlytics-test")
+include(":kermit-crashlytics")
 include(":kermit-bugsnag")
-//include(":kermit-bugsnag-test")
 include(":kermit-test")
-//include(":kermit-koin")
+include(":kermit-koin")
 //include(":kermit-sentry")
-//include(":kermit-sentry-test")
 
 include(":kermit-gradle-plugin")
 include(":kermit-ir-plugin")

@@ -52,11 +52,6 @@ kotlin {
 
         val androidMain by sourceSets.getting {}
         val iosMain by sourceSets.getting {}
-        val iosTest by sourceSets.getting {
-            dependencies {
-                implementation("co.touchlab:kermit-crashlytics-test:${KERMIT_VERSION}")
-            }
-        }
     }
 
     cocoapods {

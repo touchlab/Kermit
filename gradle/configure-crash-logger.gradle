@@ -38,13 +38,13 @@ kotlin {
 //        watchosX86(),
         watchosX64()
     ].forEach { target ->
-        target.compilations.main.cinterops.create(project.name) {
-            includeDirs("$projectDir/src/include")
-            compilerOpts("-DNS_FORMAT_ARGUMENT(A)=", "-D_Nullable_result=_Nullable")
-            if (printCInteropKotlin) {
-                extraOpts = listOf("-mode", "sourcecode")
-            }
-        }
+//        target.compilations.main.cinterops.create(project.name) {
+//            includeDirs("$projectDir/src/include")
+//            compilerOpts("-DNS_FORMAT_ARGUMENT(A)=", "-D_Nullable_result=_Nullable")
+//            if (printCInteropKotlin) {
+//                extraOpts = listOf("-mode", "sourcecode")
+//            }
+//        }
 
         target.compilations.main.defaultSourceSet.dependsOn(darwinMain)
         target.compilations.test.defaultSourceSet.dependsOn(commonTest)
@@ -58,10 +58,5 @@ kotlin {
     commonTest.dependencies {
         implementation "org.jetbrains.kotlin:kotlin-test-common"
         implementation "org.jetbrains.kotlin:kotlin-test-annotations-common"
-    }
-
-    darwinMain.dependencies {
-        def crashKIOsVersion = project.property("CRASHKIOS_CORE_VERSION").toString()
-        implementation "co.touchlab:crashkios-core:$crashKIOsVersion"
     }
 }

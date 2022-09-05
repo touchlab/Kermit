@@ -18,5 +18,5 @@ import co.touchlab.kermit.crashlytics.setupCrashlyticsExceptionHook
 fun startKermit(){
     //You may want to us a non-global logger in production, but this will work fine.
     Logger.addLogWriter(CrashlyticsLogWriter())
-    setupCrashlyticsExceptionHook(Logger)
+    setupCrashlyticsExceptionHook()
 }

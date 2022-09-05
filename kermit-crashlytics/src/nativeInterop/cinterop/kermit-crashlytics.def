@@ -1,4 +1,0 @@
-package = co.touchlab.kermit.crashlytics
-language = Objective-C
-headers = FIRStackFrame.h FIRExceptionModel.h crashlytics.h
-

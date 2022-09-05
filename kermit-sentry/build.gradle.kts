@@ -16,22 +16,28 @@ plugins {
 apply(from = "../gradle/configure-crash-logger.gradle")
 
 kotlin {
+
     android {
         publishAllLibraryVariants()
+    }
+
+    val commonMain by sourceSets.getting {
+        dependencies {
+            implementation("io.sentry:sentry-kotlin-multiplatform:0.0.1")
+        }
     }
 
     val androidMain by sourceSets.getting {
         dependencies {
             implementation("org.jetbrains.kotlin:kotlin-stdlib")
-            implementation("io.sentry:sentry-android:5.6.0")
         }
     }
 }
 
 android {
-    compileSdkVersion(30)
+    compileSdk = 30
     defaultConfig {
-        minSdkVersion(15)
+        minSdk = 15
     }
 
     val main by sourceSets.getting {

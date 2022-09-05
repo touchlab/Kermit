@@ -16,8 +16,7 @@ plugins {
     kotlin("multiplatform")
 }
 
-val CRASHKIOS_CORE_VERSION: String by project
-val CRASHLYTICS_ANDROID_VERSION: String by project
+val CRASHKIOS_VERSION: String by project
 
 apply(from = "../gradle/configure-crash-logger.gradle")
 
@@ -26,18 +25,23 @@ kotlin {
         publishAllLibraryVariants()
     }
 
+    val commonMain by sourceSets.getting {
+        dependencies {
+            implementation("co.touchlab.crashkios:crashlytics:$CRASHKIOS_VERSION")
+        }
+    }
+
     val androidMain by sourceSets.getting {
         dependencies {
             implementation("org.jetbrains.kotlin:kotlin-stdlib")
-            implementation("com.google.firebase:firebase-crashlytics:$CRASHLYTICS_ANDROID_VERSION")
         }
     }
 }
 
 android {
-    compileSdkVersion(30)
+    compileSdk = 30
     defaultConfig {
-        minSdkVersion(15)
+        minSdk = 15
     }
 
     val main by sourceSets.getting {

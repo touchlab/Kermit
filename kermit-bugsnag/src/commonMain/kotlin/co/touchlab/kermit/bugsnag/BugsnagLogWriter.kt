@@ -10,13 +10,39 @@
 
 package co.touchlab.kermit.bugsnag
 
+import co.touchlab.crashkios.bugsnag.BugsnagCalls
+import co.touchlab.crashkios.bugsnag.BugsnagCallsActual
 import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Severity
 
 @ExperimentalKermitApi
-expect class BugsnagLogWriter(
-    minSeverity: Severity = Severity.Info,
-    minCrashSeverity: Severity = Severity.Warn,
-    printTag: Boolean = true
-) : LogWriter
+class BugsnagLogWriter(
+    private val minSeverity: Severity = Severity.Info,
+    private val minCrashSeverity: Severity = Severity.Warn,
+    private val printTag: Boolean = true
+) : LogWriter() {
+
+    private val bugsnagCalls: BugsnagCalls = BugsnagCallsActual()
+
+    init {
+        if (minSeverity > minCrashSeverity) {
+            throw IllegalArgumentException("minSeverity ($minSeverity) cannot be greater than minCrashSeverity ($minCrashSeverity)")
+        }
+    }
+
+    override fun isLoggable(severity: Severity): Boolean = severity >= minSeverity
+
+    override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
+        bugsnagCalls.logMessage(
+            if (printTag) {
+                "$tag : $message"
+            } else {
+                message
+            }
+        )
+        if (throwable != null && severity >= minCrashSeverity) {
+            bugsnagCalls.sendHandledException(throwable)
+        }
+    }
+}
