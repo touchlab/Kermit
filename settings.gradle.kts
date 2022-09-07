@@ -10,44 +10,51 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
+rootProject.name = "kermit-root"
 
-include(":kermit")
-include(":kermit-crashlytics")
-include(":kermit-crashlytics-test")
-include(":kermit-bugsnag")
-include(":kermit-bugsnag-test")
-include(":kermit-test")
-include(":kermit-koin")
-include(":kermit-sentry")
-include(":kermit-sentry-test")
+include(
+    ":kermit",
+    ":kermit-crashlytics",
+    ":kermit-crashlytics-test",
+    ":kermit-bugsnag",
+    ":kermit-bugsnag-test",
+    ":kermit-test",
+    ":kermit-koin",
+    ":kermit-sentry",
+    ":kermit-sentry-test",
 
-include(":kermit-gradle-plugin")
-include(":kermit-ir-plugin")
-include(":kermit-ir-plugin-native")
+    ":kermit-gradle-plugin",
+    ":kermit-ir-plugin",
+    ":kermit-ir-plugin-native",
 
-project(":kermit-gradle-plugin").projectDir = File("plugin/kermit-gradle-plugin")
-project(":kermit-ir-plugin").projectDir = File("plugin/kermit-ir-plugin")
-project(":kermit-ir-plugin-native").projectDir = File("plugin/kermit-ir-plugin-native")
+    ":kermit-gradle-plugin",
+    ":kermit-ir-plugin",
+    ":kermit-ir-plugin-native",
+)
 
-pluginManagement {
-    resolutionStrategy {
-        eachPlugin {
-            when (requested.id.id) {
-                "com.android.library" -> useModule("com.android.tools.build:gradle:${requested.version}")
-            }
-        }
-    }
-    repositories {
-        mavenLocal()
-        google()
-        gradlePluginPortal()
-        mavenCentral()
-    }
-    val KOTLIN_VERSION: String by settings
-    plugins {
-        kotlin("multiplatform") version KOTLIN_VERSION
-    }
-}
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+apply(from = "./buildSrc/repositories.settings.gradle.kts")
+
+//pluginManagement {
+//    resolutionStrategy {
+//        eachPlugin {
+//            when (requested.id.id) {
+//                "com.android.library" -> useModule("com.android.tools.build:gradle:${requested.version}")
+//            }
+//        }
+//    }
+//    repositories {
+//        mavenLocal()
+//        google()
+//        gradlePluginPortal()
+//        mavenCentral()
+//    }
+//    val KOTLIN_VERSION: String by settings
+//    plugins {
+//        kotlin("multiplatform") version KOTLIN_VERSION
+//    }
+//}
 
 //plugins {
 //    id("com.github.burrunan.s3-build-cache") version "1.2"

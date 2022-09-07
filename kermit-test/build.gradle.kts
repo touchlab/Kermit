@@ -12,43 +12,14 @@
  */
 
 plugins {
-    id("com.android.library")
-    kotlin("multiplatform")
+    buildsrc.convention.`android-library`
+    buildsrc.convention.`kotlin-multiplatform`
+    buildsrc.convention.`publish-kotlin-multiplatform`
 }
 
 val STATELY_VERSION: String by project
 
 kotlin {
-    android {
-        publishAllLibraryVariants()
-    }
-    jvm()
-    js(BOTH) {
-        browser()
-        nodejs()
-    }
-
-    macosX64()
-    macosArm64()
-    iosX64()
-    iosArm64()
-    iosArm32()
-    iosSimulatorArm64()
-    watchosArm32()
-    watchosArm64()
-    watchosSimulatorArm64()
-    watchosX86()
-    watchosX64()
-    tvosArm64()
-    tvosSimulatorArm64()
-    tvosX64()
-
-    mingwX64()
-    mingwX86()
-    linuxX64()
-    linuxArm32Hfp()
-    linuxMips32()
-
     val commonMain by sourceSets.getting
     val commonTest by sourceSets.getting
 
@@ -86,31 +57,7 @@ kotlin {
 }
 
 android {
-    compileSdkVersion(30)
-    defaultConfig {
-        minSdkVersion(15)
-    }
-
     val main by sourceSets.getting {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
     }
 }
-
-tasks.register("publishWindows") {
-    if (tasks.findByName("publish") != null &&
-        tasks.findByName("publishMingwX64PublicationToMavenRepository") != null) {
-        dependsOn(
-            "publishMingwX64PublicationToMavenRepository",
-            "publishMingwX86PublicationToMavenRepository"
-        )
-    }
-}
-
-tasks.register("publishLinux") {
-    if (tasks.findByName("publish") != null &&
-        tasks.findByName("publishLinuxMips32PublicationToMavenRepository") != null) {
-        dependsOn("publishLinuxMips32PublicationToMavenRepository")
-    }
-}
-
-apply(from = "../gradle/gradle-mvn-mpp-push.gradle")

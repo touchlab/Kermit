@@ -11,21 +11,22 @@
  * the License.
  */
 
-buildscript {
-    extra["kotlin_plugin_id"] = "co.touchlab.kermit"
-    val CKLIB_VERSION: String by project
-    dependencies {
-        classpath("com.vanniktech:gradle-maven-publish-plugin:0.18.0")
-        classpath("co.touchlab:cklib-gradle-plugin:${CKLIB_VERSION}")
-    }
-}
+//buildscript {
+////    extra["kotlin_plugin_id"] = "co.touchlab.kermit"
+////    val CKLIB_VERSION: String by project
+////    dependencies {
+////        classpath("com.vanniktech:gradle-maven-publish-plugin:0.18.0")
+////        classpath("co.touchlab:cklib-gradle-plugin:${CKLIB_VERSION}")
+////    }
+//}
 
 plugins {
-    kotlin("multiplatform") apply false
-    id("com.android.library") version "4.1.2" apply false
-    id("com.github.gmazzo.buildconfig") version "2.1.0" apply false
-    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.8.0-RC"
+//    kotlin("multiplatform") apply false
+//    id("com.android.library") version "4.1.2" apply false
+//    id("com.github.gmazzo.buildconfig") version "2.1.0" apply false
+    id("org.jetbrains.kotlinx.binary-compatibility-validator")
 }
+
 apiValidation {
     nonPublicMarkers.add("co.touchlab.kermit.ExperimentalKermitApi")
     ignoredProjects.addAll(listOf("kermit-gradle-plugin", "kermit-ir-plugin", "kermit-ir-plugin-native"))
@@ -34,21 +35,26 @@ apiValidation {
 val GROUP: String by project
 val VERSION_NAME: String by project
 
-allprojects {
-    group = GROUP
-    version = VERSION_NAME
+//allprojects {
+////    group = GROUP
+////    version = VERSION_NAME
+//
+//    extensions.findByType<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension>()?.apply {
+//        sourceSets.all {
+//            languageSettings.optIn("kotlin.RequiresOptIn")
+//        }
+//    }
+//}
 
-    extensions.findByType<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension>()?.apply {
-        sourceSets.all {
-            languageSettings.optIn("kotlin.RequiresOptIn")
-        }
-    }
-}
+//allprojects {
+//    repositories {
+//        mavenLocal()
+//        mavenCentral()
+//        google()
+//    }
+//}
 
-allprojects {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        google()
-    }
+tasks.wrapper {
+    gradleVersion = "7.5.1"
+    distributionType = Wrapper.DistributionType.ALL
 }
