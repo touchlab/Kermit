@@ -41,8 +41,7 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - PromisesObjC (2.0.0)
-  - shared (0.1.2):
-    - FirebaseCrashlytics
+  - shared (0.1.2)
 
 DEPENDENCIES:
   - Firebase/Crashlytics
@@ -74,8 +73,8 @@ SPEC CHECKSUMS:
   GoogleUtilities: 8de2a97a17e15b6b98e38e8770e2d129a57c0040
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
-  shared: 3f5a2f83f21ae05f91eb30dd9bd83ae8016ae597
+  shared: ece1bd2d8369040b0623e7dc15cc87eb98f94cf5
 
 PODFILE CHECKSUM: 0ff799ecfce730b0f52c42ff7c611152c6705e26
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

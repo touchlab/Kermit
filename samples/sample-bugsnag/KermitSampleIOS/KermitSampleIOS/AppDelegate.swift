@@ -21,11 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let config = BugsnagConfiguration.loadConfig()
 
-        BugsnagHelperKt.configureBugsnag(config: config)
-
-        Bugsnag.start(with: config)
-
-        HelperKt.startKermit()
+        HelperKt.startKermit(config: config)
 
         return true
     }

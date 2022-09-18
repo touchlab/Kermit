@@ -12,11 +12,11 @@ package co.touchlab.kermitsample
 
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.crashlytics.CrashlyticsLogWriter
-import co.touchlab.kermit.crashlytics.setupCrashlyticsExceptionHook
+import co.touchlab.kermit.crashlytics.setCrashlyticsUnhandledExceptionHook
 
 @Suppress("unused")
 fun startKermit(){
     //You may want to us a non-global logger in production, but this will work fine.
     Logger.addLogWriter(CrashlyticsLogWriter())
-    setupCrashlyticsExceptionHook()
+    setCrashlyticsUnhandledExceptionHook()
 }

@@ -10,6 +10,7 @@
 buildscript {
     repositories {
         google()
+        mavenLocal()
         mavenCentral()
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
     }
@@ -22,6 +23,7 @@ buildscript {
         classpath("com.android.tools.build:gradle:7.0.1")
         classpath(kotlin("gradle-plugin", readParentKotlin()))
         classpath("com.bugsnag:bugsnag-android-gradle-plugin:7.0.0")
+        classpath("co.touchlab.crashkios:utils:0.7.1-alpha")
     }
 }
 allprojects{

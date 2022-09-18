@@ -12,6 +12,7 @@ package co.touchlab.kermit.crashlytics
 
 import co.touchlab.crashkios.crashlytics.CrashlyticsCalls
 import co.touchlab.crashkios.crashlytics.CrashlyticsCallsActual
+import co.touchlab.crashkios.crashlytics.enableCrashlytics
 import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Severity
@@ -29,6 +30,8 @@ class CrashlyticsLogWriter(
         if(minSeverity > minCrashSeverity) {
             throw IllegalArgumentException("minSeverity ($minSeverity) cannot be greater than minCrashSeverity ($minCrashSeverity)")
         }
+
+        enableCrashlytics()
     }
 
     override fun isLoggable(severity: Severity): Boolean = severity >= minSeverity

@@ -12,6 +12,7 @@ package co.touchlab.kermit.bugsnag
 
 import co.touchlab.crashkios.bugsnag.BugsnagCalls
 import co.touchlab.crashkios.bugsnag.BugsnagCallsActual
+import co.touchlab.crashkios.bugsnag.enableBugsnag
 import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Severity
@@ -29,6 +30,8 @@ class BugsnagLogWriter(
         if (minSeverity > minCrashSeverity) {
             throw IllegalArgumentException("minSeverity ($minSeverity) cannot be greater than minCrashSeverity ($minCrashSeverity)")
         }
+
+        enableBugsnag()
     }
 
     override fun isLoggable(severity: Severity): Boolean = severity >= minSeverity

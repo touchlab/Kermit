@@ -48,6 +48,6 @@ class CrashBot() {
     }
 
     private fun okCrash(){
-        throw IllegalStateException("Nap time ...")
+        throw IllegalArgumentException("Nap time 3 ...")
     }
 }

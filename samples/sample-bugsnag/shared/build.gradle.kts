@@ -7,6 +7,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
+import co.touchlab.faktory.bugsnagLinkerConfig
 import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
@@ -33,9 +34,6 @@ kotlin {
         iosX64("ios")
     }
     android()
-    js {
-        browser()
-    }
 
     sourceSets {
         commonMain {
@@ -43,6 +41,7 @@ kotlin {
                 implementation(kotlin("stdlib-common"))
                 api("co.touchlab:kermit:${KERMIT_VERSION}")
                 api("co.touchlab:kermit-bugsnag:${KERMIT_VERSION}")
+                api("co.touchlab.crashkios:bugsnag:0.7.1-alpha")
             }
         }
 
@@ -56,12 +55,6 @@ kotlin {
         val androidMain by sourceSets.getting {}
         val iosMain by sourceSets.getting {
         }
-        val jsMain by sourceSets.getting {
-            dependencies {
-                implementation(kotlin("stdlib-js"))
-            }
-        }
-
     }
 
     cocoapods {
@@ -70,10 +63,14 @@ kotlin {
         framework {
             export("co.touchlab:kermit:${KERMIT_VERSION}")
             export("co.touchlab:kermit-bugsnag:${KERMIT_VERSION}")
-            isStatic = true
+            export("co.touchlab.crashkios:bugsnag:0.7.1-alpha")
+            isStatic = false
         }
     }
+
+    bugsnagLinkerConfig()
 }
+
 android {
     compileSdk =29
     defaultConfig {
