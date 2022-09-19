@@ -14,22 +14,36 @@ plugins {
     kotlin("native.cocoapods")
 }
 
+android {
+    compileSdk = libs.versions.compileSdk.get().toInt()
+    defaultConfig {
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+    }
+
+    val main by sourceSets.getting {
+        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    }
+}
+
 val KERMIT_VERSION: String by project
 
 kotlin {
     version = "0.0.1"
     android()
     ios()
+    // Note: iosSimulatorArm64 target requires that all dependencies have M1 support
+    iosSimulatorArm64()
 
     sourceSets {
-        commonMain {
+        val commonMain by getting {
             dependencies {
                 api("co.touchlab:kermit:${KERMIT_VERSION}")
                 implementation("co.touchlab:kermit-crashlytics:${KERMIT_VERSION}")
             }
         }
 
-        commonTest {
+        val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
@@ -68,17 +82,5 @@ kotlin {
             export("co.touchlab:kermit:${KERMIT_VERSION}")
             isStatic = true
         }
-    }
-}
-
-android {
-    compileSdk = 29
-    defaultConfig {
-        minSdk = 26
-        targetSdk = 29
-    }
-
-    val main by sourceSets.getting {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
     }
 }
