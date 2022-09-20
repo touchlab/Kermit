@@ -113,4 +113,4 @@ tasks.register("publishLinux") {
     }
 }
 
-apply(from = "../gradle/gradle-mvn-mpp-push.gradle")
+apply(plugin = "com.vanniktech.maven.publish")
