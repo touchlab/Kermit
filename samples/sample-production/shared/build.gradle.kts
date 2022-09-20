@@ -63,17 +63,20 @@ kotlin {
                 implementation(kotlin("test-junit"))
             }
         }
-        val iosMain by sourceSets.getting {
-            dependencies {
+        val iosMain by sourceSets.getting
 
-            }
-        }
         val iosTest by sourceSets.getting {
             dependencies {
                 implementation("co.touchlab:kermit-crashlytics-test:${KERMIT_VERSION}")
             }
         }
 
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
+        }
+        val iosSimulatorArm64Test by getting {
+            dependsOn(iosTest)
+        }
     }
     cocoapods {
         summary = "Sample for Kermit"
