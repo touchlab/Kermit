@@ -41,7 +41,7 @@ kotlin {
                 implementation(kotlin("stdlib-common"))
                 api("co.touchlab:kermit:${KERMIT_VERSION}")
                 api("co.touchlab:kermit-bugsnag:${KERMIT_VERSION}")
-                api("co.touchlab.crashkios:bugsnag:0.7.1-alpha")
+                api("co.touchlab.crashkios:bugsnag:0.7.1-alpha3")
             }
         }
 
@@ -63,7 +63,7 @@ kotlin {
         framework {
             export("co.touchlab:kermit:${KERMIT_VERSION}")
             export("co.touchlab:kermit-bugsnag:${KERMIT_VERSION}")
-            export("co.touchlab.crashkios:bugsnag:0.7.1-alpha")
+            export("co.touchlab.crashkios:bugsnag:0.7.1-alpha3")
             isStatic = false
         }
     }
