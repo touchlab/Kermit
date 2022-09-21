@@ -39,7 +39,7 @@ allprojects{
 subprojects {
     afterEvaluate {
         tasks.register("ciTest") {
-            dependsOn("build")
+//            dependsOn("build")
         }
     }
 }
