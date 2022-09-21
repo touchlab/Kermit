@@ -36,10 +36,6 @@ allprojects{
         google()
     }
 }
-subprojects {
-    afterEvaluate {
-        tasks.register("ciTest") {
-//            dependsOn("build")
-        }
-    }
+tasks.register("ciTest") {
+//    dependsOn(":shared:build")
 }
