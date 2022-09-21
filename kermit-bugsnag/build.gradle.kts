@@ -40,7 +40,7 @@ kotlin {
 android {
     compileSdk = 30
     defaultConfig {
-        minSdk = 15
+        minSdk = 16
     }
 
     val main by sourceSets.getting {
