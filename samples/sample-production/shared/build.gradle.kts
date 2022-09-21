@@ -56,7 +56,7 @@ kotlin {
         }
         val iosTest by sourceSets.getting {
             dependencies {
-                implementation("co.touchlab:kermit-crashlytics-test:${KERMIT_VERSION}")
+
             }
         }
 
