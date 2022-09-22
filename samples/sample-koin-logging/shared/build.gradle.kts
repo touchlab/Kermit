@@ -14,6 +14,19 @@ plugins {
     id("com.android.library")
 }
 
+android {
+    compileSdk = libs.versions.compileSdk.get().toInt()
+    defaultConfig {
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+    }
+    val main by sourceSets.getting {
+        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    }
+}
+
+val KERMIT_VERSION: String by project
+
 version = "1.0"
 
 kotlin {
@@ -22,42 +35,32 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
-    cocoapods {
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
-        ios.deploymentTarget = "14.1"
-        podfile = project.file("../iosApp/Podfile")
-        framework {
-            baseName = "shared"
-        }
-    }
-
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api("co.touchlab:kermit:1.0.5")
-                api("co.touchlab:kermit-koin:1.0.5")
-                api("io.insert-koin:koin-core:3.1.5")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+                api("co.touchlab:kermit:${KERMIT_VERSION}")
+                api("co.touchlab:kermit-koin:${KERMIT_VERSION}")
+                api(libs.koin)
+                implementation(libs.coroutines)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation("io.insert-koin:koin-test:3.1.5")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
+                implementation(libs.koin.test)
+                implementation(libs.coroutines.test)
             }
         }
         val androidMain by getting {
             dependencies {
-                implementation("io.insert-koin:koin-android:3.1.5")
+                implementation(libs.koin.android)
             }
         }
         val androidTest by getting {
             dependencies {
-                implementation("org.robolectric:robolectric:4.7.3")
-                implementation("androidx.test.ext:junit:1.1.3")
-                implementation("junit:junit:4.13.2")
+                implementation(libs.roboelectric)
+                implementation(libs.android.junitTest)
+                implementation(libs.junitTest)
             }
         }
         val iosX64Main by getting
@@ -79,13 +82,15 @@ kotlin {
             iosSimulatorArm64Test.dependsOn(this)
         }
     }
-}
 
-android {
-    compileSdk = 31
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    defaultConfig {
-        minSdk = 29
-        targetSdk = 31
+    cocoapods {
+        summary = "Sample for Kermit"
+        homepage = "https://www.touchlab.co"
+        ios.deploymentTarget = "14.1"
+        podfile = project.file("../iosApp/Podfile")
+        framework {
+            baseName = "shared"
+            export("co.touchlab:kermit:${KERMIT_VERSION}")
+        }
     }
 }
