@@ -8,8 +8,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 import co.touchlab.faktory.bugsnagLinkerConfig
-import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     id("com.android.library")
@@ -17,43 +15,57 @@ plugins {
     kotlin("native.cocoapods")
 }
 
-repositories {
-    mavenLocal()
-    google()
-    mavenCentral()
+android {
+    compileSdk = libs.versions.compileSdk.get().toInt()
+    defaultConfig {
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+    }
+
+    val main by sourceSets.getting {
+        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    }
 }
 
 val KERMIT_VERSION: String by project
 
+version = "0.0.1"
+
 kotlin {
-    version = "0.0.1"
-    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")?:false
-    if(onPhone){
-        iosArm64("ios")
-    }else{
-        iosX64("ios")
-    }
     android()
+    ios()
+    // Note: iosSimulatorArm64 target requires that all dependencies have M1 support
+    iosSimulatorArm64()
 
     sourceSets {
-        commonMain {
+        val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 api("co.touchlab:kermit:${KERMIT_VERSION}")
                 api("co.touchlab:kermit-bugsnag:${KERMIT_VERSION}")
-                api("co.touchlab.crashkios:bugsnag:0.7.1-alpha3")
+                api(libs.crashkios.bugsnag)
             }
         }
 
-        commonTest {
+        val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }
         }
 
-        val androidMain by sourceSets.getting {}
-        val iosMain by sourceSets.getting {
+        val androidMain by getting
+
+        val iosMain by getting
+
+        val iosTest by getting
+
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
+        }
+
+        val iosSimulatorArm64Test by getting {
+            dependsOn(iosTest)
         }
     }
 
@@ -63,22 +75,10 @@ kotlin {
         framework {
             export("co.touchlab:kermit:${KERMIT_VERSION}")
             export("co.touchlab:kermit-bugsnag:${KERMIT_VERSION}")
-            export("co.touchlab.crashkios:bugsnag:0.7.1-alpha3")
+            export(libs.crashkios.bugsnag)
             isStatic = false
         }
     }
 
     bugsnagLinkerConfig()
-}
-
-android {
-    compileSdk =29
-    defaultConfig {
-        minSdk =26
-        targetSdk = 29
-    }
-
-    val main by sourceSets.getting {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    }
 }
