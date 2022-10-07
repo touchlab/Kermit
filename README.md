@@ -8,7 +8,7 @@ Kermit is a Kotlin Multiplatform logging utility with composable log outputs. Ou
 > ## Subscribe!
 >
 > We build solutions that get teams started smoothly with Kotlin Multiplatform Mobile and ensure their success in production. Join our community to learn how your peers are adopting KMM.
- [Sign up here](https://go.touchlab.co/newsletter)!
+ [Sign up here](https://go.touchlab.co/newsletter-gh)!
 
 
 ## Most Users Read This
