@@ -83,6 +83,7 @@ kotlin {
         homepage = "https://www.touchlab.co"
         framework {
             export("co.touchlab:kermit:${KERMIT_VERSION}")
+            isStatic = true
         }
     }
 }
