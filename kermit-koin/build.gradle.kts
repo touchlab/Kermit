@@ -1,3 +1,5 @@
+import java.awt.GridBagConstraints.BOTH
+
 /*
  * Copyright (c) 2021 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -70,7 +72,7 @@ kotlin {
     commonMain.dependencies {
         implementation(kotlin("test-common"))
         implementation(project(":kermit"))
-        implementation("io.insert-koin:koin-core:3.1.5")
+        implementation("io.insert-koin:koin-core:3.2.2")
     }
 
     jsMain.dependencies {
