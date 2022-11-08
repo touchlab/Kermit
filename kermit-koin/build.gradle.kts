@@ -72,7 +72,7 @@ kotlin {
     commonMain.dependencies {
         implementation(kotlin("test-common"))
         implementation(project(":kermit"))
-        implementation("io.insert-koin:koin-core:3.2.2")
+        implementation("io.insert-koin:koin-core:3.2.1")
     }
 
     jsMain.dependencies {
