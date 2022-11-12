@@ -6,6 +6,8 @@ target 'KermitSampleIOS' do
   use_frameworks!
 
   pod 'Bugsnag'
+  plugin 'cocoapods-bugsnag'
+
   # Pods for KermitSampleIOS
   pod 'shared', :path => '../shared'
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Touchlab
+ * Copyright (c) 2022 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -10,13 +10,11 @@
 
 package co.touchlab.kermitsample
 
-import co.touchlab.kermit.Logger
-import co.touchlab.kermit.crashlytics.CrashlyticsLogWriter
-import co.touchlab.kermit.crashlytics.setCrashlyticsUnhandledExceptionHook
+import kotlin.test.Test
 
-@Suppress("unused")
-fun startKermit(){
-    //You may want to us a non-global logger in production, but this will work fine.
-    Logger.addLogWriter(CrashlyticsLogWriter())
-    setCrashlyticsUnhandledExceptionHook()
+class BasicTest {
+    @Test
+    fun goTest() {
+        println("Just making tests compile")
+    }
 }

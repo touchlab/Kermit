@@ -15,8 +15,14 @@ buildscript {
         google()
         mavenCentral()
     }
+    extra.apply {
+        val parentKermit = java.util.Properties().apply { load(java.io.StringReader(File("${projectDir.path}/../../gradle.properties").readText())) }.get("VERSION_NAME") as String
+        set("KERMIT_VERSION", parentKermit)
+    }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
+        fun readParentKotlin():String = java.util.Properties().apply { load(java.io.StringReader(File("${projectDir.path}/../../gradle.properties").readText())) }.get("KOTLIN_VERSION") as String
+
+        classpath(kotlin("gradle-plugin", readParentKotlin()))
         classpath("com.android.tools.build:gradle:7.1.2")
     }
 }
@@ -30,5 +36,5 @@ allprojects {
 }
 
 tasks.register("ciTest") {
-//    dependsOn("build")
+    dependsOn(":shared:build")
 }

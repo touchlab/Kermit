@@ -20,10 +20,10 @@ repositories {
 }
 
 android {
-    compileSdk = 29
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 26
-        targetSdk = 29
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "0.0.1"
     }
@@ -48,13 +48,7 @@ android {
 dependencies {
     implementation(project(":shared"))
     implementation(kotlin("stdlib"))
-    implementation("androidx.core:core-ktx:1.2.0")
-    implementation("androidx.appcompat:appcompat:1.1.0")
-    implementation("com.google.android.material:material:1.1.0")
-    implementation("androidx.constraintlayout:constraintlayout:1.1.3")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.2.1")
-    implementation("androidx.navigation:navigation-ui-ktx:2.2.1")
-    implementation("androidx.coordinatorlayout:coordinatorlayout:1.1.0")
+    implementation(libs.bundles.android)
 }
 
 

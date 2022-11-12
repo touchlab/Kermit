@@ -16,9 +16,11 @@ import com.tschuchort.compiletesting.SourceFile
 import kotlin.test.assertEquals
 import org.jetbrains.kotlin.compiler.plugin.ComponentRegistrar
 import org.junit.Test
+import kotlin.test.Ignore
 
 class IrPluginTest {
   @Test
+  @Ignore
   fun `IR plugin success`() {
     val sourceFiles = listOf(SourceFile.kotlin(
       "Logger.kt", LoggerString
