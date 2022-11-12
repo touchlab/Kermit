@@ -2,10 +2,7 @@
 
 With the `kermit-bugsnag` module, you can setup kermit to automatically send bread crumbs and crash reports to Bugsnag.
 
-## Dynamic Frameworks
-
-Similar to Crashlytics, direct integration to Bugsnag on Apple targets requires building static Kotlin frameworks. See
-[Crashlytics Docs](../kermit-crashlytics/README.md) for more information.
+If you just want to write crash reports without using Kermit logging, see [CrashKiOS](https://github.com/touchlab/CrashKiOS)
 
 ## Step 1: Add Bugsnag to Your Project
 If you already have your app setup with bugsnag, you can skip this step, otherwise follow the steps in the Bugsnag docs 
@@ -39,8 +36,7 @@ a gap where some other failure may happen but logging is not capturing info.
 
 ### iOS
 
-For iOS, besides regular logging, you will also want to configure Kotlin's uncaught exception handling. `kermit-bugsnag`
-provides the `setupBugsnagExceptionHook` helper function to handle this for you.
+Crash logging on iOS requires a few extra steps. Kermit provides wrapper functions that call into CrashKiOS underneath. You can read more about those methods in the [CrashKiOS README](https://github.com/touchlab/CrashKiOS). In our example here, we'll use `startBugsnag()` wrapper function.
 
 If you don't need to make kermit logging calls from Swift/Objective C code, we recommend not exporting Kermit in the 
 framework exposed to your iOS app. To setup Kermit configuration you can make a top level helper method in the `iosMain` 
@@ -49,9 +45,9 @@ since the added api is only needed for configuration, a Kotlin helper method is 
 
 ```kotlin
 // in Kermit/AppInit.kt
-fun setupKermit() {
-    Logger.addLogWriter(BugsnagLogWriter())
-    setupBugsnagExceptionHook(Logger)
+fun startKermit(config: BugsnagConfiguration) {
+    startBugsnag(config)
+    Logger.addLogWriter(BugsnagLogWriter())  
 }
 ```
 
@@ -67,73 +63,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Note: This MUST be the first two statement, in this order, for Kermit and Bugsnag
         // to handle any crashes in your app launch. 
         // If the app crashes before these calls run, it will not show up properly in the dashboard
-        Bugsnag.start(withApiKey: "YOUR API KEY HERE")
-        AppInitKt.setupKermit()
+        let config = BugsnagConfiguration.loadConfig()
+        AppInitKt.startKermit(config: config)
         //...
     }
 }
 ```
 
-If providing instances built from a base `Logger` via DI, you need to make sure that the `setupBugsnagExceptionHook` 
-call happens immediately on app launch, not lazily inside a lambda given to your DI framework. 
-Example for Koin: 
-```kotlin
-// in iosMain
-fun initKoinIos() {
-    val baseLogger = Logger(StaticConfig(logWriterList = listOf(platformLogWriter(), BugsnagLogWriter())))
-    // Note that this runs sequentially, not in the lambda pass to the module function
-    setupBugsnagExceptionHook(log)
+## Dynamic Frameworks
 
-    return initKoin(
-        module { 
-            factory { (tag: String?) -> if (tag != null) baseLogger.withTag(tag) else baseLogger }
-        }
-    )
-}
-```
+If you are building dynamic frameworks, you'll need to configure the linker. See [the CrashKiOS docs](https://github.com/touchlab/CrashKiOS#linking-1).
 
-```swift
-// in AppDelegate.swift
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-    ...
-    func application(
-        _ application: UIApplication, 
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-    ) -> Bool {
-        // Note: This MUST be the first two statement, in this order, for Kermit and Bugsnag
-        // to handle any crashes in your app launch. 
-        // If the app crashes before these calls run, it will not show up properly in the dashboard
-        FirebaseApp.configure()
-        MyKoinKt.initKoinIos()
-        //...
-    }
-}
-```
+## NSExceptionKt
 
-# Native Test Stubs
-
-I you run tests in Kotlin from your native code, you'll need to provide binary implementations of the cinterop declarations.
-In your app, this will be supplied by the actual Bugsnag binary, but for testing purposes, you can add the `kermit-bugsnag-test`
-module. It is simply basic Objc stubs that satisfy the linker. They do not actually work, so you should not initialize your
-tests with `BugsnagLogWriter`.
-
-```kotlin
-sourceSets {
-    iosTest {
-        dependencies {
-            implementation("co.touchlab:kermit-bugsnag-test:${KERMIT_VERSION}")
-        }
-    }
-}
-```
-
-# Reading iOS Crash Logs
-When a crash occurs in Kotlin code, the stack trace in Bugsnag gets lost at the Swift-Kotlin barrier, which can make it
-difficult to determine the root cause of a crash that happens in Kotlin. 
-
-// BUGSNAG CRASH EVENT IMAGE 
-
-To remedy this, `kermit-bugsnag` reports unhandled Kotlin exceptions as separate, non-fatal exceptions, which will show up in Bugsnag with a readable stack trace. Each Kotlin crash event will have a non-fatal even with a matching unique value for the `ktcrash` key that will allow you to see the stacktrace of the exception. 
-
-// BUGSNAG NON FATAL EVENT IMAGE 
+CrashKiOS and Kermit previously created 2 reports on a crash because none of the crash reporting clients had an obvious way to do one. [Rick Clephas](https://github.com/rickclephas) has done some excellent work figuring that out with [NSExceptionKt](https://github.com/rickclephas/NSExceptionKt). CrashKiOS and Kermit now use parts of NSExceptionKt for crash handling.

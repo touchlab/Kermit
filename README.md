@@ -185,8 +185,6 @@ Kermit includes crash reporting implementations for Crashlytics and Bugsnag. The
 those crash reporting tools, and can be triggered to report unhandled crash reports when there's an uncaught Kotlin
 exception.
 
-> Read our blog post about Kermit and Crashlytics: https://touchlab.co/kermit-and-crashlytics/
-
 Crashlytics [docs](kermit-crashlytics/README.md) and [sample](samples/sample-crashlytics).
 
 Bugsnag [docs](kermit-bugsnag/README.md) and [sample](samples/sample-bugsnag).
@@ -257,9 +255,3 @@ kermit {
 Add `releaseBuild=false` to `gradle.properties`, then pass in an override when building a release version.
 
 Note: Chisel is new and configuration is likely to change in the near future.
-
-## Primary Maintainer
-
-[Michael Friend](https://github.com/mrf7/)
-
-![Image of Michael](https://avatars.githubusercontent.com/u/16885048?s=140&v=4)
