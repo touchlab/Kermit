@@ -48,8 +48,6 @@ android {
     }
 }
 
-val KERMIT_VERSION: String by project
-
 dependencies {
     implementation(project(":shared"))
     implementation(libs.bundles.android)
@@ -58,5 +56,5 @@ dependencies {
     implementation (platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
-    implementation("co.touchlab:kermit-crashlytics:${KERMIT_VERSION}")
+    implementation("co.touchlab:kermit-crashlytics")
 }

@@ -11,3 +11,16 @@
 include(":app", ":shared")
 
 enableFeaturePreview("VERSION_CATALOGS")
+
+includeBuild("../..") {
+    dependencySubstitution {
+        substitute(module("co.touchlab:kermit"))
+            .using(project(":kermit")).because("we want to auto-wire up sample dependency")
+
+        substitute(module("co.touchlab:kermit-crashlytics"))
+            .using(project(":kermit-crashlytics")).because("we want to auto-wire up sample dependency")
+
+        substitute(module("co.touchlab:kermit-test"))
+            .using(project(":kermit-test")).because("we want to auto-wire up sample dependency")
+    }
+}

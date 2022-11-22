@@ -28,8 +28,6 @@ android {
     }
 }
 
-val KERMIT_VERSION: String by project
-
 version = "0.0.1"
 
 kotlin {
@@ -45,7 +43,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api("co.touchlab:kermit:${KERMIT_VERSION}")
+                api("co.touchlab:kermit")
             }
         }
 
@@ -88,13 +86,13 @@ kotlin {
         summary = "Sample for Kermit"
         homepage = "https://www.touchlab.co"
         framework {
-            export("co.touchlab:kermit:${KERMIT_VERSION}")
+            export("co.touchlab:kermit")
         }
     }
 
     targets.withType<KotlinNativeTarget> {
         binaries.withType<Framework> {
-            export("co.touchlab:kermit:$KERMIT_VERSION")
+            export("co.touchlab:kermit")
         }
     }
 }

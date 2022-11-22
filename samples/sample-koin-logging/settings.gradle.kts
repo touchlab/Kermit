@@ -21,3 +21,13 @@ include(":androidApp")
 include(":shared")
 
 enableFeaturePreview("VERSION_CATALOGS")
+
+includeBuild("../..") {
+    dependencySubstitution {
+        substitute(module("co.touchlab:kermit"))
+            .using(project(":kermit")).because("we want to auto-wire up sample dependency")
+
+        substitute(module("co.touchlab:kermit-koin"))
+            .using(project(":kermit-koin")).because("we want to auto-wire up sample dependency")
+    }
+}

@@ -41,8 +41,8 @@ kotlin {
         val commonMain by sourceSets.getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                api("co.touchlab:kermit:${KERMIT_VERSION}")
-                implementation("co.touchlab:kermit-crashlytics:${KERMIT_VERSION}")
+                api("co.touchlab:kermit")
+                implementation("co.touchlab:kermit-crashlytics")
             }
         }
 
@@ -72,7 +72,7 @@ kotlin {
         homepage = "https://www.touchlab.co"
         ios.deploymentTarget = "13.5"
         framework {
-            export("co.touchlab:kermit:${KERMIT_VERSION}")
+            export("co.touchlab:kermit")
             isStatic = false
         }
     }
