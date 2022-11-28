@@ -17,6 +17,7 @@ plugins {
 }
 
 val STATELY_VERSION: String by project
+val TESTHELP_VERSION: String by project
 
 kotlin {
     android {
@@ -134,7 +135,7 @@ kotlin {
         implementation("org.jetbrains.kotlin:kotlin-test-common")
         implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
         implementation("co.touchlab:stately-collections:$STATELY_VERSION")
-        implementation("co.touchlab:testhelp:0.5.5")
+        implementation("co.touchlab:testhelp:$TESTHELP_VERSION")
     }
 
     androidTest.dependencies {
@@ -164,9 +165,9 @@ kotlin {
 }
 
 android {
-    compileSdkVersion(30)
+    compileSdk = 30
     defaultConfig {
-        minSdkVersion(15)
+        minSdk = 16
     }
 
     val main by sourceSets.getting {
@@ -191,4 +192,4 @@ tasks.register("publishLinux") {
     }
 }
 
-apply(from = "../gradle/gradle-mvn-mpp-push.gradle")
+apply(plugin = "com.vanniktech.maven.publish")

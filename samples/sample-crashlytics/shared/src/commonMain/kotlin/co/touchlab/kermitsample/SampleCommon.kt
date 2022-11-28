@@ -20,6 +20,6 @@ class SampleCommon(private val logger: Logger = Logger) {
     }
 
     fun logException(){
-        logger.w(throwable = Exception("Handled")) { "Common click count: $count" }
+        logger.w(throwable = IllegalStateException("Handled")) { "Common click count: $count" }
     }
 }

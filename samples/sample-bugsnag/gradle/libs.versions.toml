@@ -1,0 +1,42 @@
+[versions]
+## SDK Versions
+minSdk = "21"
+targetSdk = "33"
+compileSdk = "33"
+
+# Dependencies
+androidx-core = "1.8.0"
+androidx-appcompat = "1.5.1"
+androidx-constraintLayout = "2.1.4"
+androidx-navigationFragment = "2.5.2"
+androidx-navigationUI = "2.5.2"
+androidx-coordinatorLayout = "1.2.0"
+android-material = "1.6.1"
+
+crashkios-bugsnag = "0.7.1-alpha3"
+bugsnag = "5.26.0"
+
+[libraries]
+androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+androidx-constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintLayout" }
+androidx-navigationFragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigationFragment" }
+androidx-navigationUI = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx-navigationUI" }
+androidx-coordinatorLayout = { module = "androidx.coordinatorlayout:coordinatorlayout", version.ref = "androidx-coordinatorLayout" }
+
+android-material = { module = "com.google.android.material:material", version.ref = "android-material" }
+
+crashkios-bugsnag = { module = "co.touchlab.crashkios:bugsnag", version.ref = "crashkios-bugsnag" }
+bugsnag-android = { module = "com.bugsnag:bugsnag-android", version.ref = "bugsnag" }
+
+[bundles]
+android = [
+    "androidx-core",
+    "androidx-appcompat",
+    "androidx-constraintLayout",
+    "androidx-navigationFragment",
+    "androidx-navigationUI",
+    "androidx-coordinatorLayout",
+]
+
+
