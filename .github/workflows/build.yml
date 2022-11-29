@@ -42,6 +42,11 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('*.gradle.kts') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      # Github runner uses inconsistent naming for the watch simulators, create a simulator that matches what the tests expect
+      - name: Create watch simulator
+        if: matrix.os == 'macOS-latest'
+        shell: bash
+        run: xcrun simctl create "Apple Watch Series 5 - 44mm" "Apple Watch Series 5 (44mm)"
       - name: Build
         env:
           S3_BUILD_CACHE_AWS_REGION: ${{ secrets.S3_BUILD_CACHE_AWS_REGION }}
