@@ -48,4 +48,8 @@ class CrashlyticsLogWriter(
             crashlyticsCalls.sendHandledException(throwable)
         }
     }
+    
+    fun setCustomValue(key: String, value: Any) {
+        crashlyticsCalls.setCustomValue(key, value)
+    }
 }
