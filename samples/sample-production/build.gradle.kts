@@ -23,7 +23,6 @@ buildscript {
 
         classpath("com.android.tools.build:gradle:7.0.2")
         classpath(kotlin("gradle-plugin", readParentKotlin()))
-        classpath("co.touchlab.crashkios:utils:0.7.1-alpha3")
     }
 }
 

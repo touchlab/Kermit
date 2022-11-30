@@ -15,7 +15,7 @@ plugins {
     id("com.android.library")
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-    id("co.touchlab.crashkios.crashlyticslink") version "0.8.0"
+    id("co.touchlab.crashkios.crashlyticslink") version "0.8.1"
 }
 
 android {
