@@ -8,10 +8,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
+
+import org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode
+
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    id("co.touchlab.crashkios.crashlyticslink") version "0.8.0"
 }
 
 android {
@@ -81,9 +85,11 @@ kotlin {
     cocoapods {
         summary = "Sample for Kermit"
         homepage = "https://www.touchlab.co"
+        ios.deploymentTarget = "14.5"
         framework {
             export("co.touchlab:kermit:${KERMIT_VERSION}")
-            isStatic = true
+            isStatic = false
+            embedBitcode(BitcodeEmbeddingMode.DISABLE)
         }
     }
 }
