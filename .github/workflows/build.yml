@@ -42,7 +42,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('*.gradle.kts') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      # Github runner uses inconsistent naming for the watch simulators, create a simulator that matches what the tests expect
+      # XCode changed naming for the watch simulators, create a simulator that matches what the tests expect (shouldn't need after 1.8)
       - name: Create watch simulator
         if: matrix.os == 'macOS-latest'
         shell: bash
