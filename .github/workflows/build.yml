@@ -2,11 +2,9 @@ name: build
 #on: workflow_dispatch
 on:
   pull_request:
-    branches:
-      - "**"
   push:
     branches:
-      - "**"
+      - main
 
 jobs:
   build:
@@ -44,6 +42,10 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('*.gradle.kts') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      - name: Change XCode Version
+        uses: maxim-lobanov/setup-xcode@9a697e2b393340c3cacd97468baa318e4c883d98
+        with:
+          xcode-version: '13.4.1'
       - name: Build
         env:
           S3_BUILD_CACHE_AWS_REGION: ${{ secrets.S3_BUILD_CACHE_AWS_REGION }}
