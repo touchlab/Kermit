@@ -21,11 +21,11 @@ buildscript {
     dependencies {
         fun readParentKotlin():String = java.util.Properties().apply { load(java.io.StringReader(File("${projectDir.path}/../../gradle.properties").readText())) }.get("KOTLIN_VERSION") as String
 
-        classpath("com.android.tools.build:gradle:7.0.1")
+        classpath("com.android.tools.build:gradle:7.0.4")
         classpath(kotlin("gradle-plugin", readParentKotlin()))
-        classpath("com.google.gms:google-services:4.3.10")
-        classpath("com.google.firebase:firebase-crashlytics-gradle:2.7.1")
-        classpath("co.touchlab.crashkios:utils:0.7.1-alpha3")
+        classpath("com.google.gms:google-services:4.3.14")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:2.9.2")
+
     }
 }
 allprojects{

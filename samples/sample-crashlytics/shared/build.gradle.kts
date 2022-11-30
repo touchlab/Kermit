@@ -7,12 +7,11 @@
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
-import co.touchlab.faktory.crashlyticsLinkerConfig
-
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    id("co.touchlab.crashkios.crashlyticslink") version "0.8.1"
 }
 
 android {
@@ -55,6 +54,13 @@ kotlin {
 
         val androidMain by sourceSets.getting
 
+        val androidTest by sourceSets.getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(kotlin("test-junit"))
+            }
+        }
+
         val iosMain by sourceSets.getting
         val iosTest by sourceSets.getting
 
@@ -76,6 +82,4 @@ kotlin {
             isStatic = true
         }
     }
-
-    crashlyticsLinkerConfig()
 }
