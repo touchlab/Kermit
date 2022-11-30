@@ -16,8 +16,6 @@ plugins {
     kotlin("multiplatform")
 }
 
-val CRASHKIOS_VERSION: String by project
-
 apply(from = "../gradle/configure-crash-logger.gradle")
 
 kotlin {
@@ -27,7 +25,7 @@ kotlin {
 
     val commonMain by sourceSets.getting {
         dependencies {
-            implementation("co.touchlab.crashkios:crashlytics:$CRASHKIOS_VERSION")
+            implementation(libs.crashkios.crashlytics)
         }
     }
 

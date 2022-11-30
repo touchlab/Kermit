@@ -10,8 +10,6 @@
 
 include(":app", ":app-browser", ":shared")
 
-enableFeaturePreview("VERSION_CATALOGS")
-
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {

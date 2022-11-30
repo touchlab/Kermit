@@ -15,9 +15,7 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        fun readParentKotlin():String = java.util.Properties().apply { load(java.io.StringReader(File("${projectDir.path}/../../gradle.properties").readText())) }.get("KOTLIN_VERSION") as String
-
-        classpath(kotlin("gradle-plugin", readParentKotlin()))
+        classpath(kotlin("gradle-plugin", libs.versions.kotlin.get()))
         classpath("co.touchlab:kermit-gradle-plugin")
     }
 }

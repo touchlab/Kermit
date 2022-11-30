@@ -5,6 +5,8 @@ targetSdk = "33"
 compileSdk = "33"
 
 # Dependencies
+kotlin = "1.7.20"
+
 androidx-core = "1.8.0"
 androidx-appcompat = "1.5.1"
 androidx-constraintLayout = "2.1.4"
@@ -12,8 +14,19 @@ androidx-navigationFragment = "2.5.2"
 androidx-navigationUI = "2.5.2"
 androidx-coordinatorLayout = "1.2.0"
 android-material = "1.6.1"
+android-gradle-plugin = "7.2.2"
 
+google-services = "4.3.10"
+firebase-crashlytics-gradle = "2.7.1"
+
+bugsnag-android-gradle-plugin = "7.0.0"
+
+stately = "1.2.3"
+testhelp = "0.6.4"
+
+crashkios = "0.8.1"
 crashkios-bugsnag = "0.7.1-alpha3"
+crashkios-utils = "0.7.1-alpha3"
 bugsnag = "5.26.0"
 
 firebase-bom = "28.4.0"
@@ -35,8 +48,18 @@ androidx-coordinatorLayout = { module = "androidx.coordinatorlayout:coordinatorl
 
 android-material = { module = "com.google.android.material:material", version.ref = "android-material" }
 
+android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
+bugsnag-android-gradle-plugin = { module = "com.bugsnag:bugsnag-android-gradle-plugin", version.ref = "bugsnag-android-gradle-plugin" }
+
+google-services = { module = "com.google.gms:google-services", version.ref = "google-services" }
+firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebase-crashlytics-gradle" }
+
+crashkios-crashlytics = { module = "co.touchlab.crashkios:crashlytics", version.ref = "crashkios" }
 crashkios-bugsnag = { module = "co.touchlab.crashkios:bugsnag", version.ref = "crashkios-bugsnag" }
+crashkios-utils = { module = "co.touchlab.crashkios:utils", version.ref = "crashkios-utils" }
 bugsnag-android = { module = "com.bugsnag:bugsnag-android", version.ref = "bugsnag" }
+stately-collections = { module = "co.touchlab:stately-collections", version.ref = "stately"}
+testhelp = { module = "co.touchlab:testhelp", version.ref = "testhelp" }
 
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
