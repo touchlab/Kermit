@@ -68,24 +68,18 @@ kotlin {
     }
 
     commonMain.dependencies {
-        implementation(kotlin("test-common"))
         implementation(project(":kermit"))
         implementation("io.insert-koin:koin-core:3.1.5")
     }
 
     jsMain.dependencies {
         implementation(kotlin("stdlib-js"))
-        implementation(kotlin("test-js"))
     }
 
     jvmMain.dependencies {
-        implementation(kotlin("test"))
-        implementation(kotlin("test-junit"))
     }
 
     androidMain.dependencies {
-        implementation(kotlin("test"))
-        implementation(kotlin("test-junit"))
     }
 }
 
