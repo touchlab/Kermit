@@ -5,10 +5,16 @@ Kermit is a Kotlin Multiplatform logging utility with composable log outputs. Ou
 > Check out [KaMP Kit](https://github.com/touchlab/KaMPKit) to get started developing for Kotlin Multiplatform
 
 
-> ## Touchlab's Hiring!
+> ## Subscribe!
 >
-> We're looking for a Mobile Developer, with Android/Kotlin experience, who is eager to dive into Kotlin Multiplatform Mobile (KMM) development. Come join the remote-first team putting KMM in production. [More info here](https://go.touchlab.co/careers-gh).
+> We build solutions that get teams started smoothly with Kotlin Multiplatform Mobile and ensure their success in production. Join our community to learn how your peers are adopting KMM.
+ [Sign up here](https://go.touchlab.co/newsletter-gh)!
 
+## Getting Help
+
+Kermit support can be found in the Kotlin Community Slack, [request access here](http://slack.kotlinlang.org/). Post in the "[#touchlab-tools](https://kotlinlang.slack.com/archives/CTJB58X7X)" channel.
+
+For direct assistance, please [contact Touchlab](https://go.touchlab.co/contactus-gh) to discuss support options.
 
 ## Most Users Read This
 
@@ -185,8 +191,6 @@ Kermit includes crash reporting implementations for Crashlytics and Bugsnag. The
 those crash reporting tools, and can be triggered to report unhandled crash reports when there's an uncaught Kotlin
 exception.
 
-> Read our blog post about Kermit and Crashlytics: https://touchlab.co/kermit-and-crashlytics/
-
 Crashlytics [docs](kermit-crashlytics/README.md) and [sample](samples/sample-crashlytics).
 
 Bugsnag [docs](kermit-bugsnag/README.md) and [sample](samples/sample-bugsnag).
@@ -257,9 +261,3 @@ kermit {
 Add `releaseBuild=false` to `gradle.properties`, then pass in an override when building a release version.
 
 Note: Chisel is new and configuration is likely to change in the near future.
-
-## Primary Maintainer
-
-[Michael Friend](https://github.com/mrf7/)
-
-![Image of Michael](https://avatars.githubusercontent.com/u/16885048?s=140&v=4)

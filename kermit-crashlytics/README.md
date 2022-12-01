@@ -3,14 +3,7 @@
 With the `kermit-crashlytics` module, you can setup kermit to automatically send bread crumbs and crash reports to 
 Firebase Crashlytics
 
-## Dynamic Frameworks
-
-In general, using static frameworks will be easier because you don't always need to satisfy the linker with the full
-Crashlytics library. You *can* use dynamic frameworks, but you'll need to link with Crashlytics, and the simplest way
-to do that currently is with Cocoapods.
-
-See our [blog post for more detail](https://touchlab.co/kermit-and-crashlytics/). We will be updating these docs as
-we experiment with better ways to keep the linker happy.
+If you just want to write crash reports without using Kermit logging, see [CrashKiOS](https://github.com/touchlab/CrashKiOS)
 
 ## Step 1: Add Crashlytics to Your Native Project
 If you already have your app setup with Crashlytics, you can skip this step, otherwise follow the steps in the Firebase 
@@ -81,67 +74,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 ```
 
-If providing instances built from a base `Logger` via DI, you need to make sure that the `setupCrashlytixsExceptionHook` 
-call happens immediately on app launch, not lazily inside a lambda given to your DI framework. 
-Example for Koin: 
-```kotlin
-// in iosMain
-fun initKoinIos() {
-    val baseLogger = Logger(StaticConfig(logWriterList = listOf(platformLogWriter(), CrashlyticsLogWriter())))
-    // Note that this runs sequentially, not in the lambda pass to the module function
-    setupCrashlyticsExceptionHook(log)
+## Testing
 
-    return initKoin(
-        module { 
-            factory { (tag: String?) -> if (tag != null) baseLogger.withTag(tag) else baseLogger }
-        }
-    )
-}
+If you're building a dynamic framework, or you're using Kotlin version 1.8.0+ which builds dynamic by default,
+building for tests will give you an error like this:
+```shell
+Undefined symbols for architecture x86_64:
+  "_OBJC_CLASS_$_FIRStackFrame", referenced from:
+      objc-class-ref in result.o
+  "_OBJC_CLASS_$_FIRExceptionModel", referenced from:
+      objc-class-ref in result.o
+  "_OBJC_CLASS_$_FIRCrashlytics", referenced from:
+      objc-class-ref in result.o
+  "_FIRCLSExceptionRecordNSException", referenced from:
+      _co_touchlab_crashkios_crashlytics_FIRCLSExceptionRecordNSException_wrapper0 in result.o
+ld: symbol(s) not found for architecture x86_64
 ```
-
-```swift
-// in AppDelegate.swift
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-    ...
-    func application(
-        _ application: UIApplication, 
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-    ) -> Bool {
-        // Note: This MUST be the first two statement, in this order, for Kermit and Crashlytics
-        // to handle any crashes in your app launch. 
-        // If the app crashes before these calls run, it will not show up properly in the dashboard
-        FirebaseApp.configure()
-        MyKoinKt.initKoinIos()
-        //...
-    }
-}
-```
-
-# Native Test Stubs
-
-If you are creating a static framework, and you have `CrashlyticsLogWriter` pulled into your tests, you'll need to satisfy
-the native linker for your Kotlin tests to run. You can either add Crashlytics as a dependency (see [blog post](https://touchlab.co/kermit-and-crashlytics/)),
-or add our test stubs. They do not function, but they satisfy the linker.
+To resolve this, you should tell the linker that Bugsnag will be added later. You can do that directly, or you can use our Gradle plugin. It will find all Xcode Frameworks being built by Kotlin and add the necessary linker arguments.
 
 ```kotlin
-sourceSets {
-    iosTest {
-        dependencies {
-            implementation("co.touchlab:kermit-crashlytics-test:${KERMIT_VERSION}")
-        }
-    }
+plugins {
+  id("co.touchlab.crashkios.crashlyticslink") version "x.y.z"
 }
 ```
 
-# Reading iOS Crash Logs
-When a crash occurs in Kotlin code, the stack trace in Crashlytics gets lost at the Swift-Kotlin barrier, 
-which can make it difficult to determine the root cause of a crash that happens in Kotlin. 
+## NSExceptionKt
 
-![](crashlytics_crash_event_stack.png)
-
-To remedy this, `kermit-crashlytics` reports unhandled Kotlin exceptions as separate, non-fatal exceptions, which will show up in Crashlytics with a readable stack trace. Each Kotlin crash event will have a non-fatal even with a matching unique value for the `ktcrash` key that will allow you to see the stacktrace of the exception. 
-![](crashlytics_ktcrash_key.png)
-
-Once you find the associated non fatal crash, you'll be able to see the full stack trace of the kotlin exception
-![](crashlytics_nonfatal_crash.png)
+CrashKiOS and Kermit previously created 2 reports on a crash because none of the crash reporting clients had an obvious way to do one. [Rick Clephas](https://github.com/rickclephas) has done some excellent work figuring that out with [NSExceptionKt](https://github.com/rickclephas/NSExceptionKt). CrashKiOS and Kermit now use parts of NSExceptionKt for crash handling.

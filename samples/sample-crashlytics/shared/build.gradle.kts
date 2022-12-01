@@ -73,7 +73,7 @@ kotlin {
         ios.deploymentTarget = "13.5"
         framework {
             export("co.touchlab:kermit:${KERMIT_VERSION}")
-            isStatic = true
+            isStatic = false
         }
     }
 
