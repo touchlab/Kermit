@@ -74,7 +74,7 @@ kotlin {
             export("co.touchlab:kermit")
             export("co.touchlab:kermit-bugsnag")
             export(libs.crashkios.bugsnag)
-            isStatic = false
+            isStatic = true
         }
     }
 
