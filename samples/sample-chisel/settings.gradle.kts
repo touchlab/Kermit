@@ -10,12 +10,4 @@
 
 include(":shared")
 
-includeBuild("../..") {
-    dependencySubstitution {
-        substitute(module("co.touchlab:kermit"))
-            .using(project(":kermit")).because("we want to auto-wire up sample dependency")
-
-        substitute(module("co.touchlab:kermit-gradle-plugin"))
-            .using(project(":kermit-gradle-plugin")).because("we want to auto-wire up sample dependency")
-    }
-}
+includeBuild("../..")
