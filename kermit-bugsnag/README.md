@@ -70,9 +70,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 ```
 
-## Dynamic Frameworks
+## Testing
 
-If you are building dynamic frameworks, you'll need to configure the linker. See [the CrashKiOS docs](https://github.com/touchlab/CrashKiOS#linking-1).
+If you're building a dynamic framework, or you're using Kotlin version 1.8.0+ which builds dynamic by default,
+building for tests will give you an error like this:
+```shell
+Undefined symbols for architecture x86_64:
+  "_OBJC_CLASS_$_BugsnagFeatureFlag", referenced from:
+      objc-class-ref in libco.touchlab.crashkios:bugsnag-cache.a(result.o)
+  "_OBJC_CLASS_$_BugsnagStackframe", referenced from:
+      objc-class-ref in libco.touchlab.crashkios:bugsnag-cache.a(result.o)
+  "_OBJC_CLASS_$_BugsnagError", referenced from:
+      objc-class-ref in libco.touchlab.crashkios:bugsnag-cache.a(result.o)
+  "_OBJC_CLASS_$_Bugsnag", referenced from:
+      objc-class-ref in libco.touchlab.crashkios:bugsnag-cache.a(result.o)
+      objc-class-ref in libco.touchlab:kermit-bugsnag-cache.a(result.o)
+ld: symbol(s) not found for architecture x86_64
+```
+
+To resolve this, you should tell the linker that Bugsnag will be added later. You can do that directly, or you can use our Gradle plugin. It will find all Xcode Frameworks being built by Kotlin and add the necessary linker arguments.
+
+```kotlin
+plugins {
+  id("co.touchlab.crashkios.bugsnaglink") version "x.y.z"
+}
+```
 
 ## NSExceptionKt
 

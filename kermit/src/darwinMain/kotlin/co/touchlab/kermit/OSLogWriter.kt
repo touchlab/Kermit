@@ -35,6 +35,7 @@ open class OSLogWriter : LogWriter() {
             __dso_handle.ptr,
             OS_LOG_DEFAULT,
             kermitSeverityToOsLogType(severity),
+            "%s",
             message
         )
         if(throwable != null){
