@@ -9,5 +9,3 @@
  */
 
 include(":app", ":shared")
-
-enableFeaturePreview("VERSION_CATALOGS")

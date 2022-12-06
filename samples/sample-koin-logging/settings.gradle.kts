@@ -19,5 +19,3 @@ pluginManagement {
 rootProject.name = "Sample_Koin_Logging"
 include(":androidApp")
 include(":shared")
-
-enableFeaturePreview("VERSION_CATALOGS")
