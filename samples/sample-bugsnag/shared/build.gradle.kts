@@ -41,7 +41,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 api("co.touchlab:kermit:${KERMIT_VERSION}")
-                implementation("co.touchlab:kermit-bugsnag:${KERMIT_VERSION}")
+                api("co.touchlab:kermit-bugsnag:${KERMIT_VERSION}")
             }
         }
 
