@@ -7,6 +7,8 @@
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
+import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import co.touchlab.kermit.gradle.StripSeverity
 
 plugins {
@@ -21,6 +23,8 @@ repositories {
     mavenCentral()
 }
 
+val KERMIT_VERSION: String by project
+
 kotlin {
     version = "0.0.1"
     val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")?:false
@@ -34,7 +38,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                api("co.touchlab:kermit")
+                api("co.touchlab:kermit:${KERMIT_VERSION}")
             }
         }
 

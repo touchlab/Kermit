@@ -25,6 +25,8 @@ android {
     }
 }
 
+val KERMIT_VERSION: String by project
+
 version = "1.0"
 
 kotlin {
@@ -36,8 +38,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api("co.touchlab:kermit")
-                api("co.touchlab:kermit-koin")
+                api("co.touchlab:kermit:${KERMIT_VERSION}")
+                api("co.touchlab:kermit-koin:${KERMIT_VERSION}")
                 api(libs.koin)
                 implementation(libs.coroutines)
             }
@@ -88,7 +90,7 @@ kotlin {
         podfile = project.file("../iosApp/Podfile")
         framework {
             baseName = "shared"
-            export("co.touchlab:kermit")
+            export("co.touchlab:kermit:${KERMIT_VERSION}")
         }
     }
 }

@@ -17,13 +17,3 @@ dependencyResolutionManagement {
         }
     }
 }
-
-includeBuild("../..") {
-    dependencySubstitution {
-        substitute(module("co.touchlab:kermit"))
-            .using(project(":kermit")).because("we want to auto-wire up sample dependency")
-
-        substitute(module("co.touchlab:kermit-bugsnag"))
-            .using(project(":kermit-bugsnag")).because("we want to auto-wire up sample dependency")
-    }
-}

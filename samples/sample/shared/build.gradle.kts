@@ -26,6 +26,8 @@ android {
     }
 }
 
+val KERMIT_VERSION: String by project
+
 version = "0.0.1"
 
 kotlin {
@@ -40,7 +42,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api("co.touchlab:kermit")
+                api("co.touchlab:kermit:${KERMIT_VERSION}")
             }
         }
 
@@ -49,7 +51,7 @@ kotlin {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
 
-                implementation("co.touchlab:kermit-test")
+                implementation("co.touchlab:kermit-test:${KERMIT_VERSION}")
             }
         }
 
@@ -81,7 +83,7 @@ kotlin {
         summary = "Sample for Kermit"
         homepage = "https://www.touchlab.co"
         framework {
-            export("co.touchlab:kermit")
+            export("co.touchlab:kermit:${KERMIT_VERSION}")
         }
     }
 }

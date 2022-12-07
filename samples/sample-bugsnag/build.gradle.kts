@@ -14,6 +14,7 @@ buildscript {
         mavenCentral()
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
     }
+
     dependencies {
         classpath(libs.android.gradle.plugin)
         classpath(kotlin("gradle-plugin", libs.versions.kotlin.get()))

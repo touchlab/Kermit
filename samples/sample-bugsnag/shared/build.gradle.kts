@@ -27,6 +27,8 @@ android {
     }
 }
 
+val KERMIT_VERSION: String by project
+
 version = "0.0.1"
 
 kotlin {
@@ -39,8 +41,8 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                api("co.touchlab:kermit")
-                api("co.touchlab:kermit-bugsnag")
+                api("co.touchlab:kermit:${KERMIT_VERSION}")
+                api("co.touchlab:kermit-bugsnag:${KERMIT_VERSION}")
                 api(libs.crashkios.bugsnag)
             }
         }
@@ -71,8 +73,8 @@ kotlin {
         summary = "Sample for Kermit"
         homepage = "https://www.touchlab.co"
         framework {
-            export("co.touchlab:kermit")
-            export("co.touchlab:kermit-bugsnag")
+            export("co.touchlab:kermit:${KERMIT_VERSION}")
+            export("co.touchlab:kermit-bugsnag:${KERMIT_VERSION}")
             export(libs.crashkios.bugsnag)
             isStatic = false
         }
