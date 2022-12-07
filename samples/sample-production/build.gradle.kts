@@ -14,6 +14,10 @@ buildscript {
         mavenCentral()
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
     }
+    extra.apply {
+        val parentKermit = java.util.Properties().apply { load(java.io.StringReader(File("${projectDir.path}/../../gradle.properties").readText())) }.get("VERSION_NAME") as String
+        set("KERMIT_VERSION", parentKermit)
+    }
     dependencies {
         classpath(libs.android.gradle.plugin)
         classpath(kotlin("gradle-plugin", libs.versions.kotlin.get()))

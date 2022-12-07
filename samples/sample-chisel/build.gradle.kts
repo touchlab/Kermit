@@ -20,6 +20,7 @@ buildscript {
     }
     dependencies {
         classpath(kotlin("gradle-plugin", libs.versions.kotlin.get()))
+        val KERMIT_VERSION: String by project
         classpath("co.touchlab:kermit-gradle-plugin:$KERMIT_VERSION")
     }
 }
