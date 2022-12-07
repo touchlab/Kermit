@@ -31,7 +31,7 @@ shared code, or in platform-specific Kotlin, run the following:
 Logger.addLogWriter(CrashlyticsLogWriter())
 ```
 
-([Static Config](../Kermit#local-configuration) would be similar)
+([Static Config](../README.md#local-configuration) would be similar)
 
 On either  platform, you should make sure logging is configured immediately after Crashlytics is initialized, to avoid 
 a gap where some other failure may happen but logging is not capturing info.
@@ -74,9 +74,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 ```
 
-## Dynamic Frameworks
+## Testing
+If you are building a **static** framework and you see errors such as:
+```shell
+Undefined symbols for architecture x86_64:
+  "_OBJC_CLASS_$_FIRCrashlytics", referenced from:
+      objc-class-ref in libco.touchlab.crashkios:crashlytics-cache.a(result.o)
+  "_OBJC_CLASS_$_FIRExceptionModel", referenced from:
+      objc-class-ref in libco.touchlab.crashkios:crashlytics-cache.a(result.o)
+  "_OBJC_CLASS_$_FIRStackFrame", referenced from:
+      objc-class-ref in libco.touchlab.crashkios:crashlytics-cache.a(result.o)
+ld: symbol(s) not found for architecture x86_64
+```
+Then you may need to disable caching for that architecture by adding the following line to `gradle.properties`:
+```groovy
+kotlin.native.cacheKind.iosX64=none
+```
+If you're building a **dynamic** framework, or you're using Kotlin version 1.8.0+ which builds dynamic by default,
+building for tests will give you an error like this:
+```shell
+Undefined symbols for architecture x86_64:
+  "_OBJC_CLASS_$_FIRStackFrame", referenced from:
+      objc-class-ref in result.o
+  "_OBJC_CLASS_$_FIRExceptionModel", referenced from:
+      objc-class-ref in result.o
+  "_OBJC_CLASS_$_FIRCrashlytics", referenced from:
+      objc-class-ref in result.o
+  "_FIRCLSExceptionRecordNSException", referenced from:
+      _co_touchlab_crashkios_crashlytics_FIRCLSExceptionRecordNSException_wrapper0 in result.o
+ld: symbol(s) not found for architecture x86_64
+```
+To resolve this, you should tell the linker that Bugsnag will be added later. You can do that directly, or you can use our Gradle plugin. It will find all Xcode Frameworks being built by Kotlin and add the necessary linker arguments.
 
-If you are building dynamic frameworks, you'll need to configure the linker. See [the CrashKiOS docs](https://github.com/touchlab/CrashKiOS#linking).
+```kotlin
+plugins {
+  id("co.touchlab.crashkios.crashlyticslink") version "x.y.z"
+}
+```
 
 ## NSExceptionKt
 
