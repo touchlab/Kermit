@@ -23,7 +23,7 @@ buildscript {
         fun readParentKotlin():String = java.util.Properties().apply { load(java.io.StringReader(File("${projectDir.path}/../../gradle.properties").readText())) }.get("KOTLIN_VERSION") as String
 
         classpath(kotlin("gradle-plugin", readParentKotlin()))
-        classpath("com.android.tools.build:gradle:7.1.2")
+        classpath("com.android.tools.build:gradle:7.2.2")
     }
 }
 
