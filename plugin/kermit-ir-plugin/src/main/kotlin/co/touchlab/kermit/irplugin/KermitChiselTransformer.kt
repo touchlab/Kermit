@@ -17,16 +17,15 @@ import org.jetbrains.kotlin.ir.builders.*
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 
-import org.jetbrains.kotlin.ir.types.classFqName
 import org.jetbrains.kotlin.ir.types.isSubtypeOfClass
-import org.jetbrains.kotlin.name.FqName
+import org.jetbrains.kotlin.name.ClassId
 
 class KermitChiselTransformer(
     private val pluginContext: IrPluginContext,
     stripBelow: String
 ) : IrElementTransformerVoidWithContext() {
     private val classLogger =
-        pluginContext.referenceClass(FqName("co.touchlab.kermit.Logger"))!!
+        pluginContext.referenceClass(ClassId.fromString("co.touchlab.kermit.Logger"))!!
 
     private val stripFunctionSet = makeStripFunctionNameSet(stripBelow)
 

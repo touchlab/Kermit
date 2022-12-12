@@ -8,16 +8,19 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
+@file:OptIn(ExperimentalCompilerApi::class)
+
 package co.touchlab.kermit.irplugin
 
-import co.touchlab.kermit.irplugin.KermitComponentRegistrar
 import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
-import kotlin.test.assertEquals
 import org.jetbrains.kotlin.compiler.plugin.ComponentRegistrar
+import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 import org.junit.Test
 import kotlin.test.Ignore
+import kotlin.test.assertEquals
 
+@OptIn(ExperimentalCompilerApi::class)
 class IrPluginTest {
   @Test
   @Ignore
