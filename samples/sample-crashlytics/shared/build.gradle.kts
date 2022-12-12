@@ -7,7 +7,6 @@
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
-import co.touchlab.faktory.crashlyticsLinkerConfig
 
 plugins {
     id("com.android.library")
@@ -38,7 +37,7 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
-        val commonMain by sourceSets.getting {
+        val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 api("co.touchlab:kermit:${KERMIT_VERSION}")
@@ -46,7 +45,7 @@ kotlin {
             }
         }
 
-        val commonTest by sourceSets.getting {
+        val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
@@ -54,9 +53,18 @@ kotlin {
         }
 
         val androidMain by sourceSets.getting
-
+        val androidTest by sourceSets.getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(kotlin("test-junit"))
+            }
+        }
         val iosMain by sourceSets.getting
-        val iosTest by sourceSets.getting
+        val iosTest by sourceSets.getting {
+            dependencies {
+
+            }
+        }
 
         val iosSimulatorArm64Main by sourceSets.getting {
             dependsOn(iosMain)
@@ -76,6 +84,4 @@ kotlin {
             isStatic = true
         }
     }
-
-    crashlyticsLinkerConfig()
 }

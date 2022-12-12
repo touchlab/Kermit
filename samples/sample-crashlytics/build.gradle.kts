@@ -37,5 +37,5 @@ allprojects{
     }
 }
 tasks.register("ciTest") {
-//    dependsOn(":shared:build")
+    dependsOn(":shared:build")
 }
