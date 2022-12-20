@@ -51,7 +51,7 @@ almost always the best option. Here is a basic example.
 // in Kermit/AppInit.kt
 fun setupKermit() {
     Logger.addLogWriter(CrashlyticsLogWriter())
-    setupCrashlyticsExceptionHook(Logger)
+    setCrashlyticsUnhandledExceptionHook()
 }
 ```
 
