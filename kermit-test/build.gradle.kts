@@ -16,8 +16,6 @@ plugins {
     kotlin("multiplatform")
 }
 
-val STATELY_VERSION: String by project
-
 kotlin {
     android {
         publishAllLibraryVariants()
@@ -66,7 +64,7 @@ kotlin {
     commonMain.dependencies {
         implementation(kotlin("test-common"))
         implementation(project(":kermit"))
-        implementation("co.touchlab:stately-collections:$STATELY_VERSION")
+        implementation(libs.stately.collections)
     }
 
     jsMain.dependencies {
