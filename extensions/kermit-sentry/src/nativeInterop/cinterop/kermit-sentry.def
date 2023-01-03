@@ -1,3 +1,0 @@
-package = co.touchlab.kermit.sentry
-language = Objective-C
-headers = SentryBreadcrumb.h SentryDefines.h SentrySDK.h SentrySerializable.h

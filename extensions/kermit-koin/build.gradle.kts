@@ -29,6 +29,8 @@ kotlin {
     macosX64()
     macosArm64()
     iosX64()
+    iosArm64()
+    iosArm32()
     iosSimulatorArm64()
     watchosArm32()
     watchosArm64()
@@ -41,6 +43,15 @@ kotlin {
 
     linuxX64()
     linuxArm32Hfp()
+//    linuxMips32()
+
+    // TODO: These targets aren't supported by Koin yet:
+    // mingwX64()
+    // mingwX86()
+    // androidNativeArm32()
+    // androidNativeArm64()
+    // androidNativeX86()
+    // androidNativeX64()
 
     val commonMain by sourceSets.getting
     val commonTest by sourceSets.getting
@@ -57,31 +68,25 @@ kotlin {
     }
 
     commonMain.dependencies {
-        implementation(kotlin("test-common"))
         implementation(project(":kermit"))
         implementation("io.insert-koin:koin-core:3.1.5")
     }
 
     jsMain.dependencies {
         implementation(kotlin("stdlib-js"))
-        implementation(kotlin("test-js"))
     }
 
     jvmMain.dependencies {
-        implementation(kotlin("test"))
-        implementation(kotlin("test-junit"))
     }
 
     androidMain.dependencies {
-        implementation(kotlin("test"))
-        implementation(kotlin("test-junit"))
     }
 }
 
 android {
-    compileSdkVersion(30)
+    compileSdk = 30
     defaultConfig {
-        minSdkVersion(15)
+        minSdk = 16
     }
 
     val main by sourceSets.getting {
@@ -106,4 +111,4 @@ tasks.register("publishLinux") {
     }
 }
 
-apply(from = "../../gradle/gradle-mvn-mpp-push.gradle")
+apply(plugin = "com.vanniktech.maven.publish")

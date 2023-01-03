@@ -36,14 +36,6 @@ class LoggerTest {
     @Test
     fun testGlobal() {
         val testLogWriter = getTestLogWriter()
-val baseLogger = Logger(
-    config = loggerConfigInit(platformLogWriter(NoTagLogFormatter), minSeverity = Severity.Info),
-    tag = "MyAppTag"
-)
-
-val anotherTag = baseLogger.withTag("AnotherTag")
-baseLogger.mutableConfig.minSeverity = Severity.Debug
-baseLogger.mutableConfig.logWriterList = listOf(SomeCustomWriter())
 
         Logger.apply {
             setMinSeverity(Severity.Verbose)

@@ -82,10 +82,6 @@ kotlin {
         dependsOn(nonKotlinMain)
     }
 
-    val darwinMain by sourceSets.creating {
-        dependsOn(nativeMain)
-    }
-
     val jsMain by sourceSets.getting {
         dependsOn(nonKotlinMain)
         dependencies {
@@ -125,13 +121,7 @@ kotlin {
         val mainSourceSet = compilations.getByName("main").defaultSourceSet
         val testSourceSet = compilations.getByName("test").defaultSourceSet
 
-        mainSourceSet.dependsOn(
-            when {
-                konanTarget.family.isAppleFamily -> darwinMain
-                else -> nativeMain
-            }
-        )
-
+        mainSourceSet.dependsOn(nativeMain)
         testSourceSet.dependsOn(nonKotlinTest)
     }
 }

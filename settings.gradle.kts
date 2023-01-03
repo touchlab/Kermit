@@ -15,34 +15,26 @@ val ideaActive = System.getProperty("idea.active") == "true"
 
 include(":kermit-core")
 include(":kermit")
-include(":kermit-nkt")
+include(":kermit-simple")
 include(":kermit-test")
 
 if(buildExtensions == "true" || ideaActive) {
     include(":kermit-crashlytics")
-    include(":kermit-crashlytics-test")
     include(":kermit-bugsnag")
-    include(":kermit-bugsnag-test")
     include(":kermit-koin")
-    include(":kermit-sentry")
-    include(":kermit-sentry-test")
 
     project(":kermit-crashlytics").projectDir = File("extensions/kermit-crashlytics")
-    project(":kermit-crashlytics-test").projectDir = File("extensions/kermit-crashlytics-test")
     project(":kermit-bugsnag").projectDir = File("extensions/kermit-bugsnag")
-    project(":kermit-bugsnag-test").projectDir = File("extensions/kermit-bugsnag-test")
     project(":kermit-koin").projectDir = File("extensions/kermit-koin")
-    project(":kermit-sentry").projectDir = File("extensions/kermit-sentry")
-    project(":kermit-sentry-test").projectDir = File("extensions/kermit-sentry-test")
 }
 
-include(":kermit-gradle-plugin")
-include(":kermit-ir-plugin")
-include(":kermit-ir-plugin-native")
-
-project(":kermit-gradle-plugin").projectDir = File("plugin/kermit-gradle-plugin")
-project(":kermit-ir-plugin").projectDir = File("plugin/kermit-ir-plugin")
-project(":kermit-ir-plugin-native").projectDir = File("plugin/kermit-ir-plugin-native")
+//include(":kermit-gradle-plugin")
+//include(":kermit-ir-plugin")
+//include(":kermit-ir-plugin-native")
+//
+//project(":kermit-gradle-plugin").projectDir = File("plugin/kermit-gradle-plugin")
+//project(":kermit-ir-plugin").projectDir = File("plugin/kermit-ir-plugin")
+//project(":kermit-ir-plugin-native").projectDir = File("plugin/kermit-ir-plugin-native")
 
 pluginManagement {
     resolutionStrategy {
@@ -63,23 +55,3 @@ pluginManagement {
         kotlin("multiplatform") version KOTLIN_VERSION
     }
 }
-
-//plugins {
-//    id("com.github.burrunan.s3-build-cache") version "1.2"
-//}
-//
-//buildCache {
-//    local {
-//        isEnabled = false
-//    }
-//
-//    val env = System.getenv()
-//    remote<com.github.burrunan.s3cache.AwsS3BuildCache> {
-//        region = env.getOrDefault("S3_BUILD_CACHE_AWS_REGION", "")
-//        bucket = env.getOrDefault("S3_BUILD_CACHE_BUCKET_NAME", "")
-//        awsAccessKeyId = env.getOrDefault("S3_BUILD_CACHE_ACCESS_KEY_ID", "")
-//        awsSecretKey = env.getOrDefault("S3_BUILD_CACHE_SECRET_KEY", "")
-//        prefix = "${rootProject.name}/"
-//        isPush = env.containsKey("CI")
-//    }
-//}

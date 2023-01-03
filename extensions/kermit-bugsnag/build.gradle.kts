@@ -16,38 +16,29 @@ plugins {
     kotlin("multiplatform")
 }
 
-val BUGSNAG_ANDROID_VERSION: String by project
-
 apply(from = "../../gradle/configure-crash-logger.gradle")
 kotlin {
     android {
         publishAllLibraryVariants()
     }
 
-    js(BOTH) {
-        browser()
-        nodejs()
+    val commonMain by sourceSets.getting {
+        dependencies {
+            api(libs.crashkios.bugsnag)
+        }
     }
 
     val androidMain by sourceSets.getting {
         dependencies {
             implementation("org.jetbrains.kotlin:kotlin-stdlib")
-            implementation("com.bugsnag:bugsnag-android:$BUGSNAG_ANDROID_VERSION")
-        }
-    }
-
-    val jsMain by sourceSets.getting {
-        dependencies {
-            implementation("org.jetbrains.kotlin:kotlin-stdlib-js")
-            implementation(npm("@bugsnag/js", "7.11.0"))
         }
     }
 }
 
 android {
-    compileSdkVersion(30)
+    compileSdk = 30
     defaultConfig {
-        minSdkVersion(15)
+        minSdk = 16
     }
 
     val main by sourceSets.getting {
@@ -55,5 +46,4 @@ android {
     }
 }
 
-
-apply(from = "../../gradle/gradle-mvn-mpp-push.gradle")
+apply(plugin = "com.vanniktech.maven.publish")
