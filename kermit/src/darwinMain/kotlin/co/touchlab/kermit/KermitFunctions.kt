@@ -19,5 +19,5 @@ fun setupUnhandledExceptionHook(logger: Logger, onCrash: () -> String) {
         terminateWithUnhandledException(t)
     }
 
-    setUnhandledExceptionHook(unhandMe.freeze())
+    setUnhandledExceptionHook(unhandMe)
 }
