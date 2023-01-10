@@ -36,7 +36,8 @@ kotlin {
         watchosArm64(),
         watchosSimulatorArm64(),
 //        watchosX86(),
-        watchosX64()
+        watchosX64(),
+        watchosDeviceArm64()
     ].forEach { target ->
 //        target.compilations.main.cinterops.create(project.name) {
 //            includeDirs("$projectDir/src/include")
