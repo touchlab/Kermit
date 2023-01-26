@@ -104,7 +104,7 @@ Undefined symbols for architecture x86_64:
       _co_touchlab_crashkios_crashlytics_FIRCLSExceptionRecordNSException_wrapper0 in result.o
 ld: symbol(s) not found for architecture x86_64
 ```
-To resolve this, you should tell the linker that Bugsnag will be added later. You can do that directly, or you can use our Gradle plugin. It will find all Xcode Frameworks being built by Kotlin and add the necessary linker arguments.
+To resolve this, you should tell the linker that Firebase will be added later. You can do that directly, or you can use our Gradle plugin. It will find all Xcode Frameworks being built by Kotlin and add the necessary linker arguments.
 
 ```kotlin
 plugins {
