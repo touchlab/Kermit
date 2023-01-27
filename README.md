@@ -128,11 +128,11 @@ For more fine-grained control, you can supply log writers individually. See [LOG
 
 ### Default Tag
 
-The default tag is the tag used while logging if you have no changed a Logger-specific tag. By default, it is "Kermit".
+The default tag is used if you do not specify a tag when using the global logger. By default, it is "Kermit".
 You can change the default global tag with:
 
 ```kotlin
-Logger.setDefaultTag("MyTag")
+Logger.setTag("MyTag")
 ```
 
 ### Minimum Severity
