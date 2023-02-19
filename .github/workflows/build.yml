@@ -54,10 +54,10 @@ jobs:
           S3_BUILD_CACHE_ACCESS_KEY_ID: ${{ secrets.S3_BUILD_CACHE_ACCESS_KEY_ID }}
           S3_BUILD_CACHE_SECRET_KEY: ${{ secrets.S3_BUILD_CACHE_SECRET_KEY }}
           CI: "true"
-        run: ./gradlew build --no-daemon --stacktrace --build-cache
+        run: ./gradlew -PbuildExtensions=true build --no-daemon --stacktrace --build-cache
       - name: Local Publish For Samples
         if: matrix.os == 'macOS-latest'
-        run: ./gradlew publishToMavenLocal --no-daemon --stacktrace --build-cache
+        run: ./gradlew -PbuildExtensions=true publishToMavenLocal --no-daemon --stacktrace --build-cache
         env:
           ORG_GRADLE_PROJECT_SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}

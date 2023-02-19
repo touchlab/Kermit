@@ -32,7 +32,7 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Publish Mac/Windows Artifacts
         if: matrix.os == 'macOS-latest'
-        run: ./gradlew publish --no-daemon --stacktrace --no-build-cache
+        run: ./gradlew -PbuildExtensions=true publish --no-daemon --stacktrace --no-build-cache
         env:
           ORG_GRADLE_PROJECT_SONATYPE_NEXUS_USERNAME: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
@@ -42,7 +42,7 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
       - name: Publish Linux Artifacts
         if: matrix.os == 'ubuntu-latest'
-        run: ./gradlew publishLinux --no-daemon --stacktrace --no-build-cache
+        run: ./gradlew -PbuildExtensions=true publishLinux --no-daemon --stacktrace --no-build-cache
         env:
           ORG_GRADLE_PROJECT_SONATYPE_NEXUS_USERNAME: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
           ORG_GRADLE_PROJECT_SONATYPE_NEXUS_PASSWORD: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}

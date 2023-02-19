@@ -16,6 +16,8 @@ plugins {
     kotlin("multiplatform")
 }
 
+val STATELY_VERSION: String by project
+
 kotlin {
     android {
         publishAllLibraryVariants()
@@ -47,6 +49,11 @@ kotlin {
     linuxArm32Hfp()
     linuxMips32()
 
+    androidNativeArm32()
+    androidNativeArm64()
+    androidNativeX86()
+    androidNativeX64()
+
     val commonMain by sourceSets.getting
     val commonTest by sourceSets.getting
 
@@ -63,8 +70,8 @@ kotlin {
 
     commonMain.dependencies {
         implementation(kotlin("test-common"))
-        implementation(project(":kermit"))
-        implementation(libs.stately.collections)
+        api(project(":kermit-core"))
+        implementation("co.touchlab:stately-collections:$STATELY_VERSION")
     }
 
     jsMain.dependencies {
