@@ -91,9 +91,9 @@ kotlin {
 }
 
 android {
-    compileSdkVersion(30)
+    compileSdk = 30
     defaultConfig {
-        minSdkVersion(15)
+        minSdk = 16
     }
 
     val main by sourceSets.getting {
@@ -118,4 +118,4 @@ tasks.register("publishLinux") {
     }
 }
 
-apply(from = "../gradle/gradle-mvn-mpp-push.gradle")
+apply(plugin = "com.vanniktech.maven.publish")

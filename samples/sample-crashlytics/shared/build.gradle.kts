@@ -7,8 +7,6 @@
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
-import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     id("com.android.library")
@@ -16,26 +14,30 @@ plugins {
     kotlin("native.cocoapods")
 }
 
-repositories {
-    mavenLocal()
-    google()
-    mavenCentral()
+android {
+    compileSdk = libs.versions.compileSdk.get().toInt()
+    defaultConfig {
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+    }
+
+    val main by sourceSets.getting {
+        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    }
 }
 
 val KERMIT_VERSION: String by project
 
+version = "0.1.2"
+
 kotlin {
-    version = "0.1.2"
-    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
-    if (onPhone) {
-        iosArm64("ios")
-    } else {
-        iosX64("ios")
-    }
     android()
+    ios()
+    // Note: iosSimulatorArm64 target requires that all dependencies have M1 support
+    iosSimulatorArm64()
 
     sourceSets {
-        commonMain {
+        val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 api("co.touchlab:kermit:${KERMIT_VERSION}")
@@ -43,19 +45,33 @@ kotlin {
             }
         }
 
-        commonTest {
+        val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }
         }
 
-        val androidMain by sourceSets.getting {}
-        val iosMain by sourceSets.getting {}
+        val androidMain by sourceSets.getting
+        val androidTest by sourceSets.getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(kotlin("test-junit"))
+            }
+        }
+        val iosMain by sourceSets.getting
         val iosTest by sourceSets.getting {
             dependencies {
-                implementation("co.touchlab:kermit-crashlytics-test:${KERMIT_VERSION}")
+
             }
+        }
+
+        val iosSimulatorArm64Main by sourceSets.getting {
+            dependsOn(iosMain)
+        }
+
+        val iosSimulatorArm64Test by sourceSets.getting {
+            dependsOn(iosTest)
         }
     }
 
@@ -67,30 +83,5 @@ kotlin {
             export("co.touchlab:kermit:${KERMIT_VERSION}")
             isStatic = true
         }
-    }
-
-    /*
-    //Dynamic framework? Try this...
-    cocoapods {
-        summary = "Sample for Kermit"
-        homepage = "https://www.touchlab.co"
-        ios.deploymentTarget = "13.5"
-        framework {
-            export("co.touchlab:kermit:${KERMIT_VERSION}")
-            isStatic = false
-        }
-        pod("FirebaseCrashlytics")
-    }
-     */
-}
-android {
-    compileSdk = 29
-    defaultConfig {
-        minSdk = 26
-        targetSdk = 29
-    }
-
-    val main by sourceSets.getting {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
     }
 }

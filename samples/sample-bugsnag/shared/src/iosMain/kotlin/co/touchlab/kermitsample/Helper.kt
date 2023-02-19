@@ -10,13 +10,14 @@
 
 package co.touchlab.kermitsample
 
+import co.touchlab.crashkios.bugsnag.BugsnagConfiguration
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.bugsnag.BugsnagLogWriter
-import co.touchlab.kermit.bugsnag.setupBugsnagExceptionHook
+import co.touchlab.kermit.bugsnag.startBugsnag
 
 @Suppress("unused")
-fun startKermit(){
+fun startKermit(config: BugsnagConfiguration){
+    startBugsnag(config)
     //You may want to us a non-global logger in production, but this will work fine.
     Logger.addLogWriter(BugsnagLogWriter())
-    setupBugsnagExceptionHook(Logger)
 }

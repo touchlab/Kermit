@@ -19,3 +19,11 @@ pluginManagement {
 rootProject.name = "Sample_Koin_Logging"
 include(":androidApp")
 include(":shared")
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        create("libs") {
+            from(files("../../gradle/libs.versions.toml"))
+        }
+    }
+}

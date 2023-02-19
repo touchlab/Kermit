@@ -22,6 +22,15 @@ import platform.darwin._os_log_internal
 
 open class OSLogWriter(private val logFormatter: LogFormatter = DefaultLogFormatter) : LogWriter() {
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
+        callLog(severity, formatMessage(
+            severity = severity,
+            message = message,
+            tag = tag
+        ), throwable)
+    }
+
+    // Added to do some testing on log format. https://github.com/touchlab/Kermit/issues/243
+    internal open fun callLog(severity: Severity, message: String, throwable: Throwable?){
         _os_log_internal(
             __dso_handle.ptr,
             OS_LOG_DEFAULT,

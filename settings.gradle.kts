@@ -10,23 +10,18 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-val buildExtensions : String? = "true"//by settings
-val ideaActive = System.getProperty("idea.active") == "true"
-
 include(":kermit-core")
 include(":kermit")
 include(":kermit-simple")
 include(":kermit-test")
 
-if(buildExtensions == "true" || ideaActive) {
-    include(":kermit-crashlytics")
-    include(":kermit-bugsnag")
-    include(":kermit-koin")
+include(":kermit-crashlytics")
+include(":kermit-bugsnag")
+include(":kermit-koin")
 
-    project(":kermit-crashlytics").projectDir = File("extensions/kermit-crashlytics")
-    project(":kermit-bugsnag").projectDir = File("extensions/kermit-bugsnag")
-    project(":kermit-koin").projectDir = File("extensions/kermit-koin")
-}
+project(":kermit-crashlytics").projectDir = File("extensions/kermit-crashlytics")
+project(":kermit-bugsnag").projectDir = File("extensions/kermit-bugsnag")
+project(":kermit-koin").projectDir = File("extensions/kermit-koin")
 
 //include(":kermit-gradle-plugin")
 //include(":kermit-ir-plugin")

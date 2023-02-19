@@ -16,24 +16,28 @@ plugins {
     kotlin("native.cocoapods")
 }
 
-repositories {
-    mavenLocal()
-    google()
-    mavenCentral()
+android {
+    compileSdk = libs.versions.compileSdk.get().toInt()
+    defaultConfig {
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+    }
+
+    val main by sourceSets.getting {
+        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    }
 }
 
 val KERMIT_VERSION: String by project
 
+version = "0.0.1"
+
 kotlin {
-    version = "0.0.1"
     android()
 //    jvm()
-    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")?:false
-    if(onPhone){
-        iosArm64("ios")
-    }else{
-        iosX64("ios")
-    }
+    ios()
+    // Note: iosSimulatorArm64 target requires that all dependencies have M1 support
+    iosSimulatorArm64()
     js {
         browser()
     }
@@ -63,7 +67,9 @@ kotlin {
                 implementation(kotlin("test-junit"))
             }
         }
-        val iosMain by sourceSets.getting {
+        val iosMain by sourceSets.getting
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
         }
 //        val jvmMain by sourceSets.getting {
 //            dependsOn(commonMain.get())
@@ -81,23 +87,14 @@ kotlin {
     cocoapods {
         summary = "Sample for Kermit"
         homepage = "https://www.touchlab.co"
+        framework {
+            export("co.touchlab:kermit:${KERMIT_VERSION}")
+        }
     }
 
     targets.withType<KotlinNativeTarget> {
         binaries.withType<Framework> {
             export("co.touchlab:kermit:$KERMIT_VERSION")
         }
-    }
-}
-
-android {
-    compileSdk = 29
-    defaultConfig {
-        minSdk = 26
-        targetSdk = 29
-    }
-
-    val main by sourceSets.getting {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
     }
 }
