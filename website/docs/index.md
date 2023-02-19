@@ -9,12 +9,11 @@ Kermit is a Kotlin Multiplatform logging library.
 
 It's primary purpose is to allow log statements from Kotlin code to be written to composable log outputs. Out of the box, the library defaults to platform-specific loggers such as Logcat and OSLog, but is easy to extend and configure.
 
-> Check out [KaMP Kit](https://github.com/touchlab/KaMPKit) to get started developing for Kotlin Multiplatform
+:::tip
 
+Check out [KaMP Kit](https://github.com/touchlab/KaMPKit) to get started developing for Kotlin Multiplatform
 
-> ## Touchlab's Hiring!
->
-> We're looking for a Mobile Developer, with Android/Kotlin experience, who is eager to dive into Kotlin Multiplatform Mobile (KMM) development. Come join the remote-first team putting KMM in production. [More info here](https://go.touchlab.co/careers-gh).
+:::
 
 ## Getting Started
 
@@ -26,7 +25,7 @@ The Kermit dependency should be added to your `commonMain` source set in your Ko
 commonMain {
     dependencies {
         implementation(kotlin("stdlib-common"))
-        implementation("co.touchlab:kermit:x.y.z") //Add latest version
+        implementation("co.touchlab:kermit:{{LATEST_GITHUB_VERSION}}") //Add latest version
     }
 }
 ```
@@ -238,7 +237,7 @@ We'll focus on calling from swift in these examples. You export the nkt module b
 ```kotlin
 commonMain {
   dependencies {
-    api("co.touchlab:kermit-nkt:x.y.z") //Add latest version
+    api("co.touchlab:kermit-nkt:{{LATEST_GITHUB_VERSION}}") //Add latest version
   }
 }
 ```
@@ -250,7 +249,7 @@ cocoapods {
     summary = "Sample for Kermit"
     homepage = "https://www.touchlab.co"
     framework {
-        export("co.touchlab:kermit-nkt:x.y.z") //Add latest version
+        export("co.touchlab:kermit-nkt:{{LATEST_GITHUB_VERSION}}") //Add latest version
     }
 }
 ```
@@ -261,7 +260,7 @@ If configuring frameworks directly, it would look more like this:
 ios {
   binaries {
     framework {
-      export("co.touchlab:kermit-nkt:x.y.z") //Add latest version
+      export("co.touchlab:kermit-nkt:{{LATEST_GITHUB_VERSION}}") //Add latest version
     }
   }
 }
@@ -305,7 +304,7 @@ To run the log strip plugin, add the classpath to your buildscript:
 ```kotlin
 buildscript {
     dependencies {
-        classpath("co.touchlab:kermit-gradle-plugin:x.y.z")
+        classpath("co.touchlab:kermit-gradle-plugin:{{LATEST_GITHUB_VERSION}}")
     }
 }
 ```

@@ -23,6 +23,7 @@ plugins {
     id("com.android.library") version "7.3.1" apply false
     id("com.github.gmazzo.buildconfig") version "2.1.0" apply false
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.12.1"
+    id("org.jetbrains.dokka") version "1.7.20" apply false
 }
 apiValidation {
     nonPublicMarkers.add("co.touchlab.kermit.ExperimentalKermitApi")
@@ -44,6 +45,7 @@ allprojects {
 }
 
 allprojects {
+    apply(plugin = "org.jetbrains.dokka")
     repositories {
         mavenLocal()
         mavenCentral()

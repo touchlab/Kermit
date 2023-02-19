@@ -9,11 +9,7 @@ import MDXUl from '@theme/MDXComponents/Ul';
 import MDXImg from '@theme/MDXComponents/Img';
 import Admonition from '@theme/Admonition';
 import Mermaid from '@theme/Mermaid';
-import LearningGoals from "@site/src/components/kmmpro/docs/LearningGoals";
-import ExternalLesson from "@site/src/components/kmmpro/docs/ExternalLesson";
 import Github from "@site/src/components/kmmpro/docs/Github";
-import DocDone from "@site/src/components/kmmpro/docs/DocDone";
-import UnderConstruction from "@site/src/components/kmmpro/docs/UnderConstruction";
 import Youtube from "@site/src/components/kmmpro/docs/Youtube";
 
 const MDXComponents = {
@@ -32,11 +28,7 @@ const MDXComponents = {
   h6: (props) => <MDXHeading as="h6" {...props} />,
   admonition: Admonition,
   mermaid: Mermaid,
-  learningGoals: LearningGoals,
-  externalLesson: ExternalLesson,
   github: Github,
-  underConstruction: UnderConstruction,
   youtube: Youtube,
-  docDone: DocDone,
 };
 export default MDXComponents;

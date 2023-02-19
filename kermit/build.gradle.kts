@@ -104,15 +104,6 @@ kotlin {
         }
     }
 
-    val commonJvmTest by sourceSets.creating {
-        dependsOn(commonTest)
-        dependsOn(commonJvmMain)
-    }
-
-    val jvmMain by sourceSets.getting {
-        dependsOn(commonJvmMain)
-    }
-
     val androidMain by sourceSets.getting {
         dependsOn(commonJvmMain)
     }
