@@ -39,7 +39,7 @@ a gap where some other failure may happen but logging is not capturing info.
 ### iOS
 
 For iOS, besides regular logging, you will also want to configure Kotlin's uncaught exception handling. `kermit-crashlytics` 
-provides the `setupCrashlyticsExceptionHook` helper function to handle this for you.
+provides the `setCrashlyticsUnhandledExceptionHook` helper function to handle this for you.
 
 If you don't need to make kermit logging calls from Swift/Objective C code, we recommend not exporting Kermit in the 
 framework exposed to your iOS app. To setup Kermit configuration you can make a top level helper method in
@@ -51,7 +51,7 @@ almost always the best option. Here is a basic example.
 // in Kermit/AppInit.kt
 fun setupKermit() {
     Logger.addLogWriter(CrashlyticsLogWriter())
-    setupCrashlyticsExceptionHook(Logger)
+    setCrashlyticsUnhandledExceptionHook(Logger)
 }
 ```
 
@@ -104,7 +104,7 @@ Undefined symbols for architecture x86_64:
       _co_touchlab_crashkios_crashlytics_FIRCLSExceptionRecordNSException_wrapper0 in result.o
 ld: symbol(s) not found for architecture x86_64
 ```
-To resolve this, you should tell the linker that Bugsnag will be added later. You can do that directly, or you can use our Gradle plugin. It will find all Xcode Frameworks being built by Kotlin and add the necessary linker arguments.
+To resolve this, you should tell the linker that Firebase will be added later. You can do that directly, or you can use our Gradle plugin. It will find all Xcode Frameworks being built by Kotlin and add the necessary linker arguments.
 
 ```kotlin
 plugins {
