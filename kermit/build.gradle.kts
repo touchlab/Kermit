@@ -104,6 +104,10 @@ kotlin {
         }
     }
 
+    val jvmMain by sourceSets.getting {
+        dependsOn(commonJvmMain)
+    }
+
     val androidMain by sourceSets.getting {
         dependsOn(commonJvmMain)
     }

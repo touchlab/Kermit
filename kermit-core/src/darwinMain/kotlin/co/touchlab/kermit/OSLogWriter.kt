@@ -35,11 +35,8 @@ open class OSLogWriter(private val logFormatter: LogFormatter = DefaultLogFormat
             __dso_handle.ptr,
             OS_LOG_DEFAULT,
             kermitSeverityToOsLogType(severity),
-            formatMessage(
-                severity = severity,
-                tag = tag,
-                message = message
-            )
+            "%s",
+            message
         )
         if (throwable != null) {
             println(throwable.getStackTrace().joinToString("\n"))
