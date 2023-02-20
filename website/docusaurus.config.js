@@ -125,6 +125,11 @@ const config = {
               label: 'Docs',
             },
             {
+              href: 'https://kermit.touchlab.co/htmlMultiModule/',
+              label: 'SDK Docs',
+              position: 'left',
+            },
+            {
               href: 'https://touchlab.co/',
               label: 'Touchlab Site',
               position: 'right',
