@@ -12,15 +12,10 @@
  */
 
 plugins {
-    id("com.android.library")
     kotlin("multiplatform")
 }
 
 kotlin {
-    android {
-        publishAllLibraryVariants()
-    }
-    jvm()
     js(BOTH) {
         browser()
         nodejs()
@@ -96,17 +91,6 @@ kotlin {
     }
 }
 
-android {
-    compileSdkVersion(30)
-    defaultConfig {
-        minSdkVersion(15)
-    }
-
-    val main by sourceSets.getting {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    }
-}
-
 tasks.register("publishWindows") {
     if (tasks.findByName("publish") != null &&
         tasks.findByName("publishMingwX64PublicationToMavenRepository") != null) {
@@ -124,4 +108,4 @@ tasks.register("publishLinux") {
     }
 }
 
-apply(from = "../gradle/gradle-mvn-mpp-push.gradle")
+apply(plugin = "com.vanniktech.maven.publish")

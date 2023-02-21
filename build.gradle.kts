@@ -46,7 +46,7 @@ allprojects {
 }
 
 allprojects {
-    apply(plugin = "org.jetbrains.dokka")
+//    apply(plugin = "org.jetbrains.dokka")
     repositories {
         mavenLocal()
         mavenCentral()

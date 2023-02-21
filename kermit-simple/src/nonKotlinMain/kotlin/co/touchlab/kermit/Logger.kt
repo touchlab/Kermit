@@ -10,84 +10,221 @@
 
 package co.touchlab.kermit
 
-import kotlin.native.concurrent.ThreadLocal
-
-class LoggerMethods internal constructor(private var logger: Logger = Logger, private var severity: Severity = Severity.Verbose) {
-    internal fun applyValues(logger: Logger, severity: Severity): LoggerMethods {
-        this.logger = logger
-        this.severity = severity
-        return this
-    }
-
-    fun log(tag: String, throwable: Throwable, message: () -> String) {
-        logger.logBlock(severity, tag, throwable, message)
-    }
-
-    fun log(tag: String, message: () -> String) {
-        logger.logBlock(severity, tag, null, message)
-    }
-
-    fun log(throwable: Throwable, message: () -> String) {
-        logger.logBlock(severity, logger.tag, throwable, message)
-    }
-
-    fun log(message: () -> String) {
-        logger.logBlock(severity, logger.tag, null, message)
-    }
-
-    fun log(tag: String, throwable: Throwable, messageString: String) {
-        logger.log(severity, tag, throwable, messageString)
-    }
-
-    fun log(tag: String, messageString: String) {
-        logger.log(severity, tag, null, messageString)
-    }
-
-    fun log(throwable: Throwable, messageString: String) {
-        logger.log(severity, logger.tag, throwable, messageString)
-    }
-
-    fun log(messageString: String) {
-        logger.log(severity, logger.tag, null, messageString)
-    }
+fun Logger.v(message: () -> String) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Verbose, tag, null, message())
 }
 
-@ThreadLocal
-private val loggerMethods = LoggerMethods()
+fun Logger.v(throwable: Throwable, message: () -> String) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Verbose, tag, throwable, message())
+}
 
-val Logger.v: LoggerMethods
-    get() = loggerMethods.applyValues(this, Severity.Verbose)
+fun Logger.v(messageString: String) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Verbose, tag, null, messageString)
+}
 
-val Logger.d: LoggerMethods
-    get() = loggerMethods.applyValues(this, Severity.Debug)
+fun Logger.v(messageString: String, throwable: Throwable) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Verbose, tag, throwable, messageString)
+}
 
-val Logger.i: LoggerMethods
-    get() = loggerMethods.applyValues(this, Severity.Info)
+fun Logger.d(message: () -> String) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Debug, tag, null, message())
+}
 
-val Logger.w: LoggerMethods
-    get() = loggerMethods.applyValues(this, Severity.Warn)
+fun Logger.d(throwable: Throwable, message: () -> String) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Debug, tag, throwable, message())
+}
 
-val Logger.e: LoggerMethods
-    get() = loggerMethods.applyValues(this, Severity.Error)
+fun Logger.d(messageString: String) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Debug, tag, null, messageString)
+}
 
-val Logger.a: LoggerMethods
-    get() = loggerMethods.applyValues(this, Severity.Assert)
+fun Logger.d(messageString: String, throwable: Throwable) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Debug, tag, throwable, messageString)
+}
 
-// These can be accessed from Swift with LoggerKt.d.log(message: "some log")
-val v: LoggerMethods
-    get() = loggerMethods.applyValues(Logger, Severity.Verbose)
+fun Logger.i(message: () -> String) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Info, tag, null, message())
+}
 
-val d: LoggerMethods
-    get() = loggerMethods.applyValues(Logger, Severity.Debug)
+fun Logger.i(throwable: Throwable, message: () -> String) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Info, tag, throwable, message())
+}
 
-val i: LoggerMethods
-    get() = loggerMethods.applyValues(Logger, Severity.Info)
+fun Logger.i(messageString: String) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Info, tag, null, messageString)
+}
 
-val w: LoggerMethods
-    get() = loggerMethods.applyValues(Logger, Severity.Warn)
+fun Logger.i(messageString: String, throwable: Throwable) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Info, tag, throwable, messageString)
+}
 
-val e: LoggerMethods
-    get() = loggerMethods.applyValues(Logger, Severity.Error)
+fun Logger.w(message: () -> String) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Warn, tag, null, message())
+}
 
-val a: LoggerMethods
-    get() = loggerMethods.applyValues(Logger, Severity.Assert)
+fun Logger.w(throwable: Throwable, message: () -> String) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Warn, tag, throwable, message())
+}
+
+fun Logger.w(messageString: String) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Warn, tag, null, messageString)
+}
+
+fun Logger.w(messageString: String, throwable: Throwable) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Warn, tag, throwable, messageString)
+}
+
+fun Logger.e(message: () -> String) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Error, tag, null, message())
+}
+
+fun Logger.e(throwable: Throwable, message: () -> String) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Error, tag, throwable, message())
+}
+
+fun Logger.e(messageString: String) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Error, tag, null, messageString)
+}
+
+fun Logger.e(messageString: String, throwable: Throwable) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Error, tag, throwable, messageString)
+}
+
+fun Logger.a(message: () -> String) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Assert, tag, null, message())
+}
+
+fun Logger.a(throwable: Throwable, message: () -> String) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Assert, tag, throwable, message())
+}
+
+fun Logger.a(messageString: String) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Assert, tag, null, messageString)
+}
+
+fun Logger.a(messageString: String, throwable: Throwable) {
+    if (config.minSeverity <= Severity.Verbose)
+        log(Severity.Assert, tag, throwable, messageString)
+}
+
+//These are all simple accessor methods to make global calls from (mostly darwin) native simpler
+fun withTag(tag: String): Logger = Logger.withTag(tag)
+
+fun v(message: () -> String) {
+    Logger.v(message)
+}
+
+fun v(string: String) {
+    Logger.v(string)
+}
+
+fun v(throwable: Throwable, message: () -> String) {
+    Logger.v(throwable, message)
+}
+
+fun v(message: String, throwable: Throwable) {
+    Logger.v(message, throwable)
+}
+
+fun d(message: () -> String) {
+    Logger.d(message)
+}
+
+fun d(string: String) {
+    Logger.d(string)
+}
+
+fun d(throwable: Throwable, message: () -> String) {
+    Logger.d(throwable, message)
+}
+
+fun d(message: String, throwable: Throwable) {
+    Logger.d(message, throwable)
+}
+
+fun i(message: () -> String) {
+    Logger.i(message)
+}
+
+fun i(string: String) {
+    Logger.i(string)
+}
+
+fun i(throwable: Throwable, message: () -> String) {
+    Logger.i(throwable, message)
+}
+
+fun i(message: String, throwable: Throwable) {
+    Logger.i(message, throwable)
+}
+
+fun w(message: () -> String) {
+    Logger.w(message)
+}
+
+fun w(string: String) {
+    Logger.w(string)
+}
+
+fun w(throwable: Throwable, message: () -> String) {
+    Logger.w(throwable, message)
+}
+
+fun w(message: String, throwable: Throwable) {
+    Logger.w(message, throwable)
+}
+
+fun e(message: () -> String) {
+    Logger.e(message)
+}
+
+fun e(string: String) {
+    Logger.e(string)
+}
+
+fun e(throwable: Throwable, message: () -> String) {
+    Logger.e(throwable, message)
+}
+
+fun e(message: String, throwable: Throwable) {
+    Logger.e(message, throwable)
+}
+
+fun a(message: () -> String) {
+    Logger.a(message)
+}
+
+fun a(string: String) {
+    Logger.a(string)
+}
+
+fun a(throwable: Throwable, message: () -> String) {
+    Logger.a(throwable, message)
+}
+
+fun a(message: String, throwable: Throwable) {
+    Logger.a(message, throwable)
+}
