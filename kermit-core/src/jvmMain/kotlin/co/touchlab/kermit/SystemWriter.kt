@@ -3,7 +3,7 @@ package co.touchlab.kermit
 class SystemWriter(private val logFormatter: LogFormatter = DefaultLogFormatter) : LogWriter() {
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        val str = logFormatter.formatMessage(severity, message, tag)
+        val str = logFormatter.formatMessage(severity, Tag(tag), Message(message))
         if (severity == Severity.Error) {
             System.err.println(str)
         } else {

@@ -20,24 +20,26 @@ import platform.darwin.OS_LOG_TYPE_INFO
 import platform.darwin.__dso_handle
 import platform.darwin._os_log_internal
 
-open class OSLogWriter(private val logFormatter: LogFormatter = DefaultLogFormatter) : LogWriter() {
+open class OSLogWriter internal constructor(
+    private val logFormatter: LogFormatter,
+    private val darwinLogger: DarwinLogger
+) : LogWriter() {
+
+    constructor(logFormatter: LogFormatter = DefaultLogFormatter) : this(logFormatter, DarwinLoggerActual)
+
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        callLog(severity, formatMessage(
-            severity = severity,
-            message = message,
-            tag = tag
-        ), throwable)
+        callLog(
+            severity, formatMessage(
+                severity = severity,
+                message = Message(message),
+                tag = Tag(tag)
+            ), throwable
+        )
     }
 
     // Added to do some testing on log format. https://github.com/touchlab/Kermit/issues/243
-    internal open fun callLog(severity: Severity, message: String, throwable: Throwable?){
-        _os_log_internal(
-            __dso_handle.ptr,
-            OS_LOG_DEFAULT,
-            kermitSeverityToOsLogType(severity),
-            "%s",
-            message
-        )
+    internal open fun callLog(severity: Severity, message: String, throwable: Throwable?) {
+        darwinLogger.log(kermitSeverityToOsLogType(severity), message)
         if (throwable != null) {
             println(throwable.getStackTrace().joinToString("\n"))
         }
@@ -51,6 +53,23 @@ open class OSLogWriter(private val logFormatter: LogFormatter = DefaultLogFormat
         Severity.Assert -> OS_LOG_TYPE_FAULT
     }
 
-    open fun formatMessage(severity: Severity, message: String, tag: String): String =
-        logFormatter.formatMessage(severity, message, tag)
+    open fun formatMessage(severity: Severity, tag: Tag, message: Message): String =
+        logFormatter.formatMessage(null, tag, message)
+}
+
+
+internal interface DarwinLogger {
+    fun log(osLogSeverity: UByte, message: String)
+}
+
+private object DarwinLoggerActual : DarwinLogger {
+    override fun log(osLogSeverity: UByte, message: String) {
+        _os_log_internal(
+            __dso_handle.ptr,
+            OS_LOG_DEFAULT,
+            osLogSeverity,
+            "%s",
+            message
+        )
+    }
 }

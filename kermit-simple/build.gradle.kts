@@ -91,21 +91,4 @@ kotlin {
     }
 }
 
-tasks.register("publishWindows") {
-    if (tasks.findByName("publish") != null &&
-        tasks.findByName("publishMingwX64PublicationToMavenRepository") != null) {
-        dependsOn(
-            "publishMingwX64PublicationToMavenRepository",
-            "publishMingwX86PublicationToMavenRepository"
-        )
-    }
-}
-
-tasks.register("publishLinux") {
-    if (tasks.findByName("publish") != null &&
-        tasks.findByName("publishLinuxMips32PublicationToMavenRepository") != null) {
-        dependsOn("publishLinuxMips32PublicationToMavenRepository")
-    }
-}
-
 apply(plugin = "com.vanniktech.maven.publish")

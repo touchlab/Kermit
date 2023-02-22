@@ -15,9 +15,18 @@
 
 package co.touchlab.kermit
 
-class ConsoleWriter(private val logFormatter: LogFormatter = DefaultLogFormatter) : LogWriter() {
+class ConsoleWriter internal constructor(
+    private val logFormatter: LogFormatter,
+    private val console: ConsoleIntf
+) : LogWriter() {
+    constructor(logFormatter: LogFormatter = DefaultLogFormatter) : this(logFormatter, ConsoleActual)
+
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        var output = logFormatter.formatMessage(severity, message, tag)
+        var output = logFormatter.formatMessage(
+            null,
+            Tag(tag),
+            Message(message)
+        ) // Ignore severity. It is part of the console API.
         throwable?.let {
             output += " ${it.stackTraceToString()}"
         }
@@ -30,12 +39,27 @@ class ConsoleWriter(private val logFormatter: LogFormatter = DefaultLogFormatter
     }
 }
 
-internal object ConsoleLogFormatter : LogFormatter {
-    override fun formatTag(tag: String): String = if (tag.isEmpty()) {
-        ""
-    } else {
-        "[$tag] "
+internal interface ConsoleIntf {
+    fun error(vararg o: Any?)
+    fun warn(vararg o: Any?)
+    fun info(vararg o: Any?)
+    fun log(vararg o: Any?)
+}
+
+private object ConsoleActual : ConsoleIntf {
+    override fun error(vararg o: Any?) {
+        console.error(*o)
     }
 
-    override fun formatMessage(severity: Severity, message: Message, tag: Tag): String = "${formatTag(tag)}$message"
+    override fun warn(vararg o: Any?) {
+        console.warn(*o)
+    }
+
+    override fun info(vararg o: Any?) {
+        console.info(*o)
+    }
+
+    override fun log(vararg o: Any?) {
+        console.log(*o)
+    }
 }

@@ -10,20 +10,36 @@
 
 package co.touchlab.kermit
 
+import kotlin.jvm.JvmInline
+
+/**
+ * Implement message format for log writer. Some platforms have native support for either severity or tags. A formatter
+ * should ignore those parameters for relevant platforms. For example, on Android both tag and severity are part of the
+ * logging API. However, in JavaScript, while severity is part of the API, tags are not.
+ */
 interface LogFormatter {
-    fun formatTag(tag: String) = if(tag.isEmpty()){""}else{" ($tag)"}
-    fun formatMessage(severity: Severity, message: Message, tag: Tag): String = "$severity:${formatTag(tag)} $message"
+    fun formatSeverity(severity: Severity) = "$severity:"
+    fun formatTag(tag: Tag) = "(${tag.tag})"
+    fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String {
+        val sb = StringBuilder()
+        if (severity != null) sb.append(formatSeverity(severity)).append(" ")
+        if (tag != null) sb.append(formatTag(tag)).append(" ")
+        sb.append(message.message)
+        return sb.toString()
+    }
 }
 
-typealias Tag = String
-typealias Message = String
+@JvmInline
+value class Tag(internal val tag:String)
+@JvmInline
+value class Message(internal val message: String)
 
 /**
  * Single-line string with severity, tag, and message.
  *
  * Empty tags will omit the prefix space and parenthesis.
  *
- * "[severity]:[ (tag)|] [message]"
+ * "[severity: ][(tag) ][message]"
  */
 object DefaultLogFormatter:LogFormatter
 
@@ -31,14 +47,14 @@ object DefaultLogFormatter:LogFormatter
  * Tags are a formal part of Android, but not other systems. This formatter omits them.
  */
 object NoTagLogFormatter:LogFormatter {
-    override fun formatTag(tag: String): String = ""
-    override fun formatMessage(severity: Severity, message: Message, tag: Tag): String = "$severity: $message"
+    override fun formatTag(tag: Tag): String = ""
+    override fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String = super.formatMessage(severity, null, message)
 }
 
 /**
  * Just logs the message.
  */
 object SimpleLogFormatter: LogFormatter {
-    override fun formatTag(tag: String): String = ""
-    override fun formatMessage(severity: Severity, message: Message, tag: Tag): String = message
+    override fun formatTag(tag: Tag): String = ""
+    override fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String = message.message
 }

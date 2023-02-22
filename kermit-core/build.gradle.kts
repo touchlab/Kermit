@@ -92,6 +92,10 @@ kotlin {
         dependsOn(nativeMain)
     }
 
+    val darwinTest by sourceSets.creating {
+        dependsOn(commonTest)
+    }
+
     val linuxMain by sourceSets.creating {
         dependsOn(nativeMain)
     }
@@ -118,7 +122,13 @@ kotlin {
             }
         )
 
-        testSourceSet.dependsOn(commonTest)
+        testSourceSet.dependsOn(
+            if (konanTarget.family.isAppleFamily) {
+                darwinTest
+            } else {
+                commonTest
+            }
+        )
     }
 
     commonTest.dependencies {
@@ -155,30 +165,13 @@ kotlin {
 }
 
 android {
-    compileSdkVersion(30)
+    compileSdk = 30
     defaultConfig {
-        minSdkVersion(15)
+        minSdk = 16
     }
 
     val main by sourceSets.getting {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    }
-}
-
-tasks.register("publishWindows") {
-    if (tasks.findByName("publish") != null &&
-        tasks.findByName("publishMingwX64PublicationToMavenRepository") != null) {
-        dependsOn(
-            "publishMingwX64PublicationToMavenRepository",
-            "publishMingwX86PublicationToMavenRepository"
-        )
-    }
-}
-
-tasks.register("publishLinux") {
-    if (tasks.findByName("publish") != null &&
-        tasks.findByName("publishLinuxMips32PublicationToMavenRepository") != null) {
-        dependsOn("publishLinuxMips32PublicationToMavenRepository")
     }
 }
 
