@@ -17,13 +17,13 @@ import kotlin.jvm.JvmInline
  * should ignore those parameters for relevant platforms. For example, on Android both tag and severity are part of the
  * logging API. However, in JavaScript, while severity is part of the API, tags are not.
  */
-interface LogFormatter {
+interface MessageStringFormatter {
     fun formatSeverity(severity: Severity) = "$severity:"
     fun formatTag(tag: Tag) = "(${tag.tag})"
     fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String {
         val sb = StringBuilder()
         if (severity != null) sb.append(formatSeverity(severity)).append(" ")
-        if (tag != null) sb.append(formatTag(tag)).append(" ")
+        if (tag != null && tag.tag.isNotEmpty()) sb.append(formatTag(tag)).append(" ")
         sb.append(message.message)
         return sb.toString()
     }
@@ -41,12 +41,12 @@ value class Message(internal val message: String)
  *
  * "[severity: ][(tag) ][message]"
  */
-object DefaultLogFormatter:LogFormatter
+object DefaultFormatter:MessageStringFormatter
 
 /**
  * Tags are a formal part of Android, but not other systems. This formatter omits them.
  */
-object NoTagLogFormatter:LogFormatter {
+object NoTagFormatter:MessageStringFormatter {
     override fun formatTag(tag: Tag): String = ""
     override fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String = super.formatMessage(severity, null, message)
 }
@@ -54,7 +54,7 @@ object NoTagLogFormatter:LogFormatter {
 /**
  * Just logs the message.
  */
-object SimpleLogFormatter: LogFormatter {
+object SimpleFormatter: MessageStringFormatter {
     override fun formatTag(tag: Tag): String = ""
     override fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String = message.message
 }

@@ -17,7 +17,7 @@ class OSLogWriterTest {
     @Test
     fun basicLog() {
         val collector = DarwinLoggerCollector()
-        val osLogWriter = OSLogWriter(DefaultLogFormatter, collector)
+        val osLogWriter = OSLogWriter(DefaultFormatter, collector)
         osLogWriter.log(Severity.Debug, "Hello", "ATag", null)
         assertEquals(collector.logs.size, 1)
         assertEquals(collector.logs[0].message, "(ATag) Hello")

@@ -21,11 +21,11 @@ import platform.darwin.__dso_handle
 import platform.darwin._os_log_internal
 
 open class OSLogWriter internal constructor(
-    private val logFormatter: LogFormatter,
+    private val messageStringFormatter: MessageStringFormatter,
     private val darwinLogger: DarwinLogger
 ) : LogWriter() {
 
-    constructor(logFormatter: LogFormatter = DefaultLogFormatter) : this(logFormatter, DarwinLoggerActual)
+    constructor(messageStringFormatter: MessageStringFormatter = DefaultFormatter) : this(messageStringFormatter, DarwinLoggerActual)
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         callLog(
@@ -54,7 +54,7 @@ open class OSLogWriter internal constructor(
     }
 
     open fun formatMessage(severity: Severity, tag: Tag, message: Message): String =
-        logFormatter.formatMessage(null, tag, message)
+        messageStringFormatter.formatMessage(null, tag, message)
 }
 
 

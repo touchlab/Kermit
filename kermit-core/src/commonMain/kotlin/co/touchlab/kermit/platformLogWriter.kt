@@ -10,4 +10,4 @@
 
 package co.touchlab.kermit
 
-expect fun platformLogWriter(logFormatter: LogFormatter = DefaultLogFormatter): LogWriter
+expect fun platformLogWriter(messageStringFormatter: MessageStringFormatter = DefaultFormatter): LogWriter

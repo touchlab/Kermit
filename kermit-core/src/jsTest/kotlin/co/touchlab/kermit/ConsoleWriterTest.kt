@@ -17,7 +17,7 @@ class ConsoleWriterTest {
     @Test
     fun basicLog() {
         val collector = ConsoleCollector()
-        val consoleWriter = ConsoleWriter(DefaultLogFormatter, collector)
+        val consoleWriter = ConsoleWriter(DefaultFormatter, collector)
         consoleWriter.log(Severity.Debug, "Hello", "ATag", null)
         assertEquals(collector.logs.size, 1)
         assertEquals(collector.logs[0], "(ATag) Hello")
@@ -26,7 +26,7 @@ class ConsoleWriterTest {
     @Test
     fun logSeverity() {
         val collector = ConsoleCollector()
-        val consoleWriter = ConsoleWriter(DefaultLogFormatter, collector)
+        val consoleWriter = ConsoleWriter(DefaultFormatter, collector)
         consoleWriter.log(Severity.Debug, "Hello d", "ATag", null)
         consoleWriter.log(Severity.Verbose, "Hello v", "ATag", null)
         consoleWriter.log(Severity.Info, "Hello i", "ATag", null)

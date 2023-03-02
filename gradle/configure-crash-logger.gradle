@@ -51,7 +51,7 @@ kotlin {
     }
 
     commonMain.dependencies {
-        implementation project(":kermit")
+        implementation project(":kermit-core")
         implementation "org.jetbrains.kotlin:kotlin-stdlib-common"
     }
 

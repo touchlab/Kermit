@@ -309,7 +309,7 @@ class LoggerTest {
 
 object MyLogger : Logger(
     config = loggerConfigInit(
-        platformLogWriter(NoTagLogFormatter),
+        platformLogWriter(NoTagFormatter),
         minSeverity = Severity.Info
     ),
     tag = "MyAppTag"
