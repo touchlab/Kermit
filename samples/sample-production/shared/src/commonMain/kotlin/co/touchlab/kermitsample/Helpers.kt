@@ -15,15 +15,9 @@ import co.touchlab.kermit.bugsnag.BugsnagLogWriter
 
 internal fun configApp(production: Boolean){
     val config = if (production) {
-        StaticConfig(
-            minSeverity = Severity.Info,
-            logWriterList = listOf(platformLogWriter(NoTagFormatter), BugsnagLogWriter())
-        )
+        loggerConfigInit(platformLogWriter(NoTagFormatter), BugsnagLogWriter(), minSeverity = Severity.Info)
     } else {
-        StaticConfig(
-            minSeverity = Severity.Verbose,
-            logWriterList = listOf(platformLogWriter(NoTagFormatter))
-        )
+        loggerConfigInit(platformLogWriter(NoTagFormatter))
     }
     val logger = Logger(config)
     NotDI.logger = logger
