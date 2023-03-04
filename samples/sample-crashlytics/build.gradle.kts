@@ -21,7 +21,6 @@ buildscript {
     dependencies {
         classpath(libs.android.gradle.plugin)
         classpath(kotlin("gradle-plugin", libs.versions.kotlin.get()))
-        classpath(libs.crashkios.utils)
         classpath(libs.google.services)
         classpath(libs.firebase.crashlytics.gradle)
     }

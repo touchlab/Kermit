@@ -2,11 +2,8 @@ name: deploy
 on: workflow_dispatch
 
 jobs:
-  build:
-    strategy:
-      matrix:
-        os: [macOS-latest, ubuntu-latest]
-    runs-on: ${{matrix.os}}
+  deploy:
+    runs-on: macos-latest
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
@@ -31,7 +28,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: Publish Mac/Windows Artifacts
-        if: matrix.os == 'macOS-latest'
         run: ./gradlew publish --no-daemon --stacktrace --no-build-cache
         env:
           ORG_GRADLE_PROJECT_SONATYPE_NEXUS_USERNAME: ${{ secrets.SONATYPE_NEXUS_USERNAME }}

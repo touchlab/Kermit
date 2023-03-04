@@ -10,22 +10,19 @@
 
 package co.touchlab.kermitsample
 
-import co.touchlab.kermit.Logger
-import co.touchlab.kermit.Severity
-import co.touchlab.kermit.StaticConfig
-import co.touchlab.kermit.crashlytics.CrashlyticsLogWriter
-import co.touchlab.kermit.platformLogWriter
+import co.touchlab.kermit.*
+import co.touchlab.kermit.bugsnag.BugsnagLogWriter
 
 internal fun configApp(production: Boolean){
     val config = if (production) {
         StaticConfig(
-            minSeverity = Severity.Warn,
-            logWriterList = listOf(CrashlyticsLogWriter())
+            minSeverity = Severity.Info,
+            logWriterList = listOf(platformLogWriter(NoTagFormatter), BugsnagLogWriter())
         )
     } else {
         StaticConfig(
             minSeverity = Severity.Verbose,
-            logWriterList = listOf(platformLogWriter())
+            logWriterList = listOf(platformLogWriter(NoTagFormatter))
         )
     }
     val logger = Logger(config)

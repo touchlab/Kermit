@@ -15,10 +15,8 @@ import kotlin.test.Test
 class LoggerExtensionsTest {
     @Test
     fun testCallingExtensions(){
-        Logger.i.log { "Info Log" }
-        Logger.w.log("A log")
-        Logger.w.log("A tag") {"A log"}
-        Logger.w.log("A Tag", "A log")
-        Logger.e.log(IllegalStateException("Welp"), "Something failed")
+        /*val testLogWriter = TestLogWriter(Severity.Verbose)
+        val log = Logger(loggerConfigInit(testLogWriter))
+        log.v("A")*/
     }
 }

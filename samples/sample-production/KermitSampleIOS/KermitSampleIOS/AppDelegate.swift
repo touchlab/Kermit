@@ -12,6 +12,7 @@
 
 import UIKit
 import shared
+import Bugsnag
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,13 +23,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         #if DEBUG
-        let production = false
+        HelpersKt.startApp(production: true, bugsnagConfiguration: BugsnagConfiguration.loadConfig())
         #else
-        let production = true
+        HelpersKt.startApp(production: true, bugsnagConfiguration: BugsnagConfiguration.loadConfig())
         #endif
         
-        HelpersKt.startApp(production: production)
-        
+        let log = NotDI().loggerWithTag(tag: "ATag")
+        log.i(messageString: "Try a log")
+        log.w(messageString: "Throw", throwable: SampleCommonKt.makeException(message: "OK"))
         return true
     }
     

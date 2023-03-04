@@ -16,9 +16,6 @@ plugins {
     kotlin("multiplatform")
 }
 
-val STATELY_VERSION: String by project
-val TESTHELP_VERSION: String by project
-
 kotlin {
     android {
         publishAllLibraryVariants()
@@ -64,8 +61,8 @@ kotlin {
         dependencies {
             implementation("org.jetbrains.kotlin:kotlin-test-common")
             implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
-            implementation("co.touchlab:stately-collections:$STATELY_VERSION")
-            implementation("co.touchlab:testhelp:$TESTHELP_VERSION")
+            implementation(libs.stately.collections)
+            implementation(libs.testhelp)
             implementation(project(":kermit-test"))
         }
     }

@@ -72,7 +72,7 @@ A `LogWriter` actually sends log messages to different log outputs. You add `Log
 
 Kermit includes a `CommonWriter` and various platform-specific `LogWriter` instances. Through other modules, Kermit also allows logging crash info to Crashlytics and Bugsnag.
 
-For more info on included `LogWriter` types, and to create your own, see [LOG_WRITER](LOG_WRITER)
+For more info on included `LogWriter` types, and to create your own, see [LOG_WRITER](details/LOG_WRITER.md)
 
 ### Severity
 
@@ -84,7 +84,7 @@ The primary logging artifact is [Logger](https://github.com/touchlab/Kermit/blob
 
 :::info
 
-To log from non-Kotlin clients, that don't support calling Kotlin's default parameters, see [NON_KOTLIN](NON_KOTLIN.md). A common use case would be calling Kermit from Swift or JS.
+To log from non-Kotlin clients, that don't support calling Kotlin's default parameters, see [NON_KOTLIN](configuration/NON_KOTLIN.md). A common use case would be calling Kermit from Swift or JS.
 
 :::
 

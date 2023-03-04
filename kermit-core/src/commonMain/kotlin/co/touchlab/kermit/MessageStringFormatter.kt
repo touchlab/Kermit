@@ -21,10 +21,15 @@ interface MessageStringFormatter {
     fun formatSeverity(severity: Severity) = "$severity:"
     fun formatTag(tag: Tag) = "(${tag.tag})"
     fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String {
+        // Optimize for Android
+        if(severity == null && tag == null)
+            return message.message
+
         val sb = StringBuilder()
         if (severity != null) sb.append(formatSeverity(severity)).append(" ")
         if (tag != null && tag.tag.isNotEmpty()) sb.append(formatTag(tag)).append(" ")
         sb.append(message.message)
+
         return sb.toString()
     }
 }

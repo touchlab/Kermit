@@ -10,7 +10,11 @@
 
 package co.touchlab.kermitsample
 
-fun startApp(production: Boolean) {
+import co.touchlab.crashkios.bugsnag.BugsnagConfiguration
+import co.touchlab.crashkios.bugsnag.startBugsnag
+
+fun startApp(production: Boolean, bugsnagConfiguration: BugsnagConfiguration) {
     //Do some iOS stuff here
+    startBugsnag(bugsnagConfiguration)
     configApp(production)
 }

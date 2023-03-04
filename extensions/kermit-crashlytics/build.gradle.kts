@@ -25,7 +25,7 @@ kotlin {
 
     val commonMain by sourceSets.getting {
         dependencies {
-            implementation(libs.crashkios.crashlytics)
+            api(libs.crashkios.crashlytics)
         }
     }
 

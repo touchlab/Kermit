@@ -5,7 +5,8 @@ target 'KermitSampleIOS' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for KermitSampleIOS
-  pod 'Firebase/Crashlytics'
+  pod 'Bugsnag'
+  plugin 'cocoapods-bugsnag'
+
   pod 'shared', :path => '../shared'
 end

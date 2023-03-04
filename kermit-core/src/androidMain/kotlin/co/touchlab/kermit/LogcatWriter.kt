@@ -15,7 +15,10 @@ package co.touchlab.kermit
 
 import android.util.Log
 
-class LogcatWriter : LogWriter() {
+class LogcatWriter(private val messageStringFormatter: MessageStringFormatter = DefaultFormatter) : LogWriter() {
+    // When running unit tests, Log calls will fail. Back up to a common writer
+    private val testWriter: CommonWriter = CommonWriter(messageStringFormatter)
+
     private fun getSeverity(severity: Severity) = when (severity) {
         Severity.Verbose -> Log.VERBOSE
         Severity.Debug -> Log.DEBUG
@@ -30,24 +33,29 @@ class LogcatWriter : LogWriter() {
     }
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        if(throwable == null){
-            when(severity){
-                Severity.Verbose -> Log.v(tag, message)
-                Severity.Debug -> Log.d(tag, message)
-                Severity.Info -> Log.i(tag, message)
-                Severity.Warn -> Log.w(tag, message)
-                Severity.Error -> Log.e(tag, message)
-                Severity.Assert -> Log.wtf(tag, message)
+        val formattedMessage = messageStringFormatter.formatMessage(null, null, Message(message))
+        try {
+            if(throwable == null){
+                when(severity){
+                    Severity.Verbose -> Log.v(tag, formattedMessage)
+                    Severity.Debug -> Log.d(tag, formattedMessage)
+                    Severity.Info -> Log.i(tag, formattedMessage)
+                    Severity.Warn -> Log.w(tag, formattedMessage)
+                    Severity.Error -> Log.e(tag, formattedMessage)
+                    Severity.Assert -> Log.wtf(tag, formattedMessage)
+                }
+            }else{
+                when(severity){
+                    Severity.Verbose -> Log.v(tag, formattedMessage, throwable)
+                    Severity.Debug -> Log.d(tag, formattedMessage, throwable)
+                    Severity.Info -> Log.i(tag, formattedMessage, throwable)
+                    Severity.Warn -> Log.w(tag, formattedMessage, throwable)
+                    Severity.Error -> Log.e(tag, formattedMessage, throwable)
+                    Severity.Assert -> Log.wtf(tag, formattedMessage, throwable)
+                }
             }
-        }else{
-            when(severity){
-                Severity.Verbose -> Log.v(tag, message, throwable)
-                Severity.Debug -> Log.d(tag, message, throwable)
-                Severity.Info -> Log.i(tag, message, throwable)
-                Severity.Warn -> Log.w(tag, message, throwable)
-                Severity.Error -> Log.e(tag, message, throwable)
-                Severity.Assert -> Log.wtf(tag, message, throwable)
-            }
+        } catch (e: Exception) {
+            testWriter.log(severity, message, tag, throwable)
         }
     }
 }

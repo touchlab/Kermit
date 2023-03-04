@@ -39,7 +39,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api("co.touchlab:kermit:${KERMIT_VERSION}")
-                implementation("co.touchlab:kermit-crashlytics:${KERMIT_VERSION}")
+                implementation("co.touchlab:kermit-bugsnag:${KERMIT_VERSION}")
             }
         }
 
@@ -88,7 +88,6 @@ kotlin {
         summary = "Sample for Kermit"
         homepage = "https://www.touchlab.co"
         framework {
-            export("co.touchlab:kermit:${KERMIT_VERSION}")
             export("co.touchlab:kermit-simple:${KERMIT_VERSION}")
             isStatic = true
         }

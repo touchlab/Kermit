@@ -19,16 +19,11 @@ android-gradle-plugin = "7.2.2"
 android-library = "7.2.2"
 
 google-services = "4.3.10"
-firebase-crashlytics-gradle = "2.7.1"
 
-bugsnag-android-gradle-plugin = "7.0.0"
+stately = "1.2.5"
+testhelp = "0.6.5"
 
-stately = "1.2.3"
-testhelp = "0.6.4"
-
-crashkios = "0.8.1"
-crashkios-bugsnag = "0.7.1-alpha3"
-crashkios-utils = "0.7.1-alpha3"
+crashkios = "0.8.2"
 bugsnag = "5.26.0"
 
 firebase-bom = "28.4.0"
@@ -53,14 +48,11 @@ androidx-coordinatorLayout = { module = "androidx.coordinatorlayout:coordinatorl
 android-material = { module = "com.google.android.material:material", version.ref = "android-material" }
 
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
-bugsnag-android-gradle-plugin = { module = "com.bugsnag:bugsnag-android-gradle-plugin", version.ref = "bugsnag-android-gradle-plugin" }
 
 google-services = { module = "com.google.gms:google-services", version.ref = "google-services" }
-firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebase-crashlytics-gradle" }
 
 crashkios-crashlytics = { module = "co.touchlab.crashkios:crashlytics", version.ref = "crashkios" }
-crashkios-bugsnag = { module = "co.touchlab.crashkios:bugsnag", version.ref = "crashkios-bugsnag" }
-crashkios-utils = { module = "co.touchlab.crashkios:utils", version.ref = "crashkios-utils" }
+crashkios-bugsnag = { module = "co.touchlab.crashkios:bugsnag", version.ref = "crashkios" }
 bugsnag-android = { module = "com.bugsnag:bugsnag-android", version.ref = "bugsnag" }
 stately-collections = { module = "co.touchlab:stately-collections", version.ref = "stately"}
 testhelp = { module = "co.touchlab:testhelp", version.ref = "testhelp" }

@@ -13,21 +13,25 @@ package co.touchlab.kermit.crashlytics
 import co.touchlab.crashkios.crashlytics.CrashlyticsCalls
 import co.touchlab.crashkios.crashlytics.CrashlyticsCallsActual
 import co.touchlab.crashkios.crashlytics.enableCrashlytics
+import co.touchlab.kermit.DefaultFormatter
 import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.LogWriter
+import co.touchlab.kermit.Message
+import co.touchlab.kermit.MessageStringFormatter
 import co.touchlab.kermit.Severity
+import co.touchlab.kermit.Tag
 
 @ExperimentalKermitApi
 class CrashlyticsLogWriter(
     private val minSeverity: Severity = Severity.Info,
-    private val minCrashSeverity: Severity = Severity.Warn,
-    private val printTag: Boolean = true
+    private val minCrashSeverity: Severity? = Severity.Warn,
+    private val messageStringFormatter: MessageStringFormatter = DefaultFormatter
 ) : LogWriter() {
 
     private val crashlyticsCalls: CrashlyticsCalls = CrashlyticsCallsActual()
 
     init {
-        if(minSeverity > minCrashSeverity) {
+        if (minCrashSeverity != null && minSeverity > minCrashSeverity) {
             throw IllegalArgumentException("minSeverity ($minSeverity) cannot be greater than minCrashSeverity ($minCrashSeverity)")
         }
 
@@ -38,13 +42,9 @@ class CrashlyticsLogWriter(
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         crashlyticsCalls.logMessage(
-            if (printTag) {
-                "$tag : $message"
-            } else {
-                message
-            }
+            messageStringFormatter.formatMessage(severity, Tag(tag), Message(message))
         )
-        if (throwable != null && severity >= minCrashSeverity) {
+        if (throwable != null && minCrashSeverity != null && severity >= minCrashSeverity) {
             crashlyticsCalls.sendHandledException(throwable)
         }
     }
