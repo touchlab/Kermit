@@ -47,6 +47,11 @@ kotlin {
     linuxArm32Hfp()
     linuxMips32()
 
+    androidNativeArm32()
+    androidNativeArm64()
+    androidNativeX86()
+    androidNativeX64()
+
     val commonMain by sourceSets.getting
     val commonTest by sourceSets.getting
 
@@ -63,7 +68,7 @@ kotlin {
 
     commonMain.dependencies {
         implementation(kotlin("test-common"))
-        implementation(project(":kermit"))
+        api(project(":kermit-core"))
         implementation(libs.stately.collections)
     }
 
@@ -91,23 +96,6 @@ android {
 
     val main by sourceSets.getting {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    }
-}
-
-tasks.register("publishWindows") {
-    if (tasks.findByName("publish") != null &&
-        tasks.findByName("publishMingwX64PublicationToMavenRepository") != null) {
-        dependsOn(
-            "publishMingwX64PublicationToMavenRepository",
-            "publishMingwX86PublicationToMavenRepository"
-        )
-    }
-}
-
-tasks.register("publishLinux") {
-    if (tasks.findByName("publish") != null &&
-        tasks.findByName("publishLinuxMips32PublicationToMavenRepository") != null) {
-        dependsOn("publishLinuxMips32PublicationToMavenRepository")
     }
 }
 

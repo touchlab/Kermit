@@ -10,36 +10,44 @@
 
 package co.touchlab.kermitsample
 
+import co.touchlab.crashkios.bugsnag.BugsnagKotlin
+
 class SampleCommon {
     //Pretend we're injecting
     private val logger = NotDI.loggerWithTag("SampleCommon")
     private var count = 0
     fun onClickI() {
         count++
+        BugsnagKotlin.setCustomValue(section = "hello", key = "lastLog", value = "i")
         logger.i { "Common click count: $count" }
     }
 
     fun onClickW() {
         count++
+        BugsnagKotlin.setCustomValue(section = "hello", key = "lastLog", value = "w")
         logger.w { "Common click count: $count" }
     }
 
     fun onClickE() {
         count++
+        BugsnagKotlin.setCustomValue(section = "hello", key = "lastLog", value = "e")
         logger.e { "Common click count: $count" }
     }
 
     fun onClickA() {
         count++
+        BugsnagKotlin.setCustomValue(section = "hello", key = "lastLog", value = "a")
         logger.a { "Common click count: $count" }
     }
 
     fun onClickD() {
         count++
+        BugsnagKotlin.setCustomValue(section = "hello", key = "lastLog", value = "d")
         logger.d { "Common click count: $count" }
     }
     fun onClickV() {
         count++
+        BugsnagKotlin.setCustomValue(section = "hello", key = "lastLog", value = "v")
         logger.v { "Common click count: $count" }
     }
 
@@ -47,3 +55,5 @@ class SampleCommon {
         logger.w(throwable = Exception("Handled")) { "Common click count: $count" }
     }
 }
+
+fun makeException(message:String):Throwable = IllegalStateException(message)

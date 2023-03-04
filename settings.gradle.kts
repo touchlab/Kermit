@@ -10,21 +10,26 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-
+include(":kermit-core")
 include(":kermit")
+include(":kermit-simple")
+include(":kermit-test")
+
 include(":kermit-crashlytics")
 include(":kermit-bugsnag")
-include(":kermit-test")
 include(":kermit-koin")
-//include(":kermit-sentry")
 
-include(":kermit-gradle-plugin")
-include(":kermit-ir-plugin")
-include(":kermit-ir-plugin-native")
+project(":kermit-crashlytics").projectDir = File("extensions/kermit-crashlytics")
+project(":kermit-bugsnag").projectDir = File("extensions/kermit-bugsnag")
+project(":kermit-koin").projectDir = File("extensions/kermit-koin")
 
-project(":kermit-gradle-plugin").projectDir = File("plugin/kermit-gradle-plugin")
-project(":kermit-ir-plugin").projectDir = File("plugin/kermit-ir-plugin")
-project(":kermit-ir-plugin-native").projectDir = File("plugin/kermit-ir-plugin-native")
+//include(":kermit-gradle-plugin")
+//include(":kermit-ir-plugin")
+//include(":kermit-ir-plugin-native")
+//
+//project(":kermit-gradle-plugin").projectDir = File("plugin/kermit-gradle-plugin")
+//project(":kermit-ir-plugin").projectDir = File("plugin/kermit-ir-plugin")
+//project(":kermit-ir-plugin-native").projectDir = File("plugin/kermit-ir-plugin-native")
 
 pluginManagement {
     resolutionStrategy {
@@ -40,24 +45,8 @@ pluginManagement {
         gradlePluginPortal()
         mavenCentral()
     }
+    val KOTLIN_VERSION: String by settings
+    plugins {
+        kotlin("multiplatform") version KOTLIN_VERSION
+    }
 }
-
-//plugins {
-//    id("com.github.burrunan.s3-build-cache") version "1.2"
-//}
-//
-//buildCache {
-//    local {
-//        isEnabled = false
-//    }
-//
-//    val env = System.getenv()
-//    remote<com.github.burrunan.s3cache.AwsS3BuildCache> {
-//        region = env.getOrDefault("S3_BUILD_CACHE_AWS_REGION", "")
-//        bucket = env.getOrDefault("S3_BUILD_CACHE_BUCKET_NAME", "")
-//        awsAccessKeyId = env.getOrDefault("S3_BUILD_CACHE_ACCESS_KEY_ID", "")
-//        awsSecretKey = env.getOrDefault("S3_BUILD_CACHE_SECRET_KEY", "")
-//        prefix = "${rootProject.name}/"
-//        isPush = env.containsKey("CI")
-//    }
-//}

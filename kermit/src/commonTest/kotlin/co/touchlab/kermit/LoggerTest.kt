@@ -19,6 +19,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
+@OptIn(ExperimentalKermitApi::class)
 class LoggerTest {
 
     private fun getTestConfig(logWriterList: List<LogWriter>): TestConfig {
@@ -35,6 +36,7 @@ class LoggerTest {
     @Test
     fun testGlobal() {
         val testLogWriter = getTestLogWriter()
+
         Logger.apply {
             setMinSeverity(Severity.Verbose)
             setLogWriters(testLogWriter)
@@ -112,7 +114,7 @@ class LoggerTest {
         Logger.addLogWriter(testLogWriter)
 
         Logger.d { "Log Without Tag (Original Kermit)" }
-        testLogWriter.assertLast { tag == "Kermit" }
+        testLogWriter.assertLast { tag == "" }
 
         Logger.setTag("My Custom Tag")
 
@@ -123,7 +125,7 @@ class LoggerTest {
     @Test
     fun defaultConfigTest() {
         val testLogWriter = getTestLogWriter()
-        val logger = Logger(LoggerConfig.default.copy(logWriterList = listOf(testLogWriter)))
+        val logger = Logger(loggerConfigInit(testLogWriter))
         logger.v { "Message" }
         testLogWriter.assertCount(1)
     }
@@ -213,13 +215,13 @@ class LoggerTest {
         val loggerWithTag = logger.withTag("My Custom Tag")
 
         logger.d { "Log Without Tag (Original Kermit)" }
-        testLogWriter.assertLast { tag == "Kermit" }
+        testLogWriter.assertLast { tag == "" }
 
         loggerWithTag.d { "Log Without Tag (Kermit With Tag)" }
         testLogWriter.assertLast { tag == "My Custom Tag" }
 
         logger.d { "Log Without Tag (Original Kermit)" }  // Ensuring first Kermit isn't affected by withTag
-        testLogWriter.assertLast { tag == "Kermit" }
+        testLogWriter.assertLast { tag == "" }
     }
 
     @Test
@@ -237,7 +239,7 @@ class LoggerTest {
 
         assertEquals(1, testLogWriter.logs.size)
         testLogWriter.assertLast { message == "Message2" }
-        testLogWriter.assertLast { tag == "Kermit" }
+        testLogWriter.assertLast { tag == "" }
 
         testConfig.minSeverity = Severity.Info
 
@@ -245,7 +247,7 @@ class LoggerTest {
         newLogger.d { "Message3" }
         assertEquals(1, testLogWriter.logs.size)
         testLogWriter.assertLast { message == "Message2" }
-        testLogWriter.assertLast { tag == "Kermit" }
+        testLogWriter.assertLast { tag == "" }
 
         newLogger.a { "Message4" }
         assertEquals(2, testLogWriter.logs.size)
@@ -276,7 +278,7 @@ class LoggerTest {
     @Ignore
     fun testMutableLoggerConfig_MultiThreading_Severity() {
         val testLogWriter = TestLogWriter(loggable = Severity.Verbose)
-        val config = mutableKermitConfigInit(listOf(testLogWriter))
+        val config = mutableLoggerConfigInit(listOf(testLogWriter))
         val logger = Logger(config)
         val operations = 200
         val ops = ThreadOperations {}
@@ -296,4 +298,23 @@ class LoggerTest {
         ops.run(threads)
         assertEquals(operations / 2, testLogWriter.logs.size)
     }
+
+    @Test
+    fun testCustomGlobalLogger() {
+        CustomGlobalLogger.i { "Hello" }
+        val testLogWriter = CustomGlobalLogger.config.logWriterList.first() as TestLogWriter
+        testLogWriter.assertLast { tag == "" && message == "Hello" }
+    }
+}
+
+object MyLogger : Logger(
+    config = loggerConfigInit(
+        platformLogWriter(NoTagFormatter),
+        minSeverity = Severity.Info
+    ),
+    tag = "MyAppTag"
+)
+
+fun hello(){
+    MyLogger.i { "Hello" }
 }
