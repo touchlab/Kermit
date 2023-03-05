@@ -134,7 +134,11 @@ const config = {
               label: 'Touchlab Site',
               position: 'right',
             },
-
+            {
+              href: `https://github.com/${touchlabConfig.docusaurusConfig.organizationName}/${touchlabConfig.docusaurusConfig.projectName}`,
+              label: 'GitHub',
+              position: 'right',
+            },
           ],
         },
         footer: {
@@ -162,7 +166,15 @@ const config = {
                 },
               ],
             },
-
+            {
+              title: 'More',
+              items: [
+                {
+                  label: `${touchlabConfig.docusaurusConfig.projectName} GitHub`,
+                  href: `https://github.com/touchlab/${touchlabConfig.docusaurusConfig.organizationName}/${touchlabConfig.docusaurusConfig.projectName}`,
+                },
+              ],
+            },
           ],
           copyright: `Copyright © ${new Date().getFullYear()} Touchlab`,
         },
