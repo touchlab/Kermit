@@ -23,14 +23,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         #if DEBUG
-        HelpersKt.startApp(production: true, bugsnagConfiguration: BugsnagConfiguration.loadConfig())
+        HelpersKt.startApp(production: false, bugsnagConfiguration: BugsnagConfiguration.loadConfig())
         #else
         HelpersKt.startApp(production: true, bugsnagConfiguration: BugsnagConfiguration.loadConfig())
         #endif
         
         let log = NotDI().loggerWithTag(tag: "ATag")
         log.i(messageString: "Try a log")
-        log.w(messageString: "Throw", throwable: SampleCommonKt.makeException(message: "OK"))
+//        log.w(messageString: "Throw", throwable: SampleCommonKt.makeException(message: "OK"))
         return true
     }
     
