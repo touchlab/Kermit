@@ -10,6 +10,4 @@
 
 package co.touchlab.kermit
 
-//Using EmojiSeverityWriter (base CommonWriter) instead of NSLogWriter because NSLog truncates stack trace prints: https://stackoverflow.com/a/39538500/227313
-//Cutting off the stack trace makes local dev difficult when you get a Kotlin exception.
 actual fun platformLogWriter(messageStringFormatter: MessageStringFormatter): LogWriter = XcodeSeverityWriter(messageStringFormatter)

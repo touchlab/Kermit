@@ -10,4 +10,8 @@
 
 package co.touchlab.kermit
 
+/**
+ * Factory function to return a default LogWriter for each platform. The LogWriter is targeted at local development.
+ * For production implementations, you may need to directly initialize your Logger config.
+ */
 expect fun platformLogWriter(messageStringFormatter: MessageStringFormatter = DefaultFormatter): LogWriter

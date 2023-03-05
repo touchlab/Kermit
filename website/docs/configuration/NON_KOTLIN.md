@@ -34,3 +34,11 @@ kotlin {
 ```
 
  You will need to export `kermit-simple`, as in the example above.
+
+ From Swift, this will allow you to call methods from Swift without all of the parameters.
+
+ ```swift
+ let log = // Get a Logger instance
+log.i(messageString: "Try a log")
+log.w(messageString: "Throw", throwable: someException)
+```

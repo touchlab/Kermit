@@ -10,9 +10,18 @@
 
 package co.touchlab.kermit
 
+/**
+ * Development-focused LogWriter. Will write a colored emoji according to Severity, and write the Throwable stack trace
+ * to println rather than oslog, as oslog will cut off long strings.
+ */
 open class XcodeSeverityWriter(private val messageStringFormatter: MessageStringFormatter = DefaultFormatter) : OSLogWriter(messageStringFormatter) {
     override fun formatMessage(severity: Severity, tag: Tag, message: Message): String =
         "${emojiPrefix(severity)} ${messageStringFormatter.formatMessage(null, tag, message)}"
+
+    override fun logThrowable(osLogSeverity: UByte, throwable: Throwable) {
+        // oslog cuts off longer strings, so for local development, println is more useful
+        println(throwable.getStackTrace().joinToString("\n"))
+    }
 
     //If this looks familiar, yes, it came directly from Napier :) https://github.com/AAkira/Napier#darwinios-macos-watchos-tvosintelapple-silicon
     open fun emojiPrefix(severity: Severity): String = when (severity) {

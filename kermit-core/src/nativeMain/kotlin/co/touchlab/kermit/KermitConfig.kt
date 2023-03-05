@@ -13,8 +13,6 @@ package co.touchlab.kermit
 import kotlin.native.concurrent.AtomicReference
 import kotlin.native.concurrent.freeze
 
-
-
 internal class AtomicMutableLoggerConfig(logWriters: List<LogWriter>) : MutableLoggerConfig {
     private val _minSeverity = AtomicReference(DEFAULT_MIN_SEVERITY)
     private val _loggerList = AtomicReference(logWriters.freeze())

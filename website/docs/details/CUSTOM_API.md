@@ -1,4 +1,4 @@
-# Custom API
+# Custom Logger API
 
 The main module most users will include is `kermit`. However, much of the configuration and other underlying functionality has been moved to `kermit-core`. The main `kermit` module is a relatively thin API layer that sits on top of `kermit-core`.
 

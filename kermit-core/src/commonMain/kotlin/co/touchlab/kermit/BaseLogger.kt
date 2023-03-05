@@ -15,6 +15,9 @@ package co.touchlab.kermit
 
 typealias MessageBlock = ()->String
 
+/**
+ * Base class for public Logger API. Extend to implement your own logger API.
+ */
 @Suppress("unused")
 open class BaseLogger(
     open val config: LoggerConfig,

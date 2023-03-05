@@ -14,8 +14,10 @@
 package co.touchlab.kermit
 
 import kotlin.jvm.JvmOverloads
-import kotlin.jvm.JvmStatic
 
+/**
+ * The default Logger API. This class can be a local instance, or use the global companion syntax.
+ */
 @Suppress("unused")
 open class Logger(
     config: LoggerConfig,

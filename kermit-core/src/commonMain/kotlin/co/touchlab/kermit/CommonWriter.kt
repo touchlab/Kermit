@@ -13,6 +13,9 @@
 
 package co.touchlab.kermit
 
+/**
+ * Basic LogWriter. Statements are sent to println.
+ */
 open class CommonWriter(private val messageStringFormatter: MessageStringFormatter = DefaultFormatter) : LogWriter() {
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         println(messageStringFormatter.formatMessage(severity, Tag(tag), Message(message)))

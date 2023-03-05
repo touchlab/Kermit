@@ -20,6 +20,9 @@ import platform.darwin.OS_LOG_TYPE_INFO
 import platform.darwin.__dso_handle
 import platform.darwin._os_log_internal
 
+/**
+ * Write log statements to darwin oslog.
+ */
 open class OSLogWriter internal constructor(
     private val messageStringFormatter: MessageStringFormatter,
     private val darwinLogger: DarwinLogger
@@ -38,11 +41,16 @@ open class OSLogWriter internal constructor(
     }
 
     // Added to do some testing on log format. https://github.com/touchlab/Kermit/issues/243
-    internal open fun callLog(severity: Severity, message: String, throwable: Throwable?) {
-        darwinLogger.log(kermitSeverityToOsLogType(severity), message)
+    open fun callLog(severity: Severity, message: String, throwable: Throwable?) {
+        val osLogSeverity = kermitSeverityToOsLogType(severity)
+        darwinLogger.log(osLogSeverity, message)
         if (throwable != null) {
-            println(throwable.getStackTrace().joinToString("\n"))
+            logThrowable(osLogSeverity, throwable)
         }
+    }
+
+    open fun logThrowable(osLogSeverity: UByte, throwable: Throwable){
+        darwinLogger.log(osLogSeverity, throwable.getStackTrace().joinToString("\n"))
     }
 
     private fun kermitSeverityToOsLogType(severity: Severity): UByte = when (severity) {

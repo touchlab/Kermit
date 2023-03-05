@@ -13,6 +13,11 @@
 
 package co.touchlab.kermit
 
+/**
+ * Config that can be updated. The global Logger instance needs mutable state. Most logging use cases do not, however
+ * there are some situations that may. Mutable config is less performant because state needs to be thread safe, which
+ * means volatile in the jvm and atomic in native. Each log call must access mutable, cross-thread state.
+ */
 interface MutableLoggerConfig : LoggerConfig {
     override var minSeverity: Severity
     override var logWriterList: List<LogWriter>

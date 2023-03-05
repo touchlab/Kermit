@@ -4,6 +4,14 @@ sidebar_position: 30
 
 # Extensions
 
-[Crashlytics](../crashreporting/CRASHLYTICS)
+## [Crashlytics](../crashreporting/CRASHLYTICS)
 
-[Bugsnag](../crashreporting/BUGSNAG)
+Crashlytics log statement writing.
+
+## [Bugsnag](../crashreporting/BUGSNAG)
+
+Bugsnag breadcrumb writing.
+
+## [Koin](KOIN)
+
+Integration with Koin, for easy logger injection.
