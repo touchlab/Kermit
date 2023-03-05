@@ -42,7 +42,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api("co.touchlab:kermit-nkt:${KERMIT_VERSION}")
+                implementation("co.touchlab:kermit:${KERMIT_VERSION}")
             }
         }
 
@@ -82,8 +82,5 @@ kotlin {
     cocoapods {
         summary = "Sample for Kermit"
         homepage = "https://www.touchlab.co"
-        framework {
-            export("co.touchlab:kermit-nkt:${KERMIT_VERSION}")
-        }
     }
 }

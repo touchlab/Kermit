@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:name=".SampleApplication"
         android:theme="@style/AppTheme">
+        <meta-data
+                android:name="com.bugsnag.android.API_KEY"
+                        android:value="e3c4f60ce6e97f5dcbafabf59cbd8f29"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

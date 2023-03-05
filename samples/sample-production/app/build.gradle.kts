@@ -11,6 +11,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("com.bugsnag.android.gradle")
 }
 
 repositories {
@@ -49,6 +50,7 @@ dependencies {
     implementation(project(":shared"))
     implementation(kotlin("stdlib"))
     implementation(libs.bundles.android)
+    implementation("com.bugsnag:bugsnag-android:5.+")
 }
 
 

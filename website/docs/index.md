@@ -134,4 +134,4 @@ class MyViewModel:ViewModel {
 }
 ```
 
-Platform-specific loggers can be configured to ignore tags on output, or you can customize their display easily. We'll discuss these options more in [Configuration](#Configuration).
+Platform-specific loggers can be configured to ignore tags on output, or you can customize their display easily. We'll discuss these options more in [Configuration](/configuration/index.md).

@@ -21,6 +21,7 @@ buildscript {
     dependencies {
         classpath(libs.android.gradle.plugin)
         classpath(kotlin("gradle-plugin", libs.versions.kotlin.get()))
+        classpath("com.bugsnag:bugsnag-android-gradle-plugin:7.4.1")
     }
 }
 

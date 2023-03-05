@@ -19,6 +19,8 @@ repositories {
     mavenCentral()
 }
 
+val KERMIT_VERSION: String by project
+
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
@@ -49,6 +51,7 @@ dependencies {
     implementation(project(":shared"))
     implementation(kotlin("stdlib"))
     implementation(libs.bundles.android)
+    implementation("co.touchlab:kermit:${KERMIT_VERSION}")
 }
 
 

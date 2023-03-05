@@ -13,12 +13,12 @@ package co.touchlab.kermitsample
 import co.touchlab.kermit.*
 import co.touchlab.kermit.bugsnag.BugsnagLogWriter
 
-internal fun configApp(production: Boolean){
-    val config = if (production) {
-        loggerConfigInit(platformLogWriter(NoTagFormatter), BugsnagLogWriter(), minSeverity = Severity.Info)
+internal fun configApp(production: Boolean) {
+    val logSeverity = if (production) {
+        Severity.Info
     } else {
-        loggerConfigInit(platformLogWriter(NoTagFormatter))
+        Severity.Verbose
     }
-    val logger = Logger(config)
-    NotDI.logger = logger
+    NotDI.logger =
+        Logger(loggerConfigInit(platformLogWriter(NoTagFormatter), BugsnagLogWriter(), minSeverity = logSeverity))
 }

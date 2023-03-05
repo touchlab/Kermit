@@ -12,10 +12,14 @@ package co.touchlab.KermitSample
 
 import android.app.Application
 import co.touchlab.kermitsample.startApp
+import com.bugsnag.android.Bugsnag
 
 class SampleApplication: Application() {
     override fun onCreate() {
         super.onCreate()
+        Bugsnag.start(this)
         startApp(this, !BuildConfig.DEBUG)
+        val log = co.touchlab.kermitsample.NotDI.loggerWithTag("ATag")
+        log.i { "Hello from Android" }
     }
 }
