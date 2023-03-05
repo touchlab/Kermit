@@ -19,3 +19,11 @@ commonMain {
 ```kotlin
 Logger.setLogWriters(BugsnagLogWriter())
 ```
+
+## Custom Values
+
+You can add custom values to Bugsnag, but not through Kermit. [Call CrashKiOS directly](https://crashkios.touchlab.co/docs/bugsnag#sending-extra-info-to-bugsnag).
+
+```kotlin
+BugsnagKotlin.setCustomValue("someKey", "someValue")
+```
