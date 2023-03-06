@@ -9,15 +9,16 @@ public class co/touchlab/kermit/BaseLogger {
 
 public class co/touchlab/kermit/CommonWriter : co/touchlab/kermit/LogWriter {
 	public fun <init> ()V
-	public fun <init> (Lco/touchlab/kermit/LogFormatter;)V
-	public synthetic fun <init> (Lco/touchlab/kermit/LogFormatter;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lco/touchlab/kermit/MessageStringFormatter;)V
+	public synthetic fun <init> (Lco/touchlab/kermit/MessageStringFormatter;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun log (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
 }
 
-public final class co/touchlab/kermit/DefaultLogFormatter : co/touchlab/kermit/LogFormatter {
-	public static final field INSTANCE Lco/touchlab/kermit/DefaultLogFormatter;
-	public fun formatMessage (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public fun formatTag (Ljava/lang/String;)Ljava/lang/String;
+public final class co/touchlab/kermit/DefaultFormatter : co/touchlab/kermit/MessageStringFormatter {
+	public static final field INSTANCE Lco/touchlab/kermit/DefaultFormatter;
+	public fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun formatSeverity (Lco/touchlab/kermit/Severity;)Ljava/lang/String;
+	public fun formatTag-ntQDErM (Ljava/lang/String;)Ljava/lang/String;
 }
 
 public abstract interface annotation class co/touchlab/kermit/ExperimentalKermitApi : java/lang/annotation/Annotation {
@@ -25,16 +26,6 @@ public abstract interface annotation class co/touchlab/kermit/ExperimentalKermit
 
 public final class co/touchlab/kermit/KermitConfigKt {
 	public static final fun mutableLoggerConfigInit (Ljava/util/List;)Lco/touchlab/kermit/MutableLoggerConfig;
-}
-
-public abstract interface class co/touchlab/kermit/LogFormatter {
-	public abstract fun formatMessage (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public abstract fun formatTag (Ljava/lang/String;)Ljava/lang/String;
-}
-
-public final class co/touchlab/kermit/LogFormatter$DefaultImpls {
-	public static fun formatMessage (Lco/touchlab/kermit/LogFormatter;Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public static fun formatTag (Lco/touchlab/kermit/LogFormatter;Ljava/lang/String;)Ljava/lang/String;
 }
 
 public abstract class co/touchlab/kermit/LogWriter {
@@ -54,6 +45,31 @@ public final class co/touchlab/kermit/LoggerConfigKt {
 	public static synthetic fun loggerConfigInit$default ([Lco/touchlab/kermit/LogWriter;Lco/touchlab/kermit/Severity;ILjava/lang/Object;)Lco/touchlab/kermit/LoggerConfig;
 }
 
+public final class co/touchlab/kermit/Message {
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lco/touchlab/kermit/Message;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public abstract interface class co/touchlab/kermit/MessageStringFormatter {
+	public abstract fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public abstract fun formatSeverity (Lco/touchlab/kermit/Severity;)Ljava/lang/String;
+	public abstract fun formatTag-ntQDErM (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class co/touchlab/kermit/MessageStringFormatter$DefaultImpls {
+	public static fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/MessageStringFormatter;Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static fun formatSeverity (Lco/touchlab/kermit/MessageStringFormatter;Lco/touchlab/kermit/Severity;)Ljava/lang/String;
+	public static fun formatTag-ntQDErM (Lco/touchlab/kermit/MessageStringFormatter;Ljava/lang/String;)Ljava/lang/String;
+}
+
 public abstract interface class co/touchlab/kermit/MutableLoggerConfig : co/touchlab/kermit/LoggerConfig {
 	public abstract fun getLogWriterList ()Ljava/util/List;
 	public abstract fun getMinSeverity ()Lco/touchlab/kermit/Severity;
@@ -66,15 +82,16 @@ public final class co/touchlab/kermit/MutableLoggerConfigKt {
 	public static synthetic fun mutableLoggerConfigInit$default ([Lco/touchlab/kermit/LogWriter;Lco/touchlab/kermit/Severity;ILjava/lang/Object;)Lco/touchlab/kermit/MutableLoggerConfig;
 }
 
-public final class co/touchlab/kermit/NoTagLogFormatter : co/touchlab/kermit/LogFormatter {
-	public static final field INSTANCE Lco/touchlab/kermit/NoTagLogFormatter;
-	public fun formatMessage (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public fun formatTag (Ljava/lang/String;)Ljava/lang/String;
+public final class co/touchlab/kermit/NoTagFormatter : co/touchlab/kermit/MessageStringFormatter {
+	public static final field INSTANCE Lco/touchlab/kermit/NoTagFormatter;
+	public fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun formatSeverity (Lco/touchlab/kermit/Severity;)Ljava/lang/String;
+	public fun formatTag-ntQDErM (Ljava/lang/String;)Ljava/lang/String;
 }
 
 public final class co/touchlab/kermit/PlatformLogWriterKt {
-	public static final fun platformLogWriter (Lco/touchlab/kermit/LogFormatter;)Lco/touchlab/kermit/LogWriter;
-	public static synthetic fun platformLogWriter$default (Lco/touchlab/kermit/LogFormatter;ILjava/lang/Object;)Lco/touchlab/kermit/LogWriter;
+	public static final fun platformLogWriter (Lco/touchlab/kermit/MessageStringFormatter;)Lco/touchlab/kermit/LogWriter;
+	public static synthetic fun platformLogWriter$default (Lco/touchlab/kermit/MessageStringFormatter;ILjava/lang/Object;)Lco/touchlab/kermit/LogWriter;
 }
 
 public final class co/touchlab/kermit/Severity : java/lang/Enum {
@@ -88,10 +105,11 @@ public final class co/touchlab/kermit/Severity : java/lang/Enum {
 	public static fun values ()[Lco/touchlab/kermit/Severity;
 }
 
-public final class co/touchlab/kermit/SimpleLogFormatter : co/touchlab/kermit/LogFormatter {
-	public static final field INSTANCE Lco/touchlab/kermit/SimpleLogFormatter;
-	public fun formatMessage (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public fun formatTag (Ljava/lang/String;)Ljava/lang/String;
+public final class co/touchlab/kermit/SimpleFormatter : co/touchlab/kermit/MessageStringFormatter {
+	public static final field INSTANCE Lco/touchlab/kermit/SimpleFormatter;
+	public fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun formatSeverity (Lco/touchlab/kermit/Severity;)Ljava/lang/String;
+	public fun formatTag-ntQDErM (Ljava/lang/String;)Ljava/lang/String;
 }
 
 public final class co/touchlab/kermit/StaticConfig : co/touchlab/kermit/LoggerConfig {
@@ -111,8 +129,21 @@ public final class co/touchlab/kermit/StaticConfig : co/touchlab/kermit/LoggerCo
 
 public final class co/touchlab/kermit/SystemWriter : co/touchlab/kermit/LogWriter {
 	public fun <init> ()V
-	public fun <init> (Lco/touchlab/kermit/LogFormatter;)V
-	public synthetic fun <init> (Lco/touchlab/kermit/LogFormatter;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lco/touchlab/kermit/MessageStringFormatter;)V
+	public synthetic fun <init> (Lco/touchlab/kermit/MessageStringFormatter;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun log (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
+}
+
+public final class co/touchlab/kermit/Tag {
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lco/touchlab/kermit/Tag;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
 }
 
