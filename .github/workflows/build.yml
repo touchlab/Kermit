@@ -66,13 +66,6 @@ jobs:
           S3_BUILD_CACHE_ACCESS_KEY_ID: ${{ secrets.S3_BUILD_CACHE_ACCESS_KEY_ID }}
           S3_BUILD_CACHE_SECRET_KEY: ${{ secrets.S3_BUILD_CACHE_SECRET_KEY }}
           CI: "true"
-      - name: Setup for samples testing
-        if: matrix.os == 'macOS-latest'
-        shell: bash
-        env:
-          GOOGLE_SERVICES: ${{ secrets.SERVICES_SECRET }}
-        run: |
-          echo $GOOGLE_SERVICES | base64 --decode > samples/sample-crashlytics/app/google-services.json
       - name: script
         if: matrix.os == 'macOS-latest'
         env:
