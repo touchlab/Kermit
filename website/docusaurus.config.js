@@ -104,12 +104,6 @@ const config = {
         colorMode: {
           defaultMode: 'dark',
         },
-        metadata: [
-            {name: 'robots', content: 'noindex,follow'},
-            {name: 'Cache-Control', content: 'no-cache, no-store, must-revalidate'},
-            {name: 'Pragma', content: 'no-cache'},
-            {name: 'Expires', content: '0'},
-        ],
         navbar: {
           title: touchlabConfig.docusaurusConfig.title,
           // style: 'dark',
