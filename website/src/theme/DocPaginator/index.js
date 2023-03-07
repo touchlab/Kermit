@@ -8,7 +8,7 @@ export default function DocPaginatorWrapper(props) {
   return (
     <>
         <DocPaginator {...props} />
-        <div className="mt-8"><TouchlabPro/></div>
+        <div className="mt-8"><NewsletterDoc/></div>
     </>
   );
 }
