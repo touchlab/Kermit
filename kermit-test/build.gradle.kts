@@ -89,6 +89,7 @@ kotlin {
 }
 
 android {
+    namespace = "co.touchlab.kermit.test"
     compileSdk = 30
     defaultConfig {
         minSdk = 16
