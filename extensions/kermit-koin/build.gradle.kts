@@ -53,33 +53,13 @@ kotlin {
     // androidNativeX86()
     // androidNativeX64()
 
-    val commonMain by sourceSets.getting
-    val commonTest by sourceSets.getting
-
-    val jsMain by sourceSets.getting
-    val jsTest by sourceSets.getting
-
-    val jvmMain by sourceSets.getting {
-        dependsOn(commonMain)
-    }
-
-    val androidMain by sourceSets.getting {
-        dependsOn(commonMain)
-    }
-
-    commonMain.dependencies {
-        implementation(project(":kermit"))
-        implementation("io.insert-koin:koin-core:3.1.5")
-    }
-
-    jsMain.dependencies {
-        implementation(kotlin("stdlib-js"))
-    }
-
-    jvmMain.dependencies {
-    }
-
-    androidMain.dependencies {
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(project(":kermit"))
+                implementation(libs.koin)
+            }
+        }
     }
 }
 
