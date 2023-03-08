@@ -28,7 +28,7 @@ bugsnag = "5.26.0"
 
 firebase-bom = "28.4.0"
 
-koin = "3.1.5"
+koin = "3.3.3"
 coroutines = "1.6.4"
 roboelectric = "4.8.2"
 buildConfig = "2.1.0"
