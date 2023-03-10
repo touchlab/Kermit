@@ -1,4 +1,4 @@
-public final class co/touchlab/kermit/BuildConfig {
+public final class co/touchlab/kermit/test/BuildConfig {
 	public static final field BUILD_TYPE Ljava/lang/String;
 	public static final field DEBUG Z
 	public static final field LIBRARY_PACKAGE_NAME Ljava/lang/String;
