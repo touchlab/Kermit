@@ -22,6 +22,7 @@ repositories {
 val KERMIT_VERSION: String by project
 
 android {
+    namespace = "co.touchlab.KermitSample"
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()

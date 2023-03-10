@@ -15,6 +15,7 @@ plugins {
 }
 
 android {
+    namespace = "co.touchlab.kermitsample"
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()

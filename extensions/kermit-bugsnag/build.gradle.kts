@@ -36,6 +36,7 @@ kotlin {
 }
 
 android {
+    namespace = "co.touchlab.kermit.bugsnag"
     compileSdk = 30
     defaultConfig {
         minSdk = 16

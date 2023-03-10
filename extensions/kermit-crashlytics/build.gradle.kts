@@ -37,6 +37,7 @@ kotlin {
 }
 
 android {
+    namespace = "co.touchlab.kermit.crashlytics"
     compileSdk = 30
     defaultConfig {
         minSdk = 16
