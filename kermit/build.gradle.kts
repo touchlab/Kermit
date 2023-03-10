@@ -35,6 +35,7 @@ kotlin {
     watchosArm32()
     watchosArm64()
     watchosSimulatorArm64()
+    watchosDeviceArm64()
     watchosX86()
     watchosX64()
     tvosArm64()
@@ -61,7 +62,7 @@ kotlin {
         dependencies {
             implementation("org.jetbrains.kotlin:kotlin-test-common")
             implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
-            implementation(libs.stately.collections)
+//            implementation(libs.stately.collections)
             implementation(libs.testhelp)
             implementation(project(":kermit-test"))
         }
