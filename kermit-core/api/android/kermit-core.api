@@ -39,7 +39,6 @@ public final class co/touchlab/kermit/LogcatWriter : co/touchlab/kermit/LogWrite
 	public fun <init> ()V
 	public fun <init> (Lco/touchlab/kermit/MessageStringFormatter;)V
 	public synthetic fun <init> (Lco/touchlab/kermit/MessageStringFormatter;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun isLoggable (Ljava/lang/String;Lco/touchlab/kermit/Severity;)Z
 	public fun log (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
 }
 
