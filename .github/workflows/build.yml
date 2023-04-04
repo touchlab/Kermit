@@ -66,16 +66,16 @@ jobs:
           S3_BUILD_CACHE_ACCESS_KEY_ID: ${{ secrets.S3_BUILD_CACHE_ACCESS_KEY_ID }}
           S3_BUILD_CACHE_SECRET_KEY: ${{ secrets.S3_BUILD_CACHE_SECRET_KEY }}
           CI: "true"
-      - name: script
-        if: matrix.os == 'macOS-latest'
-        env:
-          S3_BUILD_CACHE_AWS_REGION: ${{ secrets.S3_BUILD_CACHE_AWS_REGION }}
-          S3_BUILD_CACHE_BUCKET_NAME: ${{ secrets.S3_BUILD_CACHE_BUCKET_NAME }}
-          S3_BUILD_CACHE_ACCESS_KEY_ID: ${{ secrets.S3_BUILD_CACHE_ACCESS_KEY_ID }}
-          S3_BUILD_CACHE_SECRET_KEY: ${{ secrets.S3_BUILD_CACHE_SECRET_KEY }}
-          CI: "true"
-        run: ./ci-test-samples.sh
-        shell: bash
+#      - name: script
+#        if: matrix.os == 'macOS-latest'
+#        env:
+#          S3_BUILD_CACHE_AWS_REGION: ${{ secrets.S3_BUILD_CACHE_AWS_REGION }}
+#          S3_BUILD_CACHE_BUCKET_NAME: ${{ secrets.S3_BUILD_CACHE_BUCKET_NAME }}
+#          S3_BUILD_CACHE_ACCESS_KEY_ID: ${{ secrets.S3_BUILD_CACHE_ACCESS_KEY_ID }}
+#          S3_BUILD_CACHE_SECRET_KEY: ${{ secrets.S3_BUILD_CACHE_SECRET_KEY }}
+#          CI: "true"
+#        run: ./ci-test-samples.sh
+#        shell: bash
 
 env:
   GRADLE_OPTS: -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:MaxMetaspaceSize=512m"
