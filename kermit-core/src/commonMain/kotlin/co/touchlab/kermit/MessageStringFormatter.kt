@@ -35,9 +35,9 @@ interface MessageStringFormatter {
 }
 
 @JvmInline
-value class Tag(internal val tag:String)
+value class Tag(val tag:String)
 @JvmInline
-value class Message(internal val message: String)
+value class Message(val message: String)
 
 /**
  * Single-line string with severity, tag, and message.
