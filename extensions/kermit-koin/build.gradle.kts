@@ -35,18 +35,16 @@ kotlin {
     watchosArm32()
     watchosArm64()
     watchosSimulatorArm64()
-    watchosX86()
     watchosX64()
     tvosArm64()
     tvosSimulatorArm64()
     tvosX64()
 
     linuxX64()
-    linuxArm32Hfp()
-//    linuxMips32()
+
+    mingwX64()
 
     // TODO: These targets aren't supported by Koin yet:
-    // mingwX64()
     // mingwX86()
     // androidNativeArm32()
     // androidNativeArm64()
