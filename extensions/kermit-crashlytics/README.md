@@ -38,8 +38,9 @@ a gap where some other failure may happen but logging is not capturing info.
 
 ### iOS
 
-For iOS, besides regular logging, you will also want to configure Kotlin's uncaught exception handling. `kermit-crashlytics` 
-provides the `setCrashlyticsUnhandledExceptionHook` helper function to handle this for you.
+For iOS, besides regular logging, you will also want to configure Kotlin's uncaught exception handling.  This is
+done via the underlying [CrashKiOS](https://github.com/touchlab/CrashKiOS) library which provides the 
+`setCrashlyticsUnhandledExceptionHook` helper function to handle this for you.
 
 If you don't need to make kermit logging calls from Swift/Objective C code, we recommend not exporting Kermit in the 
 framework exposed to your iOS app. To setup Kermit configuration you can make a top level helper method in
@@ -51,7 +52,7 @@ almost always the best option. Here is a basic example.
 // in Kermit/AppInit.kt
 fun setupKermit() {
     Logger.addLogWriter(CrashlyticsLogWriter())
-    setCrashlyticsUnhandledExceptionHook(Logger)
+    setCrashlyticsUnhandledExceptionHook()
 }
 ```
 
