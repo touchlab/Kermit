@@ -135,3 +135,8 @@ class MyViewModel:ViewModel {
 ```
 
 Platform-specific loggers can be configured to ignore tags on output, or you can customize their display easily. We'll discuss these options more in [Configuration](/configuration/index.md).
+
+## Deprecated Gradle properties
+
+Per the official [Kotlin documentation](https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#deprecated-gradle-properties-for-hierarchical-structure-support) we took the opportunity 
+with the Kermit 2.0 release to remove deprecated `gradle.properties` values.  We encourage you to do the same!
