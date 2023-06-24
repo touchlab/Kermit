@@ -88,7 +88,7 @@ To log from non-Kotlin clients, that don't support calling Kotlin's default para
 
 :::
 
-For each severity, there are two methods. One takes a `String` log message directly, the other takes a function parameter that returns a string. The function is only evaluated if the log will be written. Which you use is personal preference. They both will log to the same places, but the function paramter version may avoid unecessary `String` creation and evaluation.
+For each severity, there are two methods. One takes a `String` log message directly, the other takes a function parameter that returns a string. The function is only evaluated if the log will be written. Which you use is personal preference. They both will log to the same places, but the function parameter version may avoid unecessary `String` creation and evaluation.
 
 Here are what the `w` method definitions look like:
 
