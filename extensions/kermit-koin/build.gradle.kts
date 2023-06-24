@@ -44,6 +44,8 @@ kotlin {
 
     mingwX64()
 
+    mingwX64()
+
     // TODO: These targets aren't supported by Koin yet:
     // mingwX86()
     // androidNativeArm32()
