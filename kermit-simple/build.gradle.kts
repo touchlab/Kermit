@@ -16,7 +16,7 @@ plugins {
 }
 
 kotlin {
-    js(BOTH) {
+    js {
         browser()
         nodejs()
     }

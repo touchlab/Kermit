@@ -10,4 +10,5 @@
 
 package co.touchlab.kermit
 
+@OptIn(ExperimentalKermitApi::class)
 object CustomGlobalLogger : Logger(StaticConfig(logWriterList = listOf(TestLogWriter(Severity.Debug))))

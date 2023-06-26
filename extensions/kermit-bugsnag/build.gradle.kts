@@ -18,7 +18,7 @@ plugins {
 
 apply(from = "../../gradle/configure-crash-logger.gradle")
 kotlin {
-    android {
+    androidTarget {
         publishAllLibraryVariants()
     }
 

@@ -5,7 +5,7 @@ targetSdk = "33"
 compileSdk = "33"
 
 # Dependencies
-kotlin = "1.8.0"
+kotlin = "1.9.0-RC"
 binaryCompatability = "0.11.0"
 
 androidx-core = "1.8.0"

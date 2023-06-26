@@ -17,11 +17,11 @@ plugins {
 }
 
 kotlin {
-    android {
+    androidTarget {
         publishAllLibraryVariants()
     }
     jvm()
-    js(BOTH) {
+    js {
         browser()
         nodejs()
     }
@@ -62,7 +62,6 @@ kotlin {
         dependencies {
             implementation("org.jetbrains.kotlin:kotlin-test-common")
             implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
-//            implementation(libs.stately.collections)
             implementation(libs.testhelp)
             implementation(project(":kermit-test"))
         }

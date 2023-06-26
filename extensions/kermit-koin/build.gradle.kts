@@ -17,11 +17,11 @@ plugins {
 }
 
 kotlin {
-    android {
+    androidTarget {
         publishAllLibraryVariants()
     }
     jvm()
-    js(BOTH) {
+    js {
         browser()
         nodejs()
     }

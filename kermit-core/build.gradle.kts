@@ -17,11 +17,11 @@ plugins {
 }
 
 kotlin {
-    android {
+    androidTarget {
         publishAllLibraryVariants()
     }
     jvm()
-    js(BOTH) {
+    js {
         browser()
         nodejs()
     }
@@ -75,7 +75,7 @@ kotlin {
     val androidMain by sourceSets.getting {
         dependsOn(commonJvmMain)
     }
-    val androidTest by sourceSets.getting {
+    val androidUnitTest by sourceSets.getting {
         dependsOn(androidMain)
         dependsOn(commonJvmTest)
     }
@@ -136,7 +136,7 @@ kotlin {
         implementation(libs.testhelp)
     }
 
-    androidTest.dependencies {
+    androidUnitTest.dependencies {
         implementation("org.jetbrains.kotlin:kotlin-test")
         implementation("org.jetbrains.kotlin:kotlin-test-junit")
         implementation("androidx.test:runner:1.4.0")
