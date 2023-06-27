@@ -50,7 +50,6 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation(kotlin("stdlib"))
     implementation(libs.bundles.android)
     implementation("co.touchlab:kermit:${KERMIT_VERSION}")
 }

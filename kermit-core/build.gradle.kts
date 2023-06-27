@@ -154,7 +154,6 @@ kotlin {
     }
 
     jsMain.dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-js")
     }
 
     jsTest.dependencies {

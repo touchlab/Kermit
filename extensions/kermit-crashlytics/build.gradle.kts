@@ -31,7 +31,6 @@ kotlin {
 
     val androidMain by sourceSets.getting {
         dependencies {
-            implementation("org.jetbrains.kotlin:kotlin-stdlib")
         }
     }
 }

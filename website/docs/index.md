@@ -26,7 +26,7 @@ The Kermit dependency should be added to your `commonMain` source set in your Ko
 ```kotlin
 commonMain {
     dependencies {
-        implementation(kotlin("stdlib-common"))
+        ...
         implementation("co.touchlab:kermit:{{LATEST_GITHUB_VERSION}}") //Add latest version
     }
 }

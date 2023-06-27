@@ -82,7 +82,6 @@ kotlin {
     val jsMain by sourceSets.getting {
         dependsOn(nonKotlinMain)
         dependencies {
-            implementation("org.jetbrains.kotlin:kotlin-stdlib-js")
         }
     }
 

@@ -55,7 +55,6 @@ kotlin {
 
         val androidMain by sourceSets.getting {
             dependencies {
-                implementation(kotlin("stdlib"))
             }
         }
         val androidUnitTest by sourceSets.getting {

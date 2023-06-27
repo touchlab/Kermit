@@ -74,7 +74,6 @@ kotlin {
     }
 
     jsMain.dependencies {
-        implementation(kotlin("stdlib-js"))
         implementation(kotlin("test-js"))
     }
 

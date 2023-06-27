@@ -53,7 +53,6 @@ kotlin {
 
     commonMain.dependencies {
         implementation project(":kermit-core")
-        implementation "org.jetbrains.kotlin:kotlin-stdlib-common"
     }
 
     commonTest.dependencies {

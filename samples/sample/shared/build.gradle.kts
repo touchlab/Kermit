@@ -58,7 +58,6 @@ kotlin {
 
         val androidMain by sourceSets.getting {
             dependencies {
-                implementation(kotlin("stdlib"))
             }
         }
         val androidUnitTest by sourceSets.getting {
@@ -71,7 +70,7 @@ kotlin {
         }
         val jsMain by sourceSets.getting {
             dependencies {
-                implementation(kotlin("stdlib-js"))
+//                implementation(kotlin("stdlib-js"))
             }
         }
         val jsTest by sourceSets.getting {
