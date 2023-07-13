@@ -109,6 +109,7 @@ public final class co/touchlab/kermit/Severity : java/lang/Enum {
 	public static final field Info Lco/touchlab/kermit/Severity;
 	public static final field Verbose Lco/touchlab/kermit/Severity;
 	public static final field Warn Lco/touchlab/kermit/Severity;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lco/touchlab/kermit/Severity;
 	public static fun values ()[Lco/touchlab/kermit/Severity;
 }

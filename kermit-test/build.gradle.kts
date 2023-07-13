@@ -30,23 +30,18 @@ kotlin {
     macosArm64()
     iosX64()
     iosArm64()
-    iosArm32()
     iosSimulatorArm64()
     watchosArm32()
     watchosArm64()
     watchosSimulatorArm64()
     watchosDeviceArm64()
-    watchosX86()
     watchosX64()
     tvosArm64()
     tvosSimulatorArm64()
     tvosX64()
 
     mingwX64()
-    mingwX86()
     linuxX64()
-    linuxArm32Hfp()
-    linuxMips32()
 
     androidNativeArm32()
     androidNativeArm64()
@@ -68,22 +63,19 @@ kotlin {
     }
 
     commonMain.dependencies {
-        implementation(kotlin("test-common"))
+        implementation(kotlin("test"))
         api(project(":kermit-core"))
         implementation(libs.stately.collections)
     }
 
     jsMain.dependencies {
-        implementation(kotlin("test-js"))
     }
 
     jvmMain.dependencies {
-        implementation(kotlin("test"))
         implementation(kotlin("test-junit"))
     }
 
     androidMain.dependencies {
-        implementation(kotlin("test"))
         implementation(kotlin("test-junit"))
     }
 }
