@@ -79,6 +79,15 @@ struct ContentView: View {
                 .foregroundColor(.white)
                 .font(.title)
             }
+            Button(action: {
+                // Using kermit-simple module
+                LoggerKt.i(string: "Hello from Swift")
+            }){
+                Text("Log from Swift").padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .font(.title)
+            }
         }
     }
 }

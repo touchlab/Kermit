@@ -31,9 +31,8 @@ val KERMIT_VERSION: String by project
 
 kotlin {
     version = "0.0.1"
-    android()
+    androidTarget()
     ios()
-    // Note: iosSimulatorArm64 target requires that all dependencies have M1 support
     iosSimulatorArm64()
 
     sourceSets {
@@ -66,6 +65,7 @@ kotlin {
 
         val iosMain by sourceSets.getting {
             dependencies {
+                // Only if you want to talk to Kermit from Swift
                 api("co.touchlab:kermit-simple:${KERMIT_VERSION}")
             }
         }
@@ -88,6 +88,7 @@ kotlin {
         summary = "Sample for Kermit"
         homepage = "https://www.touchlab.co"
         framework {
+            // Only if you want to talk to Kermit from Swift
             export("co.touchlab:kermit-simple:${KERMIT_VERSION}")
             isStatic = true
         }
