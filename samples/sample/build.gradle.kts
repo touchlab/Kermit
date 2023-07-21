@@ -31,5 +31,5 @@ allprojects {
     }
 }
 tasks.register("ciTest") {
-    dependsOn(":app:build", ":shared:build")
+    dependsOn("kotlinUpgradeYarnLock", ":app:build", ":shared:build")
 }

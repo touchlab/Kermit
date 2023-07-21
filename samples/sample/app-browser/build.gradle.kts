@@ -8,23 +8,29 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
-
 plugins {
-    kotlin("js")
+    kotlin("multiplatform")
 }
 
-kotlin.target.browser {
-    runTask {
-        outputFileName = "app-browser.js"
+val KERMIT_VERSION: String by project
+
+kotlin {
+    js {
+        browser {
+            runTask {
+                outputFileName = "app-browser.js"
+            }
+            binaries.executable()
+        }
     }
-}
+    sourceSets {
+        val jsMain by getting {
+            dependencies {
+                implementation(project(":shared"))
+                implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.3")
 
-dependencies {
-    implementation(project(":shared"))
-    implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.3")
-}
-
-tasks.withType<KotlinJsCompile> {
-    kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
+                implementation("co.touchlab:kermit-simple:${KERMIT_VERSION}")
+            }
+        }
+    }
 }

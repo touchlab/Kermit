@@ -16,7 +16,7 @@ import kotlinx.html.button
 import kotlinx.html.div
 import kotlinx.html.dom.append
 import kotlinx.html.js.onClickFunction
-import kotlin.browser.document
+import kotlinx.browser.document
 
 val common = SampleCommon()
 

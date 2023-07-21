@@ -32,9 +32,8 @@ val KERMIT_VERSION: String by project
 version = "0.0.1"
 
 kotlin {
-    android()
+    androidTarget()
     ios()
-    // Note: iosSimulatorArm64 target requires that all dependencies have M1 support
     iosSimulatorArm64()
     js {
         browser()
@@ -49,8 +48,7 @@ kotlin {
 
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
+                implementation(kotlin("test"))
 
                 implementation("co.touchlab:kermit-test:${KERMIT_VERSION}")
             }
@@ -62,25 +60,45 @@ kotlin {
         }
         val androidUnitTest by sourceSets.getting {
             dependencies {
-                implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
             }
         }
         val iosMain by sourceSets.getting {
+            dependsOn(commonMain)
+            dependencies {
+                // Only if you want to talk to Kermit from Swift
+                api("co.touchlab:kermit-simple:${KERMIT_VERSION}")
+            }
         }
+        val iosTest by sourceSets.getting {
+            dependencies {
+            }
+        }
+
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
+        }
+        val iosSimulatorArm64Test by getting {
+            dependsOn(iosTest)
+        }
+
         val jsMain by sourceSets.getting {
             dependencies {
-//                implementation(kotlin("stdlib-js"))
             }
         }
         val jsTest by sourceSets.getting {
             dependencies {
-                implementation(kotlin("test-js"))
             }
         }
     }
     cocoapods {
         summary = "Sample for Kermit"
         homepage = "https://www.touchlab.co"
+        framework {
+            isStatic = true
+
+            // Only if you want to talk to Kermit from Swift
+            export("co.touchlab:kermit-simple:${KERMIT_VERSION}")
+        }
     }
 }

@@ -12,7 +12,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 // etc
-                api("co.touchlab:kermit:{{LATEST_GITHUB_VERSION}}")
+                implementation("co.touchlab:kermit:{{LATEST_GITHUB_VERSION}}")
             }
         }
 
@@ -26,7 +26,6 @@ kotlin {
 
     cocoapods {
         framework {
-            export("co.touchlab:kermit:{{LATEST_GITHUB_VERSION}}")
             export("co.touchlab:kermit-simple:{{LATEST_GITHUB_VERSION}}")
         }
     }

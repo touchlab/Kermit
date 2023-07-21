@@ -18,7 +18,7 @@ By default `Kermit` provides default `LogWriter` for each platform
 These can be created and passed into the `Logger` object during initialization
 
 ```kotlin
-Logger.setLogWriters(listOf(LogcatWriter(), CommonWriter())
+Logger.setLogWriters(listOf(LogcatWriter(), CommonWriter()))
 ```
 
 Selecting loggers for each platform can either be done with platform-specific entry points, or using an expect/actual factory function.
