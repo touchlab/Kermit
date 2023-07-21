@@ -17,11 +17,11 @@ plugins {
 }
 
 kotlin {
-    android {
+    androidTarget {
         publishAllLibraryVariants()
     }
     jvm()
-    js(BOTH) {
+    js {
         browser()
         nodejs()
     }
@@ -30,23 +30,18 @@ kotlin {
     macosArm64()
     iosX64()
     iosArm64()
-    iosArm32()
     iosSimulatorArm64()
     watchosArm32()
     watchosArm64()
     watchosSimulatorArm64()
     watchosDeviceArm64()
-    watchosX86()
     watchosX64()
     tvosArm64()
     tvosSimulatorArm64()
     tvosX64()
 
     mingwX64()
-    mingwX86()
     linuxX64()
-    linuxArm32Hfp()
-    linuxMips32()
 
     androidNativeArm32()
     androidNativeArm64()
@@ -62,7 +57,6 @@ kotlin {
         dependencies {
             implementation("org.jetbrains.kotlin:kotlin-test-common")
             implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
-//            implementation(libs.stately.collections)
             implementation(libs.testhelp)
             implementation(project(":kermit-test"))
         }
@@ -83,7 +77,6 @@ kotlin {
     val jsMain by sourceSets.getting {
         dependsOn(nonKotlinMain)
         dependencies {
-            implementation("org.jetbrains.kotlin:kotlin-stdlib-js")
         }
     }
 

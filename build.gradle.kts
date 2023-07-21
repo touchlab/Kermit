@@ -20,10 +20,10 @@ buildscript {
 
 plugins {
     kotlin("multiplatform") apply false
-    id("com.android.library") version "7.3.1" apply false
+    id("com.android.library") version "7.4.2" apply false
     id("com.github.gmazzo.buildconfig") version "2.1.0" apply false
-    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.12.1"
-    id("org.jetbrains.dokka") version "1.7.20" apply false
+    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.13.2"
+    id("org.jetbrains.dokka") version "1.8.20" apply false
     id("co.touchlab.touchlabtools.docusaurusosstemplate") version "0.1.10"
 }
 apiValidation {
@@ -48,7 +48,6 @@ allprojects {
 allprojects {
     apply(plugin = "org.jetbrains.dokka")
     repositories {
-        mavenLocal()
         mavenCentral()
         google()
     }

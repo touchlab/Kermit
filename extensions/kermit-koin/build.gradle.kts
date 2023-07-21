@@ -17,11 +17,11 @@ plugins {
 }
 
 kotlin {
-    android {
+    androidTarget {
         publishAllLibraryVariants()
     }
     jvm()
-    js(BOTH) {
+    js {
         browser()
         nodejs()
     }
@@ -30,7 +30,6 @@ kotlin {
     macosArm64()
     iosX64()
     iosArm64()
-    iosArm32()
     iosSimulatorArm64()
     watchosArm32()
     watchosArm64()
@@ -45,7 +44,6 @@ kotlin {
     mingwX64()
 
     // TODO: These targets aren't supported by Koin yet:
-    // mingwX86()
     // androidNativeArm32()
     // androidNativeArm64()
     // androidNativeX86()

@@ -10,6 +10,7 @@
 
 package co.touchlab.kermit
 
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ptr
 import platform.darwin.OS_LOG_DEFAULT
 import platform.darwin.OS_LOG_TYPE_DEBUG
@@ -19,6 +20,7 @@ import platform.darwin.OS_LOG_TYPE_FAULT
 import platform.darwin.OS_LOG_TYPE_INFO
 import platform.darwin.__dso_handle
 import platform.darwin._os_log_internal
+import kotlin.experimental.ExperimentalNativeApi
 
 /**
  * Write log statements to darwin oslog.
@@ -49,6 +51,7 @@ open class OSLogWriter internal constructor(
         }
     }
 
+    @OptIn(ExperimentalNativeApi::class)
     open fun logThrowable(osLogSeverity: UByte, throwable: Throwable){
         darwinLogger.log(osLogSeverity, throwable.getStackTrace().joinToString("\n"))
     }
@@ -71,6 +74,7 @@ internal interface DarwinLogger {
 }
 
 private object DarwinLoggerActual : DarwinLogger {
+    @OptIn(ExperimentalForeignApi::class)
     override fun log(osLogSeverity: UByte, message: String) {
         _os_log_internal(
             __dso_handle.ptr,

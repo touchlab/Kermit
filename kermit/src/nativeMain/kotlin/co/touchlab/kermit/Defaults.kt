@@ -10,7 +10,7 @@
 
 package co.touchlab.kermit
 
-import kotlin.native.concurrent.AtomicReference
+import kotlin.concurrent.AtomicReference
 
 private val internalDefaultTag = AtomicReference("")
 
