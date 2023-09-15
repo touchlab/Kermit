@@ -13,18 +13,17 @@
 
 buildscript {
     extra["kotlin_plugin_id"] = "co.touchlab.kermit"
-    dependencies {
-        classpath("com.vanniktech:gradle-maven-publish-plugin:0.23.1")
-    }
 }
 
 plugins {
-    kotlin("multiplatform") apply false
-    id("com.android.library") version "7.4.2" apply false
-    id("com.github.gmazzo.buildconfig") version "2.1.0" apply false
-    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.13.2"
-    id("org.jetbrains.dokka") version "1.8.20" apply false
-    id("co.touchlab.touchlabtools.docusaurusosstemplate") version "0.1.10"
+    alias(libs.plugins.maven.publish) apply false
+    alias(libs.plugins.buildConfig) apply false
+    alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.binaryCompatability)
+    alias(libs.plugins.dokka) apply false
+    alias(libs.plugins.touchlab.docusaurus.template)
+    alias(libs.plugins.android.library) apply false
+
 }
 apiValidation {
     nonPublicMarkers.add("co.touchlab.kermit.ExperimentalKermitApi")

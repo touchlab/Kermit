@@ -14,9 +14,11 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
+    id("com.vanniktech.maven.publish")
 }
 
 kotlin {
+    targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()
     }
@@ -47,81 +49,74 @@ kotlin {
     androidNativeArm64()
     androidNativeX86()
     androidNativeX64()
-
-    val commonMain by sourceSets.getting {
-        dependencies {
-            api(project(":kermit-core"))
+    
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                api(project(":kermit-core"))
+            }
         }
-    }
-    val commonTest by sourceSets.getting {
-        dependencies {
-            implementation("org.jetbrains.kotlin:kotlin-test-common")
-            implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
-            implementation(libs.testhelp)
-            implementation(project(":kermit-test"))
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.testhelp)
+                implementation(project(":kermit-test"))
+            }
         }
-    }
 
-    val nonKotlinMain by sourceSets.creating {
-        dependsOn(commonMain)
-    }
-
-    val nonKotlinTest by sourceSets.creating {
-        dependsOn(commonTest)
-    }
-
-    val nativeMain by sourceSets.creating {
-        dependsOn(nonKotlinMain)
-    }
-
-    val jsMain by sourceSets.getting {
-        dependsOn(nonKotlinMain)
-        dependencies {
+        val nonKotlinMain by creating {
+            dependsOn(commonMain)
         }
-    }
 
-    val jsTest by sourceSets.getting {
-        dependsOn(nonKotlinTest)
-        dependencies {
-            implementation("org.jetbrains.kotlin:kotlin-test-js")
+        val nonKotlinTest by creating {
+            dependsOn(commonTest)
         }
-    }
 
-    val commonJvmMain by sourceSets.creating {
-        dependsOn(commonMain)
-        dependencies {
-            implementation("org.jetbrains.kotlin:kotlin-test")
-            implementation("org.jetbrains.kotlin:kotlin-test-junit")
+        val nativeMain by getting {
+            dependsOn(nonKotlinMain)
         }
-    }
 
-    val jvmMain by sourceSets.getting {
-        dependsOn(commonJvmMain)
-    }
+        val jsMain by getting {
+            dependsOn(nonKotlinMain)
+        }
 
-    val androidMain by sourceSets.getting {
-        dependsOn(commonJvmMain)
-    }
+        val jsTest by getting {
+            dependsOn(nonKotlinTest)
+        }
 
-    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
-        val mainSourceSet = compilations.getByName("main").defaultSourceSet
-        val testSourceSet = compilations.getByName("test").defaultSourceSet
+        val commonJvmMain by creating {
+            dependsOn(commonMain)
+            dependencies {
+                implementation(kotlin("test-junit"))
+            }
+        }
 
-        mainSourceSet.dependsOn(nativeMain)
-        testSourceSet.dependsOn(nonKotlinTest)
+        val jvmMain by getting {
+            dependsOn(commonJvmMain)
+        }
+
+        val androidMain by getting {
+            dependsOn(commonJvmMain)
+        }
+
+        targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
+            val mainSourceSet = compilations.getByName("main").defaultSourceSet
+            val testSourceSet = compilations.getByName("test").defaultSourceSet
+
+            mainSourceSet.dependsOn(nativeMain)
+            testSourceSet.dependsOn(nonKotlinTest)
+        }   
     }
 }
 
 android {
     namespace = "co.touchlab.kermit"
-    compileSdk = 30
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 16
+        minSdk = libs.versions.minSdk.get().toInt()
     }
-
-    val main by sourceSets.getting {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
-
-apply(plugin = "com.vanniktech.maven.publish")

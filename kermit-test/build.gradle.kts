@@ -14,9 +14,11 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
+    id("com.vanniktech.maven.publish")
 }
 
 kotlin {
+    targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()
     }
@@ -48,48 +50,25 @@ kotlin {
     androidNativeX86()
     androidNativeX64()
 
-    val commonMain by sourceSets.getting
-    val commonTest by sourceSets.getting
-
-    val jsMain by sourceSets.getting
-    val jsTest by sourceSets.getting
-
-    val jvmMain by sourceSets.getting {
-        dependsOn(commonMain)
-    }
-
-    val androidMain by sourceSets.getting {
-        dependsOn(commonMain)
-    }
-
-    commonMain.dependencies {
-        implementation(kotlin("test"))
-        api(project(":kermit-core"))
-        implementation(libs.stately.collections)
-    }
-
-    jsMain.dependencies {
-    }
-
-    jvmMain.dependencies {
-        implementation(kotlin("test-junit"))
-    }
-
-    androidMain.dependencies {
-        implementation(kotlin("test-junit"))
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation(kotlin("test"))
+                api(project(":kermit-core"))
+                implementation(libs.stately.collections)
+            }
+        }
     }
 }
 
 android {
     namespace = "co.touchlab.kermit.test"
-    compileSdk = 30
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 16
+        minSdk = libs.versions.minSdk.get().toInt()
     }
-
-    val main by sourceSets.getting {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
-
-apply(plugin = "com.vanniktech.maven.publish")

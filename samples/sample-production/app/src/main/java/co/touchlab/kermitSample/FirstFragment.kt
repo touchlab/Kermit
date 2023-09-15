@@ -8,12 +8,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-package co.touchlab.KermitSample
+package co.touchlab.kermitSample
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import co.touchlab.KermitSample.databinding.FragmentFirstBinding
+import co.touchlab.kermitSample.databinding.FragmentFirstBinding
 import co.touchlab.kermit.Logger
 import co.touchlab.kermitsample.SampleCommon
 

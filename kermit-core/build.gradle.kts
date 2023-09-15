@@ -14,9 +14,11 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
+    id("com.vanniktech.maven.publish")
 }
 
 kotlin {
+    targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()
     }
@@ -47,125 +49,102 @@ kotlin {
     androidNativeArm64()
     androidNativeX86()
     androidNativeX64()
-
-    val commonMain by sourceSets.getting
-    val commonTest by sourceSets.getting
-
-    val commonJvmMain by sourceSets.creating {
-        dependsOn(commonMain)
-    }
-    val commonJvmTest by sourceSets.creating {
-        dependsOn(commonTest)
-        dependsOn(commonJvmMain)
-    }
-
-    val jvmMain by sourceSets.getting {
-        dependsOn(commonJvmMain)
-    }
-    val jvmTest by sourceSets.getting {
-        dependsOn(jvmMain)
-        dependsOn(commonJvmTest)
-    }
-
-    val androidMain by sourceSets.getting {
-        dependsOn(commonJvmMain)
-    }
-    val androidUnitTest by sourceSets.getting {
-        dependsOn(androidMain)
-        dependsOn(commonJvmTest)
-    }
-
-    val jsMain by sourceSets.getting
-    val jsTest by sourceSets.getting
-
-    val nativeMain by sourceSets.creating
-    nativeMain.dependsOn(commonMain)
-
-    val darwinMain by sourceSets.creating {
-        dependsOn(nativeMain)
-    }
-
-    val darwinTest by sourceSets.creating {
-        dependsOn(commonTest)
-    }
-
-    val linuxMain by sourceSets.creating {
-        dependsOn(nativeMain)
-    }
-
-    val mingwMain by sourceSets.creating {
-        dependsOn(nativeMain)
-    }
-
-    val androidNativeMain by sourceSets.creating {
-        dependsOn(nativeMain)
-    }
-
-    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
-        val mainSourceSet = compilations.getByName("main").defaultSourceSet
-        val testSourceSet = compilations.getByName("test").defaultSourceSet
-
-        mainSourceSet.dependsOn(
-            when {
-                konanTarget.family.isAppleFamily -> darwinMain
-                konanTarget.family == org.jetbrains.kotlin.konan.target.Family.LINUX -> linuxMain
-                konanTarget.family == org.jetbrains.kotlin.konan.target.Family.MINGW -> mingwMain
-                konanTarget.family == org.jetbrains.kotlin.konan.target.Family.ANDROID -> androidNativeMain
-                else -> nativeMain
+    
+    sourceSets {
+        val commonMain by getting
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.stately.collections)
+                implementation(libs.testhelp)
+                implementation(project(":kermit-test"))
             }
-        )
+        }
 
-        testSourceSet.dependsOn(
-            if (konanTarget.family.isAppleFamily) {
-                darwinTest
-            } else {
-                commonTest
+        val commonJvmMain by creating {
+            dependsOn(commonMain)
+        }
+        val commonJvmTest by creating {
+            dependsOn(commonTest)
+            dependsOn(commonJvmMain)
+            dependencies {
+                implementation(kotlin("test-junit"))
             }
-        )
-    }
+        }
 
-    commonTest.dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-test-common")
-        implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
-        implementation(libs.stately.collections)
-        implementation(libs.testhelp)
-    }
+        val jvmMain by getting {
+            dependsOn(commonJvmMain)
+        }
+        val jvmTest by getting {
+            dependsOn(commonJvmTest)
+            dependsOn(jvmMain)
+        }
 
-    androidUnitTest.dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-test")
-        implementation("org.jetbrains.kotlin:kotlin-test-junit")
-        implementation("androidx.test:runner:1.4.0")
-        implementation("org.robolectric:robolectric:4.5.1")
-    }
+        val androidMain by getting {
+            dependsOn(commonJvmMain)
+        }
+        val androidUnitTest by getting {
+            dependsOn(androidMain)
+            // dependsOn(commonJvmTest)
+            dependencies {
+                implementation(libs.androidx.runner)
+                implementation(libs.roboelectric)
+            }
+        }
 
-    commonJvmTest.dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-test")
-        implementation("org.jetbrains.kotlin:kotlin-test-junit")
-    }
+        val nativeMain by getting
+        val nativeTest by getting
 
-    jvmTest.dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-test")
-        implementation("org.jetbrains.kotlin:kotlin-test-junit")
-    }
+        val darwinMain by creating {
+            dependsOn(nativeMain)
+        }
 
-    jsMain.dependencies {
-    }
+        val darwinTest by creating {
+            dependsOn(nativeTest)
+        }
 
-    jsTest.dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-test-js")
+        targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
+            val mainSourceSet = compilations.getByName("main").defaultSourceSet
+            val testSourceSet = compilations.getByName("test").defaultSourceSet
+
+            mainSourceSet.dependsOn(
+                when {
+                    konanTarget.family.isAppleFamily -> darwinMain
+                    konanTarget.family == org.jetbrains.kotlin.konan.target.Family.LINUX -> {
+                        val linuxMain by getting
+                        linuxMain
+                    }
+                    konanTarget.family == org.jetbrains.kotlin.konan.target.Family.MINGW -> {
+                        val mingwMain by getting
+                        mingwMain
+                    }
+                    konanTarget.family == org.jetbrains.kotlin.konan.target.Family.ANDROID -> {
+                        val androidNativeMain by getting
+                        androidNativeMain
+                    }
+                    else -> nativeMain
+                }
+            )
+
+            testSourceSet.dependsOn(
+                if (konanTarget.family.isAppleFamily) {
+                    darwinTest
+                } else {
+                    commonTest
+                }
+            )
+        }
     }
 }
 
 android {
     namespace = "co.touchlab.kermit.core"
-    compileSdk = 30
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 16
+        minSdk = libs.versions.minSdk.get().toInt()
     }
-
-    val main by sourceSets.getting {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
-
-apply(plugin = "com.vanniktech.maven.publish")
