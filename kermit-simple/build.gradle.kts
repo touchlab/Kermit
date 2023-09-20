@@ -13,9 +13,11 @@
 
 plugins {
     kotlin("multiplatform")
+    id("com.vanniktech.maven.publish")
 }
 
 kotlin {
+    targetHierarchy.default()
     js {
         browser()
         nodejs()
@@ -43,47 +45,39 @@ kotlin {
     androidNativeX86()
     androidNativeX64()
 
-    val commonMain by sourceSets.getting {
-        dependencies {
-            api(project(":kermit"))
+    sourceSets {
+        commonMain {
+            dependencies {
+                api(project(":kermit"))
+            }
         }
-    }
-    val commonTest by sourceSets.getting {
-        dependencies {
-            implementation("org.jetbrains.kotlin:kotlin-test-common")
-            implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
-            implementation(project(":kermit-test"))
+        commonTest {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(project(":kermit-test"))
+            }
         }
-    }
-
-    val nonKotlinMain by sourceSets.creating {
-        dependsOn(commonMain)
-    }
-
-    val nonKotlinTest by sourceSets.creating {
-        dependsOn(commonTest)
-    }
-
-    val jsMain by sourceSets.getting {
-        dependsOn(nonKotlinMain)
-        dependencies {
+        val nonKotlinMain by creating {
+            dependsOn(getByName("commonMain"))
         }
-    }
 
-    val jsTest by sourceSets.getting {
-        dependsOn(nonKotlinTest)
-        dependencies {
-            implementation("org.jetbrains.kotlin:kotlin-test-js")
+        val nonKotlinTest by creating {
+            dependsOn(getByName("commonTest"))
         }
-    }
 
-    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
-        val mainSourceSet = compilations.getByName("main").defaultSourceSet
-        val testSourceSet = compilations.getByName("test").defaultSourceSet
+        val jsMain by getting {
+            dependsOn(nonKotlinMain)
+        }
 
-        mainSourceSet.dependsOn(nonKotlinMain)
-        testSourceSet.dependsOn(nonKotlinTest)
+        val jsTest by getting {
+            dependsOn(nonKotlinTest)
+        }
+        targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
+            val mainSourceSet = compilations.getByName("main").defaultSourceSet
+            val testSourceSet = compilations.getByName("test").defaultSourceSet
+
+            mainSourceSet.dependsOn(nonKotlinMain)
+            testSourceSet.dependsOn(nonKotlinTest)
+        }
     }
 }
-
-apply(plugin = "com.vanniktech.maven.publish")

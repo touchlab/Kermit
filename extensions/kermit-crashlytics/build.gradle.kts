@@ -14,37 +14,34 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
+    id("com.vanniktech.maven.publish")
 }
 
 apply(from = "../../gradle/configure-crash-logger.gradle")
 
 kotlin {
+    targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()
     }
 
-    val commonMain by sourceSets.getting {
-        dependencies {
-            api(libs.crashkios.crashlytics)
-        }
-    }
-
-    val androidMain by sourceSets.getting {
-        dependencies {
+    sourceSets {
+        commonMain {
+            dependencies {
+                api(libs.crashkios.crashlytics)
+            }
         }
     }
 }
 
 android {
     namespace = "co.touchlab.kermit.crashlytics"
-    compileSdk = 30
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 16
+        minSdk = libs.versions.minSdk.get().toInt()
     }
-
-    val main by sourceSets.getting {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
-
-apply(plugin = "com.vanniktech.maven.publish")

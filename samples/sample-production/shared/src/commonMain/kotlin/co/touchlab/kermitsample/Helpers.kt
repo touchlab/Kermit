@@ -13,6 +13,7 @@ package co.touchlab.kermitsample
 import co.touchlab.kermit.*
 import co.touchlab.kermit.bugsnag.BugsnagLogWriter
 
+@OptIn(ExperimentalKermitApi::class)
 internal fun configApp(production: Boolean) {
     val logSeverity = if (production) {
         Severity.Info

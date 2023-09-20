@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="co.touchlab.KermitSample.FirstFragment"
+        android:name="co.touchlab.kermitSample.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first"/>
 </navigation>

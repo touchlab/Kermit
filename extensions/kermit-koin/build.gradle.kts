@@ -14,9 +14,11 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
+    id("com.vanniktech.maven.publish")
 }
 
 kotlin {
+    targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()
     }
@@ -31,7 +33,6 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-    watchosArm32()
     watchosArm64()
     watchosSimulatorArm64()
     watchosX64()
@@ -40,17 +41,17 @@ kotlin {
     tvosX64()
 
     linuxX64()
-
     mingwX64()
 
-    // TODO: These targets aren't supported by Koin yet:
+    // TODO: These targets aren't supported by Koin yet or stopped the support:
+    //    watchosArm32()
     // androidNativeArm32()
     // androidNativeArm64()
     // androidNativeX86()
     // androidNativeX64()
 
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 implementation(project(":kermit"))
                 implementation(libs.koin)
@@ -61,14 +62,12 @@ kotlin {
 
 android {
     namespace = "co.touchlab.kermit.koin"
-    compileSdk = 30
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 16
+        minSdk = libs.versions.minSdk.get().toInt()
     }
-
-    val main by sourceSets.getting {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
-
-apply(plugin = "com.vanniktech.maven.publish")

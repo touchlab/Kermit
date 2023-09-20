@@ -8,26 +8,19 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 buildscript {
-    repositories {
-        mavenLocal()
-        google()
-        mavenCentral()
-        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
-    }
     extra.apply {
         val parentKermit = java.util.Properties().apply { load(java.io.StringReader(File("${projectDir.path}/../../gradle.properties").readText())) }.get("VERSION_NAME") as String
         set("KERMIT_VERSION", parentKermit)
     }
-    dependencies {
-        classpath(libs.android.gradle.plugin)
-        classpath(kotlin("gradle-plugin", libs.versions.kotlin.get()))
-        classpath("com.bugsnag:bugsnag-android-gradle-plugin:7.4.1")
-    }
+}
+plugins {
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.bugsnag.gradle.plugin) apply false
 }
 
 allprojects {
     repositories {
-        mavenLocal()
         mavenCentral()
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
         google()

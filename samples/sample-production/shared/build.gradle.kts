@@ -19,18 +19,19 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
     }
-
-    val main by sourceSets.getting {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
 val KERMIT_VERSION: String by project
 
+version = "0.0.1"
+
 kotlin {
-    version = "0.0.1"
+    targetHierarchy.default()
     androidTarget()
     ios()
     iosSimulatorArm64()
@@ -45,42 +46,16 @@ kotlin {
 
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-
+                implementation(kotlin("test"))
                 implementation("co.touchlab:kermit-test:${KERMIT_VERSION}")
             }
         }
 
-        val androidMain by sourceSets.getting {
-            dependencies {
-            }
-        }
-        val androidUnitTest by sourceSets.getting {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(kotlin("test-junit"))
-            }
-        }
-
-        val iosMain by sourceSets.getting {
+        val iosMain by getting {
             dependencies {
                 // Only if you want to talk to Kermit from Swift
                 api("co.touchlab:kermit-simple:${KERMIT_VERSION}")
             }
-        }
-
-        val iosTest by sourceSets.getting {
-            dependencies {
-
-            }
-        }
-
-        val iosSimulatorArm64Main by getting {
-            dependsOn(iosMain)
-        }
-        val iosSimulatorArm64Test by getting {
-            dependsOn(iosTest)
         }
     }
 

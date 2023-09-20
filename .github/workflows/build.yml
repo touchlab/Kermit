@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-java@v2
         with:
           distribution: "adopt"
-          java-version: "11"
+          java-version: "17"
       - name: Install msys2
         if: matrix.os == 'windows-latest'
         uses: msys2/setup-msys2@v2
@@ -73,4 +73,4 @@ jobs:
         shell: bash
 
 env:
-  GRADLE_OPTS: -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:MaxMetaspaceSize=512m"
+  GRADLE_OPTS: -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:MaxMetaspaceSize=512m"

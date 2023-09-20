@@ -1,41 +1,43 @@
 [versions]
 ## SDK Versions
 minSdk = "21"
-targetSdk = "33"
-compileSdk = "33"
+compileSdk = "34"
 
 # Dependencies
-kotlin = "1.9.0"
+kotlin = "1.9.10"
 binaryCompatability = "0.13.2"
 
-androidx-core = "1.8.0"
-androidx-appcompat = "1.5.1"
+androidx-core = "1.12.0"
+androidx-appcompat = "1.6.1"
 androidx-constraintLayout = "2.1.4"
-androidx-navigationFragment = "2.5.2"
-androidx-navigationUI = "2.5.2"
+androidx-navigationFragment = "2.7.2"
+androidx-navigationUI = "2.7.2"
 androidx-coordinatorLayout = "1.2.0"
-android-material = "1.6.1"
-android-gradle-plugin = "7.2.2"
-android-library = "7.2.2"
 
-google-services = "4.3.10"
+android-gradle-plugin = "8.1.1"
+android-test-runner="1.5.2"
 
-stately = "2.0.0-rc3"
-testhelp = "0.6.5"
+google-services = "4.3.15"
 
-crashkios = "0.8.2"
-bugsnag = "5.26.0"
+stately = "2.0.3"
+testhelp = "0.6.9"
 
-firebase-bom = "28.4.0"
+crashkios = "0.8.3"
+bugsnag = "5.31.1"
+bugsnag-gradle-plugin = "8.0.1"
 
-koin = "3.4.2"
-coroutines = "1.6.4"
-roboelectric = "4.8.2"
-buildConfig = "2.1.0"
-mavenPublish = "0.22.0"
+koin-core = "3.5.0"
+koin-android = "3.5.0"
+koin-test = "3.5.0"
+coroutines = "1.7.3"
+roboelectric = "4.10.3"
+buildConfig = "4.1.2"
+mavenPublish = "0.25.3"
 
-android-junitTest = "1.1.3"
+android-junitTest = "1.1.5"
 junit = "4.13.2"
+dokka = "1.9.0"
+touchlab-docusaurus-template = "0.1.10"
 
 [libraries]
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
@@ -45,10 +47,9 @@ androidx-navigationFragment = { module = "androidx.navigation:navigation-fragmen
 androidx-navigationUI = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx-navigationUI" }
 androidx-coordinatorLayout = { module = "androidx.coordinatorlayout:coordinatorlayout", version.ref = "androidx-coordinatorLayout" }
 
-android-material = { module = "com.google.android.material:material", version.ref = "android-material" }
-
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
 
+androidx-runner = { module = "androidx.test:runner", version.ref = "android-test-runner" }
 google-services = { module = "com.google.gms:google-services", version.ref = "google-services" }
 
 crashkios-crashlytics = { module = "co.touchlab.crashkios:crashlytics", version.ref = "crashkios" }
@@ -57,27 +58,26 @@ bugsnag-android = { module = "com.bugsnag:bugsnag-android", version.ref = "bugsn
 stately-collections = { module = "co.touchlab:stately-collections", version.ref = "stately"}
 testhelp = { module = "co.touchlab:testhelp", version.ref = "testhelp" }
 
-firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
-firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
-
-koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin = { module = "io.insert-koin:koin-core", version.ref = "koin-core" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-android" }
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 roboelectric = { module = "org.robolectric:robolectric", version.ref = "roboelectric" }
 
-koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin-test" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 
 android-junitTest = { module = "androidx.test.ext:junit", version.ref = "android-junitTest" }
 junitTest = { module = "junit:junit", version.ref = "junit" }
-maven-publish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "mavenPublish" }
 
 [plugins]
+maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-android-library = { id = "com.android.library", version.ref = "android-library" }
+android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
 buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }
 binaryCompatability = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatability" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+touchlab-docusaurus-template = { id = "co.touchlab.touchlabtools.docusaurusosstemplate", version.ref = "touchlab-docusaurus-template" }
+bugsnag-gradle-plugin = { id = "com.bugsnag.android.gradle", version.ref = "bugsnag-gradle-plugin" }
 
 [bundles]
 android = [

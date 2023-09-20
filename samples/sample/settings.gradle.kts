@@ -17,3 +17,11 @@ dependencyResolutionManagement {
         }
     }
 }
+
+pluginManagement {
+    repositories {
+        google()
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
