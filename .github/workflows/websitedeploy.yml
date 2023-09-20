@@ -26,7 +26,7 @@ jobs:
       - name: Build Docusaurus
         run: ./gradlew replaceValuesDocusaurus -PLATEST_GITHUB_VERSION=${{ steps.last_release.outputs.tag_name }} --no-daemon --stacktrace
         env:
-          GRADLE_OPTS: -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:MaxMetaspaceSize=512m"
+          GRADLE_OPTS: -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:MaxMetaspaceSize=512m"
 
       - name: Build Dokka
         run: ./gradlew dokkaHtmlMultiModule --no-daemon --stacktrace
