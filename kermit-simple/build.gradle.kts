@@ -39,6 +39,7 @@ kotlin {
 
     mingwX64()
     linuxX64()
+    linuxArm64()
 
     androidNativeArm32()
     androidNativeArm64()

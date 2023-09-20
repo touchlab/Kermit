@@ -88,5 +88,3 @@ android = [
     "androidx-navigationUI",
     "androidx-coordinatorLayout",
 ]
-
-
