@@ -2,7 +2,7 @@ name: release
 on: workflow_dispatch
 
 jobs:
-  deploy:
+  release:
     runs-on: macos-latest
     steps:
       - name: Checkout the repo
@@ -49,11 +49,11 @@ jobs:
           ORG_GRADLE_PROJECT_SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
 
-#      - name: Create Release
-#        if: ${{ contains(steps.version-match.outputs.group1, 'SNAPSHOT') == false }}
-#        uses: touchlab/release-action@v1.10.0
-#        with:
-#          tag: ${{ steps.version-name.outputs.propVal }}
+      - name: Create Release
+        if: ${{ contains(steps.version-match.outputs.group1, 'SNAPSHOT') == false }}
+        uses: touchlab/release-action@v1.10.0
+        with:
+          tag: ${{ steps.version-name.outputs.propVal }}
 
 env:
   GRADLE_OPTS: -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:MaxMetaspaceSize=512m"
