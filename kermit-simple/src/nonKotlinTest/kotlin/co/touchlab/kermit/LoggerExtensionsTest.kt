@@ -14,7 +14,7 @@ import kotlin.test.Test
 
 class LoggerExtensionsTest {
     @Test
-    fun testCallingExtensions(){
+    fun testCallingExtensions() {
         /*val testLogWriter = TestLogWriter(Severity.Verbose)
         val log = Logger(loggerConfigInit(testLogWriter))
         log.v("A")*/

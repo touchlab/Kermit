@@ -22,8 +22,8 @@ class LogcatWriter(private val messageStringFormatter: MessageStringFormatter = 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         val formattedMessage = messageStringFormatter.formatMessage(null, null, Message(message))
         try {
-            if(throwable == null){
-                when(severity){
+            if (throwable == null) {
+                when (severity) {
                     Severity.Verbose -> Log.v(tag, formattedMessage)
                     Severity.Debug -> Log.d(tag, formattedMessage)
                     Severity.Info -> Log.i(tag, formattedMessage)
@@ -31,8 +31,8 @@ class LogcatWriter(private val messageStringFormatter: MessageStringFormatter = 
                     Severity.Error -> Log.e(tag, formattedMessage)
                     Severity.Assert -> Log.wtf(tag, formattedMessage)
                 }
-            }else{
-                when(severity){
+            } else {
+                when (severity) {
                     Severity.Verbose -> Log.v(tag, formattedMessage, throwable)
                     Severity.Debug -> Log.d(tag, formattedMessage, throwable)
                     Severity.Info -> Log.i(tag, formattedMessage, throwable)

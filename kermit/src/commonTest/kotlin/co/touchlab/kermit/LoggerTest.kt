@@ -315,6 +315,6 @@ object MyLogger : Logger(
     tag = "MyAppTag"
 )
 
-fun hello(){
+fun hello() {
     MyLogger.i { "Hello" }
 }

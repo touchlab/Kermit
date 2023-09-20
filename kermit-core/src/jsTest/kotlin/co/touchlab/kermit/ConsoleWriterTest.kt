@@ -41,7 +41,7 @@ class ConsoleWriterTest {
 
 }
 
-class ConsoleCollector: ConsoleIntf {
+class ConsoleCollector : ConsoleIntf {
     val errors = mutableListOf<String>()
     val warnings = mutableListOf<String>()
     val infos = mutableListOf<String>()

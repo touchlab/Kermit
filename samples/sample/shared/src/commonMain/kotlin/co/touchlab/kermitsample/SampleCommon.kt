@@ -38,12 +38,13 @@ class SampleCommon {
         count++
         Logger.d { "Common click count: $count" }
     }
+
     fun onClickV() {
         count++
         Logger.v { "Common click count: $count" }
     }
 
-    fun logException(){
+    fun logException() {
         Logger.w(throwable = Exception("Handled")) { "Common click count: $count" }
     }
 }

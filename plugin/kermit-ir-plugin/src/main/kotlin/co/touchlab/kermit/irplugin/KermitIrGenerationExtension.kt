@@ -16,26 +16,26 @@ import org.jetbrains.kotlin.cli.common.messages.MessageCollector
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
 
 class KermitIrGenerationExtension(
-  private val messageCollector: MessageCollector,
-  private val stripBelow: String
+    private val messageCollector: MessageCollector,
+    private val stripBelow: String
 ) : IrGenerationExtension {
-  override fun generate(moduleFragment: IrModuleFragment, pluginContext: IrPluginContext) {
+    override fun generate(moduleFragment: IrModuleFragment, pluginContext: IrPluginContext) {
 //    messageCollector.report(CompilerMessageSeverity.INFO, "Argument 'string' = $string")
 //    messageCollector.report(CompilerMessageSeverity.INFO, "Argument 'file' = $file")
 //    println(moduleFragment.dump())
 //    moduleFragment.acceptChildrenVoid(PlayVisitor(pluginContext))
-    dumpModule(moduleFragment)
+        dumpModule(moduleFragment)
 
-    if(stripBelow != "None" && stripBelow != "Verbose") {
-      moduleFragment.transform(KermitChiselTransformer(pluginContext, stripBelow), null)
+        if (stripBelow != "None" && stripBelow != "Verbose") {
+            moduleFragment.transform(KermitChiselTransformer(pluginContext, stripBelow), null)
+        }
+
+        dumpModule(moduleFragment)
     }
 
-    dumpModule(moduleFragment)
-  }
-
-  private fun dumpModule(moduleFragment: IrModuleFragment) {
+    private fun dumpModule(moduleFragment: IrModuleFragment) {
 //    println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
 //    println(moduleFragment.dump())
 //    println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-  }
+    }
 }

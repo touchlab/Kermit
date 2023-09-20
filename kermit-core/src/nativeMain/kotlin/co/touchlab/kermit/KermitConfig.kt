@@ -28,4 +28,5 @@ internal class AtomicMutableLoggerConfig(logWriters: List<LogWriter>) : MutableL
         }
 }
 
-actual fun mutableLoggerConfigInit(logWriters: List<LogWriter>): MutableLoggerConfig = AtomicMutableLoggerConfig(logWriters)
+actual fun mutableLoggerConfigInit(logWriters: List<LogWriter>): MutableLoggerConfig =
+    AtomicMutableLoggerConfig(logWriters)

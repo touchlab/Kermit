@@ -14,7 +14,7 @@ import android.app.Application
 import co.touchlab.kermitsample.startApp
 import com.bugsnag.android.Bugsnag
 
-class SampleApplication: Application() {
+class SampleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         Bugsnag.start(this)

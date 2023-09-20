@@ -22,7 +22,7 @@ interface MessageStringFormatter {
     fun formatTag(tag: Tag) = "(${tag.tag})"
     fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String {
         // Optimize for Android
-        if(severity == null && tag == null)
+        if (severity == null && tag == null)
             return message.message
 
         val sb = StringBuilder()
@@ -35,7 +35,8 @@ interface MessageStringFormatter {
 }
 
 @JvmInline
-value class Tag(val tag:String)
+value class Tag(val tag: String)
+
 @JvmInline
 value class Message(val message: String)
 
@@ -46,20 +47,21 @@ value class Message(val message: String)
  *
  * "[severity: ][(tag) ][message]"
  */
-object DefaultFormatter:MessageStringFormatter
+object DefaultFormatter : MessageStringFormatter
 
 /**
  * Tags are a formal part of Android, but not other systems. This formatter omits them.
  */
-object NoTagFormatter:MessageStringFormatter {
+object NoTagFormatter : MessageStringFormatter {
     override fun formatTag(tag: Tag): String = ""
-    override fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String = super.formatMessage(severity, null, message)
+    override fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String =
+        super.formatMessage(severity, null, message)
 }
 
 /**
  * Just logs the message.
  */
-object SimpleFormatter: MessageStringFormatter {
+object SimpleFormatter : MessageStringFormatter {
     override fun formatTag(tag: Tag): String = ""
     override fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String = message.message
 }

@@ -17,7 +17,7 @@ package co.touchlab.kermit
  * Called by Logger to actually send log statements to specific targets. There are several implementations provided by
  * Kermit, but you can supply your own for specific use cases.
  */
-abstract class LogWriter(){
+abstract class LogWriter() {
     open fun isLoggable(tag: String, severity: Severity): Boolean = true
 
     abstract fun log(severity: Severity, message: String, tag: String, throwable: Throwable? = null)

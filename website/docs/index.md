@@ -7,7 +7,7 @@ sidebar_position: 10
 
 Kermit is a Kotlin Multiplatform logging library.
 
-It's primary purpose is to allow log statements from Kotlin code to be written to composable log outputs. Out of the box, the library defaults to platform-specific loggers such as Logcat and OSLog, but is easy to extend and configure.
+It's primary purpose is to allow log statements from Kotlin code to be written to composable log outputs. Out of the box, the library defaults to platform-specific loggers such as `Logcat` and `OSLog`, but is easy to extend and configure.
 
 :::tip
 
@@ -42,7 +42,7 @@ Logger.i { "Hello World" }
 
 By default, Kermit includes a LogWriter instance for each platform that is configured for **development**.
 
-On Android it writes to Logcat, on iOS it writes to OSLog, and for JS it writes to console.
+On Android it writes to `Logcat`, on iOS it writes to `OSLog`, and for JS it writes to `console`.
 
 ## Basic Concepts
 
@@ -51,7 +51,7 @@ The basic components you'll need to be aware of are `Logger`, `LogWriter`, and `
 ### Logger
 
 The `Logger` takes log calls from your code and dispatches them to `LogWriter` instances. There are different methods
-on `Logger` corresponding to different log `Severity` levels. In order of least to most severe: v(), d(), i(), w(), e(), and a().
+on `Logger` corresponding to different log `Severity` levels. In order of least to most severe: `v(), d(), i(), w(), e(),` and `a()`.
 
 You configure the `Logger`, then call log methods on it. That's the basic interaction with Kermit.
 
