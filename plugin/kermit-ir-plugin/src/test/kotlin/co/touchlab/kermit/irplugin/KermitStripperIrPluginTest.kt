@@ -19,13 +19,14 @@ import org.junit.Test
 import kotlin.test.Ignore
 
 class IrPluginTest {
-  @Test
-  @Ignore
-  fun `IR plugin success`() {
-    val sourceFiles = listOf(SourceFile.kotlin(
-      "Logger.kt", LoggerString
-    ), SourceFile.kotlin(
-      "main.kt", """
+    @Test
+    @Ignore
+    fun `IR plugin success`() {
+        val sourceFiles = listOf(
+            SourceFile.kotlin(
+                "Logger.kt", LoggerString
+            ), SourceFile.kotlin(
+                "main.kt", """
 import co.touchlab.kermit.Logger
 //class HeyoLogs:Logger()
 fun main() {
@@ -38,29 +39,30 @@ fun main() {
 //  heyo.w { "www" }
 }
       """.trimIndent()
-    ))
-    val result = compile(
-      sourceFiles = sourceFiles
-    )
-    assertEquals(KotlinCompilation.ExitCode.OK, result.exitCode)
-  }
+            )
+        )
+        val result = compile(
+            sourceFiles = sourceFiles
+        )
+        assertEquals(KotlinCompilation.ExitCode.OK, result.exitCode)
+    }
 }
 
 fun compile(
     sourceFiles: List<SourceFile>,
     plugin: ComponentRegistrar = KermitComponentRegistrar(),
 ): KotlinCompilation.Result {
-  return KotlinCompilation().apply {
-    sources = sourceFiles
-    useIR = true
-    compilerPlugins = listOf(plugin)
-    inheritClassPath = true
-  }.compile()
+    return KotlinCompilation().apply {
+        sources = sourceFiles
+        useIR = true
+        compilerPlugins = listOf(plugin)
+        inheritClassPath = true
+    }.compile()
 }
 
 fun compile(
     sourceFile: SourceFile,
     plugin: ComponentRegistrar = KermitComponentRegistrar(),
 ): KotlinCompilation.Result {
-  return compile(listOf(sourceFile), plugin)
+    return compile(listOf(sourceFile), plugin)
 }

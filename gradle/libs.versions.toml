@@ -15,7 +15,7 @@ androidx-navigationUI = "2.7.2"
 androidx-coordinatorLayout = "1.2.0"
 
 android-gradle-plugin = "8.1.1"
-android-test-runner="1.5.2"
+android-test-runner = "1.5.2"
 
 google-services = "4.3.15"
 
@@ -55,7 +55,7 @@ google-services = { module = "com.google.gms:google-services", version.ref = "go
 crashkios-crashlytics = { module = "co.touchlab.crashkios:crashlytics", version.ref = "crashkios" }
 crashkios-bugsnag = { module = "co.touchlab.crashkios:bugsnag", version.ref = "crashkios" }
 bugsnag-android = { module = "com.bugsnag:bugsnag-android", version.ref = "bugsnag" }
-stately-collections = { module = "co.touchlab:stately-collections", version.ref = "stately"}
+stately-collections = { module = "co.touchlab:stately-collections", version.ref = "stately" }
 testhelp = { module = "co.touchlab:testhelp", version.ref = "testhelp" }
 
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin-core" }

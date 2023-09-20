@@ -16,7 +16,8 @@ import kotlin.experimental.ExperimentalNativeApi
  * Development-focused LogWriter. Will write a colored emoji according to Severity, and write the Throwable stack trace
  * to println rather than oslog, as oslog will cut off long strings.
  */
-open class XcodeSeverityWriter(private val messageStringFormatter: MessageStringFormatter = DefaultFormatter) : OSLogWriter(messageStringFormatter) {
+open class XcodeSeverityWriter(private val messageStringFormatter: MessageStringFormatter = DefaultFormatter) :
+    OSLogWriter(messageStringFormatter) {
     override fun formatMessage(severity: Severity, tag: Tag, message: Message): String =
         "${emojiPrefix(severity)} ${messageStringFormatter.formatMessage(null, tag, message)}"
 

@@ -30,7 +30,10 @@ open class OSLogWriter internal constructor(
     private val darwinLogger: DarwinLogger
 ) : LogWriter() {
 
-    constructor(messageStringFormatter: MessageStringFormatter = DefaultFormatter) : this(messageStringFormatter, DarwinLoggerActual)
+    constructor(messageStringFormatter: MessageStringFormatter = DefaultFormatter) : this(
+        messageStringFormatter,
+        DarwinLoggerActual
+    )
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         callLog(
@@ -52,7 +55,7 @@ open class OSLogWriter internal constructor(
     }
 
     @OptIn(ExperimentalNativeApi::class)
-    open fun logThrowable(osLogSeverity: UByte, throwable: Throwable){
+    open fun logThrowable(osLogSeverity: UByte, throwable: Throwable) {
         darwinLogger.log(osLogSeverity, throwable.getStackTrace().joinToString("\n"))
     }
 

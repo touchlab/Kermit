@@ -19,7 +19,10 @@ class ConsoleWriter internal constructor(
     private val messageStringFormatter: MessageStringFormatter,
     private val console: ConsoleIntf
 ) : LogWriter() {
-    constructor(messageStringFormatter: MessageStringFormatter = DefaultFormatter) : this(messageStringFormatter, ConsoleActual)
+    constructor(messageStringFormatter: MessageStringFormatter = DefaultFormatter) : this(
+        messageStringFormatter,
+        ConsoleActual
+    )
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         var output = messageStringFormatter.formatMessage(

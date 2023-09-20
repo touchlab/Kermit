@@ -21,7 +21,7 @@ class LoggerFunctionsTest {
 
     @Test
     @Ignore
-    fun tagsWork(){
+    fun tagsWork() {
         TODO()
         /*val testLogWriter = getTestLogWriter()
         Logger.apply {

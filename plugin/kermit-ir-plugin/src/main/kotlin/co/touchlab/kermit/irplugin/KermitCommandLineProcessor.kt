@@ -20,30 +20,30 @@ import org.jetbrains.kotlin.config.CompilerConfigurationKey
 
 @AutoService(CommandLineProcessor::class)
 class KermitCommandLineProcessor : CommandLineProcessor {
-  companion object {
-    private const val OPTION_STRIP_BELOW = "stripBelow"
-    val ARG_STRIP_BELOW = CompilerConfigurationKey<String>(OPTION_STRIP_BELOW)
-  }
-
-  override val pluginId: String = BuildConfig.KOTLIN_PLUGIN_ID
-
-  override val pluginOptions: Collection<CliOption> = listOf(
-    CliOption(
-      optionName = OPTION_STRIP_BELOW,
-      valueDescription = "strip log calls below severity",
-      description = "strip severity",
-      required = false,
-    ),
-  )
-
-  override fun processOption(
-    option: AbstractCliOption,
-    value: String,
-    configuration: CompilerConfiguration
-  ) {
-    return when (option.optionName) {
-      OPTION_STRIP_BELOW -> configuration.put(ARG_STRIP_BELOW, value)
-      else -> throw IllegalArgumentException("Unexpected config option ${option.optionName}")
+    companion object {
+        private const val OPTION_STRIP_BELOW = "stripBelow"
+        val ARG_STRIP_BELOW = CompilerConfigurationKey<String>(OPTION_STRIP_BELOW)
     }
-  }
+
+    override val pluginId: String = BuildConfig.KOTLIN_PLUGIN_ID
+
+    override val pluginOptions: Collection<CliOption> = listOf(
+        CliOption(
+            optionName = OPTION_STRIP_BELOW,
+            valueDescription = "strip log calls below severity",
+            description = "strip severity",
+            required = false,
+        ),
+    )
+
+    override fun processOption(
+        option: AbstractCliOption,
+        value: String,
+        configuration: CompilerConfiguration
+    ) {
+        return when (option.optionName) {
+            OPTION_STRIP_BELOW -> configuration.put(ARG_STRIP_BELOW, value)
+            else -> throw IllegalArgumentException("Unexpected config option ${option.optionName}")
+        }
+    }
 }

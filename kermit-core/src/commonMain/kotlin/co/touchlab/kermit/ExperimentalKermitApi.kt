@@ -11,4 +11,4 @@
 package co.touchlab.kermit
 
 @RequiresOptIn(level = RequiresOptIn.Level.WARNING)
-annotation class ExperimentalKermitApi()
+annotation class ExperimentalKermitApi

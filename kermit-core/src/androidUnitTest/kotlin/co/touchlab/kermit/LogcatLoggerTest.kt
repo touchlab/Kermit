@@ -84,8 +84,8 @@ class LogcatLoggerTest {
 
         ShadowLog.getLogs().apply {
             assert(size > 0)
-            assertNotNull(find { it?.throwable?.message?.contains("Root Exception Message")?:false })
-            assertNotNull(find { it?.throwable?.cause?.message?.contains("Cause Exception Message")?:false })
+            assertNotNull(find { it?.throwable?.message?.contains("Root Exception Message") ?: false })
+            assertNotNull(find { it?.throwable?.cause?.message?.contains("Cause Exception Message") ?: false })
         }
     }
 }

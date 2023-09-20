@@ -29,62 +29,62 @@ open class Logger(
     }
 
     @JvmOverloads
-    inline fun v(throwable: Throwable? = null, tag: String = this.tag, message: () -> String){
+    inline fun v(throwable: Throwable? = null, tag: String = this.tag, message: () -> String) {
         logBlock(Severity.Verbose, tag, throwable, message)
     }
 
     @JvmOverloads
-    inline fun d(throwable: Throwable? = null, tag: String = this.tag, message: () -> String){
+    inline fun d(throwable: Throwable? = null, tag: String = this.tag, message: () -> String) {
         logBlock(Severity.Debug, tag, throwable, message)
     }
 
     @JvmOverloads
-    inline fun i(throwable: Throwable? = null, tag: String = this.tag, message: () -> String){
+    inline fun i(throwable: Throwable? = null, tag: String = this.tag, message: () -> String) {
         logBlock(Severity.Info, tag, throwable, message)
     }
 
     @JvmOverloads
-    inline fun w(throwable: Throwable? = null, tag: String = this.tag, message: () -> String){
+    inline fun w(throwable: Throwable? = null, tag: String = this.tag, message: () -> String) {
         logBlock(Severity.Warn, tag, throwable, message)
     }
 
     @JvmOverloads
-    inline fun e(throwable: Throwable? = null, tag: String = this.tag, message: () -> String){
+    inline fun e(throwable: Throwable? = null, tag: String = this.tag, message: () -> String) {
         logBlock(Severity.Error, tag, throwable, message)
     }
 
     @JvmOverloads
-    inline fun a(throwable: Throwable? = null, tag: String = this.tag, message: () -> String){
+    inline fun a(throwable: Throwable? = null, tag: String = this.tag, message: () -> String) {
         logBlock(Severity.Assert, tag, throwable, message)
     }
 
     @JvmOverloads
-    inline fun v(messageString: String, throwable: Throwable? = null, tag: String = this.tag){
+    inline fun v(messageString: String, throwable: Throwable? = null, tag: String = this.tag) {
         log(Severity.Verbose, tag, throwable, messageString)
     }
 
     @JvmOverloads
-    inline fun d(messageString: String, throwable: Throwable? = null, tag: String = this.tag){
+    inline fun d(messageString: String, throwable: Throwable? = null, tag: String = this.tag) {
         log(Severity.Debug, tag, throwable, messageString)
     }
 
     @JvmOverloads
-    inline fun i(messageString: String, throwable: Throwable? = null, tag: String = this.tag){
+    inline fun i(messageString: String, throwable: Throwable? = null, tag: String = this.tag) {
         log(Severity.Info, tag, throwable, messageString)
     }
 
     @JvmOverloads
-    inline fun w(messageString: String, throwable: Throwable? = null, tag: String = this.tag){
+    inline fun w(messageString: String, throwable: Throwable? = null, tag: String = this.tag) {
         log(Severity.Warn, tag, throwable, messageString)
     }
 
     @JvmOverloads
-    inline fun e(messageString: String, throwable: Throwable? = null, tag: String = this.tag){
+    inline fun e(messageString: String, throwable: Throwable? = null, tag: String = this.tag) {
         log(Severity.Error, tag, throwable, messageString)
     }
 
     @JvmOverloads
-    inline fun a(messageString: String, throwable: Throwable? = null, tag: String = this.tag){
+    inline fun a(messageString: String, throwable: Throwable? = null, tag: String = this.tag) {
         log(Severity.Assert, tag, throwable, messageString)
     }
 

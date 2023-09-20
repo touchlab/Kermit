@@ -45,15 +45,16 @@ class SampleCommon {
         BugsnagKotlin.setCustomValue(section = "hello", key = "lastLog", value = "d")
         logger.d { "Common click count: $count" }
     }
+
     fun onClickV() {
         count++
         BugsnagKotlin.setCustomValue(section = "hello", key = "lastLog", value = "v")
         logger.v { "Common click count: $count" }
     }
 
-    fun logException(){
+    fun logException() {
         logger.w(throwable = Exception("Handled")) { "Common click count: $count" }
     }
 }
 
-fun makeException(message:String):Throwable = IllegalStateException(message)
+fun makeException(message: String): Throwable = IllegalStateException(message)

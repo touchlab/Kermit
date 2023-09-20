@@ -10,6 +10,6 @@
 
 package co.touchlab.kermit.gradle
 
-open class KermitGradleExtension{
+open class KermitGradleExtension {
     var stripBelow: StripSeverity = StripSeverity.None
 }

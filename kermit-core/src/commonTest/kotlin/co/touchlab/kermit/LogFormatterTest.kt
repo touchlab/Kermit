@@ -21,13 +21,13 @@ class LogFormatterTest {
     }
 
     @Test
-    fun noTag(){
+    fun noTag() {
         assertEquals("Warn: Hello", NoTagFormatter.formatMessage(Severity.Warn, Tag("ATag"), Message("Hello")))
         assertEquals("Hello", NoTagFormatter.formatMessage(null, Tag("ATag"), Message("Hello")))
     }
 
     @Test
-    fun simpleFormat(){
+    fun simpleFormat() {
         assertEquals("Hello", SimpleFormatter.formatMessage(Severity.Warn, Tag("ATag"), Message("Hello")))
         assertEquals("Hello", SimpleFormatter.formatMessage(null, Tag("ATag"), Message("Hello")))
         assertEquals("Hello", SimpleFormatter.formatMessage(null, Tag(""), Message("Hello")))

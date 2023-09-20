@@ -10,11 +10,9 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-@file:Suppress("NOTHING_TO_INLINE")
-
 package co.touchlab.kermit
 
-typealias MessageBlock = ()->String
+typealias MessageBlock = () -> String
 
 /**
  * Base class for public Logger API. Extend to implement your own logger API.

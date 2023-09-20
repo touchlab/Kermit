@@ -50,7 +50,7 @@ kotlin {
     androidNativeArm64()
     androidNativeX86()
     androidNativeX64()
-    
+
     sourceSets {
         val commonMain by getting
         val commonTest by getting {
@@ -115,14 +115,17 @@ kotlin {
                         val linuxMain by getting
                         linuxMain
                     }
+
                     konanTarget.family == org.jetbrains.kotlin.konan.target.Family.MINGW -> {
                         val mingwMain by getting
                         mingwMain
                     }
+
                     konanTarget.family == org.jetbrains.kotlin.konan.target.Family.ANDROID -> {
                         val androidNativeMain by getting
                         androidNativeMain
                     }
+
                     else -> nativeMain
                 }
             )

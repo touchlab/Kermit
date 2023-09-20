@@ -50,7 +50,7 @@ kotlin {
     androidNativeArm64()
     androidNativeX86()
     androidNativeX64()
-    
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -106,7 +106,7 @@ kotlin {
 
             mainSourceSet.dependsOn(nativeMain)
             testSourceSet.dependsOn(nonKotlinTest)
-        }   
+        }
     }
 }
 

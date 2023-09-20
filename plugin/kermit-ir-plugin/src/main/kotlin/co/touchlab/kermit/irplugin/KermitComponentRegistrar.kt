@@ -20,25 +20,26 @@ import org.jetbrains.kotlin.config.CompilerConfiguration
 
 @AutoService(ComponentRegistrar::class)
 class KermitComponentRegistrar(
-  private val defaultStripBelow: String
+    private val defaultStripBelow: String
 ) : ComponentRegistrar {
 
-  @Suppress("unused") // Used by service loader
-  constructor() : this(
-    defaultStripBelow = "None"
-  )
-
-  override fun registerProjectComponents(
-    project: MockProject,
-    configuration: CompilerConfiguration
-  ) {
-    val messageCollector = configuration.get(CLIConfigurationKeys.MESSAGE_COLLECTOR_KEY, MessageCollector.NONE)
-    val stripBelow = configuration.get(KermitCommandLineProcessor.ARG_STRIP_BELOW, defaultStripBelow)
-
-    IrGenerationExtension.registerExtension(project,
-      KermitIrGenerationExtension(messageCollector, stripBelow)
+    @Suppress("unused") // Used by service loader
+    constructor() : this(
+        defaultStripBelow = "None"
     )
-  }
+
+    override fun registerProjectComponents(
+        project: MockProject,
+        configuration: CompilerConfiguration
+    ) {
+        val messageCollector = configuration.get(CLIConfigurationKeys.MESSAGE_COLLECTOR_KEY, MessageCollector.NONE)
+        val stripBelow = configuration.get(KermitCommandLineProcessor.ARG_STRIP_BELOW, defaultStripBelow)
+
+        IrGenerationExtension.registerExtension(
+            project,
+            KermitIrGenerationExtension(messageCollector, stripBelow)
+        )
+    }
 }
 
 
