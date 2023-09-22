@@ -20,10 +20,6 @@ android {
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
 }
 
 val KERMIT_VERSION: String by project
@@ -31,8 +27,15 @@ val KERMIT_VERSION: String by project
 version = "0.0.1"
 
 kotlin {
+    @Suppress("OPT_IN_USAGE")
     targetHierarchy.default()
-    androidTarget()
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "1.8"
+            }
+        }
+    }
     ios()
     iosSimulatorArm64()
 
