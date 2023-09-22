@@ -12,7 +12,7 @@ plugins {
     id("com.android.library")
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-}
+    id("co.touchlab.crashkios.bugsnaglink")}
 
 android {
     namespace = "co.touchlab.kermitsample"

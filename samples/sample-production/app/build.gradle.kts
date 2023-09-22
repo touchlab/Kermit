@@ -22,8 +22,8 @@ android {
         versionCode = 1
         versionName = "0.0.1"
     }
-    packagingOptions {
-        exclude("META-INF/*.kotlin_module")
+    packaging {
+        resources.excludes.add("META-INF/*.kotlin_module")
     }
     buildTypes {
         getByName("release") {

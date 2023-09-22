@@ -19,6 +19,7 @@ plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.bugsnag.gradle.plugin) apply false
+    id("co.touchlab.crashkios.bugsnaglink") version libs.versions.crashkios.get() apply false
 }
 
 allprojects {
