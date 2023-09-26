@@ -21,6 +21,7 @@ plugins {
 
 apply(from = "../../gradle/configure-crash-logger.gradle")
 kotlin {
+    @Suppress("OPT_IN_USAGE")
     targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()

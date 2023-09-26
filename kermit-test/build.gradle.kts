@@ -11,6 +11,7 @@
  * the License.
  */
 
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -20,6 +21,7 @@ plugins {
 }
 
 kotlin {
+    @Suppress("OPT_IN_USAGE")
     targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()
@@ -28,6 +30,13 @@ kotlin {
     js {
         browser()
         nodejs()
+    }
+    @Suppress("OPT_IN_USAGE")
+    wasm {
+        browser()
+        nodejs()
+        d8()
+        binaries.executable()
     }
 
     macosX64()
@@ -78,4 +87,8 @@ android {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+rootProject.the<NodeJsRootExtension>().apply {
+    nodeVersion = "20.4.0"
 }

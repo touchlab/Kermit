@@ -19,8 +19,8 @@ android-test-runner = "1.5.2"
 
 google-services = "4.3.15"
 
-stately = "2.0.3"
-testhelp = "0.6.9"
+stately = "2.0.4"
+testhelp = "0.6.11"
 
 crashkios = "0.8.3"
 bugsnag = "5.31.1"

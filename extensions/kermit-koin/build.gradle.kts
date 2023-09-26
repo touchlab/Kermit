@@ -20,6 +20,7 @@ plugins {
 }
 
 kotlin {
+    @Suppress("OPT_IN_USAGE")
     targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()

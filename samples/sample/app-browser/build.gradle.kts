@@ -16,12 +16,8 @@ val KERMIT_VERSION: String by project
 
 kotlin {
     js {
-        browser {
-            runTask {
-                outputFileName = "app-browser.js"
-            }
-            binaries.executable()
-        }
+        browser()
+        binaries.executable()
     }
     sourceSets {
         val jsMain by getting {

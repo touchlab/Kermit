@@ -11,7 +11,11 @@
  * the License.
  */
 
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
+import org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.time.Duration
 
 plugins {
     id("com.android.library")
@@ -20,6 +24,7 @@ plugins {
 }
 
 kotlin {
+    @Suppress("OPT_IN_USAGE")
     targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()
@@ -28,6 +33,13 @@ kotlin {
     js {
         browser()
         nodejs()
+    }
+    @Suppress("OPT_IN_USAGE")
+    wasm {
+        browser()
+        nodejs()
+        d8()
+        binaries.executable()
     }
 
     macosX64()
@@ -79,12 +91,27 @@ kotlin {
             dependsOn(nonKotlinMain)
         }
 
-        val jsMain by getting {
+        val jsWasmMain by creating {
             dependsOn(nonKotlinMain)
+        }
+        val jsWasmTest by creating {
+            dependsOn(nonKotlinTest)
+        }
+
+        val jsMain by getting {
+            dependsOn(jsWasmMain)
         }
 
         val jsTest by getting {
-            dependsOn(nonKotlinTest)
+            dependsOn(jsWasmTest)
+        }
+
+        val wasmMain by getting {
+            dependsOn(jsWasmMain)
+        }
+
+        val wasmTest by getting {
+            dependsOn(jsWasmTest)
         }
 
         val commonJvmMain by creating {
@@ -126,4 +153,8 @@ android {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+rootProject.the<NodeJsRootExtension>().apply {
+    nodeVersion = "20.4.0"
 }

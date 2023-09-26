@@ -44,6 +44,9 @@ kotlin {
     js {
         browser()
     }
+    wasm {
+        browser()
+    }
 
     sourceSets {
         val commonMain by getting {

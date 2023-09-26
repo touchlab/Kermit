@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
+
 /*
  * Copyright (c) 2021 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -17,10 +19,18 @@ plugins {
 }
 
 kotlin {
+    @Suppress("OPT_IN_USAGE")
     targetHierarchy.default()
     js {
         browser()
         nodejs()
+    }
+    @Suppress("OPT_IN_USAGE")
+    wasm {
+        browser()
+        nodejs()
+        d8()
+        binaries.executable()
     }
 
     macosX64()
@@ -73,6 +83,12 @@ kotlin {
         val jsTest by getting {
             dependsOn(nonKotlinTest)
         }
+        val wasmMain by getting {
+            dependsOn(nonKotlinMain)
+        }
+        val wasmTest by getting {
+            dependsOn(nonKotlinTest)
+        }
         targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
             val mainSourceSet = compilations.getByName("main").defaultSourceSet
             val testSourceSet = compilations.getByName("test").defaultSourceSet
@@ -81,4 +97,8 @@ kotlin {
             testSourceSet.dependsOn(nonKotlinTest)
         }
     }
+}
+
+rootProject.the<NodeJsRootExtension>().apply {
+    nodeVersion = "20.4.0"
 }
