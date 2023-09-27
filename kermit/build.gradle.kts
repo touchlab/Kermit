@@ -21,6 +21,7 @@ plugins {
     id("com.android.library")
     kotlin("multiplatform")
     id("com.vanniktech.maven.publish")
+    id("wasm-setup")
 }
 
 kotlin {
@@ -33,13 +34,6 @@ kotlin {
     js {
         browser()
         nodejs()
-    }
-    @Suppress("OPT_IN_USAGE")
-    wasm {
-        browser()
-        nodejs()
-        d8()
-        binaries.executable()
     }
 
     macosX64()
@@ -91,27 +85,14 @@ kotlin {
             dependsOn(nonKotlinMain)
         }
 
-        val jsWasmMain by creating {
+        val jsWasmMain by getting {
             dependsOn(nonKotlinMain)
+            getByName("jsMain").dependsOn(this)
         }
-        val jsWasmTest by creating {
+
+        val jsWasmTest by getting {
             dependsOn(nonKotlinTest)
-        }
-
-        val jsMain by getting {
-            dependsOn(jsWasmMain)
-        }
-
-        val jsTest by getting {
-            dependsOn(jsWasmTest)
-        }
-
-        val wasmMain by getting {
-            dependsOn(jsWasmMain)
-        }
-
-        val wasmTest by getting {
-            dependsOn(jsWasmTest)
+            getByName("jsTest").dependsOn(this)
         }
 
         val commonJvmMain by creating {

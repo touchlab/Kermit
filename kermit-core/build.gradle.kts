@@ -19,6 +19,7 @@ plugins {
     id("com.android.library")
     kotlin("multiplatform")
     id("com.vanniktech.maven.publish")
+    id("wasm-setup")
 }
 
 kotlin {
@@ -31,13 +32,6 @@ kotlin {
     js {
         browser()
         nodejs()
-    }
-    @Suppress("OPT_IN_USAGE")
-    wasm {
-        browser()
-        nodejs()
-        d8()
-        binaries.executable()
     }
 
     macosX64()
@@ -116,15 +110,13 @@ kotlin {
             dependsOn(nativeTest)
         }
 
-        val jsWasmMain by creating {
+        val jsWasmMain by getting {
             dependsOn(commonMain)
             getByName("jsMain").dependsOn(this)
-            getByName("wasmMain").dependsOn(this)
         }
-        val jsWasmTest by creating {
+        val jsWasmTest by getting {
             dependsOn(commonTest)
             getByName("jsTest").dependsOn(this)
-            getByName("wasmTest").dependsOn(this)
         }
 
         targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {

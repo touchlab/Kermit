@@ -16,6 +16,7 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 plugins {
     kotlin("multiplatform")
     id("com.vanniktech.maven.publish")
+    id("wasm-setup")
 }
 
 kotlin {
@@ -24,13 +25,6 @@ kotlin {
     js {
         browser()
         nodejs()
-    }
-    @Suppress("OPT_IN_USAGE")
-    wasm {
-        browser()
-        nodejs()
-        d8()
-        binaries.executable()
     }
 
     macosX64()
@@ -76,19 +70,15 @@ kotlin {
             dependsOn(getByName("commonTest"))
         }
 
-        val jsMain by getting {
+        val jsWasmMain by getting {
             dependsOn(nonKotlinMain)
+            getByName("jsMain").dependsOn(this)
+        }
+        val jsWasmTest by getting {
+            dependsOn(nonKotlinTest)
+            getByName("jsTest").dependsOn(this)
         }
 
-        val jsTest by getting {
-            dependsOn(nonKotlinTest)
-        }
-        val wasmMain by getting {
-            dependsOn(nonKotlinMain)
-        }
-        val wasmTest by getting {
-            dependsOn(nonKotlinTest)
-        }
         targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
             val mainSourceSet = compilations.getByName("main").defaultSourceSet
             val testSourceSet = compilations.getByName("test").defaultSourceSet

@@ -18,6 +18,7 @@ plugins {
     id("com.android.library")
     kotlin("multiplatform")
     id("com.vanniktech.maven.publish")
+    id("wasm-setup")
 }
 
 kotlin {
@@ -30,13 +31,6 @@ kotlin {
     js {
         browser()
         nodejs()
-    }
-    @Suppress("OPT_IN_USAGE")
-    wasm {
-        browser()
-        nodejs()
-        d8()
-        binaries.executable()
     }
 
     macosX64()
