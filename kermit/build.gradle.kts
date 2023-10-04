@@ -142,7 +142,7 @@ kotlin {
         implementation("org.jetbrains.kotlin:kotlin-test")
         implementation("org.jetbrains.kotlin:kotlin-test-junit")
         implementation("androidx.test:runner:1.4.0")
-        implementation("org.robolectric:robolectric:4.5.1")
+        implementation("org.robolectric:robolectric:4.9.2")
     }
 
     commonJvmTest.dependencies {
