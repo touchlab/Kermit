@@ -1,0 +1,59 @@
+name: release
+on: workflow_dispatch
+
+jobs:
+  release:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      - uses: touchlab/read-property@0.1
+        id: version-name
+        with:
+          file: ./gradle.properties
+          property: VERSION_NAME
+
+      - name: Echo Version
+        run: echo "${{ steps.version-name.outputs.propVal }}"
+
+      - uses: actions/setup-java@v2
+        with:
+          distribution: "adopt"
+          java-version: "17"
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+      - name: Cache gradle
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('*.gradle.kts') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Cache konan
+        uses: actions/cache@v2
+        with:
+          path: ~/.konan
+          key: ${{ runner.os }}-gradle-${{ hashFiles('*.gradle.kts') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Finish Maven Central Release
+        run: ./gradlew closeAndReleaseRepository --no-daemon --stacktrace --no-build-cache
+        env:
+          ORG_GRADLE_PROJECT_SONATYPE_NEXUS_USERNAME: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
+          ORG_GRADLE_PROJECT_SONATYPE_NEXUS_PASSWORD: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
+          ORG_GRADLE_PROJECT_SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
+
+      - name: Create Release
+        if: ${{ contains(steps.version-match.outputs.group1, 'SNAPSHOT') == false }}
+        uses: touchlab/release-action@v1.10.0
+        with:
+          tag: ${{ steps.version-name.outputs.propVal }}
+
+env:
+  GRADLE_OPTS: -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:MaxMetaspaceSize=512m"
