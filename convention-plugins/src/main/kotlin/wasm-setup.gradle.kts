@@ -7,6 +7,9 @@
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
+
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+
 plugins {
     kotlin("multiplatform")
 }
@@ -14,7 +17,7 @@ plugins {
 kotlin {
     val wasmEnabled = project.findProperty("enableWasm") == "true"
     if (wasmEnabled) {
-        @Suppress("OPT_IN_USAGE")
+        @OptIn(ExperimentalWasmDsl::class)
         wasm {
             browser()
             nodejs()
@@ -23,15 +26,15 @@ kotlin {
         }
     }
     sourceSets {
-        val jsWasmMain by creating
-        val jsWasmTest by creating
+        val jsAndWasmMain by creating
+        val jsAndWasmTest by creating
         if (wasmEnabled) {
             val wasmMain by getting {
-                dependsOn(jsWasmMain)
+                dependsOn(jsAndWasmMain)
             }
 
             val wasmTest by getting {
-                dependsOn(jsWasmTest)
+                dependsOn(jsAndWasmTest)
             }
         }
     }

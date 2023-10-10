@@ -11,8 +11,8 @@
  * the License.
  */
 
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
-import org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -23,7 +23,7 @@ plugins {
 }
 
 kotlin {
-    @Suppress("OPT_IN_USAGE")
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
     targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()
@@ -110,11 +110,12 @@ kotlin {
             dependsOn(nativeTest)
         }
 
-        val jsWasmMain by getting {
+        val jsAndWasmMain by getting {
             dependsOn(commonMain)
             getByName("jsMain").dependsOn(this)
         }
-        val jsWasmTest by getting {
+
+        val jsAndWasmTest by getting {
             dependsOn(commonTest)
             getByName("jsTest").dependsOn(this)
         }

@@ -11,11 +11,9 @@
  * the License.
  */
 
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
-import org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.time.Duration
 
 plugins {
     id("com.android.library")
@@ -25,7 +23,7 @@ plugins {
 }
 
 kotlin {
-    @Suppress("OPT_IN_USAGE")
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
     targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()
@@ -65,6 +63,7 @@ kotlin {
                 api(project(":kermit-core"))
             }
         }
+
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -85,12 +84,12 @@ kotlin {
             dependsOn(nonKotlinMain)
         }
 
-        val jsWasmMain by getting {
+        val jsAndWasmMain by getting {
             dependsOn(nonKotlinMain)
             getByName("jsMain").dependsOn(this)
         }
 
-        val jsWasmTest by getting {
+        val jsAndWasmTest by getting {
             dependsOn(nonKotlinTest)
             getByName("jsTest").dependsOn(this)
         }

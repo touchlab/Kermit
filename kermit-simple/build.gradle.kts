@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 
 /*
@@ -20,7 +21,7 @@ plugins {
 }
 
 kotlin {
-    @Suppress("OPT_IN_USAGE")
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
     targetHierarchy.default()
     js {
         browser()
@@ -70,11 +71,11 @@ kotlin {
             dependsOn(getByName("commonTest"))
         }
 
-        val jsWasmMain by getting {
+        val jsAndWasmMain by getting {
             dependsOn(nonKotlinMain)
             getByName("jsMain").dependsOn(this)
         }
-        val jsWasmTest by getting {
+        val jsAndWasmTest by getting {
             dependsOn(nonKotlinTest)
             getByName("jsTest").dependsOn(this)
         }
