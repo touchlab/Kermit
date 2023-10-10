@@ -43,26 +43,10 @@ class ConsoleWriter internal constructor(
 }
 
 internal interface ConsoleIntf {
-    fun error(vararg o: Any?)
-    fun warn(vararg o: Any?)
-    fun info(vararg o: Any?)
-    fun log(vararg o: Any?)
+    fun error(output: String)
+    fun warn(output: String)
+    fun info(output: String)
+    fun log(output: String)
 }
 
-private object ConsoleActual : ConsoleIntf {
-    override fun error(vararg o: Any?) {
-        console.error(*o)
-    }
-
-    override fun warn(vararg o: Any?) {
-        console.warn(*o)
-    }
-
-    override fun info(vararg o: Any?) {
-        console.info(*o)
-    }
-
-    override fun log(vararg o: Any?) {
-        console.log(*o)
-    }
-}
+internal expect object ConsoleActual : ConsoleIntf

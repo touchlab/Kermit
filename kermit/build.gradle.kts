@@ -11,6 +11,9 @@
  * the License.
  */
 
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -20,6 +23,7 @@ plugins {
 }
 
 kotlin {
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
     targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()
@@ -28,6 +32,13 @@ kotlin {
     js {
         browser()
         nodejs()
+    }
+    @OptIn(ExperimentalWasmDsl::class)
+    wasm {
+        browser()
+        nodejs()
+        d8()
+        binaries.executable()
     }
 
     macosX64()
@@ -79,12 +90,15 @@ kotlin {
             dependsOn(nonKotlinMain)
         }
 
-        val jsMain by getting {
+        val jsAndWasmMain by creating {
             dependsOn(nonKotlinMain)
+            getByName("jsMain").dependsOn(this)
+            getByName("wasmMain").dependsOn(this)
         }
-
-        val jsTest by getting {
+        val jsAndWasmTest by creating {
             dependsOn(nonKotlinTest)
+            getByName("jsTest").dependsOn(this)
+            getByName("wasmTest").dependsOn(this)
         }
 
         val commonJvmMain by creating {
@@ -126,4 +140,8 @@ android {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+rootProject.the<NodeJsRootExtension>().apply {
+    nodeVersion = "20.4.0"
 }

@@ -11,6 +11,9 @@
  * the License.
  */
 
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -20,6 +23,7 @@ plugins {
 }
 
 kotlin {
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
     targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()
@@ -28,6 +32,13 @@ kotlin {
     js {
         browser()
         nodejs()
+    }
+    @OptIn(ExperimentalWasmDsl::class)
+    wasm {
+        browser()
+        nodejs()
+        d8()
+        binaries.executable()
     }
 
     macosX64()
@@ -106,6 +117,17 @@ kotlin {
             dependsOn(nativeTest)
         }
 
+        val jsAndWasmMain by creating {
+            dependsOn(commonMain)
+            getByName("jsMain").dependsOn(this)
+            getByName("wasmMain").dependsOn(this)
+        }
+        val jsAndWasmTest by creating {
+            dependsOn(commonTest)
+            getByName("jsTest").dependsOn(this)
+            getByName("wasmTest").dependsOn(this)
+        }
+
         targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
             val mainSourceSet = compilations.getByName("main").defaultSourceSet
             val testSourceSet = compilations.getByName("test").defaultSourceSet
@@ -117,17 +139,14 @@ kotlin {
                         val linuxMain by getting
                         linuxMain
                     }
-
                     konanTarget.family == org.jetbrains.kotlin.konan.target.Family.MINGW -> {
                         val mingwMain by getting
                         mingwMain
                     }
-
                     konanTarget.family == org.jetbrains.kotlin.konan.target.Family.ANDROID -> {
                         val androidNativeMain by getting
                         androidNativeMain
                     }
-
                     else -> nativeMain
                 }
             )
@@ -157,4 +176,8 @@ android {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+rootProject.the<NodeJsRootExtension>().apply {
+    nodeVersion = "20.4.0"
 }

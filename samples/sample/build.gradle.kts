@@ -19,11 +19,15 @@ plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
 }
+
+version = "1.0-SNAPSHOT"
+
 allprojects {
     repositories {
         mavenCentral()
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
         google()
+        mavenLocal()
     }
 }
 tasks.register("ciTest") {

@@ -46,19 +46,19 @@ class ConsoleCollector : ConsoleIntf {
     val warnings = mutableListOf<String>()
     val infos = mutableListOf<String>()
     val logs = mutableListOf<String>()
-    override fun error(vararg o: Any?) {
-        errors.addAll(o.filterNotNull().map { it.toString() })
+    override fun error(output: String) {
+        errors.add(output)
     }
 
-    override fun warn(vararg o: Any?) {
-        warnings.addAll(o.filterNotNull().map { it.toString() })
+    override fun warn(output: String) {
+        warnings.add(output)
     }
 
-    override fun info(vararg o: Any?) {
-        infos.addAll(o.filterNotNull().map { it.toString() })
+    override fun info(output: String) {
+        infos.add(output)
     }
 
-    override fun log(vararg o: Any?) {
-        logs.addAll(o.filterNotNull().map { it.toString() })
+    override fun log(output: String) {
+        logs.add(output)
     }
 }

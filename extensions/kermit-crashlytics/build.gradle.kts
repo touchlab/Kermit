@@ -11,6 +11,7 @@
  * the License.
  */
 
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -22,6 +23,7 @@ plugins {
 apply(from = "../../gradle/configure-crash-logger.gradle")
 
 kotlin {
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
     targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()
