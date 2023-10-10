@@ -117,12 +117,12 @@ kotlin {
             dependsOn(nativeTest)
         }
 
-        val jsWasmMain by creating {
+        val jsAndWasmMain by creating {
             dependsOn(commonMain)
             getByName("jsMain").dependsOn(this)
             getByName("wasmMain").dependsOn(this)
         }
-        val jsWasmTest by creating {
+        val jsAndWasmTest by creating {
             dependsOn(commonTest)
             getByName("jsTest").dependsOn(this)
             getByName("wasmTest").dependsOn(this)

@@ -93,27 +93,15 @@ kotlin {
             dependsOn(nonKotlinMain)
         }
 
-        val jsWasmMain by creating {
+        val jsAndWasmMain by creating {
             dependsOn(nonKotlinMain)
+            getByName("jsMain").dependsOn(this)
+            getByName("wasmMain").dependsOn(this)
         }
-        val jsWasmTest by creating {
+        val jsAndWasmTest by creating {
             dependsOn(nonKotlinTest)
-        }
-
-        val jsMain by getting {
-            dependsOn(jsWasmMain)
-        }
-
-        val jsTest by getting {
-            dependsOn(jsWasmTest)
-        }
-
-        val wasmMain by getting {
-            dependsOn(jsWasmMain)
-        }
-
-        val wasmTest by getting {
-            dependsOn(jsWasmTest)
+            getByName("jsTest").dependsOn(this)
+            getByName("wasmTest").dependsOn(this)
         }
 
         val commonJvmMain by creating {
