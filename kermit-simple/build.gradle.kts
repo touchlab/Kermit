@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 
 /*
@@ -19,13 +21,13 @@ plugins {
 }
 
 kotlin {
-    @Suppress("OPT_IN_USAGE")
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
     targetHierarchy.default()
     js {
         browser()
         nodejs()
     }
-    @Suppress("OPT_IN_USAGE")
+    @OptIn(ExperimentalWasmDsl::class)
     wasm {
         browser()
         nodejs()

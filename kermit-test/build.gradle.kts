@@ -11,6 +11,8 @@
  * the License.
  */
 
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -21,7 +23,7 @@ plugins {
 }
 
 kotlin {
-    @Suppress("OPT_IN_USAGE")
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
     targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()
@@ -31,7 +33,7 @@ kotlin {
         browser()
         nodejs()
     }
-    @Suppress("OPT_IN_USAGE")
+    @OptIn(ExperimentalWasmDsl::class)
     wasm {
         browser()
         nodejs()
