@@ -12,7 +12,6 @@
  */
 
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -20,6 +19,7 @@ plugins {
     id("com.android.library")
     kotlin("multiplatform")
     id("com.vanniktech.maven.publish")
+    id("wasm-setup")
 }
 
 kotlin {
@@ -32,13 +32,6 @@ kotlin {
     js {
         browser()
         nodejs()
-    }
-    @OptIn(ExperimentalWasmDsl::class)
-    wasm {
-        browser()
-        nodejs()
-        d8()
-        binaries.executable()
     }
 
     macosX64()
@@ -70,6 +63,7 @@ kotlin {
                 api(project(":kermit-core"))
             }
         }
+
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -90,15 +84,14 @@ kotlin {
             dependsOn(nonKotlinMain)
         }
 
-        val jsAndWasmMain by creating {
+        val jsAndWasmMain by getting {
             dependsOn(nonKotlinMain)
             getByName("jsMain").dependsOn(this)
-            getByName("wasmMain").dependsOn(this)
         }
-        val jsAndWasmTest by creating {
+
+        val jsAndWasmTest by getting {
             dependsOn(nonKotlinTest)
             getByName("jsTest").dependsOn(this)
-            getByName("wasmTest").dependsOn(this)
         }
 
         val commonJvmMain by creating {
