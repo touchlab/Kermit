@@ -143,6 +143,10 @@ kotlin {
                 }
             )
 
+            if (konanTarget.family.isAppleFamily) {
+                compilations.getByName("main").cinterops.create("os_log")
+            }
+
             testSourceSet.dependsOn(
                 if (konanTarget.family.isAppleFamily) {
                     darwinTest
