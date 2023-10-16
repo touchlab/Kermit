@@ -1,0 +1,21 @@
+package = co.touchlab.kermit.darwin
+---
+
+#include <os/log.h>
+
+/**
+ * Passing `os_log_t` between this file and a normal kotlin file isn't working correctly.
+ * There's a weird type mismatch:
+ * - from here: os_log_t = CPointer<os_log_s>
+ * - normal kotlin: os_log_t = NSObject?
+ * For now we're just avoiding the issue by using a generic pointer.
+ */
+typedef void* darwin_os_log_t;
+
+darwin_os_log_t darwin_log_create(const char *subsystem, const char *category) {
+    return os_log_create(subsystem, category);
+}
+
+void darwin_log_with_type(darwin_os_log_t log, os_log_type_t type, const char *msg) {
+    os_log_with_type((os_log_t)log, type, "%s", msg);
+}
