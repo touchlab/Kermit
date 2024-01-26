@@ -1,8 +1,5 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
-
 /*
- * Copyright (c) 2021 Touchlab
+ * Copyright (c) 2024 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
  *
@@ -21,8 +18,6 @@ plugins {
 }
 
 kotlin {
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
-    targetHierarchy.default()
     js {
         browser()
         nodejs()
@@ -52,33 +47,23 @@ kotlin {
     androidNativeX64()
 
     sourceSets {
-        commonMain {
-            dependencies {
-                api(project(":kermit"))
-            }
+        commonMain.dependencies {
+            api(project(":kermit"))
         }
-        commonTest {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(project(":kermit-test"))
-            }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation(project(":kermit-test"))
         }
         val nonKotlinMain by creating {
-            dependsOn(getByName("commonMain"))
+            dependsOn(commonMain.get())
         }
 
         val nonKotlinTest by creating {
-            dependsOn(getByName("commonTest"))
+            dependsOn(commonTest.get())
         }
 
-        val jsAndWasmMain by getting {
-            dependsOn(nonKotlinMain)
-            getByName("jsMain").dependsOn(this)
-        }
-        val jsAndWasmTest by getting {
-            dependsOn(nonKotlinTest)
-            getByName("jsTest").dependsOn(this)
-        }
+        getByName("jsAndWasmJsMain").dependsOn(nonKotlinMain)
+        getByName("jsAndWasmJsTest").dependsOn(nonKotlinTest)
 
         targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
             val mainSourceSet = compilations.getByName("main").defaultSourceSet
@@ -88,8 +73,4 @@ kotlin {
             testSourceSet.dependsOn(nonKotlinTest)
         }
     }
-}
-
-rootProject.the<NodeJsRootExtension>().apply {
-    nodeVersion = "20.4.0"
 }

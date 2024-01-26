@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Touchlab
+ * Copyright (c) 2024 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
  *
@@ -11,8 +11,6 @@
  * the License.
  */
 
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -23,8 +21,6 @@ plugins {
 }
 
 kotlin {
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
-    targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()
     }
@@ -58,12 +54,10 @@ kotlin {
     androidNativeX64()
 
     sourceSets {
-        commonMain {
-            dependencies {
-                implementation(kotlin("test"))
-                api(project(":kermit-core"))
-                implementation(libs.stately.collections)
-            }
+        commonMain.dependencies {
+            implementation(kotlin("test"))
+            api(project(":kermit-core"))
+            implementation(libs.stately.collections)
         }
     }
 }
@@ -82,8 +76,4 @@ android {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
-}
-
-rootProject.the<NodeJsRootExtension>().apply {
-    nodeVersion = "20.4.0"
 }

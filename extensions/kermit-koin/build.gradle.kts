@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Touchlab
+ * Copyright (c) 2024 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
  *
@@ -11,7 +11,6 @@
  * the License.
  */
 
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -21,8 +20,6 @@ plugins {
 }
 
 kotlin {
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
-    targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()
     }
@@ -55,11 +52,9 @@ kotlin {
     // androidNativeX64()
 
     sourceSets {
-        commonMain {
-            dependencies {
-                implementation(project(":kermit"))
-                implementation(libs.koin)
-            }
+        commonMain.dependencies {
+            implementation(project(":kermit"))
+            implementation(libs.koin)
         }
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Touchlab
+ * Copyright (c) 2024 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -20,12 +20,10 @@ kotlin {
         binaries.executable()
     }
     sourceSets {
-        val jsMain by getting {
-            dependencies {
-                implementation(project(":shared"))
-                implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.9.1")
-                implementation("co.touchlab:kermit-simple:${KERMIT_VERSION}")
-            }
+        jsMain.dependencies {
+            implementation(project(":shared"))
+            implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.9.1")
+            implementation("co.touchlab:kermit-simple:${KERMIT_VERSION}")
         }
     }
 }
