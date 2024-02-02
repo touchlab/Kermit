@@ -25,8 +25,6 @@ plugins {
 kotlin {
     androidTarget {
         publishAllLibraryVariants()
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        unitTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
     }
     jvm()
     js {
