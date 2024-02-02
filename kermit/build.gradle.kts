@@ -73,10 +73,6 @@ kotlin {
             implementation(libs.testhelp)
             implementation(project(":kermit-test"))
         }
-
-        getByName("commonJvmMain").dependencies {
-            implementation(kotlin("test-junit"))
-        }
     }
 }
 
