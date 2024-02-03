@@ -20,6 +20,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
+@OptIn(ExperimentalKermitApi::class)
 @RunWith(RobolectricTestRunner::class)
 class LogcatLoggerTest {
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Touchlab
+ * Copyright (c) 2024 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -29,8 +29,8 @@ android {
         versionCode = 1
         versionName = "0.0.1"
     }
-    packagingOptions {
-        exclude("META-INF/*.kotlin_module")
+    packaging {
+        resources.excludes.add("META-INF/*.kotlin_module")
     }
     buildTypes {
         getByName("release") {

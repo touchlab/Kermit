@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Touchlab
+ * Copyright (c) 2024 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -15,17 +15,13 @@ val KERMIT_VERSION: String by project
 
 kotlin {
     @Suppress("OPT_IN_USAGE")
-    wasm {
+    wasmJs {
         browser()
         binaries.executable()
     }
-    sourceSets {
-        val wasmMain by getting {
-            dependencies {
-                implementation(project(":shared"))
-                implementation("co.touchlab:kermit-simple:${KERMIT_VERSION}")
-            }
-        }
+    sourceSets["wasmJsMain"].dependencies {
+        implementation(project(":shared"))
+        implementation("co.touchlab:kermit-simple:${KERMIT_VERSION}")
     }
 }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Touchlab
+ * Copyright (c) 2024 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
  *
@@ -11,7 +11,6 @@
  * the License.
  */
 
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -20,20 +19,28 @@ plugins {
     id("com.vanniktech.maven.publish")
 }
 
-apply(from = "../../gradle/configure-crash-logger.gradle")
-
 kotlin {
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
-    targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()
     }
+    macosX64()
+    macosArm64()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+    tvosArm64()
+    tvosSimulatorArm64()
+    tvosX64()
+    watchosArm32()
+    watchosArm64()
+    watchosSimulatorArm64()
+    watchosDeviceArm64()
+    watchosX64()
 
     sourceSets {
-        commonMain {
-            dependencies {
-                api(libs.crashkios.crashlytics)
-            }
+        commonMain.dependencies {
+            api(libs.crashkios.crashlytics)
+            implementation(project(":kermit-core"))
         }
     }
 }
