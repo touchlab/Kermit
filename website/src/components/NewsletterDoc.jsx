@@ -25,7 +25,7 @@ function NewsletterDoc() {
 
               {/* CTA content */}
                 <h4 className="h4 text-white xl:mb-0 text-center">Touchlab KMP Insiders Newsletter</h4>
-                <a className="btn text-cyan-600 bg-cyan-100 hover:bg-white shadow text-xl" href="https://form.typeform.com/to/MJTpmm">Subscribe</a>
+                <a className="btn text-cyan-600 bg-cyan-100 hover:bg-white shadow text-xl" href="https://touchlab.co/?s=shownewsletter">Subscribe</a>
 
             </div>
 
