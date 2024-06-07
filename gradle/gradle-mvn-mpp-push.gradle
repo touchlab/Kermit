@@ -19,8 +19,14 @@ def getAwsSecretKey() {
   return hasProperty('AWS_SECRET_KEY') ? AWS_SECRET_KEY :
           ""
 }
+
 def isReleaseBuild() {
   return VERSION_NAME.contains("SNAPSHOT") == false
+}
+
+def releaseSigningRequired() {
+  def enabled = hasProperty('RELEASE_SIGNING_ENABLED') ? RELEASE_SIGNING_ENABLED : false
+  return isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") && enabled
 }
 
 def getReleaseRepositoryUrl() {
@@ -53,7 +59,7 @@ def getGpgKey() {
 }
 
 signing {
-  required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
+  required { releaseSigningRequired() }
   def gpgKey = getGpgKey()
   if(gpgKey != "") {
     useInMemoryPgpKeys(getGpgKey(), "")
