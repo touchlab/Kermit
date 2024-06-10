@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.0.4] - 2024-06-10
+### Changed
+- Added `ChunkedLogWriter`. This LogWriter can be used to wrap existing LogWriters and break their output into defined sizes. This is useful if your LogWriter outputs to something which limits message length (such as Logcat) (#396 thanks @psh)
+```kotlin
+Logger.setLogWriters(platformLogWriter().chunked(maxMessageLength = 4000))
+```
 ## [2.0.3] - 2024-02-03
 
 ### Fixed
