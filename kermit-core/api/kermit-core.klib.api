@@ -1,0 +1,190 @@
+// Klib ABI Dump
+// Targets: [androidNativeArm32, androidNativeArm64, androidNativeX64, androidNativeX86, iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
+// Alias: androidNative => [androidNativeArm32, androidNativeArm64, androidNativeX64, androidNativeX86]
+// Alias: apple => [iosArm64, iosSimulatorArm64, iosX64, macosArm64, macosX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <co.touchlab:kermit-core>
+open annotation class co.touchlab.kermit/ExperimentalKermitApi : kotlin/Annotation { // co.touchlab.kermit/ExperimentalKermitApi|null[0]
+    constructor <init>() // co.touchlab.kermit/ExperimentalKermitApi.<init>|<init>(){}[0]
+}
+
+final enum class co.touchlab.kermit/Severity : kotlin/Enum<co.touchlab.kermit/Severity> { // co.touchlab.kermit/Severity|null[0]
+    enum entry Assert // co.touchlab.kermit/Severity.Assert|null[0]
+    enum entry Debug // co.touchlab.kermit/Severity.Debug|null[0]
+    enum entry Error // co.touchlab.kermit/Severity.Error|null[0]
+    enum entry Info // co.touchlab.kermit/Severity.Info|null[0]
+    enum entry Verbose // co.touchlab.kermit/Severity.Verbose|null[0]
+    enum entry Warn // co.touchlab.kermit/Severity.Warn|null[0]
+
+    final val entries // co.touchlab.kermit/Severity.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<co.touchlab.kermit/Severity> // co.touchlab.kermit/Severity.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): co.touchlab.kermit/Severity // co.touchlab.kermit/Severity.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<co.touchlab.kermit/Severity> // co.touchlab.kermit/Severity.values|values#static(){}[0]
+}
+
+abstract interface co.touchlab.kermit/LoggerConfig { // co.touchlab.kermit/LoggerConfig|null[0]
+    abstract val logWriterList // co.touchlab.kermit/LoggerConfig.logWriterList|{}logWriterList[0]
+        abstract fun <get-logWriterList>(): kotlin.collections/List<co.touchlab.kermit/LogWriter> // co.touchlab.kermit/LoggerConfig.logWriterList.<get-logWriterList>|<get-logWriterList>(){}[0]
+    abstract val minSeverity // co.touchlab.kermit/LoggerConfig.minSeverity|{}minSeverity[0]
+        abstract fun <get-minSeverity>(): co.touchlab.kermit/Severity // co.touchlab.kermit/LoggerConfig.minSeverity.<get-minSeverity>|<get-minSeverity>(){}[0]
+}
+
+abstract interface co.touchlab.kermit/MessageStringFormatter { // co.touchlab.kermit/MessageStringFormatter|null[0]
+    open fun formatMessage(co.touchlab.kermit/Severity?, co.touchlab.kermit/Tag?, co.touchlab.kermit/Message): kotlin/String // co.touchlab.kermit/MessageStringFormatter.formatMessage|formatMessage(co.touchlab.kermit.Severity?;co.touchlab.kermit.Tag?;co.touchlab.kermit.Message){}[0]
+    open fun formatSeverity(co.touchlab.kermit/Severity): kotlin/String // co.touchlab.kermit/MessageStringFormatter.formatSeverity|formatSeverity(co.touchlab.kermit.Severity){}[0]
+    open fun formatTag(co.touchlab.kermit/Tag): kotlin/String // co.touchlab.kermit/MessageStringFormatter.formatTag|formatTag(co.touchlab.kermit.Tag){}[0]
+}
+
+abstract interface co.touchlab.kermit/MutableLoggerConfig : co.touchlab.kermit/LoggerConfig { // co.touchlab.kermit/MutableLoggerConfig|null[0]
+    abstract var logWriterList // co.touchlab.kermit/MutableLoggerConfig.logWriterList|{}logWriterList[0]
+        abstract fun <get-logWriterList>(): kotlin.collections/List<co.touchlab.kermit/LogWriter> // co.touchlab.kermit/MutableLoggerConfig.logWriterList.<get-logWriterList>|<get-logWriterList>(){}[0]
+        abstract fun <set-logWriterList>(kotlin.collections/List<co.touchlab.kermit/LogWriter>) // co.touchlab.kermit/MutableLoggerConfig.logWriterList.<set-logWriterList>|<set-logWriterList>(kotlin.collections.List<co.touchlab.kermit.LogWriter>){}[0]
+    abstract var minSeverity // co.touchlab.kermit/MutableLoggerConfig.minSeverity|{}minSeverity[0]
+        abstract fun <get-minSeverity>(): co.touchlab.kermit/Severity // co.touchlab.kermit/MutableLoggerConfig.minSeverity.<get-minSeverity>|<get-minSeverity>(){}[0]
+        abstract fun <set-minSeverity>(co.touchlab.kermit/Severity) // co.touchlab.kermit/MutableLoggerConfig.minSeverity.<set-minSeverity>|<set-minSeverity>(co.touchlab.kermit.Severity){}[0]
+}
+
+abstract class co.touchlab.kermit/LogWriter { // co.touchlab.kermit/LogWriter|null[0]
+    constructor <init>() // co.touchlab.kermit/LogWriter.<init>|<init>(){}[0]
+
+    abstract fun log(co.touchlab.kermit/Severity, kotlin/String, kotlin/String, kotlin/Throwable? =...) // co.touchlab.kermit/LogWriter.log|log(co.touchlab.kermit.Severity;kotlin.String;kotlin.String;kotlin.Throwable?){}[0]
+    open fun isLoggable(kotlin/String, co.touchlab.kermit/Severity): kotlin/Boolean // co.touchlab.kermit/LogWriter.isLoggable|isLoggable(kotlin.String;co.touchlab.kermit.Severity){}[0]
+}
+
+final class co.touchlab.kermit/ChunkedLogWriter : co.touchlab.kermit/LogWriter { // co.touchlab.kermit/ChunkedLogWriter|null[0]
+    constructor <init>(co.touchlab.kermit/LogWriter, kotlin/Int, kotlin/Int) // co.touchlab.kermit/ChunkedLogWriter.<init>|<init>(co.touchlab.kermit.LogWriter;kotlin.Int;kotlin.Int){}[0]
+
+    final fun log(co.touchlab.kermit/Severity, kotlin/String, kotlin/String, kotlin/Throwable?) // co.touchlab.kermit/ChunkedLogWriter.log|log(co.touchlab.kermit.Severity;kotlin.String;kotlin.String;kotlin.Throwable?){}[0]
+}
+
+final class co.touchlab.kermit/StaticConfig : co.touchlab.kermit/LoggerConfig { // co.touchlab.kermit/StaticConfig|null[0]
+    constructor <init>(co.touchlab.kermit/Severity =..., kotlin.collections/List<co.touchlab.kermit/LogWriter> =...) // co.touchlab.kermit/StaticConfig.<init>|<init>(co.touchlab.kermit.Severity;kotlin.collections.List<co.touchlab.kermit.LogWriter>){}[0]
+
+    final val logWriterList // co.touchlab.kermit/StaticConfig.logWriterList|{}logWriterList[0]
+        final fun <get-logWriterList>(): kotlin.collections/List<co.touchlab.kermit/LogWriter> // co.touchlab.kermit/StaticConfig.logWriterList.<get-logWriterList>|<get-logWriterList>(){}[0]
+    final val minSeverity // co.touchlab.kermit/StaticConfig.minSeverity|{}minSeverity[0]
+        final fun <get-minSeverity>(): co.touchlab.kermit/Severity // co.touchlab.kermit/StaticConfig.minSeverity.<get-minSeverity>|<get-minSeverity>(){}[0]
+
+    final fun component1(): co.touchlab.kermit/Severity // co.touchlab.kermit/StaticConfig.component1|component1(){}[0]
+    final fun component2(): kotlin.collections/List<co.touchlab.kermit/LogWriter> // co.touchlab.kermit/StaticConfig.component2|component2(){}[0]
+    final fun copy(co.touchlab.kermit/Severity =..., kotlin.collections/List<co.touchlab.kermit/LogWriter> =...): co.touchlab.kermit/StaticConfig // co.touchlab.kermit/StaticConfig.copy|copy(co.touchlab.kermit.Severity;kotlin.collections.List<co.touchlab.kermit.LogWriter>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // co.touchlab.kermit/StaticConfig.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // co.touchlab.kermit/StaticConfig.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // co.touchlab.kermit/StaticConfig.toString|toString(){}[0]
+}
+
+final value class co.touchlab.kermit/Message { // co.touchlab.kermit/Message|null[0]
+    constructor <init>(kotlin/String) // co.touchlab.kermit/Message.<init>|<init>(kotlin.String){}[0]
+
+    final val message // co.touchlab.kermit/Message.message|<get-message>(){}[0]
+        final fun <get-message>(): kotlin/String // co.touchlab.kermit/Message.message.<get-message>|<get-message>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // co.touchlab.kermit/Message.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // co.touchlab.kermit/Message.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // co.touchlab.kermit/Message.toString|toString(){}[0]
+}
+
+final value class co.touchlab.kermit/Tag { // co.touchlab.kermit/Tag|null[0]
+    constructor <init>(kotlin/String) // co.touchlab.kermit/Tag.<init>|<init>(kotlin.String){}[0]
+
+    final val tag // co.touchlab.kermit/Tag.tag|<get-tag>(){}[0]
+        final fun <get-tag>(): kotlin/String // co.touchlab.kermit/Tag.tag.<get-tag>|<get-tag>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // co.touchlab.kermit/Tag.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // co.touchlab.kermit/Tag.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // co.touchlab.kermit/Tag.toString|toString(){}[0]
+}
+
+open class co.touchlab.kermit/BaseLogger { // co.touchlab.kermit/BaseLogger|null[0]
+    constructor <init>(co.touchlab.kermit/LoggerConfig) // co.touchlab.kermit/BaseLogger.<init>|<init>(co.touchlab.kermit.LoggerConfig){}[0]
+
+    final val mutableConfig // co.touchlab.kermit/BaseLogger.mutableConfig|{}mutableConfig[0]
+        final fun <get-mutableConfig>(): co.touchlab.kermit/MutableLoggerConfig // co.touchlab.kermit/BaseLogger.mutableConfig.<get-mutableConfig>|<get-mutableConfig>(){}[0]
+    open val config // co.touchlab.kermit/BaseLogger.config|{}config[0]
+        open fun <get-config>(): co.touchlab.kermit/LoggerConfig // co.touchlab.kermit/BaseLogger.config.<get-config>|<get-config>(){}[0]
+
+    final fun processLog(co.touchlab.kermit/Severity, kotlin/String, kotlin/Throwable?, kotlin/String) // co.touchlab.kermit/BaseLogger.processLog|processLog(co.touchlab.kermit.Severity;kotlin.String;kotlin.Throwable?;kotlin.String){}[0]
+    final inline fun log(co.touchlab.kermit/Severity, kotlin/String, kotlin/Throwable?, kotlin/String) // co.touchlab.kermit/BaseLogger.log|log(co.touchlab.kermit.Severity;kotlin.String;kotlin.Throwable?;kotlin.String){}[0]
+    final inline fun logBlock(co.touchlab.kermit/Severity, kotlin/String, kotlin/Throwable?, kotlin/Function0<kotlin/String>) // co.touchlab.kermit/BaseLogger.logBlock|logBlock(co.touchlab.kermit.Severity;kotlin.String;kotlin.Throwable?;kotlin.Function0<kotlin.String>){}[0]
+}
+
+open class co.touchlab.kermit/CommonWriter : co.touchlab.kermit/LogWriter { // co.touchlab.kermit/CommonWriter|null[0]
+    constructor <init>(co.touchlab.kermit/MessageStringFormatter =...) // co.touchlab.kermit/CommonWriter.<init>|<init>(co.touchlab.kermit.MessageStringFormatter){}[0]
+
+    open fun log(co.touchlab.kermit/Severity, kotlin/String, kotlin/String, kotlin/Throwable?) // co.touchlab.kermit/CommonWriter.log|log(co.touchlab.kermit.Severity;kotlin.String;kotlin.String;kotlin.Throwable?){}[0]
+}
+
+final object co.touchlab.kermit/DefaultFormatter : co.touchlab.kermit/MessageStringFormatter // co.touchlab.kermit/DefaultFormatter|null[0]
+
+final object co.touchlab.kermit/NoTagFormatter : co.touchlab.kermit/MessageStringFormatter { // co.touchlab.kermit/NoTagFormatter|null[0]
+    final fun formatMessage(co.touchlab.kermit/Severity?, co.touchlab.kermit/Tag?, co.touchlab.kermit/Message): kotlin/String // co.touchlab.kermit/NoTagFormatter.formatMessage|formatMessage(co.touchlab.kermit.Severity?;co.touchlab.kermit.Tag?;co.touchlab.kermit.Message){}[0]
+    final fun formatTag(co.touchlab.kermit/Tag): kotlin/String // co.touchlab.kermit/NoTagFormatter.formatTag|formatTag(co.touchlab.kermit.Tag){}[0]
+}
+
+final object co.touchlab.kermit/SimpleFormatter : co.touchlab.kermit/MessageStringFormatter { // co.touchlab.kermit/SimpleFormatter|null[0]
+    final fun formatMessage(co.touchlab.kermit/Severity?, co.touchlab.kermit/Tag?, co.touchlab.kermit/Message): kotlin/String // co.touchlab.kermit/SimpleFormatter.formatMessage|formatMessage(co.touchlab.kermit.Severity?;co.touchlab.kermit.Tag?;co.touchlab.kermit.Message){}[0]
+    final fun formatTag(co.touchlab.kermit/Tag): kotlin/String // co.touchlab.kermit/SimpleFormatter.formatTag|formatTag(co.touchlab.kermit.Tag){}[0]
+}
+
+final fun (co.touchlab.kermit/LogWriter).co.touchlab.kermit/chunked(kotlin/Int =..., kotlin/Int =...): co.touchlab.kermit/LogWriter // co.touchlab.kermit/chunked|chunked@co.touchlab.kermit.LogWriter(kotlin.Int;kotlin.Int){}[0]
+final fun co.touchlab.kermit/loggerConfigInit(kotlin/Array<out co.touchlab.kermit/LogWriter>..., co.touchlab.kermit/Severity =...): co.touchlab.kermit/LoggerConfig // co.touchlab.kermit/loggerConfigInit|loggerConfigInit(kotlin.Array<out|co.touchlab.kermit.LogWriter>...;co.touchlab.kermit.Severity){}[0]
+final fun co.touchlab.kermit/mutableLoggerConfigInit(kotlin.collections/List<co.touchlab.kermit/LogWriter>): co.touchlab.kermit/MutableLoggerConfig // co.touchlab.kermit/mutableLoggerConfigInit|mutableLoggerConfigInit(kotlin.collections.List<co.touchlab.kermit.LogWriter>){}[0]
+final fun co.touchlab.kermit/mutableLoggerConfigInit(kotlin/Array<out co.touchlab.kermit/LogWriter>..., co.touchlab.kermit/Severity =...): co.touchlab.kermit/MutableLoggerConfig // co.touchlab.kermit/mutableLoggerConfigInit|mutableLoggerConfigInit(kotlin.Array<out|co.touchlab.kermit.LogWriter>...;co.touchlab.kermit.Severity){}[0]
+final fun co.touchlab.kermit/platformLogWriter(co.touchlab.kermit/MessageStringFormatter =...): co.touchlab.kermit/LogWriter // co.touchlab.kermit/platformLogWriter|platformLogWriter(co.touchlab.kermit.MessageStringFormatter){}[0]
+
+// Targets: [apple]
+final class co.touchlab.kermit/NSLogWriter : co.touchlab.kermit/LogWriter { // co.touchlab.kermit/NSLogWriter|null[0]
+    constructor <init>(co.touchlab.kermit/MessageStringFormatter =...) // co.touchlab.kermit/NSLogWriter.<init>|<init>(co.touchlab.kermit.MessageStringFormatter){}[0]
+
+    final fun log(co.touchlab.kermit/Severity, kotlin/String, kotlin/String, kotlin/Throwable?) // co.touchlab.kermit/NSLogWriter.log|log(co.touchlab.kermit.Severity;kotlin.String;kotlin.String;kotlin.Throwable?){}[0]
+}
+
+// Targets: [apple]
+open class co.touchlab.kermit/OSLogWriter : co.touchlab.kermit/LogWriter { // co.touchlab.kermit/OSLogWriter|null[0]
+    constructor <init>(co.touchlab.kermit/MessageStringFormatter =...) // co.touchlab.kermit/OSLogWriter.<init>|<init>(co.touchlab.kermit.MessageStringFormatter){}[0]
+
+    open fun callLog(co.touchlab.kermit/Severity, kotlin/String, kotlin/Throwable?) // co.touchlab.kermit/OSLogWriter.callLog|callLog(co.touchlab.kermit.Severity;kotlin.String;kotlin.Throwable?){}[0]
+    open fun formatMessage(co.touchlab.kermit/Severity, co.touchlab.kermit/Tag, co.touchlab.kermit/Message): kotlin/String // co.touchlab.kermit/OSLogWriter.formatMessage|formatMessage(co.touchlab.kermit.Severity;co.touchlab.kermit.Tag;co.touchlab.kermit.Message){}[0]
+    open fun log(co.touchlab.kermit/Severity, kotlin/String, kotlin/String, kotlin/Throwable?) // co.touchlab.kermit/OSLogWriter.log|log(co.touchlab.kermit.Severity;kotlin.String;kotlin.String;kotlin.Throwable?){}[0]
+    open fun logThrowable(kotlin/UByte, kotlin/Throwable) // co.touchlab.kermit/OSLogWriter.logThrowable|logThrowable(kotlin.UByte;kotlin.Throwable){}[0]
+}
+
+// Targets: [apple]
+open class co.touchlab.kermit/XcodeSeverityWriter : co.touchlab.kermit/OSLogWriter { // co.touchlab.kermit/XcodeSeverityWriter|null[0]
+    constructor <init>(co.touchlab.kermit/MessageStringFormatter =...) // co.touchlab.kermit/XcodeSeverityWriter.<init>|<init>(co.touchlab.kermit.MessageStringFormatter){}[0]
+
+    open fun emojiPrefix(co.touchlab.kermit/Severity): kotlin/String // co.touchlab.kermit/XcodeSeverityWriter.emojiPrefix|emojiPrefix(co.touchlab.kermit.Severity){}[0]
+    open fun formatMessage(co.touchlab.kermit/Severity, co.touchlab.kermit/Tag, co.touchlab.kermit/Message): kotlin/String // co.touchlab.kermit/XcodeSeverityWriter.formatMessage|formatMessage(co.touchlab.kermit.Severity;co.touchlab.kermit.Tag;co.touchlab.kermit.Message){}[0]
+    open fun logThrowable(kotlin/UByte, kotlin/Throwable) // co.touchlab.kermit/XcodeSeverityWriter.logThrowable|logThrowable(kotlin.UByte;kotlin.Throwable){}[0]
+}
+
+// Targets: [androidNative]
+final class co.touchlab.kermit/AndroidNativeLogWriter : co.touchlab.kermit/LogWriter { // co.touchlab.kermit/AndroidNativeLogWriter|null[0]
+    constructor <init>() // co.touchlab.kermit/AndroidNativeLogWriter.<init>|<init>(){}[0]
+
+    final fun log(co.touchlab.kermit/Severity, kotlin/String, kotlin/String, kotlin/Throwable?) // co.touchlab.kermit/AndroidNativeLogWriter.log|log(co.touchlab.kermit.Severity;kotlin.String;kotlin.String;kotlin.Throwable?){}[0]
+}
+
+// Targets: [js, wasmJs]
+final class co.touchlab.kermit/ConsoleWriter : co.touchlab.kermit/LogWriter { // co.touchlab.kermit/ConsoleWriter|null[0]
+    constructor <init>(co.touchlab.kermit/MessageStringFormatter =...) // co.touchlab.kermit/ConsoleWriter.<init>|<init>(co.touchlab.kermit.MessageStringFormatter){}[0]
+
+    final fun log(co.touchlab.kermit/Severity, kotlin/String, kotlin/String, kotlin/Throwable?) // co.touchlab.kermit/ConsoleWriter.log|log(co.touchlab.kermit.Severity;kotlin.String;kotlin.String;kotlin.Throwable?){}[0]
+}
+
+// Targets: [wasmJs]
+final fun co.touchlab.kermit/consoleError(kotlin/String) // co.touchlab.kermit/consoleError|consoleError(kotlin.String){}[0]
+
+// Targets: [wasmJs]
+final fun co.touchlab.kermit/consoleInfo(kotlin/String) // co.touchlab.kermit/consoleInfo|consoleInfo(kotlin.String){}[0]
+
+// Targets: [wasmJs]
+final fun co.touchlab.kermit/consoleLog(kotlin/String) // co.touchlab.kermit/consoleLog|consoleLog(kotlin.String){}[0]
+
+// Targets: [wasmJs]
+final fun co.touchlab.kermit/consoleWarn(kotlin/String) // co.touchlab.kermit/consoleWarn|consoleWarn(kotlin.String){}[0]
