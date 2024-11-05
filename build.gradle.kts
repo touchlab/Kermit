@@ -50,4 +50,6 @@ allprojects {
         mavenCentral()
         google()
     }
+    tasks.getByName("dokkaHtml").dependsOn(":kermit:transformIosMainCInteropDependenciesMetadataForIde")
 }
+
