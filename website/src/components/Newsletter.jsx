@@ -30,7 +30,7 @@ function Newsletter() {
             </div>
 
             <div className="flex flex-col w-1/2 justify-center mx-auto">
-              <a className="btn text-indigo-600 bg-indigo-100 hover:bg-white shadow text-xl" href="https://form.typeform.com/to/MJTpmm">Subscribe</a>
+              <a className="btn text-indigo-600 bg-indigo-100 hover:bg-white shadow text-xl" href="https://touchlab.co/?s=shownewsletter">Subscribe</a>
             </div>
 
           </div>

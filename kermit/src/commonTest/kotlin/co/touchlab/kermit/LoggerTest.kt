@@ -276,6 +276,7 @@ class LoggerTest {
     }
 
     @Ignore
+    @Test
     fun testMutableLoggerConfig_MultiThreading_Severity() {
         val testLogWriter = TestLogWriter(loggable = Severity.Verbose)
         val config = mutableLoggerConfigInit(listOf(testLogWriter))

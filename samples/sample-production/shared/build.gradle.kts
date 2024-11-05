@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Touchlab
+ * Copyright (c) 2024 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -8,7 +8,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -38,32 +37,25 @@ val KERMIT_VERSION: String by project
 version = "0.0.1"
 
 kotlin {
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
-    targetHierarchy.default()
     androidTarget()
-    ios()
+    iosX64()
+    iosArm64()
     iosSimulatorArm64()
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                api("co.touchlab:kermit:${KERMIT_VERSION}")
-                implementation("co.touchlab:kermit-bugsnag:${KERMIT_VERSION}")
-            }
+        commonMain.dependencies {
+            api("co.touchlab:kermit:${KERMIT_VERSION}")
+            implementation("co.touchlab:kermit-bugsnag:${KERMIT_VERSION}")
         }
 
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation("co.touchlab:kermit-test:${KERMIT_VERSION}")
-            }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation("co.touchlab:kermit-test:${KERMIT_VERSION}")
         }
 
-        val iosMain by getting {
-            dependencies {
-                // Only if you want to talk to Kermit from Swift
-                api("co.touchlab:kermit-simple:${KERMIT_VERSION}")
-            }
+        iosMain.dependencies {
+            // Only if you want to talk to Kermit from Swift
+            api("co.touchlab:kermit-simple:${KERMIT_VERSION}")
         }
     }
 

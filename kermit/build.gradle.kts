@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Touchlab
+ * Copyright (c) 2024 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
  *
@@ -11,8 +11,6 @@
  * the License.
  */
 
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -23,8 +21,6 @@ plugins {
 }
 
 kotlin {
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
-    targetHierarchy.default()
     androidTarget {
         publishAllLibraryVariants()
     }
@@ -57,64 +53,25 @@ kotlin {
     androidNativeX86()
     androidNativeX64()
 
+    @Suppress("OPT_IN_USAGE")
+    applyDefaultHierarchyTemplate {
+        common {
+            group("commonJvm") {
+                withAndroidTarget()
+                withJvm()
+            }
+        }
+    }
+
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                api(project(":kermit-core"))
-            }
+        commonMain.dependencies {
+            api(project(":kermit-core"))
         }
 
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(libs.testhelp)
-                implementation(project(":kermit-test"))
-            }
-        }
-
-        val nonKotlinMain by creating {
-            dependsOn(commonMain)
-        }
-
-        val nonKotlinTest by creating {
-            dependsOn(commonTest)
-        }
-
-        val nativeMain by getting {
-            dependsOn(nonKotlinMain)
-        }
-
-        val jsAndWasmMain by getting {
-            dependsOn(nonKotlinMain)
-            getByName("jsMain").dependsOn(this)
-        }
-
-        val jsAndWasmTest by getting {
-            dependsOn(nonKotlinTest)
-            getByName("jsTest").dependsOn(this)
-        }
-
-        val commonJvmMain by creating {
-            dependsOn(commonMain)
-            dependencies {
-                implementation(kotlin("test-junit"))
-            }
-        }
-
-        val jvmMain by getting {
-            dependsOn(commonJvmMain)
-        }
-
-        val androidMain by getting {
-            dependsOn(commonJvmMain)
-        }
-
-        targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
-            val mainSourceSet = compilations.getByName("main").defaultSourceSet
-            val testSourceSet = compilations.getByName("test").defaultSourceSet
-
-            mainSourceSet.dependsOn(nativeMain)
-            testSourceSet.dependsOn(nonKotlinTest)
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation(libs.testhelp)
+            implementation(project(":kermit-test"))
         }
     }
 }
@@ -133,8 +90,4 @@ android {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
-}
-
-rootProject.the<NodeJsRootExtension>().apply {
-    nodeVersion = "20.4.0"
 }
