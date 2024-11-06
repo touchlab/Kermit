@@ -75,6 +75,12 @@ kotlin {
             implementation(kotlin("test-junit"))
         }
 
+        targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
+            if (konanTarget.family.isAppleFamily) {
+                compilations.getByName("main").cinterops.create("os_log")
+            }
+        }
+
         getByName("androidUnitTest").dependencies {
             implementation(libs.androidx.runner)
             implementation(libs.roboelectric)
