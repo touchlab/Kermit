@@ -1,0 +1,45 @@
+// Klib ABI Dump
+// Targets: [androidNativeArm32, androidNativeArm64, androidNativeX64, androidNativeX86, iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <co.touchlab:kermit>
+open class co.touchlab.kermit/Logger : co.touchlab.kermit/BaseLogger { // co.touchlab.kermit/Logger|null[0]
+    constructor <init>(co.touchlab.kermit/LoggerConfig, kotlin/String =...) // co.touchlab.kermit/Logger.<init>|<init>(co.touchlab.kermit.LoggerConfig;kotlin.String){}[0]
+
+    open val tag // co.touchlab.kermit/Logger.tag|{}tag[0]
+        open fun <get-tag>(): kotlin/String // co.touchlab.kermit/Logger.tag.<get-tag>|<get-tag>(){}[0]
+
+    final fun withTag(kotlin/String): co.touchlab.kermit/Logger // co.touchlab.kermit/Logger.withTag|withTag(kotlin.String){}[0]
+    final inline fun a(kotlin/String, kotlin/Throwable? =..., kotlin/String =...) // co.touchlab.kermit/Logger.a|a(kotlin.String;kotlin.Throwable?;kotlin.String){}[0]
+    final inline fun a(kotlin/Throwable? =..., kotlin/String =..., kotlin/Function0<kotlin/String>) // co.touchlab.kermit/Logger.a|a(kotlin.Throwable?;kotlin.String;kotlin.Function0<kotlin.String>){}[0]
+    final inline fun d(kotlin/String, kotlin/Throwable? =..., kotlin/String =...) // co.touchlab.kermit/Logger.d|d(kotlin.String;kotlin.Throwable?;kotlin.String){}[0]
+    final inline fun d(kotlin/Throwable? =..., kotlin/String =..., kotlin/Function0<kotlin/String>) // co.touchlab.kermit/Logger.d|d(kotlin.Throwable?;kotlin.String;kotlin.Function0<kotlin.String>){}[0]
+    final inline fun e(kotlin/String, kotlin/Throwable? =..., kotlin/String =...) // co.touchlab.kermit/Logger.e|e(kotlin.String;kotlin.Throwable?;kotlin.String){}[0]
+    final inline fun e(kotlin/Throwable? =..., kotlin/String =..., kotlin/Function0<kotlin/String>) // co.touchlab.kermit/Logger.e|e(kotlin.Throwable?;kotlin.String;kotlin.Function0<kotlin.String>){}[0]
+    final inline fun i(kotlin/String, kotlin/Throwable? =..., kotlin/String =...) // co.touchlab.kermit/Logger.i|i(kotlin.String;kotlin.Throwable?;kotlin.String){}[0]
+    final inline fun i(kotlin/Throwable? =..., kotlin/String =..., kotlin/Function0<kotlin/String>) // co.touchlab.kermit/Logger.i|i(kotlin.Throwable?;kotlin.String;kotlin.Function0<kotlin.String>){}[0]
+    final inline fun v(kotlin/String, kotlin/Throwable? =..., kotlin/String =...) // co.touchlab.kermit/Logger.v|v(kotlin.String;kotlin.Throwable?;kotlin.String){}[0]
+    final inline fun v(kotlin/Throwable? =..., kotlin/String =..., kotlin/Function0<kotlin/String>) // co.touchlab.kermit/Logger.v|v(kotlin.Throwable?;kotlin.String;kotlin.Function0<kotlin.String>){}[0]
+    final inline fun w(kotlin/String, kotlin/Throwable? =..., kotlin/String =...) // co.touchlab.kermit/Logger.w|w(kotlin.String;kotlin.Throwable?;kotlin.String){}[0]
+    final inline fun w(kotlin/Throwable? =..., kotlin/String =..., kotlin/Function0<kotlin/String>) // co.touchlab.kermit/Logger.w|w(kotlin.Throwable?;kotlin.String;kotlin.Function0<kotlin.String>){}[0]
+
+    final object Companion : co.touchlab.kermit/Logger { // co.touchlab.kermit/Logger.Companion|null[0]
+        final val tag // co.touchlab.kermit/Logger.Companion.tag|{}tag[0]
+            final fun <get-tag>(): kotlin/String // co.touchlab.kermit/Logger.Companion.tag.<get-tag>|<get-tag>(){}[0]
+
+        final fun a(kotlin/String, kotlin/Throwable? =..., kotlin/Function0<kotlin/String>) // co.touchlab.kermit/Logger.Companion.a|a(kotlin.String;kotlin.Throwable?;kotlin.Function0<kotlin.String>){}[0]
+        final fun addLogWriter(kotlin/Array<out co.touchlab.kermit/LogWriter>...) // co.touchlab.kermit/Logger.Companion.addLogWriter|addLogWriter(kotlin.Array<out|co.touchlab.kermit.LogWriter>...){}[0]
+        final fun d(kotlin/String, kotlin/Throwable? =..., kotlin/Function0<kotlin/String>) // co.touchlab.kermit/Logger.Companion.d|d(kotlin.String;kotlin.Throwable?;kotlin.Function0<kotlin.String>){}[0]
+        final fun e(kotlin/String, kotlin/Throwable? =..., kotlin/Function0<kotlin/String>) // co.touchlab.kermit/Logger.Companion.e|e(kotlin.String;kotlin.Throwable?;kotlin.Function0<kotlin.String>){}[0]
+        final fun i(kotlin/String, kotlin/Throwable? =..., kotlin/Function0<kotlin/String>) // co.touchlab.kermit/Logger.Companion.i|i(kotlin.String;kotlin.Throwable?;kotlin.Function0<kotlin.String>){}[0]
+        final fun setLogWriters(kotlin.collections/List<co.touchlab.kermit/LogWriter>) // co.touchlab.kermit/Logger.Companion.setLogWriters|setLogWriters(kotlin.collections.List<co.touchlab.kermit.LogWriter>){}[0]
+        final fun setLogWriters(kotlin/Array<out co.touchlab.kermit/LogWriter>...) // co.touchlab.kermit/Logger.Companion.setLogWriters|setLogWriters(kotlin.Array<out|co.touchlab.kermit.LogWriter>...){}[0]
+        final fun setMinSeverity(co.touchlab.kermit/Severity) // co.touchlab.kermit/Logger.Companion.setMinSeverity|setMinSeverity(co.touchlab.kermit.Severity){}[0]
+        final fun setTag(kotlin/String) // co.touchlab.kermit/Logger.Companion.setTag|setTag(kotlin.String){}[0]
+        final fun v(kotlin/String, kotlin/Throwable? =..., kotlin/Function0<kotlin/String>) // co.touchlab.kermit/Logger.Companion.v|v(kotlin.String;kotlin.Throwable?;kotlin.Function0<kotlin.String>){}[0]
+        final fun w(kotlin/String, kotlin/Throwable? =..., kotlin/Function0<kotlin/String>) // co.touchlab.kermit/Logger.Companion.w|w(kotlin.String;kotlin.Throwable?;kotlin.Function0<kotlin.String>){}[0]
+    }
+}
