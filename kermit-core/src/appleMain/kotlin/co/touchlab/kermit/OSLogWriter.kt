@@ -27,12 +27,12 @@ import kotlin.experimental.ExperimentalNativeApi
  */
 open class OSLogWriter internal constructor(
     private val messageStringFormatter: MessageStringFormatter,
-    private val darwinLogger: DarwinLogger
+    private val darwinLogger: DarwinLogger,
 ) : LogWriter() {
 
-    constructor(messageStringFormatter: MessageStringFormatter = DefaultFormatter) : this(
+    constructor(messageStringFormatter: MessageStringFormatter = DefaultFormatter, subsystem: String = "", category: String = "") : this(
         messageStringFormatter,
-        DarwinLoggerActual
+        DarwinLoggerActual(subsystem, category),
     )
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
@@ -77,8 +77,8 @@ internal interface DarwinLogger {
 }
 
 @OptIn(ExperimentalForeignApi::class)
-private object DarwinLoggerActual : DarwinLogger {
-    private val logger = darwin_log_create("", "")!!
+private class DarwinLoggerActual(subsystem: String, category: String) : DarwinLogger {
+    private val logger = darwin_log_create(subsystem, category)!!
     override fun log(osLogSeverity: os_log_type_t, message: String) {
         darwin_log_with_type(logger, osLogSeverity, message)
     }
