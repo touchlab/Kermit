@@ -17,5 +17,5 @@ darwin_os_log_t darwin_log_create(const char *subsystem, const char *category) {
 }
 
 void darwin_log_with_type(darwin_os_log_t log, os_log_type_t type, const char *msg) {
-    os_log_with_type((os_log_t)log, type, "%s", msg);
+    os_log_with_type((os_log_t)log, type, "%{public}s", msg);
 }
