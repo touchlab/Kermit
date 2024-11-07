@@ -19,3 +19,4 @@ local.properties
 
 Pods
 .kotlin/metadata/
+samples/sample/.kotlin/metadata/

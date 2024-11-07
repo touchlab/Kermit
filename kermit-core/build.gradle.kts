@@ -32,21 +32,8 @@ kotlin {
     }
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
-        moduleName = "kermit-core"
-        browser {
-            val rootDirPath = project.rootDir.path
-            val projectDirPath = project.projectDir.path
-            commonWebpackConfig {
-                outputFileName = "kermit-core.js"
-                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-                    static = (static ?: mutableListOf()).apply {
-                        // Serve sources to debug inside browser
-                        add(rootDirPath)
-                        add(projectDirPath)
-                    }
-                }
-            }
-        }
+        browser()
+        nodejs()
         binaries.executable()
     }
 
@@ -98,6 +85,9 @@ kotlin {
             dependsOn(commonMain.get())
         }
         jsMain {
+            dependsOn(jsAndWasmJsMain)
+        }
+        wasmJsMain {
             dependsOn(jsAndWasmJsMain)
         }
 

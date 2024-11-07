@@ -11,7 +11,7 @@
  * the License.
  */
 
-@file:Suppress("unused")
+@file:Suppress("unused", "EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 
 package co.touchlab.kermit
 
@@ -49,4 +49,9 @@ internal interface ConsoleIntf {
     fun log(output: String)
 }
 
-internal expect object ConsoleActual : ConsoleIntf
+internal expect object ConsoleActual : ConsoleIntf {
+    override fun error(output: String)
+    override fun warn(output: String)
+    override fun info(output: String)
+    override fun log(output: String)
+}

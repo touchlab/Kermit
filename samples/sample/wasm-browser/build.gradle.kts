@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+
 /*
  * Copyright (c) 2024 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
@@ -14,14 +17,18 @@ plugins {
 val KERMIT_VERSION: String by project
 
 kotlin {
-    @Suppress("OPT_IN_USAGE")
+    @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
+        nodejs()
         binaries.executable()
     }
-    sourceSets["wasmJsMain"].dependencies {
-        implementation(project(":shared"))
-        implementation("co.touchlab:kermit-simple:${KERMIT_VERSION}")
+
+    sourceSets {
+        wasmJsMain.dependencies {
+            implementation(project(":shared"))
+            implementation("co.touchlab:kermit-simple:2.0.5")
+        }
     }
 }
 

@@ -11,19 +11,19 @@
 package co.touchlab.kermit
 
 internal actual object ConsoleActual : ConsoleIntf {
-    override fun error(output: String) {
+    actual override fun error(output: String) {
         console.error(output)
     }
 
-    override fun warn(output: String) {
+    actual override fun warn(output: String) {
         console.warn(output)
     }
 
-    override fun info(output: String) {
+    actual override fun info(output: String) {
         console.info(output)
     }
 
-    override fun log(output: String) {
+    actual override fun log(output: String) {
         console.log(output)
     }
 }
