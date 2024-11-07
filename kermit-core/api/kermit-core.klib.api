@@ -1,5 +1,5 @@
 // Klib ABI Dump
-// Targets: [androidNativeArm32, androidNativeArm64, androidNativeX64, androidNativeX86, iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
+// Targets: [androidNativeArm32, androidNativeArm64, androidNativeX64, androidNativeX86, iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
 // Alias: androidNative => [androidNativeArm32, androidNativeArm64, androidNativeX64, androidNativeX86]
 // Alias: apple => [iosArm64, iosSimulatorArm64, iosX64, macosArm64, macosX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
 // Rendering settings:
@@ -170,21 +170,9 @@ final class co.touchlab.kermit/AndroidNativeLogWriter : co.touchlab.kermit/LogWr
     final fun log(co.touchlab.kermit/Severity, kotlin/String, kotlin/String, kotlin/Throwable?) // co.touchlab.kermit/AndroidNativeLogWriter.log|log(co.touchlab.kermit.Severity;kotlin.String;kotlin.String;kotlin.Throwable?){}[0]
 }
 
-// Targets: [js, wasmJs]
+// Targets: [js]
 final class co.touchlab.kermit/ConsoleWriter : co.touchlab.kermit/LogWriter { // co.touchlab.kermit/ConsoleWriter|null[0]
     constructor <init>(co.touchlab.kermit/MessageStringFormatter =...) // co.touchlab.kermit/ConsoleWriter.<init>|<init>(co.touchlab.kermit.MessageStringFormatter){}[0]
 
     final fun log(co.touchlab.kermit/Severity, kotlin/String, kotlin/String, kotlin/Throwable?) // co.touchlab.kermit/ConsoleWriter.log|log(co.touchlab.kermit.Severity;kotlin.String;kotlin.String;kotlin.Throwable?){}[0]
 }
-
-// Targets: [wasmJs]
-final fun co.touchlab.kermit/consoleError(kotlin/String) // co.touchlab.kermit/consoleError|consoleError(kotlin.String){}[0]
-
-// Targets: [wasmJs]
-final fun co.touchlab.kermit/consoleInfo(kotlin/String) // co.touchlab.kermit/consoleInfo|consoleInfo(kotlin.String){}[0]
-
-// Targets: [wasmJs]
-final fun co.touchlab.kermit/consoleLog(kotlin/String) // co.touchlab.kermit/consoleLog|consoleLog(kotlin.String){}[0]
-
-// Targets: [wasmJs]
-final fun co.touchlab.kermit/consoleWarn(kotlin/String) // co.touchlab.kermit/consoleWarn|consoleWarn(kotlin.String){}[0]
