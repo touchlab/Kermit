@@ -18,3 +18,4 @@ build/
 local.properties
 
 Pods
+.kotlin/metadata/

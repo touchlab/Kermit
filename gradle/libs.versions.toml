@@ -4,7 +4,7 @@ minSdk = "21"
 compileSdk = "34"
 
 # Dependencies
-kotlin = "1.9.22"
+kotlin = "2.0.21"
 binaryCompatability = "0.16.3"
 
 androidx-core = "1.12.0"
@@ -68,9 +68,6 @@ coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", ve
 
 android-junitTest = { module = "androidx.test.ext:junit", version.ref = "android-junitTest" }
 junitTest = { module = "junit:junit", version.ref = "junit" }
-
-# For convention-plugins
-kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 
 [plugins]
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }

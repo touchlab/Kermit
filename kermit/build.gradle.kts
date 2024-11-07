@@ -11,13 +11,14 @@
  * the License.
  */
 
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
     id("com.vanniktech.maven.publish")
-    id("wasm-setup")
 }
 
 kotlin {
@@ -28,6 +29,25 @@ kotlin {
     js {
         browser()
         nodejs()
+    }
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        moduleName = "kermit"
+        browser {
+            val rootDirPath = project.rootDir.path
+            val projectDirPath = project.projectDir.path
+            commonWebpackConfig {
+                outputFileName = "kermit.js"
+                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
+                    static = (static ?: mutableListOf()).apply {
+                        // Serve sources to debug inside browser
+                        add(rootDirPath)
+                        add(projectDirPath)
+                    }
+                }
+            }
+        }
+        binaries.executable()
     }
 
     macosX64()
@@ -72,6 +92,9 @@ kotlin {
             implementation(kotlin("test"))
             implementation(libs.testhelp)
             implementation(project(":kermit-test"))
+        }
+        val jsAndWasmJsMain by creating {
+            dependsOn(commonMain.get())
         }
     }
 }

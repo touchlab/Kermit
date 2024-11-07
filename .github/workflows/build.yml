@@ -53,7 +53,7 @@ jobs:
           CI: "true"
       - name: Build for Windows
         if: matrix.os == 'windows-latest'
-        run: ./gradlew kotlinUpgradeYarnLock build -PenableWasm=false --no-daemon --stacktrace --build-cache
+        run: ./gradlew kotlinUpgradeYarnLock build --no-daemon --stacktrace --build-cache
         env:
           S3_BUILD_CACHE_AWS_REGION: ${{ secrets.S3_BUILD_CACHE_AWS_REGION }}
           S3_BUILD_CACHE_BUCKET_NAME: ${{ secrets.S3_BUILD_CACHE_BUCKET_NAME }}
