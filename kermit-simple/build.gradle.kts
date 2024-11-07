@@ -70,9 +70,6 @@ kotlin {
             dependsOn(commonTest.get())
         }
 
-        //getByName("jsAndWasmJsMain").dependsOn(nonKotlinMain)
-        //getByName("jsAndWasmJsTest").dependsOn(nonKotlinTest)
-
         targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
             val mainSourceSet = compilations.getByName("main").defaultSourceSet
             val testSourceSet = compilations.getByName("test").defaultSourceSet
