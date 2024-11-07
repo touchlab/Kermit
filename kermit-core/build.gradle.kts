@@ -12,7 +12,6 @@
  */
 
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -78,9 +77,6 @@ kotlin {
             implementation(project(":kermit-test"))
         }
 
-        getByName("commonJvmTest").dependencies {
-            implementation(kotlin("test-junit"))
-        }
         val jsAndWasmJsMain by creating {
             dependsOn(commonMain.get())
         }
