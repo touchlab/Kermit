@@ -120,5 +120,14 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-val task = project.tasks.findByName("kermit-core:mingwX64MetadataElements")
-task?.dependsOn(tasks.named("kermit-core:commonizeCInterop"))
+val mingTask = project.tasks.findByName(":kermit-core:mingwX64MetadataElements")
+val linux64Task = project.tasks.findByName(":kermit-core:linuxX64MetadataElements")
+val linuxArmTask = project.tasks.findByName(":kermit-core:linuxArm64MetadataElements")
+val android86Task = project.tasks.findByName(":kermit-core:androidNativeX86MetadataElements")
+val android64Task = project.tasks.findByName(":kermit-core:androidNativeX64MetadataElements")
+
+mingTask?.dependsOn(tasks.named(":kermit-core:commonizeCInterop"))
+linux64Task?.dependsOn(tasks.named(":kermit-core:commonizeCInterop"))
+linuxArmTask?.dependsOn(tasks.named(":kermit-core:commonizeCInterop"))
+android86Task?.dependsOn(tasks.named(":kermit-core:commonizeCInterop"))
+android64Task?.dependsOn(tasks.named(":kermit-core:commonizeCInterop"))
