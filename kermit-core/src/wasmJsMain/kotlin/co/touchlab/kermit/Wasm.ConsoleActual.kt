@@ -23,19 +23,19 @@ external fun consoleInfo(output: String)
 external fun consoleLog(output: String)
 
 internal actual object ConsoleActual : ConsoleIntf {
-    override fun error(output: String) {
+    actual override fun error(output: String) {
         consoleError(output)
     }
 
-    override fun warn(output: String) {
+    actual override fun warn(output: String) {
         consoleWarn(output)
     }
 
-    override fun info(output: String) {
+    actual override fun info(output: String) {
         consoleInfo(output)
     }
 
-    override fun log(output: String) {
+    actual override fun log(output: String) {
         consoleLog(output)
     }
 }

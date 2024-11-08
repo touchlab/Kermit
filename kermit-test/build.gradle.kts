@@ -11,13 +11,14 @@
  * the License.
  */
 
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
     id("com.vanniktech.maven.publish")
-    id("wasm-setup")
 }
 
 kotlin {
@@ -28,6 +29,15 @@ kotlin {
     js {
         browser()
         nodejs()
+    }
+    val wasmEnabled = project.findProperty("enableWasm") == "true"
+    if (wasmEnabled) {
+        @OptIn(ExperimentalWasmDsl::class)
+        wasmJs {
+            browser()
+            nodejs()
+            binaries.executable()
+        }
     }
 
     macosX64()

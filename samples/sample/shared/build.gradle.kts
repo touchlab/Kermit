@@ -45,9 +45,14 @@ kotlin {
     js {
         browser()
     }
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        browser()
+    val wasmEnabled = project.findProperty("enableWasm") == "true"
+    if (wasmEnabled) {
+        @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
+        wasmJs {
+            browser()
+            nodejs()
+            binaries.executable()
+        }
     }
 
     sourceSets {

@@ -32,7 +32,6 @@ project(":kermit-koin").projectDir = File("extensions/kermit-koin")
 //project(":kermit-ir-plugin-native").projectDir = File("plugin/kermit-ir-plugin-native")
 
 pluginManagement {
-    includeBuild("convention-plugins")
     repositories {
         google()
         gradlePluginPortal()

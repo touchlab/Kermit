@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+
 /*
  * Copyright (c) 2024 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -14,13 +17,21 @@
 plugins {
     kotlin("multiplatform")
     id("com.vanniktech.maven.publish")
-    id("wasm-setup")
 }
 
 kotlin {
     js {
         browser()
         nodejs()
+    }
+    val wasmEnabled = project.findProperty("enableWasm") == "true"
+    if (wasmEnabled) {
+        @OptIn(ExperimentalWasmDsl::class)
+        wasmJs {
+            browser()
+            nodejs()
+            binaries.executable()
+        }
     }
 
     macosX64()
@@ -61,9 +72,6 @@ kotlin {
         val nonKotlinTest by creating {
             dependsOn(commonTest.get())
         }
-
-        getByName("jsAndWasmJsMain").dependsOn(nonKotlinMain)
-        getByName("jsAndWasmJsTest").dependsOn(nonKotlinTest)
 
         targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
             val mainSourceSet = compilations.getByName("main").defaultSourceSet

@@ -6,7 +6,7 @@ A simple app showing Kermit calls directly and through a shared module.
 
 Check out the repo, navigate to the project folder, and use the following command:
 ```
-./gradlew :wasm-browser:wasmBrowserRun
+./gradlew :wasm-browser:wasmJsBrowserRun
 ```
 
 ## Setup Environment
