@@ -26,11 +26,6 @@ plugins {
 
 }
 apiValidation {
-    @OptIn(kotlinx.validation.ExperimentalBCVApi::class)
-    klib {
-        enabled = true
-    }
-
     nonPublicMarkers.add("co.touchlab.kermit.ExperimentalKermitApi")
 //    ignoredProjects.addAll(listOf("kermit-gradle-plugin", "kermit-ir-plugin", "kermit-ir-plugin-native"))
 }
