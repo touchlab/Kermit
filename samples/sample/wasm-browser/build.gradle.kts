@@ -17,11 +17,14 @@ plugins {
 val KERMIT_VERSION: String by project
 
 kotlin {
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        browser()
-        nodejs()
-        binaries.executable()
+    val wasmEnabled = project.findProperty("enableWasm") == "true"
+    if (wasmEnabled) {
+        @OptIn(ExperimentalWasmDsl::class)
+        wasmJs {
+            browser()
+            nodejs()
+            binaries.executable()
+        }
     }
 
     sourceSets {
