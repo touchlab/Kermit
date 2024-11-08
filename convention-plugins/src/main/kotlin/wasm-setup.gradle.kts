@@ -8,7 +8,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
@@ -42,7 +42,7 @@ kotlin {
             group("jsAndWasmJs") {
                 withJs()
                 if (wasmEnabled) {
-                    withWasm()
+                    withWasmJs()
                 }
             }
         }
@@ -51,7 +51,7 @@ kotlin {
 
 if (project.findProperty("enableWasm") == "true") {
     rootProject.the<NodeJsRootExtension>().apply {
-        nodeVersion = "21.0.0-v8-canary202309143a48826a08"
-        nodeDownloadBaseUrl = "https://nodejs.org/download/v8-canary"
+        version = "21.0.0-v8-canary202309143a48826a08"
+        downloadBaseUrl = "https://nodejs.org/download/v8-canary"
     }
 }
