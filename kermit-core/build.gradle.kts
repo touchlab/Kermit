@@ -119,3 +119,6 @@ android {
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
+
+val task = project.tasks.findByName("kermit-core:mingwX64MetadataElements")
+task?.dependsOn(tasks.named("kermit-core:commonizeCInterop"))
