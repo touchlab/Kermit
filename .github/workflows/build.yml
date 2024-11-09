@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [macOS-latest, windows-latest]
+        os: [macOS-latest]
     runs-on: ${{matrix.os}}
     steps:
       - name: Checkout the repo
