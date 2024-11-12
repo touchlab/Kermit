@@ -1,4 +1,4 @@
-name: build
+name: build Mac
 on:
   pull_request:
   push:
@@ -8,10 +8,7 @@ on:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        os: [macOS-latest, windows-latest]
-    runs-on: ${{matrix.os}}
+    runs-on: macOS-latest
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
@@ -19,13 +16,6 @@ jobs:
         with:
           distribution: "adopt"
           java-version: "17"
-      - name: Install msys2
-        if: matrix.os == 'windows-latest'
-        uses: msys2/setup-msys2@v2
-        with:
-          msystem: MINGW64
-          update: true
-          install: git mingw-w64-x86_64-toolchain
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
       - name: Cache gradle
@@ -42,8 +32,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('*.gradle.kts') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Build for MacOS
-        if: matrix.os == 'macOS-latest'
+      - name: Build
         run: ./gradlew build --no-daemon --stacktrace --build-cache
         env:
           S3_BUILD_CACHE_AWS_REGION: ${{ secrets.S3_BUILD_CACHE_AWS_REGION }}
@@ -51,17 +40,7 @@ jobs:
           S3_BUILD_CACHE_ACCESS_KEY_ID: ${{ secrets.S3_BUILD_CACHE_ACCESS_KEY_ID }}
           S3_BUILD_CACHE_SECRET_KEY: ${{ secrets.S3_BUILD_CACHE_SECRET_KEY }}
           CI: "true"
-      - name: Build for Windows
-        if: matrix.os == 'windows-latest'
-        run: ./gradlew kotlinUpgradeYarnLock build -PenableWasm=false --no-daemon --stacktrace --build-cache
-        env:
-          S3_BUILD_CACHE_AWS_REGION: ${{ secrets.S3_BUILD_CACHE_AWS_REGION }}
-          S3_BUILD_CACHE_BUCKET_NAME: ${{ secrets.S3_BUILD_CACHE_BUCKET_NAME }}
-          S3_BUILD_CACHE_ACCESS_KEY_ID: ${{ secrets.S3_BUILD_CACHE_ACCESS_KEY_ID }}
-          S3_BUILD_CACHE_SECRET_KEY: ${{ secrets.S3_BUILD_CACHE_SECRET_KEY }}
-          CI: "true"
       - name: Local Publish For Samples
-        if: matrix.os == 'macOS-latest'
         run: ./gradlew publishToMavenLocal --no-daemon --stacktrace --build-cache -PRELEASE_SIGNING_ENABLED=false
         env:
           S3_BUILD_CACHE_AWS_REGION: ${{ secrets.S3_BUILD_CACHE_AWS_REGION }}
@@ -70,7 +49,6 @@ jobs:
           S3_BUILD_CACHE_SECRET_KEY: ${{ secrets.S3_BUILD_CACHE_SECRET_KEY }}
           CI: "true"
       - name: script
-        if: matrix.os == 'macOS-latest'
         env:
           S3_BUILD_CACHE_AWS_REGION: ${{ secrets.S3_BUILD_CACHE_AWS_REGION }}
           S3_BUILD_CACHE_BUCKET_NAME: ${{ secrets.S3_BUILD_CACHE_BUCKET_NAME }}
