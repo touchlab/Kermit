@@ -1,6 +1,5 @@
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
-
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 /*
  * Copyright (c) 2024 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
@@ -18,7 +17,7 @@ plugins {
 kotlin {
     val wasmEnabled = project.findProperty("enableWasm") == "true"
     if (wasmEnabled) {
-        @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
+        @OptIn(ExperimentalWasmDsl::class)
         wasmJs {
             nodejs()
         }

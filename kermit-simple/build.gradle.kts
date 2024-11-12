@@ -19,7 +19,6 @@ plugins {
 
 kotlin {
     js {
-        browser()
         nodejs()
     }
 
