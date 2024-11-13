@@ -39,5 +39,3 @@ pluginManagement {
         mavenCentral()
     }
 }
-
-rootProject.name = "kermit-root"
