@@ -12,8 +12,6 @@ package co.touchlab.kermit
 
 import co.touchlab.kermit.darwin.*
 import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.ptr
-import platform.darwin.OS_LOG_DEFAULT
 import platform.darwin.OS_LOG_TYPE_DEBUG
 import platform.darwin.OS_LOG_TYPE_DEFAULT
 import platform.darwin.OS_LOG_TYPE_ERROR
@@ -30,9 +28,9 @@ open class OSLogWriter internal constructor(
     private val darwinLogger: DarwinLogger
 ) : LogWriter() {
 
-    constructor(messageStringFormatter: MessageStringFormatter = DefaultFormatter) : this(
+    constructor(messageStringFormatter: MessageStringFormatter = DefaultFormatter, publicLogging: Boolean = false) : this(
         messageStringFormatter,
-        DarwinLoggerActual
+        DarwinLoggerActual(publicLogging)
     )
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
@@ -77,9 +75,18 @@ internal interface DarwinLogger {
 }
 
 @OptIn(ExperimentalForeignApi::class)
-private object DarwinLoggerActual : DarwinLogger {
+private class DarwinLoggerActual(publicLogging: Boolean) : DarwinLogger {
     private val logger = darwin_log_create("", "")!!
+    // see https://developer.apple.com/documentation/os/logging/generating_log_messages_from_your_code?language=objc
+    // iOS considers everything coming from Kermit as a dynamic string, so without publicLogging=true, all logs are
+    // private
+    private val darwinLogFn: (osLogSeverity: os_log_type_t, message: String) -> Unit = if (publicLogging) {
+        { osLogSeverity, message -> darwin_log_public_with_type(logger, osLogSeverity, message) }
+    } else {
+        { osLogSeverity, message -> darwin_log_with_type(logger, osLogSeverity, message) }
+    }
+
     override fun log(osLogSeverity: os_log_type_t, message: String) {
-        darwin_log_with_type(logger, osLogSeverity, message)
+        darwinLogFn(osLogSeverity, message)
     }
 }
