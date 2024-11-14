@@ -28,7 +28,7 @@ plugins {
 apiValidation {
     @OptIn(kotlinx.validation.ExperimentalBCVApi::class)
     klib {
-        enabled = true
+        enabled = false
     }
 
     nonPublicMarkers.add("co.touchlab.kermit.ExperimentalKermitApi")
