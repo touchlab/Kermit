@@ -15,14 +15,14 @@ import shared
 
 struct ContentView: View {
 
-    let common: CommonMobile
+    let common: SampleMobile
 
     init() {
         let filePath = NSHomeDirectory() + "/Documents/"
         let fileName = "KermitSampleLogs"
         ContentView.createLoggingFile(withName: fileName, atPath: filePath)
             
-        self.common = CommonMobile()
+        self.common = SampleMobile(filePathString: filePath, logFileName: fileName)
     }
     
     private static func createLoggingFile(withName name:String, atPath filePath: String){
