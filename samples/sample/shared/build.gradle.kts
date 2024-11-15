@@ -59,9 +59,13 @@ kotlin {
 
             implementation("co.touchlab:kermit-test:${KERMIT_VERSION}")
         }
+        androidMain.dependencies {
+            implementation("co.touchlab:kermit-io:${KERMIT_VERSION}")
+        }
         iosMain.dependencies {
             // Only if you want to talk to Kermit from Swift
             api("co.touchlab:kermit-simple:${KERMIT_VERSION}")
+            implementation("co.touchlab:kermit-io:${KERMIT_VERSION}")
         }
     }
     cocoapods {
