@@ -51,21 +51,32 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation("co.touchlab:kermit:${KERMIT_VERSION}")
+            implementation("co.touchlab:kermit:2.0.7")
         }
 
         commonTest.dependencies {
             implementation(kotlin("test"))
 
-            implementation("co.touchlab:kermit-test:${KERMIT_VERSION}")
+            implementation("co.touchlab:kermit-test:2.0.7")
         }
-        androidMain.dependencies {
-            implementation("co.touchlab:kermit-io:${KERMIT_VERSION}")
+        val mobileMain by creating {
+            dependsOn(commonMain.get())
+            dependencies {
+                implementation("co.touchlab:kermit-io:${KERMIT_VERSION}")
+            }
         }
-        iosMain.dependencies {
-            // Only if you want to talk to Kermit from Swift
-            api("co.touchlab:kermit-simple:${KERMIT_VERSION}")
-            implementation("co.touchlab:kermit-io:${KERMIT_VERSION}")
+        androidMain {
+            dependsOn(mobileMain)
+        }
+        iosMain {
+            dependsOn(mobileMain)
+            iosX64Main.get().dependsOn(this)
+            iosArm64Main.get().dependsOn(this)
+            iosSimulatorArm64Main.get().dependsOn(this)
+            dependencies {
+                // Only if you want to talk to Kermit from Swift
+                api("co.touchlab:kermit-simple:${KERMIT_VERSION}")
+            }
         }
     }
     cocoapods {

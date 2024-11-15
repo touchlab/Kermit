@@ -131,7 +131,7 @@ open class RollingFileLogWriter(
   }
 
   private fun pathForLogIndex(index: Int): Path =
-    Path(config.logPath, if (index == 0) "${config.logPrefix}.log" else "${config.logPrefix}-$index.log")
+    Path(config.logFilePath, if (index == 0) "${config.logFileName}.log" else "${config.logFileName}-$index.log")
 
   private suspend fun writer() {
     val logFilePath = pathForLogIndex(0)

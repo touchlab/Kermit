@@ -13,8 +13,8 @@ package co.touchlab.kermit.io
 import kotlinx.io.files.Path
 
 data class RollingFileLogWriterConfig(
-  val logPrefix: String,
-  val logPath: Path,
+  val logFileName: String,
+  val logFilePath: Path,
   val rollOnSize: Long = 10 * 1024 * 1024, // 10MB
   val maxLogFiles: Int = 5,
   val logTag: Boolean = true,
