@@ -62,7 +62,6 @@ kotlin {
         val mobileMain by creating {
             dependsOn(commonMain.get())
             dependencies {
-                implementation(libs.kotlinx.datetime)
                 implementation("co.touchlab:kermit-io:${KERMIT_VERSION}")
             }
         }
