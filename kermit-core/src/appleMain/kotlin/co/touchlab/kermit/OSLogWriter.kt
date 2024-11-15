@@ -10,6 +10,7 @@
 
 package co.touchlab.kermit
 
+import co.touchlab.kermit.darwin.*
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ptr
 import platform.darwin.OS_LOG_DEFAULT
@@ -18,8 +19,7 @@ import platform.darwin.OS_LOG_TYPE_DEFAULT
 import platform.darwin.OS_LOG_TYPE_ERROR
 import platform.darwin.OS_LOG_TYPE_FAULT
 import platform.darwin.OS_LOG_TYPE_INFO
-import platform.darwin.__dso_handle
-import platform.darwin._os_log_internal
+import platform.darwin.os_log_type_t
 import kotlin.experimental.ExperimentalNativeApi
 
 /**
@@ -27,12 +27,12 @@ import kotlin.experimental.ExperimentalNativeApi
  */
 open class OSLogWriter internal constructor(
     private val messageStringFormatter: MessageStringFormatter,
-    private val darwinLogger: DarwinLogger
+    private val darwinLogger: DarwinLogger,
 ) : LogWriter() {
 
-    constructor(messageStringFormatter: MessageStringFormatter = DefaultFormatter) : this(
+    constructor(messageStringFormatter: MessageStringFormatter = DefaultFormatter, subsystem: String = "", category: String = "") : this(
         messageStringFormatter,
-        DarwinLoggerActual
+        DarwinLoggerActual(subsystem, category),
     )
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
@@ -55,11 +55,11 @@ open class OSLogWriter internal constructor(
     }
 
     @OptIn(ExperimentalNativeApi::class)
-    open fun logThrowable(osLogSeverity: UByte, throwable: Throwable) {
+    open fun logThrowable(osLogSeverity: os_log_type_t, throwable: Throwable) {
         darwinLogger.log(osLogSeverity, throwable.getStackTrace().joinToString("\n"))
     }
 
-    private fun kermitSeverityToOsLogType(severity: Severity): UByte = when (severity) {
+    private fun kermitSeverityToOsLogType(severity: Severity): os_log_type_t = when (severity) {
         Severity.Verbose, Severity.Debug -> OS_LOG_TYPE_DEBUG
         Severity.Info -> OS_LOG_TYPE_INFO
         Severity.Warn -> OS_LOG_TYPE_DEFAULT
@@ -73,18 +73,13 @@ open class OSLogWriter internal constructor(
 
 
 internal interface DarwinLogger {
-    fun log(osLogSeverity: UByte, message: String)
+    fun log(osLogSeverity: os_log_type_t, message: String)
 }
 
-private object DarwinLoggerActual : DarwinLogger {
-    @OptIn(ExperimentalForeignApi::class)
-    override fun log(osLogSeverity: UByte, message: String) {
-        _os_log_internal(
-            __dso_handle.ptr,
-            OS_LOG_DEFAULT,
-            osLogSeverity,
-            "%s",
-            message
-        )
+@OptIn(ExperimentalForeignApi::class)
+private class DarwinLoggerActual(subsystem: String, category: String) : DarwinLogger {
+    private val logger = darwin_log_create(subsystem, category)!!
+    override fun log(osLogSeverity: os_log_type_t, message: String) {
+        darwin_log_with_type(logger, osLogSeverity, message)
     }
 }
