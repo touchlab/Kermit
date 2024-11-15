@@ -1,0 +1,28 @@
+public class co/touchlab/kermit/io/RollingFileLogWriter : co/touchlab/kermit/LogWriter {
+	public fun <init> (Lco/touchlab/kermit/io/RollingFileLogWriterConfig;Lco/touchlab/kermit/MessageStringFormatter;Lkotlinx/datetime/Clock;Lkotlinx/io/files/FileSystem;)V
+	public synthetic fun <init> (Lco/touchlab/kermit/io/RollingFileLogWriterConfig;Lco/touchlab/kermit/MessageStringFormatter;Lkotlinx/datetime/Clock;Lkotlinx/io/files/FileSystem;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun log (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
+}
+
+public final class co/touchlab/kermit/io/RollingFileLogWriterConfig {
+	public fun <init> (Ljava/lang/String;Lkotlinx/io/files/Path;JIZZ)V
+	public synthetic fun <init> (Ljava/lang/String;Lkotlinx/io/files/Path;JIZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkotlinx/io/files/Path;
+	public final fun component3 ()J
+	public final fun component4 ()I
+	public final fun component5 ()Z
+	public final fun component6 ()Z
+	public final fun copy (Ljava/lang/String;Lkotlinx/io/files/Path;JIZZ)Lco/touchlab/kermit/io/RollingFileLogWriterConfig;
+	public static synthetic fun copy$default (Lco/touchlab/kermit/io/RollingFileLogWriterConfig;Ljava/lang/String;Lkotlinx/io/files/Path;JIZZILjava/lang/Object;)Lco/touchlab/kermit/io/RollingFileLogWriterConfig;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLogPath ()Lkotlinx/io/files/Path;
+	public final fun getLogPrefix ()Ljava/lang/String;
+	public final fun getLogTag ()Z
+	public final fun getMaxLogFiles ()I
+	public final fun getPrependTimestamp ()Z
+	public final fun getRollOnSize ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+

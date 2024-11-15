@@ -62,8 +62,8 @@ kotlin {
         commonMain.dependencies {
             implementation(project(":kermit-core"))
 
-            implementation(libs.kotlinx.datetime)
-            implementation(libs.kotlinx.io)
+            api(libs.kotlinx.datetime)
+            api(libs.kotlinx.io)
             implementation(libs.coroutines)
         }
 

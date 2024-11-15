@@ -25,7 +25,7 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Logger.withTag("FirstFragment").v("First fragment loaded")
-        val sample = SampleCommon()
+        val sample = SampleCommon() // context?.filesDir?.path ?: ""
         val binding = FragmentFirstBinding.bind(view)
         binding.btnClickCount.setOnClickListener { sample.onClickI() }
         binding.btnException.setOnClickListener { sample.logException() }

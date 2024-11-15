@@ -54,8 +54,8 @@ import kotlinx.io.files.SystemFileSystem
  * platform-specific code.
  */
 open class RollingFileLogWriter(
-  private val messageStringFormatter: MessageStringFormatter = DefaultFormatter,
   private val config: RollingFileLogWriterConfig,
+  private val messageStringFormatter: MessageStringFormatter = DefaultFormatter,
   private val clock: Clock = Clock.System,
   private val fileSystem: FileSystem = SystemFileSystem,
 ) : LogWriter() {
