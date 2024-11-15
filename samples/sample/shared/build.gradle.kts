@@ -51,13 +51,13 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation("co.touchlab:kermit:2.0.7")
+            implementation("co.touchlab:kermit:${KERMIT_VERSION}")
         }
 
         commonTest.dependencies {
             implementation(kotlin("test"))
 
-            implementation("co.touchlab:kermit-test:2.0.7")
+            implementation("co.touchlab:kermit-test:${KERMIT_VERSION}")
         }
         val mobileMain by creating {
             dependsOn(commonMain.get())
