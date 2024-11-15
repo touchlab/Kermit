@@ -25,12 +25,12 @@ import kotlin.experimental.ExperimentalNativeApi
  */
 open class OSLogWriter internal constructor(
     private val messageStringFormatter: MessageStringFormatter,
-    private val darwinLogger: DarwinLogger
+    private val darwinLogger: DarwinLogger,
 ) : LogWriter() {
 
-    constructor(messageStringFormatter: MessageStringFormatter = DefaultFormatter, publicLogging: Boolean = false) : this(
+    constructor(messageStringFormatter: MessageStringFormatter = DefaultFormatter, subsystem: String = "", category: String = "", publicLogging: Boolean = false) : this(
         messageStringFormatter,
-        DarwinLoggerActual(publicLogging)
+        DarwinLoggerActual(subsystem, category, publicLogging),
     )
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
@@ -75,8 +75,8 @@ internal interface DarwinLogger {
 }
 
 @OptIn(ExperimentalForeignApi::class)
-private class DarwinLoggerActual(publicLogging: Boolean) : DarwinLogger {
-    private val logger = darwin_log_create("", "")!!
+private class DarwinLoggerActual(subsystem: String, category: String, publicLogging: Boolean) : DarwinLogger {
+    private val logger = darwin_log_create(subsystem, category)!!
     // see https://developer.apple.com/documentation/os/logging/generating_log_messages_from_your_code?language=objc
     // iOS considers everything coming from Kermit as a dynamic string, so without publicLogging=true, all logs are
     // private
