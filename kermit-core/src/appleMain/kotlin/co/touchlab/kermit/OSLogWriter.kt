@@ -52,9 +52,8 @@ open class OSLogWriter internal constructor(
         }
     }
 
-    @OptIn(ExperimentalNativeApi::class)
     open fun logThrowable(osLogSeverity: os_log_type_t, throwable: Throwable) {
-        darwinLogger.log(osLogSeverity, throwable.getStackTrace().joinToString("\n"))
+        darwinLogger.log(osLogSeverity, throwable.stackTraceToString())
     }
 
     private fun kermitSeverityToOsLogType(severity: Severity): os_log_type_t = when (severity) {

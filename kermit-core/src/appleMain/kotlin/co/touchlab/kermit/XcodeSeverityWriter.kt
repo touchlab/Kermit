@@ -22,10 +22,9 @@ open class XcodeSeverityWriter(private val messageStringFormatter: MessageString
     override fun formatMessage(severity: Severity, tag: Tag, message: Message): String =
         "${emojiPrefix(severity)} ${messageStringFormatter.formatMessage(null, tag, message)}"
 
-    @OptIn(ExperimentalNativeApi::class)
     override fun logThrowable(osLogSeverity: os_log_type_t, throwable: Throwable) {
         // oslog cuts off longer strings, so for local development, println is more useful
-        println(throwable.getStackTrace().joinToString("\n"))
+        println(throwable.stackTraceToString())
     }
 
     //If this looks familiar, yes, it came directly from Napier :) https://github.com/AAkira/Napier#darwinios-macos-watchos-tvosintelapple-silicon
