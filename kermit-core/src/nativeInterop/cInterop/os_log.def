@@ -19,3 +19,12 @@ darwin_os_log_t darwin_log_create(const char *subsystem, const char *category) {
 void darwin_log_with_type(darwin_os_log_t log, os_log_type_t type, const char *msg) {
     os_log_with_type((os_log_t)log, type, "%s", msg);
 }
+
+/**
+ * Uses format specifier %{public}s to make logging public.
+ * See https://developer.apple.com/documentation/os/logging/generating_log_messages_from_your_code?language=objc.
+ * We cannot pass the format specifier from Kotlin, as the API requires the value to be a string constant.
+ */
+void darwin_log_public_with_type(darwin_os_log_t log, os_log_type_t type, const char *msg) {
+    os_log_with_type((os_log_t)log, type, "%{public}s", msg);
+}
