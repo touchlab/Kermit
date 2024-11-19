@@ -50,6 +50,8 @@ kotlin {
         nodejs()
     }
 
+    applyDefaultHierarchyTemplate()
+
     sourceSets {
         commonMain.dependencies {
             implementation("co.touchlab:kermit:${KERMIT_VERSION}")
