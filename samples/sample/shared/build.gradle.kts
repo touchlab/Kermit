@@ -70,10 +70,10 @@ kotlin {
             dependsOn(mobileMain)
         }
         iosMain {
-            dependsOn(commonMain.get())
+            dependsOn(mobileMain)
             dependencies {
                 // Only if you want to talk to Kermit from Swift
-                implementation("co.touchlab:kermit-simple:${KERMIT_VERSION}")
+                api("co.touchlab:kermit-simple:${KERMIT_VERSION}")
             }
         }
     }
