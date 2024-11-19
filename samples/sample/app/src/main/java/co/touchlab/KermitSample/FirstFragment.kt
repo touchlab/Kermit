@@ -15,7 +15,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import co.touchlab.KermitSample.databinding.FragmentFirstBinding
 import co.touchlab.kermit.Logger
-import co.touchlab.kermitsample.SampleAndroid
+import co.touchlab.kermitsample.SampleMobile
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -25,7 +25,7 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Logger.withTag("FirstFragment").v("First fragment loaded")
-        val sample = SampleAndroid(context?.filesDir?.path ?: "")
+        val sample = SampleMobile(context?.filesDir?.path ?: "")
         val binding = FragmentFirstBinding.bind(view)
         binding.btnClickCount.setOnClickListener { sample.onClickI() }
         binding.btnException.setOnClickListener { sample.logException() }

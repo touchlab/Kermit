@@ -15,7 +15,7 @@ import co.touchlab.kermit.io.RollingFileLogWriter
 import co.touchlab.kermit.io.RollingFileLogWriterConfig
 import kotlinx.io.files.Path
 
-class SampleAndroid(filePathString: String, logFileName: String = "KermitSampleLogs") : SampleCommon() {
+class SampleMobile(filePathString: String, logFileName: String = "KermitSampleLogs") : SampleCommon() {
     init {
         Logger.addLogWriter(
             RollingFileLogWriter(

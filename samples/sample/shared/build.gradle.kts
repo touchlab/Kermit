@@ -8,6 +8,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -59,13 +60,21 @@ kotlin {
 
             implementation("co.touchlab:kermit-test:${KERMIT_VERSION}")
         }
-        androidMain.dependencies {
-            implementation("co.touchlab:kermit-io:${KERMIT_VERSION}")
+        val mobileMain by creating {
+            dependsOn(commonMain.get())
+            dependencies {
+                implementation("co.touchlab:kermit-io:${KERMIT_VERSION}")
+            }
         }
-        iosMain.dependencies {
-            // Only if you want to talk to Kermit from Swift
-            api("co.touchlab:kermit-simple:${KERMIT_VERSION}")
-            implementation("co.touchlab:kermit-io:${KERMIT_VERSION}")
+        androidMain {
+            dependsOn(mobileMain)
+        }
+        iosMain {
+            dependsOn(commonMain.get())
+            dependencies {
+                // Only if you want to talk to Kermit from Swift
+                implementation("co.touchlab:kermit-simple:${KERMIT_VERSION}")
+            }
         }
     }
     cocoapods {
@@ -73,7 +82,6 @@ kotlin {
         homepage = "https://www.touchlab.co"
         framework {
             isStatic = true
-
             // Only if you want to talk to Kermit from Swift
             export("co.touchlab:kermit-simple:${KERMIT_VERSION}")
         }
