@@ -30,6 +30,8 @@ koin-core = "3.5.3"
 koin-android = "3.5.3"
 koin-test = "3.5.3"
 coroutines = "1.7.3"
+kotlinx-datetime = "0.6.1"
+kotlinx-io = "0.5.4"
 roboelectric = "4.10.3"
 buildConfig = "4.1.2"
 mavenPublish = "0.27.0"
@@ -61,6 +63,8 @@ testhelp = { module = "co.touchlab:testhelp", version.ref = "testhelp" }
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin-core" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-android" }
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+kotlinx-io = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlinx-io" }
 roboelectric = { module = "org.robolectric:robolectric", version.ref = "roboelectric" }
 
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin-test" }

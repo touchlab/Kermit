@@ -24,10 +24,10 @@ version = "1.0-SNAPSHOT"
 
 allprojects {
     repositories {
+        mavenLocal()
         mavenCentral()
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
         google()
-        mavenLocal()
     }
 }
 tasks.register("ciTest") {

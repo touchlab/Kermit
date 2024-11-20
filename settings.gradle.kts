@@ -12,6 +12,7 @@
  */
 include(":kermit-core")
 include(":kermit")
+include(":kermit-io")
 include(":kermit-simple")
 include(":kermit-test")
 

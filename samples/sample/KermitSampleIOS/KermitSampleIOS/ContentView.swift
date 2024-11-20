@@ -15,10 +15,23 @@ import shared
 
 struct ContentView: View {
 
-    let common: SampleCommon
+    let common: SampleMobile
 
     init() {
-        self.common = SampleCommon()
+        let filePath = NSHomeDirectory() + "/Documents/"
+        let fileName = "KermitSampleLogs"
+        ContentView.createLoggingFile(withName: fileName, atPath: filePath)
+            
+        self.common = SampleMobile(filePathString: filePath, logFileName: fileName)
+    }
+    
+    private static func createLoggingFile(withName name:String, atPath filePath: String){
+        let absouluteFilePath = "\(filePath)\(name).log"
+        if (FileManager.default.createFile(atPath: absouluteFilePath, contents: nil, attributes: nil)) {
+            print("File created successfully.")
+        } else {
+            print("File not created.")
+        }
     }
 
     var body: some View {
