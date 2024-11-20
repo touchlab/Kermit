@@ -12,8 +12,9 @@ package co.touchlab.kermitsample
 
 import co.touchlab.kermit.Logger
 
-class SampleCommon {
+open class SampleCommon {
     private var count = 0
+
     fun onClickI() {
         count++
         Logger.i { "Common click count: $count" }
