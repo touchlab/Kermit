@@ -21,7 +21,12 @@ This is the default `LogWriter`. It is designed for local development. Each seve
 
 ## OSLogWriter
 
-This is the parent class of `XcodeSeverityWriter`. There is no emoji added for severity, and `Throwable` is sent as a string to oslog. This may trim exceptions. You can implement a custom version that writes each line of a stack trace to oslog, or whatever else you'd like to do. Override `logThrowable`.
+This is the parent class of `XcodeSeverityWriter`. There is no emoji added for severity, and `Throwable` is sent as a string to OSLog. This may trim exceptions. You can implement a custom version that writes each line of a stack trace to OSLog, or whatever else you'd like to do. Override `logThrowable`.
+
+In addition to the `MessageStringFormatter`, `OSLogWriter` takes in three optional parameters specific to OSLog calls:
+* `subsystem` - An identifier string that's passed directly into the OSLog constructor. (See more [here](https://developer.apple.com/documentation/os/oslog/2320726-init)).
+* `category` - A category within the subsystem that's passed directly into the OSLog constructor. (See more [here](https://developer.apple.com/documentation/os/oslog/2320726-init)).
+* `publicLogging` - When true `OSLog` enforces logs to be public (See documentation [here](https://developer.apple.com/documentation/os/logging/generating_log_messages_from_your_code#3665948)). 
 
 ## NSLogWriter
 

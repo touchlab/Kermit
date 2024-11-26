@@ -21,7 +21,12 @@ import platform.darwin.os_log_type_t
 import kotlin.experimental.ExperimentalNativeApi
 
 /**
- * Write log statements to darwin oslog.
+ * Write log statements to darwin OSLog.
+ *
+ * Takes in three optional parameters specific to OSLog calls:
+ *   subsystem - An identifier string that's passed directly into the OSLog constructor. (See documentation https://developer.apple.com/documentation/os/oslog/2320726-init)
+ *   category - A category within the subsystem that's passed directly into the OSLog constructor. (See documentation https://developer.apple.com/documentation/os/oslog/2320726-init)
+ *   publicLogging - When true OSLog enforces logs to be public (See documentation https://developer.apple.com/documentation/os/logging/generating_log_messages_from_your_code#3665948)
  */
 open class OSLogWriter internal constructor(
     private val messageStringFormatter: MessageStringFormatter,
