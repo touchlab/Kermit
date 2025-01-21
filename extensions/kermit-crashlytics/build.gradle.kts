@@ -42,6 +42,10 @@ kotlin {
             api(libs.crashkios.crashlytics)
             implementation(project(":kermit-core"))
         }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation(project(":kermit"))
+        }
     }
 }
 

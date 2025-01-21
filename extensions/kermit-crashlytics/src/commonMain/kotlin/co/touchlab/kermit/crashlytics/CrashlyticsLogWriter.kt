@@ -25,10 +25,9 @@ import co.touchlab.kermit.Tag
 class CrashlyticsLogWriter(
     private val minSeverity: Severity = Severity.Info,
     private val minCrashSeverity: Severity? = Severity.Warn,
-    private val messageStringFormatter: MessageStringFormatter = DefaultFormatter
-) : LogWriter() {
-
+    private val messageStringFormatter: MessageStringFormatter = DefaultFormatter,
     private val crashlyticsCalls: CrashlyticsCalls = CrashlyticsCallsActual()
+) : LogWriter() {
 
     init {
         if (minCrashSeverity != null && minSeverity > minCrashSeverity) {
