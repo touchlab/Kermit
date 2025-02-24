@@ -104,11 +104,9 @@ open class RollingFileLogWriter(
   private fun formatMessage(severity: Severity, tag: Tag?, message: Message): String =
     messageStringFormatter.formatMessage(severity, if (config.logTag) tag else null, message)
 
-  private fun maybeRollLogs(size: Long): Boolean {
-    return if (size > config.rollOnSize) {
-      rollLogs()
-      true
-    } else false
+  private fun shouldRollLogs(logFilePath: Path): Boolean {
+    val size = fileSizeOrZero(logFilePath)
+    return size > config.rollOnSize
   }
 
   private fun rollLogs() {
@@ -136,8 +134,8 @@ open class RollingFileLogWriter(
   private suspend fun writer() {
     val logFilePath = pathForLogIndex(0)
 
-    if (fileSystem.exists(logFilePath)) {
-      maybeRollLogs(fileSizeOrZero(logFilePath))
+    if (fileSystem.exists(logFilePath) && shouldRollLogs(logFilePath)) {
+      rollLogs()
     }
 
     fun createNewLogSink(): Sink = fileSystem
@@ -151,9 +149,9 @@ open class RollingFileLogWriter(
       val result = loggingChannel.receiveCatching()
 
       // check if logs need rolling
-      val rolled = maybeRollLogs(fileSizeOrZero(logFilePath))
-      if (rolled) {
+      if (shouldRollLogs(logFilePath)) {
         currentLogSink.close()
+        rollLogs()
         currentLogSink = createNewLogSink()
       }
 
