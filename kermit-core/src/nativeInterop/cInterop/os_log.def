@@ -12,11 +12,11 @@ package = co.touchlab.kermit.darwin
  */
 typedef void* darwin_os_log_t;
 
-darwin_os_log_t darwin_log_create(const char *subsystem, const char *category) {
+darwin_os_log_t kermit_darwin_log_create(const char *subsystem, const char *category) {
     return os_log_create(subsystem, category);
 }
 
-void darwin_log_with_type(darwin_os_log_t log, os_log_type_t type, const char *msg) {
+void kermit_darwin_log_with_type(darwin_os_log_t log, os_log_type_t type, const char *msg) {
     os_log_with_type((os_log_t)log, type, "%s", msg);
 }
 
@@ -25,6 +25,6 @@ void darwin_log_with_type(darwin_os_log_t log, os_log_type_t type, const char *m
  * See https://developer.apple.com/documentation/os/logging/generating_log_messages_from_your_code?language=objc.
  * We cannot pass the format specifier from Kotlin, as the API requires the value to be a string constant.
  */
-void darwin_log_public_with_type(darwin_os_log_t log, os_log_type_t type, const char *msg) {
+void kermit_darwin_log_public_with_type(darwin_os_log_t log, os_log_type_t type, const char *msg) {
     os_log_with_type((os_log_t)log, type, "%{public}s", msg);
 }
