@@ -80,14 +80,14 @@ internal interface DarwinLogger {
 
 @OptIn(ExperimentalForeignApi::class)
 private class DarwinLoggerActual(subsystem: String, category: String, publicLogging: Boolean) : DarwinLogger {
-    private val logger = darwin_log_create(subsystem, category)!!
+    private val logger = kermit_darwin_log_create(subsystem, category)!!
     // see https://developer.apple.com/documentation/os/logging/generating_log_messages_from_your_code?language=objc
     // iOS considers everything coming from Kermit as a dynamic string, so without publicLogging=true, all logs are
     // private
     private val darwinLogFn: (osLogSeverity: os_log_type_t, message: String) -> Unit = if (publicLogging) {
-        { osLogSeverity, message -> darwin_log_public_with_type(logger, osLogSeverity, message) }
+        { osLogSeverity, message -> kermit_darwin_log_public_with_type(logger, osLogSeverity, message) }
     } else {
-        { osLogSeverity, message -> darwin_log_with_type(logger, osLogSeverity, message) }
+        { osLogSeverity, message -> kermit_darwin_log_with_type(logger, osLogSeverity, message) }
     }
 
     override fun log(osLogSeverity: os_log_type_t, message: String) {
