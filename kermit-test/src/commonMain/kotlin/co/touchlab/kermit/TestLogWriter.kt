@@ -18,20 +18,12 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 @ExperimentalKermitApi
-data class TestConfig(
-    override val minSeverity: Severity,
-    override val logWriterList: List<LogWriter>,
-) : LoggerConfig
+data class TestConfig(override val minSeverity: Severity, override val logWriterList: List<LogWriter>) : LoggerConfig
 
 @ExperimentalKermitApi
 class TestLogWriter(private val loggable: Severity) : LogWriter() {
     @ExperimentalKermitApi
-    data class LogEntry(
-        val severity: Severity,
-        val message: String,
-        val tag: String?,
-        val throwable: Throwable?
-    )
+    data class LogEntry(val severity: Severity, val message: String, val tag: String?, val throwable: Throwable?)
 
     @Suppress("DEPRECATION")
     private val _logs = frozenLinkedList<LogEntry>()
@@ -50,9 +42,7 @@ class TestLogWriter(private val loggable: Severity) : LogWriter() {
         _logs.clear()
     }
 
-    override fun isLoggable(tag: String, severity: Severity): Boolean {
-        return severity.ordinal >= loggable.ordinal
-    }
+    override fun isLoggable(tag: String, severity: Severity): Boolean = severity.ordinal >= loggable.ordinal
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         _logs.add(LogEntry(severity, message, tag, throwable))

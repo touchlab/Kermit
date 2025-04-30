@@ -21,6 +21,4 @@ fun kermitLoggerModule(baseLogger: Logger) = module {
     }
 }
 
-inline fun <reified L : Logger> Scope.getLoggerWithTag(tag: String): L {
-    return get(parameters = { parametersOf(tag) })
-}
+inline fun <reified L : Logger> Scope.getLoggerWithTag(tag: String): L = get(parameters = { parametersOf(tag) })

@@ -13,5 +13,4 @@
 
 package co.touchlab.kermit
 
-actual fun mutableLoggerConfigInit(logWriters: List<LogWriter>): MutableLoggerConfig =
-    JvmMutableLoggerConfig(logWriters)
+actual fun mutableLoggerConfigInit(logWriters: List<LogWriter>): MutableLoggerConfig = JvmMutableLoggerConfig(logWriters)

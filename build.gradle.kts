@@ -23,8 +23,9 @@ plugins {
     alias(libs.plugins.dokka) apply false
     alias(libs.plugins.touchlab.docusaurus.template)
     alias(libs.plugins.android.library) apply false
-
+    id("org.jlleitschuh.gradle.ktlint") version "12.2.0" apply false
 }
+
 apiValidation {
     nonPublicMarkers.add("co.touchlab.kermit.ExperimentalKermitApi")
 //    ignoredProjects.addAll(listOf("kermit-gradle-plugin", "kermit-ir-plugin", "kermit-ir-plugin-native"))
@@ -46,6 +47,7 @@ allprojects {
 
 allprojects {
     apply(plugin = "org.jetbrains.dokka")
+
     repositories {
         mavenCentral()
         google()
@@ -53,3 +55,21 @@ allprojects {
     tasks.getByName("dokkaHtml").dependsOn(":kermit:transformIosMainCInteropDependenciesMetadataForIde")
 }
 
+subprojects {
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+
+    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        version.set("1.4.0")
+        enableExperimentalRules.set(true)
+        verbose.set(true)
+        filter {
+            exclude { it.file.path.contains("build/") }
+        }
+    }
+
+    afterEvaluate {
+        tasks.named("check") {
+            dependsOn(tasks.getByName("ktlintCheck"))
+        }
+    }
+}

@@ -10,10 +10,10 @@
 
 package co.touchlab.kermit.koin
 
-import org.koin.core.logger.Level
-import org.koin.core.logger.MESSAGE
 import co.touchlab.kermit.Logger as KermitLogger
+import org.koin.core.logger.Level
 import org.koin.core.logger.Logger as KoinLogger
+import org.koin.core.logger.MESSAGE
 
 class KermitKoinLogger(private val logger: KermitLogger) : KoinLogger() {
     override fun display(level: Level, msg: MESSAGE) {

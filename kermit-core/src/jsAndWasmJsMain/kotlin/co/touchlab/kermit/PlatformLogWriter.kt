@@ -10,5 +10,4 @@
 
 package co.touchlab.kermit
 
-actual fun platformLogWriter(messageStringFormatter: MessageStringFormatter): LogWriter =
-    XcodeSeverityWriter(messageStringFormatter)
+actual fun platformLogWriter(messageStringFormatter: MessageStringFormatter): LogWriter = ConsoleWriter(messageStringFormatter)

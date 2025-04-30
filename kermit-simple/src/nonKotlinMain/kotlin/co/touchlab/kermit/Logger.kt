@@ -11,126 +11,150 @@
 package co.touchlab.kermit
 
 fun Logger.v(message: () -> String) {
-    if (config.minSeverity <= Severity.Verbose)
+    if (config.minSeverity <= Severity.Verbose) {
         log(Severity.Verbose, tag, null, message())
+    }
 }
 
 fun Logger.v(throwable: Throwable, message: () -> String) {
-    if (config.minSeverity <= Severity.Verbose)
+    if (config.minSeverity <= Severity.Verbose) {
         log(Severity.Verbose, tag, throwable, message())
+    }
 }
 
 fun Logger.v(messageString: String) {
-    if (config.minSeverity <= Severity.Verbose)
+    if (config.minSeverity <= Severity.Verbose) {
         log(Severity.Verbose, tag, null, messageString)
+    }
 }
 
 fun Logger.v(messageString: String, throwable: Throwable) {
-    if (config.minSeverity <= Severity.Verbose)
+    if (config.minSeverity <= Severity.Verbose) {
         log(Severity.Verbose, tag, throwable, messageString)
+    }
 }
 
 fun Logger.d(message: () -> String) {
-    if (config.minSeverity <= Severity.Debug)
+    if (config.minSeverity <= Severity.Debug) {
         log(Severity.Debug, tag, null, message())
+    }
 }
 
 fun Logger.d(throwable: Throwable, message: () -> String) {
-    if (config.minSeverity <= Severity.Debug)
+    if (config.minSeverity <= Severity.Debug) {
         log(Severity.Debug, tag, throwable, message())
+    }
 }
 
 fun Logger.d(messageString: String) {
-    if (config.minSeverity <= Severity.Debug)
+    if (config.minSeverity <= Severity.Debug) {
         log(Severity.Debug, tag, null, messageString)
+    }
 }
 
 fun Logger.d(messageString: String, throwable: Throwable) {
-    if (config.minSeverity <= Severity.Debug)
+    if (config.minSeverity <= Severity.Debug) {
         log(Severity.Debug, tag, throwable, messageString)
+    }
 }
 
 fun Logger.i(message: () -> String) {
-    if (config.minSeverity <= Severity.Info)
+    if (config.minSeverity <= Severity.Info) {
         log(Severity.Info, tag, null, message())
+    }
 }
 
 fun Logger.i(throwable: Throwable, message: () -> String) {
-    if (config.minSeverity <= Severity.Info)
+    if (config.minSeverity <= Severity.Info) {
         log(Severity.Info, tag, throwable, message())
+    }
 }
 
 fun Logger.i(messageString: String) {
-    if (config.minSeverity <= Severity.Info)
+    if (config.minSeverity <= Severity.Info) {
         log(Severity.Info, tag, null, messageString)
+    }
 }
 
 fun Logger.i(messageString: String, throwable: Throwable) {
-    if (config.minSeverity <= Severity.Info)
+    if (config.minSeverity <= Severity.Info) {
         log(Severity.Info, tag, throwable, messageString)
+    }
 }
 
 fun Logger.w(message: () -> String) {
-    if (config.minSeverity <= Severity.Warn)
+    if (config.minSeverity <= Severity.Warn) {
         log(Severity.Warn, tag, null, message())
+    }
 }
 
 fun Logger.w(throwable: Throwable, message: () -> String) {
-    if (config.minSeverity <= Severity.Warn)
+    if (config.minSeverity <= Severity.Warn) {
         log(Severity.Warn, tag, throwable, message())
+    }
 }
 
 fun Logger.w(messageString: String) {
-    if (config.minSeverity <= Severity.Warn)
+    if (config.minSeverity <= Severity.Warn) {
         log(Severity.Warn, tag, null, messageString)
+    }
 }
 
 fun Logger.w(messageString: String, throwable: Throwable) {
-    if (config.minSeverity <= Severity.Warn)
+    if (config.minSeverity <= Severity.Warn) {
         log(Severity.Warn, tag, throwable, messageString)
+    }
 }
 
 fun Logger.e(message: () -> String) {
-    if (config.minSeverity <= Severity.Error)
+    if (config.minSeverity <= Severity.Error) {
         log(Severity.Error, tag, null, message())
+    }
 }
 
 fun Logger.e(throwable: Throwable, message: () -> String) {
-    if (config.minSeverity <= Severity.Error)
+    if (config.minSeverity <= Severity.Error) {
         log(Severity.Error, tag, throwable, message())
+    }
 }
 
 fun Logger.e(messageString: String) {
-    if (config.minSeverity <= Severity.Error)
+    if (config.minSeverity <= Severity.Error) {
         log(Severity.Error, tag, null, messageString)
+    }
 }
 
 fun Logger.e(messageString: String, throwable: Throwable) {
-    if (config.minSeverity <= Severity.Error)
+    if (config.minSeverity <= Severity.Error) {
         log(Severity.Error, tag, throwable, messageString)
+    }
 }
 
 fun Logger.a(message: () -> String) {
-    if (config.minSeverity <= Severity.Assert)
+    if (config.minSeverity <= Severity.Assert) {
         log(Severity.Assert, tag, null, message())
+    }
 }
 
 fun Logger.a(throwable: Throwable, message: () -> String) {
-    if (config.minSeverity <= Severity.Assert)
+    if (config.minSeverity <= Severity.Assert) {
         log(Severity.Assert, tag, throwable, message())
+    }
 }
 
 fun Logger.a(messageString: String) {
-    if (config.minSeverity <= Severity.Assert)
+    if (config.minSeverity <= Severity.Assert) {
         log(Severity.Assert, tag, null, messageString)
+    }
 }
 
 fun Logger.a(messageString: String, throwable: Throwable) {
-    if (config.minSeverity <= Severity.Assert)
+    if (config.minSeverity <= Severity.Assert) {
         log(Severity.Assert, tag, throwable, messageString)
+    }
 }
 
-//These are all simple accessor methods to make global calls from (mostly darwin) native simpler
+// These are all simple accessor methods to make global calls from (mostly darwin) native simpler
 fun withTag(tag: String): Logger = Logger.withTag(tag)
 
 fun v(message: () -> String) {

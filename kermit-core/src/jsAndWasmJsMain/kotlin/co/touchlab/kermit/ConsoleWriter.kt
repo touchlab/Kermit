@@ -15,20 +15,18 @@
 
 package co.touchlab.kermit
 
-class ConsoleWriter internal constructor(
-    private val messageStringFormatter: MessageStringFormatter,
-    private val console: ConsoleIntf
-) : LogWriter() {
+class ConsoleWriter internal constructor(private val messageStringFormatter: MessageStringFormatter, private val console: ConsoleIntf) :
+    LogWriter() {
     constructor(messageStringFormatter: MessageStringFormatter = DefaultFormatter) : this(
         messageStringFormatter,
-        ConsoleActual
+        ConsoleActual,
     )
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         var output = messageStringFormatter.formatMessage(
             null,
             Tag(tag),
-            Message(message)
+            Message(message),
         ) // Ignore severity. It is part of the console API.
         throwable?.let {
             output += " ${it.stackTraceToString()}"
