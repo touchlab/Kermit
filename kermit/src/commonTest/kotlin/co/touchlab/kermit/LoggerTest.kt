@@ -22,16 +22,12 @@ import kotlin.test.assertTrue
 @OptIn(ExperimentalKermitApi::class)
 class LoggerTest {
 
-    private fun getTestConfig(logWriterList: List<LogWriter>): TestConfig {
-        return TestConfig(
-            minSeverity = Severity.Verbose,
-            logWriterList = logWriterList,
-        )
-    }
+    private fun getTestConfig(logWriterList: List<LogWriter>): TestConfig = TestConfig(
+        minSeverity = Severity.Verbose,
+        logWriterList = logWriterList,
+    )
 
-    private fun getTestLogWriter(): TestLogWriter {
-        return TestLogWriter(loggable = Severity.Verbose)
-    }
+    private fun getTestLogWriter(): TestLogWriter = TestLogWriter(loggable = Severity.Verbose)
 
     @Test
     fun testGlobal() {
@@ -220,7 +216,7 @@ class LoggerTest {
         loggerWithTag.d { "Log Without Tag (Kermit With Tag)" }
         testLogWriter.assertLast { tag == "My Custom Tag" }
 
-        logger.d { "Log Without Tag (Original Kermit)" }  // Ensuring first Kermit isn't affected by withTag
+        logger.d { "Log Without Tag (Original Kermit)" } // Ensuring first Kermit isn't affected by withTag
         testLogWriter.assertLast { tag == "" }
     }
 
@@ -311,9 +307,9 @@ class LoggerTest {
 object MyLogger : Logger(
     config = loggerConfigInit(
         platformLogWriter(NoTagFormatter),
-        minSeverity = Severity.Info
+        minSeverity = Severity.Info,
     ),
-    tag = "MyAppTag"
+    tag = "MyAppTag",
 )
 
 fun hello() {

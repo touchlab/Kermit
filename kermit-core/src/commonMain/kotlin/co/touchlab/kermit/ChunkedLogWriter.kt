@@ -10,21 +10,13 @@
 
 package co.touchlab.kermit
 
-class ChunkedLogWriter(
-    internal val wrapped: LogWriter,
-    private val maxMessageLength: Int,
-    private val minMessageLength: Int
-) : LogWriter() {
+class ChunkedLogWriter(internal val wrapped: LogWriter, private val maxMessageLength: Int, private val minMessageLength: Int) :
+    LogWriter() {
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         chunkedLog(severity, message, tag, throwable)
     }
 
-    private tailrec fun chunkedLog(
-        severity: Severity,
-        message: String,
-        tag: String,
-        throwable: Throwable?
-    ) {
+    private tailrec fun chunkedLog(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         if (message.length > maxMessageLength) {
             var msgSubstring = message.substring(0, maxMessageLength)
             var msgSubstringEndIndex = maxMessageLength
@@ -51,4 +43,3 @@ class ChunkedLogWriter(
 
 fun LogWriter.chunked(maxMessageLength: Int = 4000, minMessageLength: Int = 3000): LogWriter =
     ChunkedLogWriter(this, maxMessageLength, minMessageLength)
-

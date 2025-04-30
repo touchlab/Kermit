@@ -13,12 +13,12 @@
 
 package co.touchlab.kermit
 
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.shadows.ShadowLog
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.shadows.ShadowLog
 
 @OptIn(ExperimentalKermitApi::class)
 @RunWith(RobolectricTestRunner::class)
@@ -78,9 +78,9 @@ class LogcatLoggerTest {
             tag = "Test Tag",
             throwable = RuntimeException(
                 "Root Exception Message",
-                IllegalStateException("Cause Exception Message")
+                IllegalStateException("Cause Exception Message"),
             ),
-            message = "Error Message"
+            message = "Error Message",
         )
 
         ShadowLog.getLogs().apply {

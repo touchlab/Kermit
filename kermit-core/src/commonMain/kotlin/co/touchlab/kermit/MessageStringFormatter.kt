@@ -22,8 +22,9 @@ interface MessageStringFormatter {
     fun formatTag(tag: Tag) = "(${tag.tag})"
     fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String {
         // Optimize for Android
-        if (severity == null && tag == null)
+        if (severity == null && tag == null) {
             return message.message
+        }
 
         val sb = StringBuilder()
         if (severity != null) sb.append(formatSeverity(severity)).append(" ")
@@ -54,8 +55,7 @@ object DefaultFormatter : MessageStringFormatter
  */
 object NoTagFormatter : MessageStringFormatter {
     override fun formatTag(tag: Tag): String = ""
-    override fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String =
-        super.formatMessage(severity, null, message)
+    override fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String = super.formatMessage(severity, null, message)
 }
 
 /**

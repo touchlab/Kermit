@@ -18,9 +18,7 @@ typealias MessageBlock = () -> String
  * Base class for public Logger API. Extend to implement your own logger API.
  */
 @Suppress("unused")
-open class BaseLogger(
-    open val config: LoggerConfig,
-) {
+open class BaseLogger(open val config: LoggerConfig) {
     val mutableConfig: MutableLoggerConfig
         get() = config.let {
             if (it !is MutableLoggerConfig) {
@@ -29,44 +27,29 @@ open class BaseLogger(
             it
         }
 
-    inline fun logBlock(
-        severity: Severity,
-        tag: String,
-        throwable: Throwable?,
-        message: MessageBlock
-    ) {
+    inline fun logBlock(severity: Severity, tag: String, throwable: Throwable?, message: MessageBlock) {
         if (config.minSeverity <= severity) {
             processLog(
                 severity,
                 tag,
                 throwable,
-                message()
+                message(),
             )
         }
     }
 
-    inline fun log(
-        severity: Severity,
-        tag: String,
-        throwable: Throwable?,
-        message: String
-    ) {
+    inline fun log(severity: Severity, tag: String, throwable: Throwable?, message: String) {
         if (config.minSeverity <= severity) {
             processLog(
                 severity,
                 tag,
                 throwable,
-                message
+                message,
             )
         }
     }
 
-    fun processLog(
-        severity: Severity,
-        tag: String,
-        throwable: Throwable?,
-        message: String
-    ) {
+    fun processLog(severity: Severity, tag: String, throwable: Throwable?, message: String) {
         config.logWriterList.forEach {
             if (it.isLoggable(tag, severity)) {
                 it.log(severity, message, tag, throwable)

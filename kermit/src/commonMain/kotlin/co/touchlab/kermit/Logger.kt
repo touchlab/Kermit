@@ -20,13 +20,8 @@ import kotlin.jvm.JvmOverloads
  * The default Logger API. This class can be a local instance, or use the global companion syntax.
  */
 @Suppress("unused")
-open class Logger(
-    config: LoggerConfig,
-    open val tag: String = ""
-) : BaseLogger(config) {
-    fun withTag(tag: String): Logger {
-        return Logger(this.config, tag)
-    }
+open class Logger(config: LoggerConfig, open val tag: String = "") : BaseLogger(config) {
+    fun withTag(tag: String): Logger = Logger(this.config, tag)
 
     @JvmOverloads
     inline fun v(throwable: Throwable? = null, tag: String = this.tag, message: () -> String) {
@@ -114,33 +109,39 @@ open class Logger(
         }
 
         fun v(tag: String, throwable: Throwable? = null, message: () -> String) {
-            if (config.minSeverity <= Severity.Verbose)
+            if (config.minSeverity <= Severity.Verbose) {
                 log(Severity.Verbose, tag, throwable, message())
+            }
         }
 
         fun d(tag: String, throwable: Throwable? = null, message: () -> String) {
-            if (config.minSeverity <= Severity.Debug)
+            if (config.minSeverity <= Severity.Debug) {
                 log(Severity.Debug, tag, throwable, message())
+            }
         }
 
         fun i(tag: String, throwable: Throwable? = null, message: () -> String) {
-            if (config.minSeverity <= Severity.Info)
+            if (config.minSeverity <= Severity.Info) {
                 log(Severity.Info, tag, throwable, message())
+            }
         }
 
         fun w(tag: String, throwable: Throwable? = null, message: () -> String) {
-            if (config.minSeverity <= Severity.Warn)
+            if (config.minSeverity <= Severity.Warn) {
                 log(Severity.Warn, tag, throwable, message())
+            }
         }
 
         fun e(tag: String, throwable: Throwable? = null, message: () -> String) {
-            if (config.minSeverity <= Severity.Error)
+            if (config.minSeverity <= Severity.Error) {
                 log(Severity.Error, tag, throwable, message())
+            }
         }
 
         fun a(tag: String, throwable: Throwable? = null, message: () -> String) {
-            if (config.minSeverity <= Severity.Assert)
+            if (config.minSeverity <= Severity.Assert) {
                 log(Severity.Assert, tag, throwable, message())
+            }
         }
     }
 }

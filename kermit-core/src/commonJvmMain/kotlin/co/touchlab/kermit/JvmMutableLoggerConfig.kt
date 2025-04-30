@@ -12,9 +12,11 @@ package co.touchlab.kermit
 
 internal class JvmMutableLoggerConfig(logWriters: List<LogWriter>) : MutableLoggerConfig {
     @Volatile
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _minSeverity: Severity = DEFAULT_MIN_SEVERITY
 
     @Volatile
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _loggerList: List<LogWriter> = logWriters
 
     override var minSeverity: Severity

@@ -24,8 +24,5 @@ interface MutableLoggerConfig : LoggerConfig {
 }
 
 expect fun mutableLoggerConfigInit(logWriters: List<LogWriter>): MutableLoggerConfig
-fun mutableLoggerConfigInit(
-    vararg logWriters: LogWriter,
-    minSeverity: Severity = DEFAULT_MIN_SEVERITY
-): MutableLoggerConfig =
+fun mutableLoggerConfigInit(vararg logWriters: LogWriter, minSeverity: Severity = DEFAULT_MIN_SEVERITY): MutableLoggerConfig =
     mutableLoggerConfigInit(logWriters.toList()).also { it.minSeverity = minSeverity }

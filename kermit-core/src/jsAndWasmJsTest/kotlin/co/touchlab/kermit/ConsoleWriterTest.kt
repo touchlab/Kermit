@@ -38,7 +38,6 @@ class ConsoleWriterTest {
         assertEquals(collector.warnings.size, 1)
         assertEquals(collector.infos.size, 1)
     }
-
 }
 
 class ConsoleCollector : ConsoleIntf {

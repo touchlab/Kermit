@@ -13,7 +13,10 @@ package co.touchlab.kermit
 import kotlin.concurrent.AtomicReference
 
 internal class AtomicMutableLoggerConfig(logWriters: List<LogWriter>) : MutableLoggerConfig {
+    @Suppress("ktlint:standard:backing-property-naming")
     private val _minSeverity = AtomicReference(DEFAULT_MIN_SEVERITY)
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private val _loggerList = AtomicReference(logWriters)
 
     override var minSeverity: Severity
@@ -28,5 +31,4 @@ internal class AtomicMutableLoggerConfig(logWriters: List<LogWriter>) : MutableL
         }
 }
 
-actual fun mutableLoggerConfigInit(logWriters: List<LogWriter>): MutableLoggerConfig =
-    AtomicMutableLoggerConfig(logWriters)
+actual fun mutableLoggerConfigInit(logWriters: List<LogWriter>): MutableLoggerConfig = AtomicMutableLoggerConfig(logWriters)
