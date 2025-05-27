@@ -10,7 +10,9 @@
 
 package co.touchlab.kermit
 
-import co.touchlab.kermit.darwin.*
+import co.touchlab.kermit.darwin.kermit_darwin_log_create
+import co.touchlab.kermit.darwin.kermit_darwin_log_public_with_type
+import co.touchlab.kermit.darwin.kermit_darwin_log_with_type
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.darwin.OS_LOG_TYPE_DEBUG
 import platform.darwin.OS_LOG_TYPE_DEFAULT
@@ -18,7 +20,6 @@ import platform.darwin.OS_LOG_TYPE_ERROR
 import platform.darwin.OS_LOG_TYPE_FAULT
 import platform.darwin.OS_LOG_TYPE_INFO
 import platform.darwin.os_log_type_t
-import kotlin.experimental.ExperimentalNativeApi
 
 /**
  * Write log statements to darwin OSLog.
@@ -33,18 +34,25 @@ open class OSLogWriter internal constructor(
     private val darwinLogger: DarwinLogger,
 ) : LogWriter() {
 
-    constructor(messageStringFormatter: MessageStringFormatter = DefaultFormatter, subsystem: String = "", category: String = "", publicLogging: Boolean = false) : this(
+    constructor(
+        messageStringFormatter: MessageStringFormatter = DefaultFormatter,
+        subsystem: String = "",
+        category: String = "",
+        publicLogging: Boolean = false,
+    ) : this(
         messageStringFormatter,
         DarwinLoggerActual(subsystem, category, publicLogging),
     )
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         callLog(
-            severity, formatMessage(
+            severity,
+            formatMessage(
                 severity = severity,
                 message = Message(message),
-                tag = Tag(tag)
-            ), throwable
+                tag = Tag(tag),
+            ),
+            throwable,
         )
     }
 
@@ -73,7 +81,6 @@ open class OSLogWriter internal constructor(
         messageStringFormatter.formatMessage(null, tag, message)
 }
 
-
 internal interface DarwinLogger {
     fun log(osLogSeverity: os_log_type_t, message: String)
 }
@@ -81,6 +88,7 @@ internal interface DarwinLogger {
 @OptIn(ExperimentalForeignApi::class)
 private class DarwinLoggerActual(subsystem: String, category: String, publicLogging: Boolean) : DarwinLogger {
     private val logger = kermit_darwin_log_create(subsystem, category)!!
+
     // see https://developer.apple.com/documentation/os/logging/generating_log_messages_from_your_code?language=objc
     // iOS considers everything coming from Kermit as a dynamic string, so without publicLogging=true, all logs are
     // private

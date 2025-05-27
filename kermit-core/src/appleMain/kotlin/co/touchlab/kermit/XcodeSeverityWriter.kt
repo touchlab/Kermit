@@ -10,7 +10,6 @@
 
 package co.touchlab.kermit
 
-import kotlin.experimental.ExperimentalNativeApi
 import platform.darwin.os_log_type_t
 
 /**
@@ -27,7 +26,7 @@ open class XcodeSeverityWriter(private val messageStringFormatter: MessageString
         println(throwable.stackTraceToString())
     }
 
-    //If this looks familiar, yes, it came directly from Napier :) https://github.com/AAkira/Napier#darwinios-macos-watchos-tvosintelapple-silicon
+    // If this looks familiar, yes, it came directly from Napier :) https://github.com/AAkira/Napier#darwinios-macos-watchos-tvosintelapple-silicon
     open fun emojiPrefix(severity: Severity): String = when (severity) {
         Severity.Verbose -> "⚪️"
         Severity.Debug -> "🔵"

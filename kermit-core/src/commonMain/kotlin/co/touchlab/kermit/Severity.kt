@@ -19,5 +19,5 @@ enum class Severity {
     Info,
     Warn,
     Error,
-    Assert
+    Assert,
 }
