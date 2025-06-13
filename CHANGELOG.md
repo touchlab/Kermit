@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.0.6] - 2025-06-13
+### Changed
+- Fix: Issue with files not being closed by `RollingFileLogWriter`
+- Update: cinterop definitions used by `OSLogWriter` now have a kermit prefix to avoid conflicts with other libraries
+- New: Added an example of a test to `sample-production`
+
 ## [2.0.5] - 2024-11-20
 ### Changed
 - Added `kermit-io` module, which contains the `RollingFileLogWriter`. This is a log writer that writes to a file with rolling logs.
