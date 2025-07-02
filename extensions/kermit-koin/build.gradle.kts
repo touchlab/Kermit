@@ -16,6 +16,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
+    id("wasm-setup")
     id("com.vanniktech.maven.publish")
 }
 
