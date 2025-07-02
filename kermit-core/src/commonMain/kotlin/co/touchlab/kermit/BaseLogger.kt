@@ -58,5 +58,4 @@ open class BaseLogger(open val config: LoggerConfig) {
     }
 }
 
-@kotlin.native.concurrent.SharedImmutable
 internal val DEFAULT_MIN_SEVERITY = Severity.Verbose

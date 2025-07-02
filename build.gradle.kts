@@ -23,7 +23,7 @@ plugins {
     alias(libs.plugins.dokka) apply false
     alias(libs.plugins.touchlab.docusaurus.template)
     alias(libs.plugins.android.library) apply false
-    id("org.jlleitschuh.gradle.ktlint") version "12.2.0" apply false
+    alias(libs.plugins.ktlint.gradle) apply false
 }
 
 apiValidation {

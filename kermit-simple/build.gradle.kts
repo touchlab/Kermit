@@ -12,8 +12,8 @@
  */
 
 plugins {
-    kotlin("multiplatform")
-    id("com.vanniktech.maven.publish")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.maven.publish)
     id("wasm-setup")
 }
 
