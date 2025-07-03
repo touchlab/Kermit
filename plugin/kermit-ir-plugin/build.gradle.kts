@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm")
     kotlin("kapt")
     id("com.github.gmazzo.buildconfig")
-    alias(libs.plugins.maven.publish)
+    id("com.vanniktech.maven.publish")
 }
 
 dependencies {

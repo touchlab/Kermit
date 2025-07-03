@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm")
     kotlin("kapt")
 //  id("org.jetbrains.dokka")
-    alias(libs.plugins.maven.publish)
+    id("com.vanniktech.maven.publish")
 }
 
 dependencies {
