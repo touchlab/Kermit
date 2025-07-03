@@ -15,6 +15,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.maven.publish)
+    id("wasm-setup")
     id("kermit-jvm-target")
 }
 
