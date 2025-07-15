@@ -23,6 +23,10 @@ pluginManagement {
         google()
         gradlePluginPortal()
         mavenCentral()
-        mavenLocal()
+        mavenLocal {
+            mavenContent {
+                includeGroupAndSubgroups("co.touchlab")
+            }
+        }
     }
 }

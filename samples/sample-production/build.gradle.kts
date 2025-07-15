@@ -23,7 +23,11 @@ plugins {
 
 allprojects {
     repositories {
-        mavenLocal()
+        mavenLocal {
+            mavenContent {
+                includeGroupAndSubgroups("co.touchlab")
+            }
+        }
         mavenCentral()
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
         google()
@@ -32,4 +36,14 @@ allprojects {
 
 tasks.register("ciTest") {
     dependsOn(":app:build", ":shared:build")
+}
+
+subprojects {
+    afterEvaluate {
+        tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+            compilerOptions {
+                jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
+            }
+        }
+    }
 }

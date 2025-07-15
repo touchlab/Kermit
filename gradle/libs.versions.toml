@@ -1,7 +1,7 @@
 [versions]
 ## SDK Versions
 minSdk = "21"
-compileSdk = "34"
+compileSdk = "35"
 
 # Dependencies
 kotlin = "2.2.0"
