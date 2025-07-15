@@ -35,7 +35,7 @@ allprojects {
     }
 }
 tasks.register("ciTest") {
-    dependsOn(":app:build", ":shared:build")
+    dependsOn("kotlinUpgradePackageLock", ":app:build", ":shared:build")
 }
 
 subprojects {
