@@ -1,6 +1,8 @@
 public class co/touchlab/kermit/io/RollingFileLogWriter : co/touchlab/kermit/LogWriter {
-	public fun <init> (Lco/touchlab/kermit/io/RollingFileLogWriterConfig;Lco/touchlab/kermit/MessageStringFormatter;Lkotlin/time/Clock;Lkotlinx/io/files/FileSystem;)V
-	public synthetic fun <init> (Lco/touchlab/kermit/io/RollingFileLogWriterConfig;Lco/touchlab/kermit/MessageStringFormatter;Lkotlin/time/Clock;Lkotlinx/io/files/FileSystem;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lco/touchlab/kermit/io/RollingFileLogWriterConfig;Lco/touchlab/kermit/MessageStringFormatter;Lkotlinx/io/files/FileSystem;)V
+	public synthetic fun <init> (Lco/touchlab/kermit/io/RollingFileLogWriterConfig;Lco/touchlab/kermit/MessageStringFormatter;Lkotlinx/io/files/FileSystem;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lco/touchlab/kermit/io/RollingFileLogWriterConfig;Lkotlin/time/Clock;Lco/touchlab/kermit/MessageStringFormatter;Lkotlinx/io/files/FileSystem;)V
+	public synthetic fun <init> (Lco/touchlab/kermit/io/RollingFileLogWriterConfig;Lkotlin/time/Clock;Lco/touchlab/kermit/MessageStringFormatter;Lkotlinx/io/files/FileSystem;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun log (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
 }
 
