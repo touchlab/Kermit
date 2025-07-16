@@ -21,63 +21,112 @@ import kotlin.jvm.JvmOverloads
  */
 @Suppress("unused")
 open class Logger(config: LoggerConfig, open val tag: String = "") : BaseLogger(config) {
+    /**
+     * Log a message with the specified tag.
+     */
     fun withTag(tag: String): Logger = Logger(this.config, tag)
 
+    /**
+     * Log a message on the 'Verbose' severity. This is the lowest severity.
+     */
     @JvmOverloads
     inline fun v(throwable: Throwable? = null, tag: String = this.tag, message: () -> String) {
         logBlock(Severity.Verbose, tag, throwable, message)
     }
 
+    /**
+     * Log a message on the 'Debug' severity. This severity is above 'Verbose'.
+     */
     @JvmOverloads
     inline fun d(throwable: Throwable? = null, tag: String = this.tag, message: () -> String) {
         logBlock(Severity.Debug, tag, throwable, message)
     }
 
+
+    /**
+     * Log a message on the 'Info' severity. This severity is above 'Debug'.
+     */
     @JvmOverloads
     inline fun i(throwable: Throwable? = null, tag: String = this.tag, message: () -> String) {
         logBlock(Severity.Info, tag, throwable, message)
     }
 
+
+    /**
+     * Log a message on the 'Warn' severity. This severity is above 'Info'.
+     */
     @JvmOverloads
     inline fun w(throwable: Throwable? = null, tag: String = this.tag, message: () -> String) {
         logBlock(Severity.Warn, tag, throwable, message)
     }
 
+
+    /**
+     * Log a message on the 'Error' severity. This severity is above 'Warn'.
+     */
     @JvmOverloads
     inline fun e(throwable: Throwable? = null, tag: String = this.tag, message: () -> String) {
         logBlock(Severity.Error, tag, throwable, message)
     }
 
+
+    /**
+     * Log a message on the 'Assert' severity. This is the highest severity.
+     */
     @JvmOverloads
     inline fun a(throwable: Throwable? = null, tag: String = this.tag, message: () -> String) {
         logBlock(Severity.Assert, tag, throwable, message)
     }
 
+
+    /**
+     * Log a message on the 'Verbose' severity. This is the lowest severity.
+     */
     @JvmOverloads
     inline fun v(messageString: String, throwable: Throwable? = null, tag: String = this.tag) {
         log(Severity.Verbose, tag, throwable, messageString)
     }
 
+
+    /**
+     * Log a message on the 'Verbose' severity. This severity is above 'Verbose'.
+     */
     @JvmOverloads
     inline fun d(messageString: String, throwable: Throwable? = null, tag: String = this.tag) {
         log(Severity.Debug, tag, throwable, messageString)
     }
 
+
+    /**
+     * Log a message on the 'Verbose' severity. This severity is above 'Debug'.
+     */
     @JvmOverloads
     inline fun i(messageString: String, throwable: Throwable? = null, tag: String = this.tag) {
         log(Severity.Info, tag, throwable, messageString)
     }
 
+
+    /**
+     * Log a message on the 'Verbose' severity. This severity is above 'Info'.
+     */
     @JvmOverloads
     inline fun w(messageString: String, throwable: Throwable? = null, tag: String = this.tag) {
         log(Severity.Warn, tag, throwable, messageString)
     }
 
+
+    /**
+     * Log a message on the 'Verbose' severity. This severity is above 'Warn'.
+     */
     @JvmOverloads
     inline fun e(messageString: String, throwable: Throwable? = null, tag: String = this.tag) {
         log(Severity.Error, tag, throwable, messageString)
     }
 
+
+    /**
+     * Log a message on the 'Verbose' severity. This is the highest severity.
+     */
     @JvmOverloads
     inline fun a(messageString: String, throwable: Throwable? = null, tag: String = this.tag) {
         log(Severity.Assert, tag, throwable, messageString)
