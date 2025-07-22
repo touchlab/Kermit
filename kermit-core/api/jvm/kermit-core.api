@@ -70,9 +70,9 @@ public final class co/touchlab/kermit/Message {
 }
 
 public abstract interface class co/touchlab/kermit/MessageStringFormatter {
-	public abstract fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public abstract fun formatSeverity (Lco/touchlab/kermit/Severity;)Ljava/lang/String;
-	public abstract fun formatTag-ntQDErM (Ljava/lang/String;)Ljava/lang/String;
+	public fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun formatSeverity (Lco/touchlab/kermit/Severity;)Ljava/lang/String;
+	public fun formatTag-ntQDErM (Ljava/lang/String;)Ljava/lang/String;
 }
 
 public final class co/touchlab/kermit/MessageStringFormatter$DefaultImpls {

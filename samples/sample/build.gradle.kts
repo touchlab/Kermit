@@ -24,12 +24,26 @@ version = "1.0-SNAPSHOT"
 
 allprojects {
     repositories {
-        mavenLocal()
+        mavenLocal {
+            mavenContent {
+                includeGroupAndSubgroups("co.touchlab")
+            }
+        }
         mavenCentral()
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
         google()
     }
 }
 tasks.register("ciTest") {
-    dependsOn("kotlinUpgradeYarnLock", ":app:build", ":shared:build")
+    dependsOn("kotlinUpgradePackageLock", ":app:build", ":shared:build")
+}
+
+subprojects {
+    afterEvaluate {
+        tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+            compilerOptions {
+                jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
+            }
+        }
+    }
 }

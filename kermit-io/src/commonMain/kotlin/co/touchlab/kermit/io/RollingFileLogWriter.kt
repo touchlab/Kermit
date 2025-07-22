@@ -8,6 +8,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
+@file:OptIn(ExperimentalTime::class)
+
 package co.touchlab.kermit.io
 
 import co.touchlab.kermit.DefaultFormatter
@@ -16,6 +18,8 @@ import co.touchlab.kermit.Message
 import co.touchlab.kermit.MessageStringFormatter
 import co.touchlab.kermit.Severity
 import co.touchlab.kermit.Tag
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
@@ -28,7 +32,6 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
-import kotlinx.datetime.Clock
 import kotlinx.datetime.format
 import kotlinx.datetime.format.DateTimeComponents
 import kotlinx.io.Buffer
@@ -73,10 +76,16 @@ import kotlinx.io.writeString
  */
 open class RollingFileLogWriter(
     private val config: RollingFileLogWriterConfig,
+    private val clock: Clock,
     private val messageStringFormatter: MessageStringFormatter = DefaultFormatter,
-    private val clock: Clock = Clock.System,
     private val fileSystem: FileSystem = SystemFileSystem,
 ) : LogWriter() {
+    constructor(
+        config: RollingFileLogWriterConfig,
+        messageStringFormatter: MessageStringFormatter = DefaultFormatter,
+        fileSystem: FileSystem = SystemFileSystem,
+    ) : this(config, Clock.System, messageStringFormatter, fileSystem)
+
     @OptIn(DelicateCoroutinesApi::class, ExperimentalCoroutinesApi::class)
     private val coroutineScope = CoroutineScope(
         newSingleThreadContext("RollingFileLogWriter") +

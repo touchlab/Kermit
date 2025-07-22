@@ -29,10 +29,6 @@ android {
     }
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
-}
-
 val KERMIT_VERSION: String by project
 
 version = "0.0.1"
