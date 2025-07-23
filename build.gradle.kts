@@ -72,22 +72,7 @@ subprojects {
     extensions.findByType(MavenPublishBaseExtension::class.java)?.apply {
         // Signing and POM are automatically handled by the plugin + gradle.properties
         configureBasedOnAppliedPlugins(true, true)
-        if (!project.hasProperty("AWS_REPO_URL")) publishToMavenCentral(automaticRelease = true)
-    }
-
-    extensions.findByType(PublishingExtension::class.java)?.apply {
-        repositories {
-            if (project.hasProperty("AWS_REPO_URL")) {
-                maven {
-                    name = "AWS"
-                    url = uri(project.property("AWS_REPO_URL")?.toString().orEmpty())
-                    credentials(AwsCredentials::class.java) {
-                        accessKey = project.property("AWS_ACCESS_KEY")?.toString().orEmpty()
-                        secretKey = project.property("AWS_SECRET_KEY")?.toString().orEmpty()
-                    }
-                }
-            }
-        }
+        publishToMavenCentral(automaticRelease = true)
     }
 
     afterEvaluate {
