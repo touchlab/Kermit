@@ -14,8 +14,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.maven.publish)
     id("kermit-jvm-target")
+    id("kermit-publish")
 }
 
 kotlin {

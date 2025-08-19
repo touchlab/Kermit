@@ -68,7 +68,7 @@ junitTest = { module = "junit:junit", version.ref = "junit" }
 
 # For convention-plugins
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-
+maven-publish-gradlePlugin = { module = "com.vanniktech.maven.publish:com.vanniktech.maven.publish.gradle.plugin", version.ref = "mavenPublish" }
 
 [plugins]
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }

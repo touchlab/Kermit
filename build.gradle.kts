@@ -1,5 +1,3 @@
-import com.vanniktech.maven.publish.MavenPublishBaseExtension
-
 /*
  * Copyright (c) 2021 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -18,7 +16,6 @@ buildscript {
 }
 
 plugins {
-    alias(libs.plugins.maven.publish) apply false
     alias(libs.plugins.buildConfig) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.binaryCompatability)
@@ -67,12 +64,6 @@ subprojects {
         filter {
             exclude { it.file.path.contains("build/") }
         }
-    }
-
-    extensions.findByType(MavenPublishBaseExtension::class.java)?.apply {
-        // Signing and POM are automatically handled by the plugin + gradle.properties
-        configureBasedOnAppliedPlugins(true, true)
-        publishToMavenCentral(automaticRelease = true)
     }
 
     afterEvaluate {
