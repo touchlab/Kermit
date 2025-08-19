@@ -13,8 +13,8 @@
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.maven.publish)
     id("wasm-setup")
+    id("kermit-publish")
 }
 
 kotlin {
