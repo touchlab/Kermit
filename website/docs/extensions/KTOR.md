@@ -1,4 +1,4 @@
-# Koin Integration
+# Ktor Integration
 
 Kermit's Ktor integration allows you to pass in a Kermit logger instance to your Ktor client.
 
