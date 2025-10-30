@@ -119,7 +119,7 @@ open class RollingFileLogWriter(
 
     private fun bufferLog(message: String, throwable: Throwable?) {
         val log = buildString {
-            if(config.prependTimestamp) {
+            if (config.prependTimestamp) {
                 append(clock.now().format(DateTimeComponents.Formats.ISO_DATE_TIME_OFFSET))
                 append(" ")
             }
