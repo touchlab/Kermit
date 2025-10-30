@@ -19,7 +19,7 @@ Then add the Kermit logger when you create your Ktor client -
 ```kotlin
 val httpClient = HttpClient {
     install(Logging) {
-        logger = KermitKtorLogger(severity = Severity.Info, logger = KermitLogger, tag = "")
+        logger = KermitKtorLogger(severity = Severity.Info, logger = KermitLogger)
         level = LogLevel.INFO
     }
 }
