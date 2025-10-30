@@ -15,16 +15,28 @@ import co.touchlab.kermit.LoggerConfig
 import co.touchlab.kermit.Severity
 import io.ktor.client.plugins.logging.Logger as KtorLogger
 
-class KermitKtorLogger(private val severity: Severity, config: LoggerConfig, tag: String = "") : KermitLogger(config, tag), KtorLogger {
-    // Overriding Ktor
+class KermitKtorLogger(
+    private val severity: Severity,
+    private val logger:KermitLogger,
+) : KtorLogger {
+
+    constructor(
+        severity: Severity,
+        config: LoggerConfig,
+        tag: String = ""
+    ) : this(
+        logger = KermitLogger(config = config, tag = tag),
+        severity = severity
+    )
+
     override fun log(message: String) {
         when (severity) {
-            Severity.Verbose -> this.v(messageString = message)
-            Severity.Debug -> this.d(messageString = message)
-            Severity.Info -> this.i(messageString = message)
-            Severity.Warn -> this.w(messageString = message)
-            Severity.Error -> this.e(messageString = message)
-            Severity.Assert -> this.a(messageString = message)
+            Severity.Verbose -> logger.v(messageString = message)
+            Severity.Debug -> logger.d(messageString = message)
+            Severity.Info -> logger.i(messageString = message)
+            Severity.Warn -> logger.w(messageString = message)
+            Severity.Error -> logger.e(messageString = message)
+            Severity.Assert -> logger.a(messageString = message)
         }
     }
 }

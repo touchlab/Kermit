@@ -17,10 +17,21 @@ sourceSets {
 Then add the Kermit logger when you create your Ktor client -
 
 ```kotlin
-val koinApplication = startKoin {
-  modules( ... )
-  
-  val kermit = Logger.withTag("koin")
-  logger(KermitKoinLogger(kermit))
+val httpClient = HttpClient {
+    install(Logging) {
+        logger = KermitKtorLogger(severity = Severity.Info, logger = KermitLogger, tag = "")
+        level = LogLevel.INFO
+    }
+}
+```
+
+or alternatively
+
+```kotlin
+val httpClient = HttpClient {
+    install(Logging) {
+        logger = KermitKtorLogger(severity = Severity.Info, config = loggerConfigInit(CommonWriter()), tag = "")
+        level = LogLevel.INFO
+    }
 }
 ```
