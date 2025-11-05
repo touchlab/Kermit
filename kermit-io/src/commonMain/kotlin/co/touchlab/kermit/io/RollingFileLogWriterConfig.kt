@@ -12,6 +12,14 @@ package co.touchlab.kermit.io
 
 import kotlinx.io.files.Path
 
+/**
+ * @param logFileName the name of the log file, Kermit will add the filetype ".log". If there is rollover the file will have an index appended to it, e.g. "app.log.1"
+ * @param logFilePath the path to the directory where log files will be stored
+ * @param rollOnSize the size in bytes at which the log file will roll over to a new file
+ * @param maxLogFiles the maximum number of log files to keep. If the LogWriter reaches the max then it will delete the oldest log file when rolling over.
+ * @param logTag whether to include the log tag in each log message
+ * @param prependTimestamp whether to prepend a timestamp to each log message
+ */
 data class RollingFileLogWriterConfig(
     val logFileName: String,
     val logFilePath: Path,
