@@ -19,10 +19,12 @@ include(":kermit-test")
 include(":kermit-crashlytics")
 include(":kermit-bugsnag")
 include(":kermit-koin")
+include(":kermit-ktor")
 
 project(":kermit-crashlytics").projectDir = File("extensions/kermit-crashlytics")
 project(":kermit-bugsnag").projectDir = File("extensions/kermit-bugsnag")
 project(":kermit-koin").projectDir = File("extensions/kermit-koin")
+project(":kermit-ktor").projectDir = File("extensions/kermit-ktor")
 
 // include(":kermit-gradle-plugin")
 // include(":kermit-ir-plugin")

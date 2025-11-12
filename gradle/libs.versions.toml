@@ -36,6 +36,7 @@ android-junitTest = "1.1.5"
 junit = "4.13.2"
 dokka = "2.0.0"
 touchlab-docusaurus-template = "0.1.11"
+ktor = "3.3.1"
 
 ktlint-gradle = "12.3.0"
 
@@ -52,6 +53,7 @@ androidx-runner = { module = "androidx.test:runner", version.ref = "android-test
 crashkios-crashlytics = { module = "co.touchlab.crashkios:crashlytics", version.ref = "crashkios" }
 crashkios-bugsnag = { module = "co.touchlab.crashkios:bugsnag", version.ref = "crashkios" }
 bugsnag-android = { module = "com.bugsnag:bugsnag-android", version.ref = "bugsnag" }
+ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 stately-collections = { module = "co.touchlab:stately-collections", version.ref = "stately" }
 testhelp = { module = "co.touchlab:testhelp", version.ref = "testhelp" }
 

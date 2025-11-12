@@ -51,6 +51,11 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation("co.touchlab:kermit:${KERMIT_VERSION}")
+            implementation("co.touchlab:kermit-ktor:${KERMIT_VERSION}")
+
+            implementation("io.ktor:ktor-client-logging:3.3.1")
+            implementation("io.ktor:ktor-client-core:3.3.1")
+            implementation("io.ktor:ktor-client-cio:3.3.1")
         }
 
         commonTest.dependencies {
