@@ -33,7 +33,7 @@ kotlin {
     sourceSets {
         wasmJsMain.dependencies {
             implementation(project(":shared"))
-            implementation("org.jetbrains.kotlinx:kotlinx-browser-wasm-js:0.5.0")
+            implementation(libs.kotlinx.wasm)
             implementation("co.touchlab:kermit-simple:${KERMIT_VERSION}")
         }
     }
