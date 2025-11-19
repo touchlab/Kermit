@@ -15,6 +15,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.multiplatform)
     id("kermit-jvm-target")
+    id("wasm-setup")
     id("kermit-publish")
 }
 
@@ -35,6 +36,9 @@ kotlin {
     watchosSimulatorArm64()
     watchosDeviceArm64()
     watchosX64()
+    js {
+        nodejs()
+    }
 
     sourceSets {
         commonMain.dependencies {
