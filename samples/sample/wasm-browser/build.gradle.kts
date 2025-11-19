@@ -19,6 +19,13 @@ group = "co.touchlab"
 version = "1.0"
 
 val KERMIT_VERSION: String by project
+val kotlinVersion = libs.versions.kotlin.get()
+
+configurations.all {
+    resolutionStrategy {
+        force("org.jetbrains.kotlin:kotlin-stdlib-wasm-js:${kotlinVersion}")
+    }
+}
 
 kotlin {
     wasmJs {
