@@ -16,20 +16,25 @@ plugins {
 }
 
 val KERMIT_VERSION: String by project
+val kotlinVersion = libs.versions.kotlin.get()
+
+// TODO: Kermit is running Kotlin 2.2.0, the Kotlin/Wasm standard library wants to use 2.2.20. So we need to manually set the wasm version
+configurations.all {
+    resolutionStrategy {
+        force("org.jetbrains.kotlin:kotlin-stdlib-wasm-js:${kotlinVersion}")
+    }
+}
 
 kotlin {
-
-
     wasmJs {
         binaries.executable()
         browser()
     }
-
     sourceSets {
         wasmJsMain.dependencies {
             implementation(project(":shared"))
-            implementation("co.touchlab:kermit-simple:${KERMIT_VERSION}")
             implementation("org.jetbrains.kotlinx:kotlinx-browser-wasm-js:0.5.0")
+            implementation("co.touchlab:kermit-simple:${KERMIT_VERSION}")
         }
     }
 }
