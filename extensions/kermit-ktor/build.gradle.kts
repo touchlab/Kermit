@@ -21,7 +21,7 @@ plugins {
 
 kotlin {
     androidTarget {
-        publishAllLibraryVariants()
+        publishLibraryVariants()
     }
     macosX64()
     macosArm64()
@@ -37,6 +37,7 @@ kotlin {
     watchosDeviceArm64()
     watchosX64()
     js {
+        browser()
         nodejs()
     }
 
