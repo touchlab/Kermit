@@ -22,7 +22,7 @@ kotlin {
     sourceSets {
         jsMain.dependencies {
             implementation(project(":shared"))
-            implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.9.1")
+            implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.12.0")
             implementation("co.touchlab:kermit-simple:${KERMIT_VERSION}")
         }
     }

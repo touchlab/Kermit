@@ -15,9 +15,6 @@ plugins {
     kotlin("multiplatform")
 }
 
-group = "co.touchlab"
-version = "1.0"
-
 val KERMIT_VERSION: String by project
 val kotlinVersion = libs.versions.kotlin.get()
 
@@ -35,8 +32,8 @@ kotlin {
     sourceSets {
         wasmJsMain.dependencies {
             implementation(project(":shared"))
-            implementation("co.touchlab:kermit-simple:${KERMIT_VERSION}")
             implementation("org.jetbrains.kotlinx:kotlinx-browser-wasm-js:0.5.0")
+            implementation("co.touchlab:kermit-simple:${KERMIT_VERSION}")
         }
     }
 }
