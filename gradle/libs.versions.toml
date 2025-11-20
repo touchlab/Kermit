@@ -28,6 +28,8 @@ koin = "4.1.0"
 coroutines = "1.7.3"
 kotlinx-datetime = "0.7.0"
 kotlinx-io = "0.8.0"
+kotlinx-js = "0.12.0"
+kotlinx-wasm = "0.3.1"
 roboelectric = "4.10.3"
 buildConfig = "5.6.7"
 mavenPublish = "0.34.0"
@@ -36,6 +38,7 @@ android-junitTest = "1.1.5"
 junit = "4.13.2"
 dokka = "2.0.0"
 touchlab-docusaurus-template = "0.1.11"
+ktor = "3.2.3"
 
 ktlint-gradle = "12.3.0"
 
@@ -52,6 +55,9 @@ androidx-runner = { module = "androidx.test:runner", version.ref = "android-test
 crashkios-crashlytics = { module = "co.touchlab.crashkios:crashlytics", version.ref = "crashkios" }
 crashkios-bugsnag = { module = "co.touchlab.crashkios:bugsnag", version.ref = "crashkios" }
 bugsnag-android = { module = "com.bugsnag:bugsnag-android", version.ref = "bugsnag" }
+ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 stately-collections = { module = "co.touchlab:stately-collections", version.ref = "stately" }
 testhelp = { module = "co.touchlab:testhelp", version.ref = "testhelp" }
 
@@ -59,6 +65,8 @@ koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-io = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlinx-io" }
+kotlinx-js = { module = "org.jetbrains.kotlinx:kotlinx-html-js", version.ref = "kotlinx-js" }
+kotlinx-wasm = { module = "org.jetbrains.kotlinx:kotlinx-browser-wasm-js", version.ref = "kotlinx-wasm"}
 roboelectric = { module = "org.robolectric:robolectric", version.ref = "roboelectric" }
 
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }

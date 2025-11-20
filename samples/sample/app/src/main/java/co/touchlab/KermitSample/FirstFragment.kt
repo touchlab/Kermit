@@ -13,9 +13,12 @@ package co.touchlab.KermitSample
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import co.touchlab.KermitSample.databinding.FragmentFirstBinding
 import co.touchlab.kermit.Logger
+import co.touchlab.kermitsample.CommonClient
 import co.touchlab.kermitsample.SampleMobile
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -28,6 +31,11 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         val sample = SampleMobile(context?.filesDir?.path ?: "")
         val binding = FragmentFirstBinding.bind(view)
         binding.btnClickCount.setOnClickListener { sample.onClickI() }
+        binding.btnNetwork.setOnClickListener {
+            lifecycleScope.launch {
+                CommonClient().testNetworkCall()
+            }
+        }
         binding.btnException.setOnClickListener { sample.logException() }
     }
 }

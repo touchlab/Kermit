@@ -1,6 +1,6 @@
 # Koin Integration
 
-Kermit's Koin integation comes in two parts - a logger implementation that writes
+Kermit's Koin integration comes in two parts - a logger implementation that writes
 Koin logger output to Kermit, and dependency injection helpers.
 
 ## Setup

@@ -21,8 +21,8 @@ kotlin {
     }
     sourceSets {
         jsMain.dependencies {
-            implementation(project(":shared"))
-            implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.9.1")
+            implementation( project(":shared"))
+            implementation(libs.kotlinx.js)
             implementation("co.touchlab:kermit-simple:${KERMIT_VERSION}")
         }
     }
