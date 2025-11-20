@@ -27,13 +27,6 @@ class KermitKtorLogger(private val severity: Severity, private val logger: Kermi
     )
 
     override fun log(message: String) {
-        when (severity) {
-            Severity.Verbose -> logger.v(messageString = message)
-            Severity.Debug -> logger.d(messageString = message)
-            Severity.Info -> logger.i(messageString = message)
-            Severity.Warn -> logger.w(messageString = message)
-            Severity.Error -> logger.e(messageString = message)
-            Severity.Assert -> logger.a(messageString = message)
-        }
+        logger.log(severity, logger.tag, null, message)
     }
 }
