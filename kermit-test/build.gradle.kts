@@ -28,28 +28,31 @@ kotlin {
         nodejs()
     }
 
-    macosX64()
+    val excludeX64 = project.findProperty("excludeX64Targets") == "true"
+    if(!excludeX64){
+        macosX64()
+        iosX64()
+        watchosX64()
+        tvosX64()
+        mingwX64()
+        linuxX64()
+        androidNativeX64()
+    }
     macosArm64()
-    iosX64()
     iosArm64()
     iosSimulatorArm64()
     watchosArm32()
     watchosArm64()
     watchosSimulatorArm64()
     watchosDeviceArm64()
-    watchosX64()
     tvosArm64()
     tvosSimulatorArm64()
-    tvosX64()
 
-    mingwX64()
-    linuxX64()
     linuxArm64()
 
     androidNativeArm32()
     androidNativeArm64()
     androidNativeX86()
-    androidNativeX64()
 
     sourceSets {
         commonMain.dependencies {

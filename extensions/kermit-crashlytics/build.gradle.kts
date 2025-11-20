@@ -22,19 +22,23 @@ kotlin {
     androidTarget {
         publishAllLibraryVariants()
     }
-    macosX64()
+
+    val excludeX64 = project.findProperty("excludeX64Targets") == "true"
+    if(!excludeX64){
+        macosX64()
+        iosX64()
+        tvosX64()
+        watchosX64()
+    }
     macosArm64()
-    iosX64()
     iosArm64()
     iosSimulatorArm64()
     tvosArm64()
     tvosSimulatorArm64()
-    tvosX64()
     watchosArm32()
     watchosArm64()
     watchosSimulatorArm64()
     watchosDeviceArm64()
-    watchosX64()
 
     sourceSets {
         commonMain.dependencies {

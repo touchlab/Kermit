@@ -33,8 +33,12 @@ val KERMIT_VERSION: String by project
 version = "0.0.1"
 
 kotlin {
+    val excludeX64 = project.findProperty("excludeX64Targets") == "true"
+
+    if(!excludeX64){
+        iosX64()
+    }
     androidTarget()
-    iosX64()
     iosArm64()
     iosSimulatorArm64()
 

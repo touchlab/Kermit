@@ -29,20 +29,22 @@ kotlin {
         nodejs()
     }
 
-    macosX64()
+    val excludeX64 = project.findProperty("excludeX64Targets") == "true"
+    if(!excludeX64){
+        macosX64()
+        iosX64()
+        watchosX64()
+        tvosX64()
+        linuxX64()
+        mingwX64()
+    }
     macosArm64()
-    iosX64()
     iosArm64()
     iosSimulatorArm64()
     watchosArm64()
     watchosSimulatorArm64()
-    watchosX64()
     tvosArm64()
     tvosSimulatorArm64()
-    tvosX64()
-
-    linuxX64()
-    mingwX64()
 
     // TODO: These targets aren't supported by Koin yet or stopped the support:
     //    watchosArm32()
