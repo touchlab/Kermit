@@ -33,7 +33,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: Build
-        run: ./gradlew ktlintCheck build --no-daemon --stacktrace --build-cache -PexcludeX64Targets=true
+        run: ./gradlew ktlintCheck build --no-daemon --stacktrace --build-cache --exclude-task '*X64Test'
         env:
           S3_BUILD_CACHE_AWS_REGION: ${{ secrets.S3_BUILD_CACHE_AWS_REGION }}
           S3_BUILD_CACHE_BUCKET_NAME: ${{ secrets.S3_BUILD_CACHE_BUCKET_NAME }}
