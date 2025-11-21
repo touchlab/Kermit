@@ -52,6 +52,15 @@ allprojects {
         google()
     }
     tasks.getByName("dokkaHtml").dependsOn(":kermit:transformIosMainCInteropDependenciesMetadataForIde")
+
+    if (rootProject.hasProperty("skipX64Tests")) {
+        afterEvaluate {
+            tasks.matching { it.name.endsWith("X64Test") }.configureEach {
+                enabled = false
+                onlyIf { false }
+            }
+        }
+    }
 }
 
 subprojects {
