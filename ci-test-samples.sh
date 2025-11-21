@@ -4,6 +4,6 @@ set -e
 for i in `ls samples`; do
 echo "---- $i ----"
 cd samples/$i
-./gradlew ciTest --no-daemon --stacktrace --build-cache --exclude-task '*X64Test'
+./gradlew ciTest --no-daemon --stacktrace --build-cache -PskipX64Tests
 cd ../..
 done
