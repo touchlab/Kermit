@@ -41,7 +41,7 @@ class LogcatWriter(private val messageStringFormatter: MessageStringFormatter = 
                     Severity.Assert -> Log.println(
                         Log.ASSERT,
                         tag,
-                        "${formattedMessage}\n${Log.getStackTraceString(throwable)}"
+                        "${formattedMessage}\n${Log.getStackTraceString(throwable)}",
                     )
                 }
             }
