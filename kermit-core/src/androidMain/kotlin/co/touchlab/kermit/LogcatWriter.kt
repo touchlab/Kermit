@@ -29,7 +29,7 @@ class LogcatWriter(private val messageStringFormatter: MessageStringFormatter = 
                     Severity.Info -> Log.i(tag, formattedMessage)
                     Severity.Warn -> Log.w(tag, formattedMessage)
                     Severity.Error -> Log.e(tag, formattedMessage)
-                    Severity.Assert -> Log.wtf(tag, formattedMessage)
+                    Severity.Assert -> Log.println(Log.ASSERT, tag, formattedMessage)
                 }
             } else {
                 when (severity) {
@@ -38,10 +38,14 @@ class LogcatWriter(private val messageStringFormatter: MessageStringFormatter = 
                     Severity.Info -> Log.i(tag, formattedMessage, throwable)
                     Severity.Warn -> Log.w(tag, formattedMessage, throwable)
                     Severity.Error -> Log.e(tag, formattedMessage, throwable)
-                    Severity.Assert -> Log.wtf(tag, formattedMessage, throwable)
+                    Severity.Assert -> Log.println(
+                        Log.ASSERT,
+                        tag,
+                        "${formattedMessage}\n${Log.getStackTraceString(throwable)}"
+                    )
                 }
             }
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             testWriter.log(severity, message, tag, throwable)
         }
     }
