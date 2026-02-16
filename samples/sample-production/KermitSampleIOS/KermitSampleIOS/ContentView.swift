@@ -22,64 +22,53 @@ struct ContentView: View {
     }
 
     var body: some View {
-        VStack(spacing: 10){
-            Button(action: {
+        VStack(spacing: 12) {
+            SampleButton(text: "Click Count V", onClick: {
                 self.common.onClickV()
-            }){
-                Text("Click Count V").padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .font(.title)
-            }
-            Button(action: {
+            })
+
+            SampleButton(text: "Click Count D", onClick: {
                 self.common.onClickD()
-            }){
-                Text("Click Count D").padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .font(.title)
-            }
-            Button(action: {
+            })
+
+            SampleButton(text: "Click Count I", onClick: {
                 self.common.onClickI()
-            }){
-                Text("Click Count I").padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .font(.title)
-            }
-            Button(action: {
+            })
+
+            SampleButton(text: "Click Count W", onClick: {
                 self.common.onClickW()
-            }){
-                Text("Click Count W").padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .font(.title)
-            }
-            Button(action: {
+            })
+
+            SampleButton(text: "Click Count E", onClick: {
                 self.common.onClickE()
-            }){
-                Text("Click Count E").padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .font(.title)
-            }
-            Button(action: {
+            })
+
+            SampleButton(text: "Click Count A", onClick: {
                 self.common.onClickA()
-            }){
-                Text("Click Count A").padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .font(.title)
-            }
-            Button(action: {
+            })
+
+            SampleButton(text: "Log Exception", onClick: {
                 self.common.logException()
-            }){
-                Text("Log Exception").padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .font(.title)
-            }
+            })
+
+            SampleButton(text: "Log from iOS", onClick: {
+                self.common.logException()
+            })
         }
+        .padding(.horizontal, 64)
+        .frame(maxHeight: .infinity)
+    }
+
+    private func SampleButton(text: String, onClick: @escaping () -> Void) -> some View {
+        Button(action: onClick) {
+            Text(text)
+                .font(.headline)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 12)
+        }
+        .background(Color.blue)
+        .cornerRadius(32)
     }
 }
 

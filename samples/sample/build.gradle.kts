@@ -18,6 +18,7 @@ buildscript {
 plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.compose.compiler) version libs.versions.kotlin apply false
 }
 
 version = "1.0-SNAPSHOT"

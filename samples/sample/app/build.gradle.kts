@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 /*
  * Copyright (c) 2024 Touchlab
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
@@ -11,6 +13,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    alias(libs.plugins.compose.compiler)
 }
 
 repositories {
@@ -22,7 +25,7 @@ repositories {
 val KERMIT_VERSION: String by project
 
 android {
-    namespace = "co.touchlab.KermitSample"
+    namespace = "co.touchlab.kermitsample"
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
@@ -42,18 +45,22 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
     buildFeatures {
-        viewBinding = true
+        compose = true
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_1_8)
     }
 }
 
 dependencies {
     implementation(project(":shared"))
-    implementation(libs.bundles.android)
     implementation("co.touchlab:kermit:${KERMIT_VERSION}")
+
+    implementation(libs.bundles.android)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose)
 }
-
-
