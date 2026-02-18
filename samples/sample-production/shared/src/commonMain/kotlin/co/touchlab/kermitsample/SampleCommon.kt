@@ -56,5 +56,3 @@ class SampleCommon {
         logger.w(throwable = Exception("Handled")) { "Common click count: $count" }
     }
 }
-
-fun makeException(message: String): Throwable = IllegalStateException(message)

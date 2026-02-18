@@ -8,10 +8,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-package co.touchlab.kermitSample
+package co.touchlab.kermitsample
 
 import android.app.Application
-import co.touchlab.kermitsample.startApp
 import com.bugsnag.android.Bugsnag
 
 class SampleApplication : Application() {
@@ -19,7 +18,7 @@ class SampleApplication : Application() {
         super.onCreate()
         Bugsnag.start(this)
         startApp(this, !BuildConfig.DEBUG)
-        val log = co.touchlab.kermitsample.NotDI.loggerWithTag("ATag")
+        val log = NotDI.loggerWithTag("ATag")
         log.i { "Hello from Android" }
     }
 }
