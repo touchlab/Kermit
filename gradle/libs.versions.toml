@@ -4,7 +4,7 @@ minSdk = "23"
 compileSdk = "36"
 
 # Dependencies
-kotlin = "2.3.10"
+kotlin = "2.2.0"
 binaryCompatability = "0.18.1"
 
 androidx-core = "1.17.0"
