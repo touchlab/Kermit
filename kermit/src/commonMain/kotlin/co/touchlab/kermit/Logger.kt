@@ -42,6 +42,25 @@ open class Logger(config: LoggerConfig, open val tag: String = "") : BaseLogger(
     }
 
     /**
+     * Log a message with [Severity.Verbose]. This is the lowest severity level.
+     *
+     * This overload places [withTag] first, mirroring the former global-logger companion API
+     * and allowing positional tag-first call sites to compile without changes.
+     *
+     * @param withTag Tag to associate with the log message.
+     * @param throwable Optional throwable to log.
+     * @param message Lambda returning the message to log.
+     */
+    @Deprecated(
+        message = "Prefer the throwable-first overload and pass the tag using the named `tag` parameter.",
+        replaceWith = ReplaceWith("v(throwable = throwable, tag = withTag, message = message)"),
+    )
+    @JvmOverloads
+    inline fun v(withTag: String, throwable: Throwable? = null, message: () -> String) {
+        logBlock(Severity.Verbose, withTag, throwable, message)
+    }
+
+    /**
      * Log a message with [Severity.Debug]. This is above 'Verbose'.
      *
      * @param throwable Optional throwable to log.
@@ -51,6 +70,25 @@ open class Logger(config: LoggerConfig, open val tag: String = "") : BaseLogger(
     @JvmOverloads
     inline fun d(throwable: Throwable? = null, tag: String = this.tag, message: () -> String) {
         logBlock(Severity.Debug, tag, throwable, message)
+    }
+
+    /**
+     * Log a message with [Severity.Debug]. This is above 'Verbose'.
+     *
+     * This overload places [withTag] first, mirroring the former global-logger companion API
+     * and allowing positional tag-first call sites to compile without changes.
+     *
+     * @param withTag Tag to associate with the log message.
+     * @param throwable Optional throwable to log.
+     * @param message Lambda returning the message to log.
+     */
+    @Deprecated(
+        message = "Prefer the throwable-first overload and pass the tag using the named `tag` parameter.",
+        replaceWith = ReplaceWith("d(throwable = throwable, tag = withTag, message = message)"),
+    )
+    @JvmOverloads
+    inline fun d(withTag: String, throwable: Throwable? = null, message: () -> String) {
+        logBlock(Severity.Debug, withTag, throwable, message)
     }
 
     /**
@@ -66,6 +104,25 @@ open class Logger(config: LoggerConfig, open val tag: String = "") : BaseLogger(
     }
 
     /**
+     * Log a message with [Severity.Info]. This is above 'Debug'.
+     *
+     * This overload places [withTag] first, mirroring the former global-logger companion API
+     * and allowing positional tag-first call sites to compile without changes.
+     *
+     * @param withTag Tag to associate with the log message.
+     * @param throwable Optional throwable to log.
+     * @param message Lambda returning the message to log.
+     */
+    @Deprecated(
+        message = "Prefer the throwable-first overload and pass the tag using the named `tag` parameter.",
+        replaceWith = ReplaceWith("i(throwable = throwable, tag = withTag, message = message)"),
+    )
+    @JvmOverloads
+    inline fun i(withTag: String, throwable: Throwable? = null, message: () -> String) {
+        logBlock(Severity.Info, withTag, throwable, message)
+    }
+
+    /**
      * Log a message with [Severity.Warn]. This is above 'Info'.
      *
      * @param throwable Optional throwable to log.
@@ -75,6 +132,25 @@ open class Logger(config: LoggerConfig, open val tag: String = "") : BaseLogger(
     @JvmOverloads
     inline fun w(throwable: Throwable? = null, tag: String = this.tag, message: () -> String) {
         logBlock(Severity.Warn, tag, throwable, message)
+    }
+
+    /**
+     * Log a message with [Severity.Warn]. This is above 'Info'.
+     *
+     * This overload places [withTag] first, mirroring the former global-logger companion API
+     * and allowing positional tag-first call sites to compile without changes.
+     *
+     * @param withTag Tag to associate with the log message.
+     * @param throwable Optional throwable to log.
+     * @param message Lambda returning the message to log.
+     */
+    @Deprecated(
+        message = "Prefer the throwable-first overload and pass the tag using the named `tag` parameter.",
+        replaceWith = ReplaceWith("w(throwable = throwable, tag = withTag, message = message)"),
+    )
+    @JvmOverloads
+    inline fun w(withTag: String, throwable: Throwable? = null, message: () -> String) {
+        logBlock(Severity.Warn, withTag, throwable, message)
     }
 
     /**
@@ -90,6 +166,25 @@ open class Logger(config: LoggerConfig, open val tag: String = "") : BaseLogger(
     }
 
     /**
+     * Log a message with [Severity.Error]. This is above 'Warn'.
+     *
+     * This overload places [withTag] first, mirroring the former global-logger companion API
+     * and allowing positional tag-first call sites to compile without changes.
+     *
+     * @param withTag Tag to associate with the log message.
+     * @param throwable Optional throwable to log.
+     * @param message Lambda returning the message to log.
+     */
+    @Deprecated(
+        message = "Prefer the throwable-first overload and pass the tag using the named `tag` parameter.",
+        replaceWith = ReplaceWith("e(throwable = throwable, tag = withTag, message = message)"),
+    )
+    @JvmOverloads
+    inline fun e(withTag: String, throwable: Throwable? = null, message: () -> String) {
+        logBlock(Severity.Error, withTag, throwable, message)
+    }
+
+    /**
      * Log a message with [Severity.Assert]. This is the highest severity level.
      *
      * @param throwable Optional throwable to log.
@@ -99,6 +194,25 @@ open class Logger(config: LoggerConfig, open val tag: String = "") : BaseLogger(
     @JvmOverloads
     inline fun a(throwable: Throwable? = null, tag: String = this.tag, message: () -> String) {
         logBlock(Severity.Assert, tag, throwable, message)
+    }
+
+    /**
+     * Log a message with [Severity.Assert]. This is the highest severity level.
+     *
+     * This overload places [withTag] first, mirroring the former global-logger companion API
+     * and allowing positional tag-first call sites to compile without changes.
+     *
+     * @param withTag Tag to associate with the log message.
+     * @param throwable Optional throwable to log.
+     * @param message Lambda returning the message to log.
+     */
+    @Deprecated(
+        message = "Prefer the throwable-first overload and pass the tag using the named `tag` parameter.",
+        replaceWith = ReplaceWith("a(throwable = throwable, tag = withTag, message = message)"),
+    )
+    @JvmOverloads
+    inline fun a(withTag: String, throwable: Throwable? = null, message: () -> String) {
+        logBlock(Severity.Assert, withTag, throwable, message)
     }
 
     /**
