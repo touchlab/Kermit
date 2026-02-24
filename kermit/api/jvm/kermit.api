@@ -5,51 +5,69 @@ public class co/touchlab/kermit/Logger : co/touchlab/kermit/BaseLogger {
 	public final fun a (Ljava/lang/String;)V
 	public final fun a (Ljava/lang/String;Ljava/lang/Throwable;)V
 	public final fun a (Ljava/lang/String;Ljava/lang/Throwable;Ljava/lang/String;)V
+	public final fun a (Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public final fun a (Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
 	public final fun a (Ljava/lang/Throwable;Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
 	public final fun a (Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
 	public final fun a (Lkotlin/jvm/functions/Function0;)V
 	public static synthetic fun a$default (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Ljava/lang/String;ILjava/lang/Object;)V
+	public static synthetic fun a$default (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 	public static synthetic fun a$default (Lco/touchlab/kermit/Logger;Ljava/lang/Throwable;Ljava/lang/String;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 	public final fun d (Ljava/lang/String;)V
 	public final fun d (Ljava/lang/String;Ljava/lang/Throwable;)V
 	public final fun d (Ljava/lang/String;Ljava/lang/Throwable;Ljava/lang/String;)V
+	public final fun d (Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public final fun d (Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
 	public final fun d (Ljava/lang/Throwable;Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
 	public final fun d (Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
 	public final fun d (Lkotlin/jvm/functions/Function0;)V
 	public static synthetic fun d$default (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Ljava/lang/String;ILjava/lang/Object;)V
+	public static synthetic fun d$default (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 	public static synthetic fun d$default (Lco/touchlab/kermit/Logger;Ljava/lang/Throwable;Ljava/lang/String;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 	public final fun e (Ljava/lang/String;)V
 	public final fun e (Ljava/lang/String;Ljava/lang/Throwable;)V
 	public final fun e (Ljava/lang/String;Ljava/lang/Throwable;Ljava/lang/String;)V
+	public final fun e (Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public final fun e (Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
 	public final fun e (Ljava/lang/Throwable;Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
 	public final fun e (Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
 	public final fun e (Lkotlin/jvm/functions/Function0;)V
 	public static synthetic fun e$default (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Ljava/lang/String;ILjava/lang/Object;)V
+	public static synthetic fun e$default (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 	public static synthetic fun e$default (Lco/touchlab/kermit/Logger;Ljava/lang/Throwable;Ljava/lang/String;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 	public fun getTag ()Ljava/lang/String;
 	public final fun i (Ljava/lang/String;)V
 	public final fun i (Ljava/lang/String;Ljava/lang/Throwable;)V
 	public final fun i (Ljava/lang/String;Ljava/lang/Throwable;Ljava/lang/String;)V
+	public final fun i (Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public final fun i (Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
 	public final fun i (Ljava/lang/Throwable;Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
 	public final fun i (Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
 	public final fun i (Lkotlin/jvm/functions/Function0;)V
 	public static synthetic fun i$default (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Ljava/lang/String;ILjava/lang/Object;)V
+	public static synthetic fun i$default (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 	public static synthetic fun i$default (Lco/touchlab/kermit/Logger;Ljava/lang/Throwable;Ljava/lang/String;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 	public final fun v (Ljava/lang/String;)V
 	public final fun v (Ljava/lang/String;Ljava/lang/Throwable;)V
 	public final fun v (Ljava/lang/String;Ljava/lang/Throwable;Ljava/lang/String;)V
+	public final fun v (Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public final fun v (Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
 	public final fun v (Ljava/lang/Throwable;Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
 	public final fun v (Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
 	public final fun v (Lkotlin/jvm/functions/Function0;)V
 	public static synthetic fun v$default (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Ljava/lang/String;ILjava/lang/Object;)V
+	public static synthetic fun v$default (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 	public static synthetic fun v$default (Lco/touchlab/kermit/Logger;Ljava/lang/Throwable;Ljava/lang/String;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 	public final fun w (Ljava/lang/String;)V
 	public final fun w (Ljava/lang/String;Ljava/lang/Throwable;)V
 	public final fun w (Ljava/lang/String;Ljava/lang/Throwable;Ljava/lang/String;)V
+	public final fun w (Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public final fun w (Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
 	public final fun w (Ljava/lang/Throwable;Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
 	public final fun w (Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
 	public final fun w (Lkotlin/jvm/functions/Function0;)V
 	public static synthetic fun w$default (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Ljava/lang/String;ILjava/lang/Object;)V
+	public static synthetic fun w$default (Lco/touchlab/kermit/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 	public static synthetic fun w$default (Lco/touchlab/kermit/Logger;Ljava/lang/Throwable;Ljava/lang/String;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 	public final fun withTag (Ljava/lang/String;)Lco/touchlab/kermit/Logger;
 }
