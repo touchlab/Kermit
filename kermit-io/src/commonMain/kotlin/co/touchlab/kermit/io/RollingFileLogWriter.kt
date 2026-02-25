@@ -65,7 +65,7 @@ import kotlinx.io.writeString
  * Path(context.filesDir.path)
  * ```
  *
- * and on iOS this wil return the application's sandboxed document directory:
+ * and on iOS this will return the application's sandboxed document directory:
  *
  * ```kotlin
  * (NSFileManager.defaultManager.URLsForDirectory(NSDocumentDirectory, NSUserDomainMask).last() as NSURL).path!!
@@ -73,6 +73,28 @@ import kotlinx.io.writeString
  *
  * However, you can use any path that is writable by the application. This would generally be implemented by
  * platform-specific code.
+ *
+ * ## iOS background logging
+ *
+ * On iOS, files created in the Documents directory inherit the `NSFileProtectionComplete` data protection
+ * class by default. This prevents any file access while the device is locked, causing log writes to fail
+ * with an `IOException` when your app runs in the background on a locked device.
+ *
+ * If you need to write logs while the device is locked (e.g. during background tasks), set the file
+ * protection attribute on your log directory to `NSFileProtectionCompleteUntilFirstUserAuthentication`
+ * before creating the writer. This allows file access after the first unlock following a reboot:
+ *
+ * ```kotlin
+ * // iOS-specific setup (place in your iOS source set)
+ * NSFileManager.defaultManager.setAttributes(
+ *     mapOf(NSFileProtectionKey to NSFileProtectionCompleteUntilFirstUserAuthentication),
+ *     ofItemAtPath = logDirectoryPath,
+ *     error = null,
+ * )
+ * ```
+ *
+ * When file access is unavailable (e.g. device locked with default protection), `RollingFileLogWriter`
+ * will suppress the error and discard log messages until access is restored, rather than crashing.
  */
 open class RollingFileLogWriter(
     private val config: RollingFileLogWriterConfig,
@@ -168,33 +190,73 @@ open class RollingFileLogWriter(
     private suspend fun writer() {
         val logFilePath = pathForLogIndex(0)
 
-        if (fileSystem.exists(logFilePath) && shouldRollLogs(logFilePath)) {
-            rollLogs()
+        try {
+            if (fileSystem.exists(logFilePath) && shouldRollLogs(logFilePath)) {
+                rollLogs()
+            }
+        } catch (e: IOException) {
+            println("RollingFileLogWriter: Failed to roll logs at startup: ${e.message}")
         }
 
         fun createNewLogSink(): Sink = fileSystem
             .sink(logFilePath, append = true)
             .buffered()
 
-        var currentLogSink: Sink = createNewLogSink()
+        var currentLogSink: Sink? = try {
+            createNewLogSink()
+        } catch (e: IOException) {
+            println("RollingFileLogWriter: Failed to open log file: ${e.message}")
+            null
+        }
+
+        // Tracks whether we are currently in an error state to avoid spamming stderr on every write
+        var ioErrorActive = false
 
         while (currentCoroutineContext().isActive) {
             // wait for data to be available, flush periodically
             val result = loggingChannel.receiveCatching()
 
-            // check if logs need rolling
-            if (shouldRollLogs(logFilePath)) {
-                currentLogSink.close()
-                rollLogs()
-                currentLogSink = createNewLogSink()
+            try {
+                if (currentLogSink == null) {
+                    currentLogSink = createNewLogSink()
+                }
+
+                // check if logs need rolling
+                if (shouldRollLogs(logFilePath)) {
+                    currentLogSink.close()
+                    rollLogs()
+                    currentLogSink = createNewLogSink()
+                }
+
+                result.getOrNull()?.transferTo(currentLogSink)
+
+                // we could improve performance by flushing less frequently at the cost of potential data loss,
+                // but this is a safe default
+                currentLogSink.flush()
+
+                if (ioErrorActive) {
+                    println("RollingFileLogWriter: Log file access restored")
+                    ioErrorActive = false
+                }
+            } catch (e: IOException) {
+                // On iOS, file I/O fails when the device is locked and the app is in the background
+                // (see NSFileProtectionComplete). We catch the exception here to keep the writer
+                // coroutine alive so that logging can resume once file access is restored.
+                if (!ioErrorActive) {
+                    println("RollingFileLogWriter: IOException writing to log file, some logs may be lost: ${e.message}")
+                    e.printStackTrace()
+                    ioErrorActive = true
+                }
+                try {
+                    currentLogSink?.close()
+                } catch (_: IOException) {
+                    // ignore close failure
+                }
+                currentLogSink = null
             }
-
-            result.getOrNull()?.transferTo(currentLogSink)
-
-            // we could improve performance by flushing less frequently at the cost of potential data loss,
-            // but this is a safe default
-            currentLogSink.flush()
         }
+
+        currentLogSink?.close()
     }
 
     private fun fileSizeOrZero(path: Path) = fileSystem.metadataOrNull(path)?.size ?: 0
