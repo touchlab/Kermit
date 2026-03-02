@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.1.0] - 2026-03-02
+### Changed
+- Fixed incorrect severity for `Logger.a` on Android
+- Bumped `minSdk` to `23` and `compileSdk` to `36`
+- Updated samples in both platforms to have code parity
+
 ## [2.0.6] - 2025-06-13
 ### Changed
 - Fix: Issue with files not being closed by `RollingFileLogWriter`
