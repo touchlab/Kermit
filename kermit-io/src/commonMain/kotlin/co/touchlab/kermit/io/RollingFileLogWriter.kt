@@ -46,55 +46,47 @@ import kotlinx.io.writeString
 /**
  * Implements a log writer that writes log messages to a rolling file.
  *
- * It also deletes old log files when the maximum number of log files is reached. We simply keep
- * approximately [RollingFileLogWriterConfig.rollOnSize] bytes in each log file,
- * and delete the oldest file when we have more than [RollingFileLogWriterConfig.maxLogFiles].
+ * It also deletes old log files when the maximum number of log files is reached. We simply keep approximately
+ * [RollingFileLogWriterConfig.rollOnSize] bytes in each log file, and delete the oldest file when we have more than
+ * [RollingFileLogWriterConfig.maxLogFiles].
  *
- * Formatting is governed by the passed [MessageStringFormatter], but we do prepend a timestamp by default.
- * Turn this off via [RollingFileLogWriterConfig.prependTimestamp]
+ * Formatting is governed by the passed [MessageStringFormatter], but we do prepend a timestamp by default. Turn this off via
+ * [RollingFileLogWriterConfig.prependTimestamp]
  *
- * Writes to the file are done by a different coroutine. The main reason for this is to make writes to the
- * log file sink thread-safe, and so that file rolling can be performed without additional synchronization
- * or locking. The channel that buffers log messages is currently unbuffered, so logging threads will block
- * until the I/O is complete. However, buffering could easily be introduced to potentially increase logging
- * throughput. The envisioned usage scenarios for this class probably do not warrant this.
+ * Writes to the file are done by a different coroutine. The main reason for this is to make writes to the log file sink thread-safe, and
+ * so that file rolling can be performed without additional synchronization or locking. The channel that buffers log messages is currently
+ * unbuffered, so logging threads will block until the I/O is complete. However, buffering could easily be introduced to potentially
+ * increase logging throughput. The envisioned usage scenarios for this class probably do not warrant this.
  *
  * The recommended way to obtain the logPath on Android is:
- *
  * ```kotlin
  * Path(context.filesDir.path)
  * ```
  *
  * and on iOS this will return the application's sandboxed document directory:
- *
  * ```kotlin
  * (NSFileManager.defaultManager.URLsForDirectory(NSDocumentDirectory, NSUserDomainMask).last() as NSURL).path!!
  * ```
  *
- * However, you can use any path that is writable by the application. This would generally be implemented by
- * platform-specific code.
+ * However, you can use any path that is writable by the application. This would generally be implemented by platform-specific code.
  *
  * ## iOS background logging
  *
- * On iOS, files created in the Documents directory inherit the `NSFileProtectionComplete` data protection
- * class by default. This prevents any file access while the device is locked, causing log writes to fail
- * with an `IOException` when your app runs in the background on a locked device.
+ * On iOS, files created may inherit the `NSFileProtectionComplete` data protection class. This prevents any file access while the device is
+ * locked, causing log writes to fail with an `IOException` when your app runs in the background on a locked device.
  *
- * If you need to write logs while the device is locked (e.g. during background tasks), set the file
- * protection attribute on your log directory to `NSFileProtectionCompleteUntilFirstUserAuthentication`
- * before creating the writer. This allows file access after the first unlock following a reboot:
- *
- * ```kotlin
- * // iOS-specific setup (place in your iOS source set)
- * NSFileManager.defaultManager.setAttributes(
- *     mapOf(NSFileProtectionKey to NSFileProtectionCompleteUntilFirstUserAuthentication),
- *     ofItemAtPath = logDirectoryPath,
- *     error = null,
+ * If you need to write logs while the device is locked (e.g. during background tasks), set the file protection attribute on your log
+ * directory to `NSFileProtectionCompleteUntilFirstUserAuthentication` before creating the writer. This allows file access after the first
+ * unlock following a reboot:
+ * ```swift
+ * try FileManager.default.setAttributes(
+ *   [.protectionKey: FileProtectionType.completeUntilFirstUserAuthentication],
+ *   ofItemAtPath: logDirectoryPath
  * )
  * ```
  *
- * When file access is unavailable (e.g. device locked with default protection), `RollingFileLogWriter`
- * will suppress the error and discard log messages until access is restored, rather than crashing.
+ * When file access is unavailable (e.g. device locked with default protection), `RollingFileLogWriter` will suppress the error and discard
+ * log messages until access is restored, rather than crashing.
  */
 open class RollingFileLogWriter(
     private val config: RollingFileLogWriterConfig,
@@ -174,9 +166,11 @@ open class RollingFileLogWriter(
                 } catch (e: IOException) {
                     // we can't log it, we're the logger -- print to standard error
                     println(
-                        "RollingFileLogWriter: Failed to roll log file $sourcePath to $targetPath (sourcePath exists=${fileSystem.exists(
-                            sourcePath,
-                        )})",
+                        "RollingFileLogWriter: Failed to roll log file $sourcePath to $targetPath (sourcePath exists=${
+                            fileSystem.exists(
+                                sourcePath,
+                            )
+                        })",
                     )
                     e.printStackTrace()
                 }
