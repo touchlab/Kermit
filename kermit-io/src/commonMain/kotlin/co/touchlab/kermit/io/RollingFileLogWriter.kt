@@ -190,24 +190,11 @@ open class RollingFileLogWriter(
     private suspend fun writer() {
         val logFilePath = pathForLogIndex(0)
 
-        try {
-            if (fileSystem.exists(logFilePath) && shouldRollLogs(logFilePath)) {
-                rollLogs()
-            }
-        } catch (e: IOException) {
-            println("RollingFileLogWriter: Failed to roll logs at startup: ${e.message}")
-        }
-
         fun createNewLogSink(): Sink = fileSystem
             .sink(logFilePath, append = true)
             .buffered()
 
-        var currentLogSink: Sink? = try {
-            createNewLogSink()
-        } catch (e: IOException) {
-            println("RollingFileLogWriter: Failed to open log file: ${e.message}")
-            null
-        }
+        var currentLogSink: Sink? = null
 
         // Tracks whether we are currently in an error state to avoid spamming stderr on every write
         var ioErrorActive = false
@@ -217,14 +204,14 @@ open class RollingFileLogWriter(
             val result = loggingChannel.receiveCatching()
 
             try {
-                if (currentLogSink == null) {
+                // check if logs need rolling
+                if (shouldRollLogs(logFilePath)) {
+                    currentLogSink?.close()
+                    rollLogs()
                     currentLogSink = createNewLogSink()
                 }
 
-                // check if logs need rolling
-                if (shouldRollLogs(logFilePath)) {
-                    currentLogSink.close()
-                    rollLogs()
+                if (currentLogSink == null) {
                     currentLogSink = createNewLogSink()
                 }
 
