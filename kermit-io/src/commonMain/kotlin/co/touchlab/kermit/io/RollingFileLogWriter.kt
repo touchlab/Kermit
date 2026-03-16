@@ -18,6 +18,7 @@ import co.touchlab.kermit.Message
 import co.touchlab.kermit.MessageStringFormatter
 import co.touchlab.kermit.Severity
 import co.touchlab.kermit.Tag
+import kotlin.math.max
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -148,10 +149,8 @@ open class RollingFileLogWriter(
     private fun formatMessage(severity: Severity, tag: Tag?, message: Message): String =
         messageStringFormatter.formatMessage(severity, if (config.logTag) tag else null, message)
 
-    private fun shouldRollLogs(logFilePath: Path): Boolean {
-        val size = fileSizeOrZero(logFilePath)
-        return size > config.rollOnSize
-    }
+    private fun shouldRollLogs(currentSize: Long, logFilePath: Path): Boolean =
+        max(currentSize, fileSizeOrZero(logFilePath)) > config.rollOnSize
 
     private fun rollLogs() {
         if (fileSystem.exists(pathForLogIndex(config.maxLogFiles - 1))) {
@@ -189,8 +188,11 @@ open class RollingFileLogWriter(
             .buffered()
 
         var currentLogSink: Sink? = null
+        // Track file size internally to avoid relying on filesystem metadata, which can be
+        // stale on Windows while a write handle is open.
+        var currentFileSize = fileSizeOrZero(logFilePath)
 
-        // Tracks whether we are currently in an error state to avoid spamming stderr on every write
+        // Tracks whether we are currently in an error state to avoid spamming on every write
         var ioErrorActive = false
 
         while (currentCoroutineContext().isActive) {
@@ -199,17 +201,21 @@ open class RollingFileLogWriter(
 
             try {
                 // check if logs need rolling
-                if (shouldRollLogs(logFilePath)) {
+                if (shouldRollLogs(currentFileSize, logFilePath)) {
                     currentLogSink?.close()
                     rollLogs()
                     currentLogSink = createNewLogSink()
+                    currentFileSize = 0
                 }
 
                 if (currentLogSink == null) {
                     currentLogSink = createNewLogSink()
                 }
 
-                result.getOrNull()?.transferTo(currentLogSink)
+                val data = result.getOrNull()
+                val bytesWritten = data?.size ?: 0
+                data?.transferTo(currentLogSink)
+                currentFileSize += bytesWritten
 
                 // we could improve performance by flushing less frequently at the cost of potential data loss,
                 // but this is a safe default
@@ -234,6 +240,7 @@ open class RollingFileLogWriter(
                     // ignore close failure
                 }
                 currentLogSink = null
+                currentFileSize = fileSizeOrZero(logFilePath)
             }
         }
 

@@ -117,9 +117,15 @@ class RollingFileLogWriterTest {
 
             val primaryLog = Path(dir, "test.log")
             val rolledLog = Path(dir, "test-1.log")
+            val rolledLog2 = Path(dir, "test-2.log")
+            val rolledLog3 = Path(dir, "test-3.log")
+            val rolledLog4 = Path(dir, "test-4.log")
 
             assertTrue(SystemFileSystem.exists(primaryLog), "Primary log file should exist")
             assertTrue(SystemFileSystem.exists(rolledLog), "Rolled log file should exist")
+            assertTrue(SystemFileSystem.exists(rolledLog2), "Rolled log file should exist")
+            assertTrue(SystemFileSystem.exists(rolledLog3), "Rolled log file should exist")
+            assertTrue(SystemFileSystem.exists(rolledLog4), "Rolled log file should exist")
         } finally {
             deleteRecursively(dir)
         }
