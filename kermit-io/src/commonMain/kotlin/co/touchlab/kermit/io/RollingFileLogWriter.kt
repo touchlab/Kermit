@@ -18,6 +18,7 @@ import co.touchlab.kermit.Message
 import co.touchlab.kermit.MessageStringFormatter
 import co.touchlab.kermit.Severity
 import co.touchlab.kermit.Tag
+import kotlin.math.max
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -46,33 +47,47 @@ import kotlinx.io.writeString
 /**
  * Implements a log writer that writes log messages to a rolling file.
  *
- * It also deletes old log files when the maximum number of log files is reached. We simply keep
- * approximately [RollingFileLogWriterConfig.rollOnSize] bytes in each log file,
- * and delete the oldest file when we have more than [RollingFileLogWriterConfig.maxLogFiles].
+ * It also deletes old log files when the maximum number of log files is reached. We simply keep approximately
+ * [RollingFileLogWriterConfig.rollOnSize] bytes in each log file, and delete the oldest file when we have more than
+ * [RollingFileLogWriterConfig.maxLogFiles].
  *
- * Formatting is governed by the passed [MessageStringFormatter], but we do prepend a timestamp by default.
- * Turn this off via [RollingFileLogWriterConfig.prependTimestamp]
+ * Formatting is governed by the passed [MessageStringFormatter], but we do prepend a timestamp by default. Turn this off via
+ * [RollingFileLogWriterConfig.prependTimestamp]
  *
- * Writes to the file are done by a different coroutine. The main reason for this is to make writes to the
- * log file sink thread-safe, and so that file rolling can be performed without additional synchronization
- * or locking. The channel that buffers log messages is currently unbuffered, so logging threads will block
- * until the I/O is complete. However, buffering could easily be introduced to potentially increase logging
- * throughput. The envisioned usage scenarios for this class probably do not warrant this.
+ * Writes to the file are done by a different coroutine. The main reason for this is to make writes to the log file sink thread-safe, and
+ * so that file rolling can be performed without additional synchronization or locking. The channel that buffers log messages is currently
+ * unbuffered, so logging threads will block until the I/O is complete. However, buffering could easily be introduced to potentially
+ * increase logging throughput. The envisioned usage scenarios for this class probably do not warrant this.
  *
  * The recommended way to obtain the logPath on Android is:
- *
  * ```kotlin
  * Path(context.filesDir.path)
  * ```
  *
- * and on iOS this wil return the application's sandboxed document directory:
- *
+ * and on iOS this will return the application's sandboxed document directory:
  * ```kotlin
  * (NSFileManager.defaultManager.URLsForDirectory(NSDocumentDirectory, NSUserDomainMask).last() as NSURL).path!!
  * ```
  *
- * However, you can use any path that is writable by the application. This would generally be implemented by
- * platform-specific code.
+ * However, you can use any path that is writable by the application. This would generally be implemented by platform-specific code.
+ *
+ * ## iOS background logging
+ *
+ * On iOS, files created may inherit the `NSFileProtectionComplete` data protection class. This prevents any file access while the device is
+ * locked, causing log writes to fail with an `IOException` when your app runs in the background on a locked device.
+ *
+ * If you need to write logs while the device is locked (e.g. during background tasks), set the file protection attribute on your log
+ * directory to `NSFileProtectionCompleteUntilFirstUserAuthentication` before creating the writer. This allows file access after the first
+ * unlock following a reboot:
+ * ```swift
+ * try FileManager.default.setAttributes(
+ *   [.protectionKey: FileProtectionType.completeUntilFirstUserAuthentication],
+ *   ofItemAtPath: logDirectoryPath
+ * )
+ * ```
+ *
+ * When file access is unavailable (e.g. device locked with default protection), `RollingFileLogWriter` will suppress the error and discard
+ * log messages until access is restored, rather than crashing.
  */
 open class RollingFileLogWriter(
     private val config: RollingFileLogWriterConfig,
@@ -134,10 +149,8 @@ open class RollingFileLogWriter(
     private fun formatMessage(severity: Severity, tag: Tag?, message: Message): String =
         messageStringFormatter.formatMessage(severity, if (config.logTag) tag else null, message)
 
-    private fun shouldRollLogs(logFilePath: Path): Boolean {
-        val size = fileSizeOrZero(logFilePath)
-        return size > config.rollOnSize
-    }
+    private fun shouldRollLogs(currentSize: Long, logFilePath: Path): Boolean =
+        max(currentSize, fileSizeOrZero(logFilePath)) > config.rollOnSize
 
     private fun rollLogs() {
         if (fileSystem.exists(pathForLogIndex(config.maxLogFiles - 1))) {
@@ -152,9 +165,11 @@ open class RollingFileLogWriter(
                 } catch (e: IOException) {
                     // we can't log it, we're the logger -- print to standard error
                     println(
-                        "RollingFileLogWriter: Failed to roll log file $sourcePath to $targetPath (sourcePath exists=${fileSystem.exists(
-                            sourcePath,
-                        )})",
+                        "RollingFileLogWriter: Failed to roll log file $sourcePath to $targetPath (sourcePath exists=${
+                            fileSystem.exists(
+                                sourcePath,
+                            )
+                        })",
                     )
                     e.printStackTrace()
                 }
@@ -168,33 +183,68 @@ open class RollingFileLogWriter(
     private suspend fun writer() {
         val logFilePath = pathForLogIndex(0)
 
-        if (fileSystem.exists(logFilePath) && shouldRollLogs(logFilePath)) {
-            rollLogs()
-        }
-
         fun createNewLogSink(): Sink = fileSystem
             .sink(logFilePath, append = true)
             .buffered()
 
-        var currentLogSink: Sink = createNewLogSink()
+        var currentLogSink: Sink? = null
+        // Track file size internally to avoid relying on filesystem metadata, which can be
+        // stale on Windows while a write handle is open.
+        var currentFileSize = fileSizeOrZero(logFilePath)
+
+        // Tracks whether we are currently in an error state to avoid spamming on every write
+        var ioErrorActive = false
 
         while (currentCoroutineContext().isActive) {
             // wait for data to be available, flush periodically
             val result = loggingChannel.receiveCatching()
 
-            // check if logs need rolling
-            if (shouldRollLogs(logFilePath)) {
-                currentLogSink.close()
-                rollLogs()
-                currentLogSink = createNewLogSink()
+            try {
+                // check if logs need rolling
+                if (shouldRollLogs(currentFileSize, logFilePath)) {
+                    currentLogSink?.close()
+                    rollLogs()
+                    currentLogSink = createNewLogSink()
+                    currentFileSize = 0
+                }
+
+                if (currentLogSink == null) {
+                    currentLogSink = createNewLogSink()
+                }
+
+                val data = result.getOrNull()
+                val bytesWritten = data?.size ?: 0
+                data?.transferTo(currentLogSink)
+                currentFileSize += bytesWritten
+
+                // we could improve performance by flushing less frequently at the cost of potential data loss,
+                // but this is a safe default
+                currentLogSink.flush()
+
+                if (ioErrorActive) {
+                    println("RollingFileLogWriter: Log file access restored")
+                    ioErrorActive = false
+                }
+            } catch (e: IOException) {
+                // On iOS, file I/O fails when the device is locked and the app is in the background
+                // (see NSFileProtectionComplete). We catch the exception here to keep the writer
+                // coroutine alive so that logging can resume once file access is restored.
+                if (!ioErrorActive) {
+                    println("RollingFileLogWriter: IOException writing to log file, some logs may be lost: ${e.message}")
+                    e.printStackTrace()
+                    ioErrorActive = true
+                }
+                try {
+                    currentLogSink?.close()
+                } catch (_: IOException) {
+                    // ignore close failure
+                }
+                currentLogSink = null
+                currentFileSize = fileSizeOrZero(logFilePath)
             }
-
-            result.getOrNull()?.transferTo(currentLogSink)
-
-            // we could improve performance by flushing less frequently at the cost of potential data loss,
-            // but this is a safe default
-            currentLogSink.flush()
         }
+
+        currentLogSink?.close()
     }
 
     private fun fileSizeOrZero(path: Path) = fileSystem.metadataOrNull(path)?.size ?: 0
