@@ -23,6 +23,7 @@ kotlin {
     androidTarget {
         publishLibraryVariants()
     }
+    jvm()
     macosX64()
     macosArm64()
     iosX64()
@@ -40,6 +41,15 @@ kotlin {
         browser()
         nodejs()
     }
+
+    mingwX64()
+    linuxX64()
+    linuxArm64()
+
+    androidNativeArm32()
+    androidNativeArm64()
+    androidNativeX86()
+    androidNativeX64()
 
     sourceSets {
         commonMain.dependencies {
