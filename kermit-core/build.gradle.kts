@@ -21,7 +21,7 @@ plugins {
 
 kotlin {
     androidTarget {
-        publishAllLibraryVariants()
+        publishLibraryVariants()
     }
     jvm()
     js {
