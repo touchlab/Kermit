@@ -20,7 +20,7 @@ plugins {
 
 kotlin {
     androidTarget {
-        publishLibraryVariants()
+        publishLibraryVariants("release")
     }
     macosX64()
     macosArm64()
