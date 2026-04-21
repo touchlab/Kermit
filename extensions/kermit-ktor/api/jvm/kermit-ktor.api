@@ -1,0 +1,7 @@
+public final class co/touchlab/kermit/ktor/KermitKtorLogger : io/ktor/client/plugins/logging/Logger {
+	public fun <init> (Lco/touchlab/kermit/Severity;Lco/touchlab/kermit/Logger;)V
+	public fun <init> (Lco/touchlab/kermit/Severity;Lco/touchlab/kermit/LoggerConfig;Ljava/lang/String;)V
+	public synthetic fun <init> (Lco/touchlab/kermit/Severity;Lco/touchlab/kermit/LoggerConfig;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun log (Ljava/lang/String;)V
+}
+
