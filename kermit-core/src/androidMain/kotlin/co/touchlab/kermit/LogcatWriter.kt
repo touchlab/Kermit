@@ -45,7 +45,10 @@ class LogcatWriter(private val messageStringFormatter: MessageStringFormatter = 
                     )
                 }
             }
-        } catch (_: Exception) {
+        } catch (_: Throwable) {
+            // Catches "RuntimeException: Method d in android.util.Log not mocked"
+            // or "UnsatisfiedLinkError: 'int android.util.Log.println_native(int, int, java.lang.String, java.lang.String)'"
+            // when running unit tests.
             testWriter.log(severity, message, tag, throwable)
         }
     }
