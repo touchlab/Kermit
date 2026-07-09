@@ -43,6 +43,8 @@ Other build facts:
 
 When making a meaningful change to the library, update the relevant CLAUDE.md file(s) — and `AGENT-USAGE.md` if the consumer-facing API or module purposes change — as part of the same change. "Meaningful" means anything that would make the current docs wrong or incomplete: new or changed public API, new modules or targets, changed defaults, new expect/actual declarations, changed build commands or gates, or changed behavior that the docs describe (e.g. rolling/error-recovery semantics). Bug fixes and minor internal changes that don't affect anything the docs say do **not** require doc updates.
 
+This is also enforced in CI: `.github/workflows/claude_md_check.yml` runs a Claude-based doc-impact check on each PR and comments if the docs look stale. PRs from authors outside the Touchlab org wait for an org member's approval (the `claude-external-pr` environment) before the check runs.
+
 ## KMP code guidance
 
 When editing or adding code anywhere in this repo:
