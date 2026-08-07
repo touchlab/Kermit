@@ -45,7 +45,9 @@ class LogcatWriter(private val messageStringFormatter: MessageStringFormatter = 
                     )
                 }
             }
-        } catch (_: Exception) {
+        } catch (_: RuntimeException) {
+            testWriter.log(severity, message, tag, throwable)
+        } catch (_: UnsatisfiedLinkError) {
             testWriter.log(severity, message, tag, throwable)
         }
     }
