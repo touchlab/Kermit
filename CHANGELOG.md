@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.1.1] - 2026-08-07
+### Changed
+- Updating `RollingFileLogWriter` to now Catch IO exceptions
+- Fixing `LogcatWriter` failing issue with `UnsatisfiedLinkError`
+- Adding `jvm`, `linux`, `mingwX64` and `Android Native` targets to the `kermit-ktor` module
+
 ## [2.1.0] - 2026-03-02
 ### Changed
 - Fixed incorrect severity for `Logger.a` on Android
