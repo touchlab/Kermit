@@ -18,7 +18,7 @@ plugins {
 }
 
 kotlin {
-    allTargets(namespace = "co.touchlab.kermit")
+    allTargets(namespace = "co.touchlab.kermit", wasiEnabled = true)
 
     sourceSets {
         commonMain.dependencies {

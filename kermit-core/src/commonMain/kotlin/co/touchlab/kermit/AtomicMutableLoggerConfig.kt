@@ -24,11 +24,11 @@ internal class AtomicMutableLoggerConfig(logWriters: List<LogWriter>) : MutableL
     override var minSeverity: Severity
         get() = _minSeverity.load()
         set(value) {
-            _minSeverity.exchange(value)
+            _minSeverity.store(value)
         }
     override var logWriterList: List<LogWriter>
         get() = _loggerList.load()
         set(value) {
-            _loggerList.exchange(value)
+            _loggerList.store(value)
         }
 }
