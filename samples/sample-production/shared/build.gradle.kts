@@ -11,21 +11,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("com.android.library")
+    alias(libs.plugins.android.library)
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-}
-
-android {
-    namespace = "co.touchlab.kermitsample"
-    compileSdk = libs.versions.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
 }
 
 val KERMIT_VERSION: String by project
@@ -33,7 +21,11 @@ val KERMIT_VERSION: String by project
 version = "0.0.1"
 
 kotlin {
-    androidTarget()
+    android {
+        namespace = "co.touchlab.kermitsample.shared"
+        compileSdk = libs.versions.compileSdk.get().toInt()
+        minSdk = libs.versions.minSdk.get().toInt()
+    }
     iosX64()
     iosArm64()
     iosSimulatorArm64()
