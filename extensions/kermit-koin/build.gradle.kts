@@ -11,62 +11,27 @@
  * the License.
  */
 
+import kermit.androidJvmTarget
+import kermit.jvmTarget
+import kermit.nativeTargets
+import kermit.webTargets
+
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.multiplatform)
-    id("wasm-setup")
-    id("kermit-jvm-target")
-    id("kermit-publish")
+    id("kermit.multiplatform-library")
 }
 
 kotlin {
-    androidTarget {
-        publishLibraryVariants("release")
-    }
-    jvm()
-    js {
-        browser()
-        nodejs()
-    }
+    androidJvmTarget("co.touchlab.kermit.koin")
+    jvmTarget()
+    webTargets()
 
-    macosX64()
-    macosArm64()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    watchosArm64()
-    watchosSimulatorArm64()
-    watchosX64()
-    tvosArm64()
-    tvosSimulatorArm64()
-    tvosX64()
-
-    linuxX64()
-    mingwX64()
-
-    // TODO: These targets aren't supported by Koin yet or stopped the support:
-    //    watchosArm32()
-    // androidNativeArm32()
-    // androidNativeArm64()
-    // androidNativeX86()
-    // androidNativeX64()
+    nativeTargets(supportsAndroidNative = false)
 
     sourceSets {
         commonMain.dependencies {
             implementation(project(":kermit"))
             implementation(libs.koin)
         }
-    }
-}
-
-android {
-    namespace = "co.touchlab.kermit.koin"
-    compileSdk = libs.versions.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }

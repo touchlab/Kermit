@@ -4,7 +4,7 @@ minSdk = "23"
 compileSdk = "36"
 
 # Dependencies
-kotlin = "2.2.0"
+kotlin = "2.3.21"
 binaryCompatability = "0.18.1"
 
 androidx-core = "1.17.0"
@@ -13,28 +13,26 @@ androidx-appcompat = "1.7.1"
 androidx-activity-compose = "1.12.4"
 androidx-compose-bom = "2026.02.00"
 
-android-gradle-plugin = "8.12.3"
-android-test-runner = "1.6.2"
+android-gradle-plugin = "9.1.1"
+android-test-runner = "1.7.0"
 
-stately = "2.1.0"
-testhelp = "0.6.12"
 
 crashkios = "0.8.5"
 bugsnag = "5.31.1"
 bugsnag-gradle-plugin = "8.2.0"
 
 koin = "4.1.0"
-coroutines = "1.7.3"
+coroutines = "1.11.0"
 kotlinx-datetime = "0.7.0"
 kotlinx-io = "0.8.0"
 kotlinx-js = "0.12.0"
 kotlinx-wasm = "0.3.1"
-roboelectric = "4.10.3"
+roboelectric = "4.16.1"
 buildConfig = "5.6.7"
-mavenPublish = "0.34.0"
+mavenPublish = "0.36.0"
 
-dokka = "2.0.0"
-touchlab-docusaurus-template = "0.1.11"
+dokka = "2.2.0"
+touchlab-docusaurus-template = "0.1.12"
 ktor = "3.2.3"
 
 ktlint-gradle = "12.3.0"
@@ -56,11 +54,10 @@ bugsnag-android = { module = "com.bugsnag:bugsnag-android", version.ref = "bugsn
 ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
-stately-collections = { module = "co.touchlab:stately-collections", version.ref = "stately" }
-testhelp = { module = "co.touchlab:testhelp", version.ref = "testhelp" }
 
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-io = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlinx-io" }
 kotlinx-js = { module = "org.jetbrains.kotlinx:kotlinx-html-js", version.ref = "kotlinx-js" }
@@ -68,12 +65,13 @@ kotlinx-wasm = { module = "org.jetbrains.kotlinx:kotlinx-browser-wasm-js", versi
 roboelectric = { module = "org.robolectric:robolectric", version.ref = "roboelectric" }
 
 # For convention-plugins
+android-library-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 maven-publish-gradlePlugin = { module = "com.vanniktech.maven.publish:com.vanniktech.maven.publish.gradle.plugin", version.ref = "mavenPublish" }
 
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
+android-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "android-gradle-plugin" }
 buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }
 binaryCompatability = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatability" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }

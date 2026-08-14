@@ -11,39 +11,16 @@
  * the License.
  */
 
+import kermit.nativeTargets
+import kermit.webTargets
+
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
-    id("wasm-setup")
-    id("kermit-publish")
+    id("kermit.multiplatform-library")
 }
 
 kotlin {
-    js {
-        nodejs()
-    }
-
-    macosX64()
-    macosArm64()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    watchosArm32()
-    watchosArm64()
-    watchosSimulatorArm64()
-    watchosDeviceArm64()
-    watchosX64()
-    tvosArm64()
-    tvosSimulatorArm64()
-    tvosX64()
-
-    mingwX64()
-    linuxX64()
-    linuxArm64()
-
-    androidNativeArm32()
-    androidNativeArm64()
-    androidNativeX86()
-    androidNativeX64()
+    webTargets()
+    nativeTargets()
 
     sourceSets {
         commonMain.dependencies {
