@@ -1,10 +1,12 @@
 # Change Log
 
-## [2.1.1] - 2026-08-07
+## [2.2.0] - 2026-09-1
 ### Changed
+- Added `kermit-coil3` extension for Coil3 support
+- Added `WasmWasi` support to `kermit-core` and `kermit-test`,
+- Added `jvm`, `linux`, `mingwX64` and `Android Native` targets to the `kermit-ktor` module
 - Updating `RollingFileLogWriter` to now Catch IO exceptions
 - Fixing `LogcatWriter` failing issue with `UnsatisfiedLinkError`
-- Adding `jvm`, `linux`, `mingwX64` and `Android Native` targets to the `kermit-ktor` module
 
 ## [2.1.0] - 2026-03-02
 ### Changed
