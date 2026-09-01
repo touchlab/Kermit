@@ -12,7 +12,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("com.android.application")
-    kotlin("android")
     id("com.bugsnag.android.gradle")
     alias(libs.plugins.compose.compiler)
 }

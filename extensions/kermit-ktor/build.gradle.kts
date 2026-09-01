@@ -11,62 +11,20 @@
  * the License.
  */
 
+import kermit.allTargets
+
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.multiplatform)
-    id("kermit-jvm-target")
-    id("wasm-setup")
-    id("kermit-publish")
+    id("kermit.multiplatform-library")
 }
 
 kotlin {
-    androidTarget {
-        publishLibraryVariants("release")
-    }
-    jvm()
-    macosX64()
-    macosArm64()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    tvosArm64()
-    tvosSimulatorArm64()
-    tvosX64()
-    watchosArm32()
-    watchosArm64()
-    watchosSimulatorArm64()
-    watchosDeviceArm64()
-    watchosX64()
-    js {
-        browser()
-        nodejs()
-    }
-
-    mingwX64()
-    linuxX64()
-    linuxArm64()
-
-    androidNativeArm32()
-    androidNativeArm64()
-    androidNativeX86()
-    androidNativeX64()
+    allTargets(namespace = "co.touchlab.kermit.ktor")
 
     sourceSets {
         commonMain.dependencies {
             implementation(libs.ktor.logging)
             implementation(project(":kermit"))
         }
-    }
-}
-
-android {
-    namespace = "co.touchlab.kermit.ktor"
-    compileSdk = libs.versions.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
