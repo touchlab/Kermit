@@ -1,3 +1,5 @@
+import com.vanniktech.maven.publish.DeploymentValidation
+
 plugins {
     id("java-gradle-plugin")
     kotlin("jvm")
@@ -7,6 +9,7 @@ plugins {
 
 dependencies {
     implementation(kotlin("gradle-plugin-api"))
+    testImplementation(kotlin("test-junit"))
 }
 
 buildConfig {
@@ -27,4 +30,9 @@ gradlePlugin {
             implementationClass = "co.touchlab.kermit.gradle.KermitGradlePlugin"
         }
     }
+}
+
+mavenPublishing {
+    configureBasedOnAppliedPlugins()
+    publishToMavenCentral(true, DeploymentValidation.NONE)
 }
