@@ -11,14 +11,14 @@
 package co.touchlab.kermit.irplugin
 
 import co.touchlab.BuildConfig
-import com.google.auto.service.AutoService
 import org.jetbrains.kotlin.compiler.plugin.AbstractCliOption
 import org.jetbrains.kotlin.compiler.plugin.CliOption
 import org.jetbrains.kotlin.compiler.plugin.CommandLineProcessor
+import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.config.CompilerConfigurationKey
 
-@AutoService(CommandLineProcessor::class)
+@OptIn(ExperimentalCompilerApi::class)
 class KermitCommandLineProcessor : CommandLineProcessor {
     companion object {
         private const val OPTION_STRIP_BELOW = "stripBelow"
@@ -36,14 +36,8 @@ class KermitCommandLineProcessor : CommandLineProcessor {
         ),
     )
 
-    override fun processOption(
-        option: AbstractCliOption,
-        value: String,
-        configuration: CompilerConfiguration
-    ) {
-        return when (option.optionName) {
-            OPTION_STRIP_BELOW -> configuration.put(ARG_STRIP_BELOW, value)
-            else -> throw IllegalArgumentException("Unexpected config option ${option.optionName}")
-        }
+    override fun processOption(option: AbstractCliOption, value: String, configuration: CompilerConfiguration) = when (option.optionName) {
+        OPTION_STRIP_BELOW -> configuration.put(ARG_STRIP_BELOW, value)
+        else -> throw IllegalArgumentException("Unexpected config option ${option.optionName}")
     }
 }
