@@ -34,6 +34,7 @@ mavenPublish = "0.36.0"
 dokka = "2.2.0"
 touchlab-docusaurus-template = "0.1.12"
 ktor = "3.2.3"
+coil = "3.4.0"
 
 ktlint-gradle = "12.3.0"
 
@@ -54,6 +55,7 @@ bugsnag-android = { module = "com.bugsnag:bugsnag-android", version.ref = "bugsn
 ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+coil-core = { module = "io.coil-kt.coil3:coil-core", version.ref = "coil" }
 
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
