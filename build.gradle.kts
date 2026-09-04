@@ -28,11 +28,12 @@ plugins {
     alias(libs.plugins.touchlab.docusaurus.template)
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.ktlint.gradle) apply false
+    alias(libs.plugins.mavenPublish) apply false
 }
 
 apiValidation {
     nonPublicMarkers.add("co.touchlab.kermit.ExperimentalKermitApi")
-//    ignoredProjects.addAll(listOf("kermit-gradle-plugin", "kermit-ir-plugin", "kermit-ir-plugin-native"))
+    ignoredProjects.addAll(listOf("kermit-gradle-plugin", "kermit-ir-plugin"))
 }
 
 val GROUP: String by project

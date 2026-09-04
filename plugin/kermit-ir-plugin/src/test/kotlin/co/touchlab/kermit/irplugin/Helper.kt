@@ -16,70 +16,32 @@ import org.intellij.lang.annotations.Language
 val LoggerString = """
 package co.touchlab.kermit
 
-open class Logger(
-) {
-    /*
-     * We could reduce the methods on this object, but the native objc
-     * export can't use default arguments, so we have a few extra methods defined.
-     */
-    inline fun v(message: () -> String) {
-    }
+open class Logger {
+    inline fun v(message: () -> String) { message() }
+    inline fun v(throwable: Throwable, message: () -> String) { message() }
+    fun v(message: String, throwable: Throwable? = null) {}
 
-    inline fun v(throwable: Throwable, message: () -> String) {
-    }
+    inline fun d(message: () -> String) { message() }
+    inline fun d(throwable: Throwable, message: () -> String) { message() }
+    fun d(message: String, throwable: Throwable? = null) {}
 
-    fun v(message: String, throwable: Throwable? = null) {
-    }
+    inline fun i(message: () -> String) { message() }
+    inline fun i(throwable: Throwable, message: () -> String) { message() }
+    fun i(message: String, throwable: Throwable? = null) {}
 
-    inline fun d(message: () -> String) {
-    }
+    inline fun w(message: () -> String) { message() }
+    inline fun w(throwable: Throwable, message: () -> String) { message() }
+    fun w(message: String, throwable: Throwable? = null) {}
 
-    inline fun d(throwable: Throwable, message: () -> String) {
-    }
+    inline fun e(message: () -> String) { message() }
+    inline fun e(throwable: Throwable, message: () -> String) { message() }
+    fun e(message: String, throwable: Throwable? = null) {}
 
-    fun d(message: String, throwable: Throwable? = null) {
-    }
-
-    inline fun i(message: () -> String) {
-    }
-
-    inline fun i(throwable: Throwable, message: () -> String) {
-    }
-
-    fun i(message: String, throwable: Throwable? = null) {
-    }
-
-    inline fun w(message: () -> String) {
-    }
-
-    inline fun w(throwable: Throwable, message: () -> String) {
-    }
-
-    fun w(message: String, throwable: Throwable? = null) {
-    }
-
-    inline fun e(message: () -> String) {
-    }
-
-    inline fun e(throwable: Throwable, message: () -> String) {
-    }
-
-    fun e(message: String, throwable: Throwable? = null) {
-    }
-
-    inline fun a(message: () -> String) {
-    }
-
-    inline fun a(throwable: Throwable, message: () -> String) {
-    }
-
-    fun a(message: String, throwable: Throwable? = null) {
-    }
-
-    inline fun noop(){}
+    inline fun a(message: () -> String) { message() }
+    inline fun a(throwable: Throwable, message: () -> String) { message() }
+    fun a(message: String, throwable: Throwable? = null) {}
 
     @Suppress("unused")
-    companion object : Logger() {
-    }
+    companion object : Logger()
 }
 """.trimIndent()
