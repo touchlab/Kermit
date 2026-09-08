@@ -159,6 +159,124 @@ class IrPluginTest {
         assertEquals(1, infoCount)
         assertEquals(1, errorCount)
     }
+
+    @Test
+    fun `verify log calls with withTag are stripped at runtime`() {
+        val result = compile(
+            sourceFiles = listOf(
+                SourceFile.kotlin("Logger.kt", LoggerString),
+                SourceFile.kotlin(
+                    "Main.kt",
+                    """
+                    import co.touchlab.kermit.Logger
+                    object TagTracker {
+                        var verboseCount = 0
+                        var debugCount = 0
+                        var infoCount = 0
+                    }
+                    fun runLogs() {
+                        val tagged = Logger.withTag("MyTag")
+                        tagged.v { TagTracker.verboseCount++; "v" }
+                        tagged.d { TagTracker.debugCount++; "d" }
+                        tagged.i { TagTracker.infoCount++; "i" }
+                        Logger.withTag("Chained").d { TagTracker.debugCount++; "chained-d" }
+                    }
+                    """.trimIndent(),
+                ),
+            ),
+            stripBelow = "Info",
+        )
+        assertEquals(KotlinCompilation.ExitCode.OK, result.exitCode)
+        val kClass = result.classLoader.loadClass("MainKt")
+        kClass.getMethod("runLogs").invoke(null)
+
+        val trackerClass = result.classLoader.loadClass("TagTracker")
+        val instance = trackerClass.getField("INSTANCE").get(null)
+        val verboseCount = trackerClass.getMethod("getVerboseCount").invoke(instance)
+        val debugCount = trackerClass.getMethod("getDebugCount").invoke(instance)
+        val infoCount = trackerClass.getMethod("getInfoCount").invoke(instance)
+
+        assertEquals(0, verboseCount)
+        assertEquals(0, debugCount)
+        assertEquals(1, infoCount)
+    }
+
+    @Test
+    fun `verify log calls on Logger subclass are stripped at runtime`() {
+        val result = compile(
+            sourceFiles = listOf(
+                SourceFile.kotlin("Logger.kt", LoggerString),
+                SourceFile.kotlin(
+                    "Main.kt",
+                    """
+                    import co.touchlab.kermit.Logger
+                    class CustomLogger : Logger()
+                    object SubclassTracker {
+                        var verboseCount = 0
+                        var debugCount = 0
+                        var infoCount = 0
+                    }
+                    fun runLogs() {
+                        val custom = CustomLogger()
+                        custom.v { SubclassTracker.verboseCount++; "v" }
+                        custom.d { SubclassTracker.debugCount++; "d" }
+                        custom.i { SubclassTracker.infoCount++; "i" }
+                    }
+                    """.trimIndent(),
+                ),
+            ),
+            stripBelow = "Info",
+        )
+        assertEquals(KotlinCompilation.ExitCode.OK, result.exitCode)
+        val kClass = result.classLoader.loadClass("MainKt")
+        kClass.getMethod("runLogs").invoke(null)
+
+        val trackerClass = result.classLoader.loadClass("SubclassTracker")
+        val instance = trackerClass.getField("INSTANCE").get(null)
+        val verboseCount = trackerClass.getMethod("getVerboseCount").invoke(instance)
+        val debugCount = trackerClass.getMethod("getDebugCount").invoke(instance)
+        val infoCount = trackerClass.getMethod("getInfoCount").invoke(instance)
+
+        assertEquals(0, verboseCount)
+        assertEquals(0, debugCount)
+        assertEquals(1, infoCount)
+    }
+
+    @Test
+    fun `verify log calls with throwable are stripped at runtime`() {
+        val result = compile(
+            sourceFiles = listOf(
+                SourceFile.kotlin("Logger.kt", LoggerString),
+                SourceFile.kotlin(
+                    "Main.kt",
+                    """
+                    import co.touchlab.kermit.Logger
+                    object ThrowableTracker {
+                        var debugCount = 0
+                        var errorCount = 0
+                    }
+                    fun runLogs() {
+                        val ex = RuntimeException("test")
+                        Logger.d(ex) { ThrowableTracker.debugCount++; "d with throwable" }
+                        Logger.e(ex) { ThrowableTracker.errorCount++; "e with throwable" }
+                    }
+                    """.trimIndent(),
+                ),
+            ),
+            stripBelow = "Info",
+        )
+        assertEquals(KotlinCompilation.ExitCode.OK, result.exitCode)
+        val kClass = result.classLoader.loadClass("MainKt")
+        kClass.getMethod("runLogs").invoke(null)
+
+        val trackerClass = result.classLoader.loadClass("ThrowableTracker")
+        val instance = trackerClass.getField("INSTANCE").get(null)
+        val debugCount = trackerClass.getMethod("getDebugCount").invoke(instance)
+        val errorCount = trackerClass.getMethod("getErrorCount").invoke(instance)
+
+        assertEquals(0, debugCount)
+        assertEquals(1, errorCount)
+    }
 }
 
 @OptIn(ExperimentalCompilerApi::class)

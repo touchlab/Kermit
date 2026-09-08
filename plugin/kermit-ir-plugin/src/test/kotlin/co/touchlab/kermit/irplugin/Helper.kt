@@ -41,6 +41,8 @@ open class Logger {
     inline fun a(throwable: Throwable, message: () -> String) { message() }
     fun a(message: String, throwable: Throwable? = null) {}
 
+    fun withTag(tag: String): Logger = this
+
     @Suppress("unused")
     companion object : Logger()
 }

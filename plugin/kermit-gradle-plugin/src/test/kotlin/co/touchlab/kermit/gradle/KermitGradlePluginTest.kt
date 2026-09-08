@@ -45,4 +45,44 @@ class KermitGradlePluginTest {
         assertEquals(BuildConfig.KOTLIN_PLUGIN_NAME, artifact.artifactId)
         assertEquals(BuildConfig.KOTLIN_PLUGIN_VERSION, artifact.version)
     }
+
+    @Test
+    fun `isApplicable returns true for any compilation`() {
+        val compilation = java.lang.reflect.Proxy.newProxyInstance(
+            org.jetbrains.kotlin.gradle.plugin.KotlinCompilation::class.java.classLoader,
+            arrayOf(org.jetbrains.kotlin.gradle.plugin.KotlinCompilation::class.java),
+        ) { _, _, _ -> null } as org.jetbrains.kotlin.gradle.plugin.KotlinCompilation<*>
+
+        val plugin = KermitGradlePlugin()
+        kotlin.test.assertTrue(plugin.isApplicable(compilation))
+    }
+
+    @Test
+    fun `applyToCompilation returns provider of SubpluginOption matching extension configuration`() {
+        val project = ProjectBuilder.builder().build()
+        project.plugins.apply("co.touchlab.kermit")
+        val extension = project.extensions.getByType(KermitGradleExtension::class.java)
+        extension.stripBelow = StripSeverity.Warn
+
+        val target = java.lang.reflect.Proxy.newProxyInstance(
+            org.jetbrains.kotlin.gradle.plugin.KotlinTarget::class.java.classLoader,
+            arrayOf(org.jetbrains.kotlin.gradle.plugin.KotlinTarget::class.java),
+        ) { _, method, _ ->
+            if (method.name == "getProject") project else null
+        } as org.jetbrains.kotlin.gradle.plugin.KotlinTarget
+
+        val compilation = java.lang.reflect.Proxy.newProxyInstance(
+            org.jetbrains.kotlin.gradle.plugin.KotlinCompilation::class.java.classLoader,
+            arrayOf(org.jetbrains.kotlin.gradle.plugin.KotlinCompilation::class.java),
+        ) { _, method, _ ->
+            if (method.name == "getTarget") target else null
+        } as org.jetbrains.kotlin.gradle.plugin.KotlinCompilation<*>
+
+        val plugin = KermitGradlePlugin()
+        val optionsProvider = plugin.applyToCompilation(compilation)
+        val options = optionsProvider.get()
+        assertEquals(1, options.size)
+        assertEquals("stripBelow", options[0].key)
+        assertEquals("Warn", options[0].value)
+    }
 }
