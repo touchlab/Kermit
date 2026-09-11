@@ -8,12 +8,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
+import co.touchlab.kermit.gradle.StripSeverity
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(libs.plugins.android.library)
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    id("co.touchlab.kermit")
 }
 
 val KERMIT_VERSION: String by project
@@ -57,3 +59,8 @@ kotlin {
         }
     }
 }
+
+kermit {
+    stripBelow = StripSeverity.Info
+}
+

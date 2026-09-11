@@ -7,11 +7,11 @@ plugins {
 }
 
 dependencies {
-    compileOnly("org.jetbrains.kotlin:kotlin-compiler-embeddable")
+    compileOnly(libs.kotlin.compiler.embeddable)
 
     testImplementation(kotlin("test-junit"))
-    testImplementation("org.jetbrains.kotlin:kotlin-compiler-embeddable")
-    testImplementation("dev.zacsweers.kctfork:core:0.12.1")
+    testImplementation(libs.kotlin.compiler.embeddable)
+    testImplementation(libs.kctfork)
 }
 
 buildConfig {
