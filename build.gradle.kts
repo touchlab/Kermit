@@ -62,7 +62,7 @@ subprojects {
         enableExperimentalRules.set(true)
         verbose.set(true)
         filter {
-            exclude { it.file.path.contains("build/") }
+            exclude { it.file.invariantSeparatorsPath.contains("build/") }
         }
     }
 
