@@ -58,8 +58,11 @@ kotlin {
 dependencies {
     implementation(project(":shared"))
     implementation("co.touchlab:kermit:${KERMIT_VERSION}")
+    implementation("co.touchlab:kermit-coil:${KERMIT_VERSION}")
 
     implementation(libs.bundles.android)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.compose)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.ktor3)
 }

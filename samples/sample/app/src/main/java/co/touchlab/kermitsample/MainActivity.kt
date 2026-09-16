@@ -30,6 +30,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import co.touchlab.kermit.Logger
+import co.touchlab.kermit.coil.KermitCoilLogger
+import co.touchlab.kermit.loggerConfigInit
+import co.touchlab.kermit.platformLogWriter
+import coil3.ImageLoader
+import coil3.compose.setSingletonImageLoaderFactory
+import coil3.util.Logger as CoilLogger
 import java.io.File
 import kotlinx.coroutines.launch
 
@@ -46,7 +52,26 @@ class MainActivity : ComponentActivity() {
 
         val sampleMobile = SampleMobile(filePathString = filePath, logFileName = fileName)
 
+        CommonConfig.addCustomLogWriter(production = true)
+
         setContent {
+            setSingletonImageLoaderFactory { context ->
+                val coilLogger = KermitCoilLogger(
+                    config = loggerConfigInit(platformLogWriter()),
+                    tag = "Kermit",
+                    separator = ":",
+                )
+
+                ImageLoader.Builder(context)
+                    .logger(
+                        coilLogger /*or use KermitCoilLogger(Logger.withTag("Kermit"))*/
+                            .apply {
+                                minLevel = CoilLogger.Level.Debug
+                            },
+                    )
+                    .build()
+            }
+
             MaterialTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -57,6 +82,7 @@ class MainActivity : ComponentActivity() {
                         verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
+                        CommonCoil()
                         SampleButton(text = "Click Count V", onClick = { sampleMobile.onClickV() })
                         SampleButton(text = "Click Count D", onClick = { sampleMobile.onClickD() })
                         SampleButton(text = "Click Count I", onClick = { sampleMobile.onClickI() })

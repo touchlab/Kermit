@@ -8,13 +8,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     alias(libs.plugins.android.library)
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.compose.multiplatform)
 }
 
 val KERMIT_VERSION: String by project
@@ -48,6 +47,11 @@ kotlin {
             implementation(libs.ktor.logging)
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.cio)
+
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor3)
         }
 
         commonTest.dependencies {
