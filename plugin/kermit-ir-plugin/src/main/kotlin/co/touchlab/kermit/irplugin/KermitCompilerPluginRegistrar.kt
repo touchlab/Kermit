@@ -10,36 +10,32 @@
 
 package co.touchlab.kermit.irplugin
 
-import com.google.auto.service.AutoService
+import co.touchlab.BuildConfig
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
-import org.jetbrains.kotlin.cli.common.CLIConfigurationKeys
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
-import org.jetbrains.kotlin.com.intellij.mock.MockProject
-import org.jetbrains.kotlin.compiler.plugin.ComponentRegistrar
+import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
+import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
+import org.jetbrains.kotlin.config.CommonConfigurationKeys
 import org.jetbrains.kotlin.config.CompilerConfiguration
 
-@AutoService(ComponentRegistrar::class)
-class KermitComponentRegistrar(
-    private val defaultStripBelow: String
-) : ComponentRegistrar {
+@OptIn(ExperimentalCompilerApi::class)
+class KermitCompilerPluginRegistrar(private val defaultStripBelow: String) : CompilerPluginRegistrar() {
 
     @Suppress("unused") // Used by service loader
     constructor() : this(
-        defaultStripBelow = "None"
+        defaultStripBelow = "None",
     )
 
-    override fun registerProjectComponents(
-        project: MockProject,
-        configuration: CompilerConfiguration
-    ) {
-        val messageCollector = configuration.get(CLIConfigurationKeys.MESSAGE_COLLECTOR_KEY, MessageCollector.NONE)
+    override val supportsK2: Boolean = true
+
+    override val pluginId: String = BuildConfig.KOTLIN_PLUGIN_ID
+
+    override fun ExtensionStorage.registerExtensions(configuration: CompilerConfiguration) {
+        val messageCollector = configuration.get(CommonConfigurationKeys.MESSAGE_COLLECTOR_KEY, MessageCollector.NONE)
         val stripBelow = configuration.get(KermitCommandLineProcessor.ARG_STRIP_BELOW, defaultStripBelow)
 
         IrGenerationExtension.registerExtension(
-            project,
-            KermitIrGenerationExtension(messageCollector, stripBelow)
+            KermitIrGenerationExtension(messageCollector, stripBelow),
         )
     }
 }
-
-

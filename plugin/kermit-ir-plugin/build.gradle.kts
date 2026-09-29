@@ -1,19 +1,17 @@
+import com.vanniktech.maven.publish.DeploymentValidation
+
 plugins {
     kotlin("jvm")
-    kotlin("kapt")
     id("com.github.gmazzo.buildconfig")
     id("com.vanniktech.maven.publish")
 }
 
 dependencies {
-    compileOnly("org.jetbrains.kotlin:kotlin-compiler-embeddable")
-
-    kapt("com.google.auto.service:auto-service:1.0-rc7")
-    compileOnly("com.google.auto.service:auto-service-annotations:1.0-rc7")
+    compileOnly(libs.kotlin.compiler.embeddable)
 
     testImplementation(kotlin("test-junit"))
-    testImplementation("org.jetbrains.kotlin:kotlin-compiler-embeddable")
-    testImplementation("com.github.tschuchortdev:kotlin-compile-testing:1.4.8")
+    testImplementation(libs.kotlin.compiler.embeddable)
+    testImplementation(libs.kctfork)
 }
 
 buildConfig {
@@ -21,3 +19,7 @@ buildConfig {
     buildConfigField("String", "KOTLIN_PLUGIN_ID", "\"${rootProject.extra["kotlin_plugin_id"]}\"")
 }
 
+mavenPublishing {
+    configureBasedOnAppliedPlugins()
+    publishToMavenCentral(true, DeploymentValidation.NONE)
+}
