@@ -38,7 +38,7 @@ jobs:
       - name: Check doc impact
         uses: anthropics/claude-code-action@e4a6faad497d33dbc7144135c75e41f82f0bf6c0 # v1.0.255
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_OSS_DOCS_UPDATE_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
             You are checking whether PR #${{ github.event.pull_request.number }} makes this repo's
