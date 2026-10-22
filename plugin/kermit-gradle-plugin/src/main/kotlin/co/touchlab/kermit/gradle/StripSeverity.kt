@@ -18,5 +18,5 @@ enum class StripSeverity {
     Warn,
     Error,
     Assert,
-    All
+    All,
 }

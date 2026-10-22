@@ -8,24 +8,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
+import co.touchlab.kermit.gradle.StripSeverity
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("com.android.library")
+    alias(libs.plugins.android.library)
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-}
-
-android {
-    namespace = "co.touchlab.kermitsample"
-    compileSdk = libs.versions.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
+    id("co.touchlab.kermit")
 }
 
 val KERMIT_VERSION: String by project
@@ -33,7 +23,11 @@ val KERMIT_VERSION: String by project
 version = "0.0.1"
 
 kotlin {
-    androidTarget()
+    android {
+        namespace = "co.touchlab.kermitsample.shared"
+        compileSdk = libs.versions.compileSdk.get().toInt()
+        minSdk = libs.versions.minSdk.get().toInt()
+    }
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -65,3 +59,8 @@ kotlin {
         }
     }
 }
+
+kermit {
+    stripBelow = StripSeverity.Info
+}
+

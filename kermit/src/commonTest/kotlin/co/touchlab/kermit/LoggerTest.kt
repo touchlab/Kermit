@@ -13,11 +13,14 @@
 
 package co.touchlab.kermit
 
-import co.touchlab.testhelp.concurrency.ThreadOperations
 import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalKermitApi::class)
 class LoggerTest {
@@ -252,7 +255,7 @@ class LoggerTest {
     }
 
     @Test
-    fun testMutableLoggerConfig_MultiThreading() {
+    fun testMutableLoggerConfig_MultiThreading() = runTest {
         val testLogWriter = getTestLogWriter()
         val config = object : MutableLoggerConfig {
             override var minSeverity: Severity = Severity.Verbose
@@ -260,39 +263,35 @@ class LoggerTest {
         }
         val logger = Logger(config)
         val operations = 100
-        val ops = ThreadOperations {}
-        val threads = 10
-        repeat(operations) {
-            ops.exe {
-                logger.d { "message" }
+        withContext(Dispatchers.Default) {
+            repeat(operations) {
+                launch {
+                    logger.d { "message" }
+                }
             }
         }
-        ops.run(threads)
         assertEquals(operations, testLogWriter.logs.size)
     }
 
     @Ignore
     @Test
-    fun testMutableLoggerConfig_MultiThreading_Severity() {
+    fun testMutableLoggerConfig_MultiThreading_Severity() = runTest {
         val testLogWriter = TestLogWriter(loggable = Severity.Verbose)
         val config = mutableLoggerConfigInit(listOf(testLogWriter))
         val logger = Logger(config)
         val operations = 200
-        val ops = ThreadOperations {}
-        val threads = 10
-        repeat(operations / 2) {
-            ops.exe {
-                config.minSeverity = Severity.Info
-                logger.d { "message" }
+        withContext(Dispatchers.Default) {
+            repeat(operations / 2) {
+                launch {
+                    config.minSeverity = Severity.Info
+                    logger.d { "message" }
+                }
+                launch {
+                    config.minSeverity = Severity.Debug
+                    logger.d { "message" }
+                }
             }
         }
-        repeat(operations / 2) {
-            ops.exe {
-                config.minSeverity = Severity.Debug
-                logger.d { "message" }
-            }
-        }
-        ops.run(threads)
         assertEquals(operations / 2, testLogWriter.logs.size)
     }
 

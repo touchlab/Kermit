@@ -21,3 +21,6 @@ Pods
 
 # Intermediate klibs
 .kotlin
+
+# macOS
+.DS_Store

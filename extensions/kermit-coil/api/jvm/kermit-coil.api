@@ -1,0 +1,13 @@
+public final class co/touchlab/kermit/coil/KermitCoilLogger : coil3/util/Logger {
+	public fun <init> (Lco/touchlab/kermit/Logger;)V
+	public fun <init> (Lco/touchlab/kermit/Logger;Ljava/lang/String;)V
+	public synthetic fun <init> (Lco/touchlab/kermit/Logger;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lco/touchlab/kermit/LoggerConfig;)V
+	public fun <init> (Lco/touchlab/kermit/LoggerConfig;Ljava/lang/String;)V
+	public fun <init> (Lco/touchlab/kermit/LoggerConfig;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Lco/touchlab/kermit/LoggerConfig;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getMinLevel ()Lcoil3/util/Logger$Level;
+	public fun log (Ljava/lang/String;Lcoil3/util/Logger$Level;Ljava/lang/String;Ljava/lang/Throwable;)V
+	public fun setMinLevel (Lcoil3/util/Logger$Level;)V
+}
+

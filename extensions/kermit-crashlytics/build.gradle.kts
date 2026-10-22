@@ -11,47 +11,22 @@
  * the License.
  */
 
+import kermit.androidJvmTarget
+import kermit.appleTargets
+
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.multiplatform)
-    id("kermit-jvm-target")
-    id("kermit-publish")
+    id("kermit.multiplatform-library")
 }
 
 kotlin {
-    androidTarget {
-        publishLibraryVariants("release")
-    }
-    macosX64()
-    macosArm64()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    tvosArm64()
-    tvosSimulatorArm64()
-    tvosX64()
-    watchosArm32()
-    watchosArm64()
-    watchosSimulatorArm64()
-    watchosDeviceArm64()
-    watchosX64()
+    androidJvmTarget("co.touchlab.kermit.crashlytics")
+    appleTargets()
 
     sourceSets {
         commonMain.dependencies {
             api(libs.crashkios.crashlytics)
             implementation(project(":kermit-core"))
         }
-    }
-}
-
-android {
-    namespace = "co.touchlab.kermit.crashlytics"
-    compileSdk = libs.versions.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }

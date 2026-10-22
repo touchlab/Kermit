@@ -1,12 +1,32 @@
-# Kermit Basic Sample 
-This sample demonstrates the most basic usage of Kermit in a multiplatform project targeting Android,
-iOS, and Browser. In this basic configuration we simply add the`api("co.touchlab:kermit:${KERMIT_VERSION}")`
-dependency in the `commonMain` source set in `build.gradle` for the shared module. This makes the global 
-`Logger` instance available in the shared module and the kotlin modules that depend on it (`app` and `app-browser`).
-This will use `Logcat` for android, console for the browser, and `println` for iOS (see [here](../../docs/IOS_CONSIDERATIONS.md) for why)
+# Kermit Production Sample
 
-NOTE: Kermit classes and functions can not be used from swift in this sample. To make kermit available in
-Swift you have to export the dependency explicitly. Exporting dependencies should be considered cautiously 
-because it increases the header code that needs to be generated in and increases the binary size of the 
-Kotlin framework. For an example of how to export kermit and use it from Swift, see [this sample](../sample-swift-export)
+This sample demonstrates a production-oriented multiplatform configuration for Kermit targeting Android and iOS, featuring:
+1. **Crash Reporting Integration:** Writing breadcrumbs and crash reports using `kermit-bugsnag`.
+2. **Kermit Compiler Plugin (Log Stripping):** Using the `co.touchlab.kermit` Gradle plugin to strip out log calls and lambdas below a configured severity level at compile time.
+
+## Kermit Compiler Plugin Configuration
+
+In the root `build.gradle.kts`:
+```kotlin
+plugins {
+    id("co.touchlab.kermit") version extra["KERMIT_VERSION"] as String apply false
+}
+```
+
+In the multiplatform `shared/build.gradle.kts`:
+```kotlin
+import co.touchlab.kermit.gradle.StripSeverity
+
+plugins {
+    id("co.touchlab.kermit")
+}
+
+kermit {
+    // Strips log calls below Info (i.e. Verbose and Debug) at compile time across all targets
+    stripBelow = StripSeverity.Info
+}
+```
+
+Any log call below `stripBelow` (e.g. `logger.v { ... }` or `logger.d { ... }`) is removed from the compiled bytecode / binary, preventing string allocations and log overhead in production. Available severity levels: `None`, `Verbose`, `Debug`, `Info`, `Warn`, `Error`, `Assert`, `All`.
+
 

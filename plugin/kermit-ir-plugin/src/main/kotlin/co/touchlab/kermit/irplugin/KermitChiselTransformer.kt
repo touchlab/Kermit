@@ -10,34 +10,35 @@
 
 package co.touchlab.kermit.irplugin
 
+import org.jetbrains.kotlin.DeprecatedForRemovalCompilerApi
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.backend.common.lower.DeclarationIrBuilder
-import org.jetbrains.kotlin.ir.builders.*
+import org.jetbrains.kotlin.ir.builders.irUnit
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
-
-import org.jetbrains.kotlin.ir.types.classFqName
-import org.jetbrains.kotlin.ir.types.isSubtypeOfClass
+import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
+import org.jetbrains.kotlin.ir.util.isSubtypeOfClass
+import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
+import org.jetbrains.kotlin.name.Name
 
-class KermitChiselTransformer(
-    private val pluginContext: IrPluginContext,
-    stripBelow: String
-) : IrElementTransformerVoidWithContext() {
+@OptIn(UnsafeDuringIrConstructionAPI::class, DeprecatedForRemovalCompilerApi::class)
+class KermitChiselTransformer(private val pluginContext: IrPluginContext, stripBelow: String) : IrElementTransformerVoidWithContext() {
     private val classLogger =
-        pluginContext.referenceClass(FqName("co.touchlab.kermit.Logger"))!!
+        pluginContext.referenceClass(ClassId(FqName("co.touchlab.kermit"), Name.identifier("Logger")))
 
     private val stripFunctionSet = makeStripFunctionNameSet(stripBelow)
 
     override fun visitCall(expression: IrCall): IrExpression {
-        val recType = expression.dispatchReceiver?.type
+        val logger = classLogger ?: return super.visitCall(expression)
+        val recType = expression.dispatchReceiver?.type ?: expression.extensionReceiver?.type
 
-        if (recType != null && recType.isSubtypeOfClass(classLogger)) {
+        if (recType != null && recType.isSubtypeOfClass(logger)) {
             val functionName = expression.symbol.owner.name.identifier
-            val stripCall = stripFunctionSet.contains(functionName)
-            if (stripCall) {
-                return DeclarationIrBuilder(pluginContext, expression.symbol).irUnit()
+            if (stripFunctionSet.contains(functionName)) {
+                val scopeSymbol = currentScope?.scope?.scopeOwnerSymbol ?: expression.symbol
+                return DeclarationIrBuilder(pluginContext, scopeSymbol).irUnit()
             }
         }
 

@@ -28,7 +28,6 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.trySendBlocking
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -55,9 +54,10 @@ import kotlinx.io.writeString
  * [RollingFileLogWriterConfig.prependTimestamp]
  *
  * Writes to the file are done by a different coroutine. The main reason for this is to make writes to the log file sink thread-safe, and
- * so that file rolling can be performed without additional synchronization or locking. The channel that buffers log messages is currently
- * unbuffered, so logging threads will block until the I/O is complete. However, buffering could easily be introduced to potentially
- * increase logging throughput. The envisioned usage scenarios for this class probably do not warrant this.
+ * so that file rolling can be performed without additional synchronization or locking. Log messages reach that coroutine through a channel
+ * that buffers up to [LOGGING_CHANNEL_CAPACITY] of them, so logging threads normally hand a message off and return without waiting for the
+ * I/O. Once that buffer is full, logging threads block until the writer catches up, which keeps memory bounded and limits how many messages
+ * can be lost if the process dies. Threads that have already been interrupted are never blocked -- see [sendBlockingUnlessInterrupted].
  *
  * The recommended way to obtain the logPath on Android is:
  * ```kotlin
@@ -113,7 +113,7 @@ open class RollingFileLogWriter(
             },
     )
 
-    private val loggingChannel: Channel<Buffer> = Channel()
+    private val loggingChannel: Channel<Buffer> = Channel(capacity = LOGGING_CHANNEL_CAPACITY)
 
     init {
         coroutineScope.launch {
@@ -143,7 +143,7 @@ open class RollingFileLogWriter(
                 appendLine(throwable.stackTraceToString())
             }
         }
-        loggingChannel.trySendBlocking(Buffer().apply { writeString(log) })
+        loggingChannel.sendBlockingUnlessInterrupted(Buffer().apply { writeString(log) })
     }
 
     private fun formatMessage(severity: Severity, tag: Tag?, message: Message): String =
@@ -249,3 +249,8 @@ open class RollingFileLogWriter(
 
     private fun fileSizeOrZero(path: Path) = fileSystem.metadataOrNull(path)?.size ?: 0
 }
+
+/**
+ * How many log messages [RollingFileLogWriter] buffers before logging threads have to wait for the writer coroutine to catch up.
+ */
+internal const val LOGGING_CHANNEL_CAPACITY = 64

@@ -11,55 +11,14 @@
  * the License.
  */
 
+import kermit.allTargets
+
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.multiplatform)
-    id("wasm-setup")
-    id("kermit-jvm-target")
-    id("kermit-publish")
+    id("kermit.multiplatform-library")
 }
 
 kotlin {
-    androidTarget {
-        publishLibraryVariants("release")
-    }
-    jvm()
-    js {
-        nodejs()
-    }
-
-    macosX64()
-    macosArm64()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    watchosArm32()
-    watchosArm64()
-    watchosSimulatorArm64()
-    watchosDeviceArm64()
-    watchosX64()
-    tvosArm64()
-    tvosSimulatorArm64()
-    tvosX64()
-
-    mingwX64()
-    linuxX64()
-    linuxArm64()
-
-    androidNativeArm32()
-    androidNativeArm64()
-    androidNativeX86()
-    androidNativeX64()
-
-    @Suppress("OPT_IN_USAGE")
-    applyDefaultHierarchyTemplate {
-        common {
-            group("commonJvm") {
-                withAndroidTarget()
-                withJvm()
-            }
-        }
-    }
+    allTargets(namespace = "co.touchlab.kermit", wasiEnabled = true)
 
     sourceSets {
         commonMain.dependencies {
@@ -68,20 +27,9 @@ kotlin {
 
         commonTest.dependencies {
             implementation(kotlin("test"))
-            implementation(libs.testhelp)
+            implementation(libs.coroutines)
+            implementation(libs.coroutines.test)
             implementation(project(":kermit-test"))
         }
-    }
-}
-
-android {
-    namespace = "co.touchlab.kermit"
-    compileSdk = libs.versions.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }

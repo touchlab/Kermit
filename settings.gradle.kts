@@ -20,19 +20,19 @@ include(":kermit-crashlytics")
 include(":kermit-bugsnag")
 include(":kermit-koin")
 include(":kermit-ktor")
+include(":kermit-coil")
 
 project(":kermit-crashlytics").projectDir = File("extensions/kermit-crashlytics")
 project(":kermit-bugsnag").projectDir = File("extensions/kermit-bugsnag")
 project(":kermit-koin").projectDir = File("extensions/kermit-koin")
 project(":kermit-ktor").projectDir = File("extensions/kermit-ktor")
+project(":kermit-coil").projectDir = File("extensions/kermit-coil")
 
-// include(":kermit-gradle-plugin")
-// include(":kermit-ir-plugin")
-// include(":kermit-ir-plugin-native")
-//
-// project(":kermit-gradle-plugin").projectDir = File("plugin/kermit-gradle-plugin")
-// project(":kermit-ir-plugin").projectDir = File("plugin/kermit-ir-plugin")
-// project(":kermit-ir-plugin-native").projectDir = File("plugin/kermit-ir-plugin-native")
+include(":kermit-gradle-plugin")
+include(":kermit-ir-plugin")
+
+project(":kermit-gradle-plugin").projectDir = File("plugin/kermit-gradle-plugin")
+project(":kermit-ir-plugin").projectDir = File("plugin/kermit-ir-plugin")
 
 pluginManagement {
     includeBuild("convention-plugins")
