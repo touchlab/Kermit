@@ -4,17 +4,18 @@ This guide is for an AI agent (or developer) adding Kermit logging to a Kotlin M
 
 ## Which artifact do I need?
 
-| You want to... | Artifact |
-|---|---|
-| Log from Kotlin code (the normal case) | `co.touchlab:kermit` |
-| Write a custom `LogWriter` library / build your own logging API on Kermit's core | `co.touchlab:kermit-core` |
-| Call Kermit from Swift/Objective-C or JS with good ergonomics | `co.touchlab:kermit-simple` (in addition to exporting it in your framework) |
-| Log to rolling files on disk | `co.touchlab:kermit-io` |
-| Assert on log output in tests | `co.touchlab:kermit-test` (test dependency) |
-| Send logs/handled exceptions to Firebase Crashlytics | `co.touchlab:kermit-crashlytics` |
-| Send logs/handled exceptions to Bugsnag | `co.touchlab:kermit-bugsnag` |
-| Route Koin's internal logging through Kermit / inject tagged loggers via Koin | `co.touchlab:kermit-koin` |
-| Route Ktor HTTP client logging through Kermit | `co.touchlab:kermit-ktor` |
+| You want to...                                                                   | Artifact                                                                    |
+|----------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| Log from Kotlin code (the normal case)                                           | `co.touchlab:kermit`                                                        |
+| Write a custom `LogWriter` library / build your own logging API on Kermit's core | `co.touchlab:kermit-core`                                                   |
+| Call Kermit from Swift/Objective-C or JS with good ergonomics                    | `co.touchlab:kermit-simple` (in addition to exporting it in your framework) |
+| Log to rolling files on disk                                                     | `co.touchlab:kermit-io`                                                     |
+| Assert on log output in tests                                                    | `co.touchlab:kermit-test` (test dependency)                                 |
+| Send logs/handled exceptions to Firebase Crashlytics                             | `co.touchlab:kermit-crashlytics`                                            |
+| Send logs/handled exceptions to Bugsnag                                          | `co.touchlab:kermit-bugsnag`                                                |
+| Route Koin's internal logging through Kermit / inject tagged loggers via Koin    | `co.touchlab:kermit-koin`                                                   |
+| Route Ktor HTTP client logging through Kermit                                    | `co.touchlab:kermit-ktor`                                                   |
+| Route Coil 3s image-loading logs through Kermit                                  | `co.touchlab:kermit-coil`                                                   |
 
 `kermit` re-exports `kermit-core`, and `kermit-simple` re-exports `kermit` — never depend on more than one of those three directly.
 
@@ -107,6 +108,28 @@ HttpClient {
 }
 ```
 All Ktor client log output flows to the given Kermit logger at the fixed severity. Very broad target support (matches Ktor client).
+
+### kermit-coil
+```kotlin
+val coilLogger = KermitCoilLogger(
+    config = loggerConfigInit(
+        CommonWriter(),
+        minSeverity = Severity.Info,
+    ),
+)
+
+val imageLoader = ImageLoader.Builder(context)
+    .logger(coilLogger)
+    .build()
+
+// Or
+
+val imageLoader = ImageLoader.Builder(context)
+    .logger(KermitCoilLogger(Logger.withTag("Coil")))
+    .build()
+```
+All `KermitCoilLogger` to your Coil 3 Image Loader as a logger when building. Very broad target support (matches Coil 3).
+
 
 ## Practical tips for agents
 

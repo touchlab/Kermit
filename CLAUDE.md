@@ -6,19 +6,20 @@ For how to *use* the library as a consumer (API examples, which artifact to depe
 
 ## Modules
 
-| Module | Path | Purpose |
-|---|---|---|
-| `kermit-core` | `kermit-core/` | Foundation: `Severity`, `LogWriter`, `BaseLogger`, configs, formatters, all platform log writers, expect/actual factories. No public `Logger` class. Also the supported base for consumers building their own logging API on Kermit (see <https://touchlab.co/kermit-custom-logger>). |
-| `kermit` | `kermit/` | The main artifact consumers use. Adds `Logger` (leveled `v/d/i/w/e/a` functions), the global `Logger` companion, tags. `api`-re-exports `kermit-core`. |
-| `kermit-simple` | `kermit-simple/` | Non-inline API surface for Objective-C/Swift and JS consumers (inline functions don't export to ObjC headers). `api`-re-exports `kermit`. |
-| `kermit-io` | `kermit-io/` | `RollingFileLogWriter` — size-rolling file logging built on kotlinx-io. No JS/wasm target. |
-| `kermit-test` | `kermit-test/` | `TestLogWriter` + assertion helpers for testing log output. `@ExperimentalKermitApi`. |
-| `kermit-crashlytics` | `extensions/kermit-crashlytics/` | `LogWriter` forwarding logs/exceptions to Firebase Crashlytics via CrashKiOS. `@ExperimentalKermitApi`. |
-| `kermit-bugsnag` | `extensions/kermit-bugsnag/` | Same as crashlytics but for Bugsnag. Near-identical mirror module. `@ExperimentalKermitApi`. |
-| `kermit-koin` | `extensions/kermit-koin/` | Koin logger bridge (`KermitKoinLogger`) + module/scope helpers for injecting tagged loggers. |
-| `kermit-ktor` | `extensions/kermit-ktor/` | `KermitKtorLogger` adapter for the Ktor client `Logging` plugin. Widest target matrix of the extensions. |
+| Module               | Path                             | Purpose                                                                                                                                                                                                                                                                               |
+|----------------------|----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `kermit-core`        | `kermit-core/`                   | Foundation: `Severity`, `LogWriter`, `BaseLogger`, configs, formatters, all platform log writers, expect/actual factories. No public `Logger` class. Also the supported base for consumers building their own logging API on Kermit (see <https://touchlab.co/kermit-custom-logger>). |
+| `kermit`             | `kermit/`                        | The main artifact consumers use. Adds `Logger` (leveled `v/d/i/w/e/a` functions), the global `Logger` companion, tags. `api`-re-exports `kermit-core`.                                                                                                                                |
+| `kermit-simple`      | `kermit-simple/`                 | Non-inline API surface for Objective-C/Swift and JS consumers (inline functions don't export to ObjC headers). `api`-re-exports `kermit`.                                                                                                                                             |
+| `kermit-io`          | `kermit-io/`                     | `RollingFileLogWriter` — size-rolling file logging built on kotlinx-io. No JS/wasm target.                                                                                                                                                                                            |
+| `kermit-test`        | `kermit-test/`                   | `TestLogWriter` + assertion helpers for testing log output. `@ExperimentalKermitApi`.                                                                                                                                                                                                 |
+| `kermit-crashlytics` | `extensions/kermit-crashlytics/` | `LogWriter` forwarding logs/exceptions to Firebase Crashlytics via CrashKiOS. `@ExperimentalKermitApi`.                                                                                                                                                                               |
+| `kermit-bugsnag`     | `extensions/kermit-bugsnag/`     | Same as crashlytics but for Bugsnag. Near-identical mirror module. `@ExperimentalKermitApi`.                                                                                                                                                                                          |
+| `kermit-koin`        | `extensions/kermit-koin/`        | Koin logger bridge (`KermitKoinLogger`) + module/scope helpers for injecting tagged loggers.                                                                                                                                                                                          |
+| `kermit-ktor`        | `extensions/kermit-ktor/`        | `KermitKtorLogger` adapter for the Ktor client `Logging` plugin. Widest target matrix of the extensions.                                                                                                                                                                              |
+| `kermit-coil`        | `extensions/kermit-coil/`        | `KermitCoilLogger` adapter for the Coil 3s `coil3.util.Logger` plugin.                                                                                                                                                                                                                |        
 
-Dependency chain: `kermit-core` ← `kermit` ← `kermit-simple`. Extensions depend on `kermit-core` (crashlytics, bugsnag) or `kermit` (koin, ktor). `kermit-io` and `kermit-test` depend on `kermit-core`.
+Dependency chain: `kermit-core` ← `kermit` ← `kermit-simple`. Extensions depend on `kermit-core` (crashlytics, bugsnag) or `kermit` (koin, ktor, coil). `kermit-io` and `kermit-test` depend on `kermit-core`.
 
 `plugin/` (compiler/gradle plugins) is currently disabled — commented out in `settings.gradle.kts`. `TEMP_OVERVIEW.md` is an informal legacy overview; some examples in it use outdated parameter names — trust the source, not that doc.
 
