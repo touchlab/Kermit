@@ -49,9 +49,6 @@ kotlin {
             implementation(libs.ktor.client.cio)
 
             implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(libs.coil.compose)
-            implementation(libs.coil.network.ktor3)
         }
 
         commonTest.dependencies {
@@ -63,6 +60,9 @@ kotlin {
             dependsOn(commonMain.get())
             dependencies {
                 implementation("co.touchlab:kermit-io:${KERMIT_VERSION}")
+                implementation(compose.foundation)
+                implementation(libs.coil.compose)
+                implementation(libs.coil.network.ktor3)
             }
         }
         androidMain {
