@@ -15,7 +15,7 @@ This guide is for an AI agent (or developer) adding Kermit logging to a Kotlin M
 | Send logs/handled exceptions to Bugsnag                                          | `co.touchlab:kermit-bugsnag`                                                |
 | Route Koin's internal logging through Kermit / inject tagged loggers via Koin    | `co.touchlab:kermit-koin`                                                   |
 | Route Ktor HTTP client logging through Kermit                                    | `co.touchlab:kermit-ktor`                                                   |
-| Route Coil 3s image-loading logs through Kermit                                  | `co.touchlab:kermit-coil`                                                   |
+| Route Coil 3's image-loading logs through Kermit                                 | `co.touchlab:kermit-coil`                                                   |
 
 `kermit` re-exports `kermit-core`, and `kermit-simple` re-exports `kermit` — never depend on more than one of those three directly.
 
@@ -128,8 +128,7 @@ val imageLoader = ImageLoader.Builder(context)
     .logger(KermitCoilLogger(Logger.withTag("Coil")))
     .build()
 ```
-All `KermitCoilLogger` to your Coil 3 Image Loader as a logger when building. Very broad target support (matches Coil 3).
-
+Pass `KermitCoilLogger` to your Coil 3 `ImageLoader` as its logger when building. Targets: Android, JVM, iOS, macOS, Linux, JS, wasmJs.
 
 ## Practical tips for agents
 
