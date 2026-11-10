@@ -19,3 +19,7 @@ Integration with Koin, for easy logger injection.
 ## [Ktor](KTOR)
 
 Integration with Ktor, for easy client logging.
+
+## [Coil 3](COIL)
+
+Integration with Coil, for easy image logging.
