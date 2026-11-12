@@ -3,6 +3,7 @@ import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.vanniktech.maven.publish.DeploymentValidation
+import com.vanniktech.maven.publish.JavadocJar
 
 /*
  * Copyright (c) 2026 Touchlab
@@ -63,6 +64,13 @@ project.afterEvaluate {
 }
 
 mavenPublishing {
-    configureBasedOnAppliedPlugins()
+    /*
+     * Pass explicitly rather than using the default which causes every publication to get
+     * `JavadocJar.Dokka("dokkaGeneratePublicationHtml")` --  adding the same full Dokka HTML site
+     * to every target publication
+     *
+     * `Empty()` rather than `None()`: Maven Central requires a javadoc jar to be present, but it can be empty
+     */
+    configureBasedOnAppliedPlugins(javadocJar = JavadocJar.Empty())
     publishToMavenCentral(true, DeploymentValidation.NONE)
 }
