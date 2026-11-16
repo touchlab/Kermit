@@ -27,7 +27,7 @@ public class co/touchlab/kermit/CommonWriter : co/touchlab/kermit/LogWriter {
 public final class co/touchlab/kermit/DefaultFormatter : co/touchlab/kermit/MessageStringFormatter {
 	public static final field INSTANCE Lco/touchlab/kermit/DefaultFormatter;
 	public fun formatMessage-JDe7z1s (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)Ljava/lang/String;
-	public synthetic fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public fun formatSeverity (Lco/touchlab/kermit/Severity;)Ljava/lang/String;
 	public fun formatTag-ntQDErM (Ljava/lang/String;)Ljava/lang/String;
 	public fun formatThrowable (Ljava/lang/Throwable;)Ljava/lang/String;
@@ -73,7 +73,7 @@ public final class co/touchlab/kermit/Message {
 
 public abstract interface class co/touchlab/kermit/MessageStringFormatter {
 	public fun formatMessage-JDe7z1s (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)Ljava/lang/String;
-	public synthetic fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public fun formatSeverity (Lco/touchlab/kermit/Severity;)Ljava/lang/String;
 	public fun formatTag-ntQDErM (Ljava/lang/String;)Ljava/lang/String;
 	public fun formatThrowable (Ljava/lang/Throwable;)Ljava/lang/String;
@@ -81,7 +81,7 @@ public abstract interface class co/touchlab/kermit/MessageStringFormatter {
 
 public final class co/touchlab/kermit/MessageStringFormatter$DefaultImpls {
 	public static fun formatMessage-JDe7z1s (Lco/touchlab/kermit/MessageStringFormatter;Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)Ljava/lang/String;
-	public static synthetic fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/MessageStringFormatter;Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/MessageStringFormatter;Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public static fun formatSeverity (Lco/touchlab/kermit/MessageStringFormatter;Lco/touchlab/kermit/Severity;)Ljava/lang/String;
 	public static fun formatTag-ntQDErM (Lco/touchlab/kermit/MessageStringFormatter;Ljava/lang/String;)Ljava/lang/String;
 	public static fun formatThrowable (Lco/touchlab/kermit/MessageStringFormatter;Ljava/lang/Throwable;)Ljava/lang/String;
@@ -102,7 +102,7 @@ public final class co/touchlab/kermit/MutableLoggerConfigKt {
 public final class co/touchlab/kermit/NoTagFormatter : co/touchlab/kermit/MessageStringFormatter {
 	public static final field INSTANCE Lco/touchlab/kermit/NoTagFormatter;
 	public fun formatMessage-JDe7z1s (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)Ljava/lang/String;
-	public synthetic fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public fun formatSeverity (Lco/touchlab/kermit/Severity;)Ljava/lang/String;
 	public fun formatTag-ntQDErM (Ljava/lang/String;)Ljava/lang/String;
 	public fun formatThrowable (Ljava/lang/Throwable;)Ljava/lang/String;
@@ -111,7 +111,7 @@ public final class co/touchlab/kermit/NoTagFormatter : co/touchlab/kermit/Messag
 public final class co/touchlab/kermit/NoThrowableFormatter : co/touchlab/kermit/MessageStringFormatter {
 	public static final field INSTANCE Lco/touchlab/kermit/NoThrowableFormatter;
 	public fun formatMessage-JDe7z1s (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)Ljava/lang/String;
-	public synthetic fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public fun formatSeverity (Lco/touchlab/kermit/Severity;)Ljava/lang/String;
 	public fun formatTag-ntQDErM (Ljava/lang/String;)Ljava/lang/String;
 	public fun formatThrowable (Ljava/lang/Throwable;)Ljava/lang/String;
@@ -137,7 +137,7 @@ public final class co/touchlab/kermit/Severity : java/lang/Enum {
 public final class co/touchlab/kermit/SimpleFormatter : co/touchlab/kermit/MessageStringFormatter {
 	public static final field INSTANCE Lco/touchlab/kermit/SimpleFormatter;
 	public fun formatMessage-JDe7z1s (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)Ljava/lang/String;
-	public synthetic fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun formatMessage-SNKSsE8 (Lco/touchlab/kermit/Severity;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public fun formatSeverity (Lco/touchlab/kermit/Severity;)Ljava/lang/String;
 	public fun formatTag-ntQDErM (Ljava/lang/String;)Ljava/lang/String;
 	public fun formatThrowable (Ljava/lang/Throwable;)Ljava/lang/String;

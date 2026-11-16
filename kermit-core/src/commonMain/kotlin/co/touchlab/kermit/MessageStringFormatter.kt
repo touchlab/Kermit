@@ -21,14 +21,20 @@ interface MessageStringFormatter {
     fun formatSeverity(severity: Severity) = "$severity:"
     fun formatTag(tag: Tag) = "(${tag.tag})"
 
+    /**
+     * Formats the [Throwable] attached to a log call. The result is appended to the formatted message on a new line, so the
+     * message and its stack trace are written as a single log entry. Return an empty string to omit the throwable.
+     */
     fun formatThrowable(throwable: Throwable) = throwable.stackTraceToString()
 
-    @Deprecated("Keeping for binary compatibility", level = DeprecationLevel.HIDDEN)
-    fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String = formatMessage(severity, tag, message, null)
-
-    fun formatMessage(severity: Severity?, tag: Tag?, message: Message, throwable: Throwable?): String {
+    @Deprecated(
+        "Override or call the formatMessage overload that takes a Throwable, so the message and the throwable are formatted " +
+            "as a single entry. This overload will be removed in a future release.",
+        ReplaceWith("formatMessage(severity, tag, message, null)"),
+    )
+    fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String {
         // Optimize for Android
-        if (severity == null && tag == null && throwable == null) {
+        if (severity == null && tag == null) {
             return message.message
         }
 
@@ -44,12 +50,23 @@ interface MessageStringFormatter {
             }
 
             append(message.message)
-
-            if (throwable != null) {
-                val formattedThrowable = formatThrowable(throwable)
-                if (formattedThrowable.isNotEmpty()) appendLine().append(formattedThrowable)
-            }
         }
+    }
+
+    /**
+     * Formats a log entry. By default, this is the severity, tag, and message, followed by [formatThrowable] on a new line
+     * when a [throwable] is present.
+     */
+    fun formatMessage(severity: Severity?, tag: Tag?, message: Message, throwable: Throwable?): String {
+        // Delegates to the legacy overload so formatters that only override it keep working.
+        @Suppress("DEPRECATION")
+        val formattedMessage = formatMessage(severity, tag, message)
+        if (throwable == null) return formattedMessage
+
+        val formattedThrowable = formatThrowable(throwable)
+        if (formattedThrowable.isEmpty()) return formattedMessage
+
+        return "$formattedMessage\n$formattedThrowable"
     }
 }
 
@@ -82,11 +99,12 @@ object NoTagFormatter : MessageStringFormatter {
  */
 object SimpleFormatter : MessageStringFormatter {
     override fun formatTag(tag: Tag): String = ""
-    override fun formatMessage(severity: Severity?, tag: Tag?, message: Message, throwable: Throwable?): String = message.message
+    override fun formatMessage(severity: Severity?, tag: Tag?, message: Message, throwable: Throwable?): String =
+        super.formatMessage(null, null, message, throwable)
 }
 
 /**
- *
+ * Same output as [DefaultFormatter], but never includes the [Throwable]'s stack trace in the formatted message.
  */
 object NoThrowableFormatter : MessageStringFormatter {
     override fun formatThrowable(throwable: Throwable): String = ""

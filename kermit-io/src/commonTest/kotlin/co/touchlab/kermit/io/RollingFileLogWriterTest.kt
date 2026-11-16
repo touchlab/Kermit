@@ -10,11 +10,17 @@
 
 package co.touchlab.kermit.io
 
+import co.touchlab.kermit.DefaultFormatter
+import co.touchlab.kermit.MessageStringFormatter
+import co.touchlab.kermit.NoTagFormatter
 import co.touchlab.kermit.Severity
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.io.buffered
@@ -22,7 +28,12 @@ import kotlinx.io.files.Path
 import kotlinx.io.files.SystemFileSystem
 import kotlinx.io.readString
 
+@OptIn(ExperimentalTime::class)
 class RollingFileLogWriterTest {
+
+    private val fixedClock = object : Clock {
+        override fun now(): Instant = Instant.fromEpochSeconds(0)
+    }
 
     private fun createTempDir(): Path {
         val base = Path(SystemFileSystem.resolve(Path(".")), "build", "tmp", "test-logs-${randomSuffix()}")
@@ -39,15 +50,20 @@ class RollingFileLogWriterTest {
         fileName: String = "test",
         rollOnSize: Long = 10 * 1024 * 1024,
         maxLogFiles: Int = 5,
+        prependTimestamp: Boolean = false,
+        logTag: Boolean = false,
+        formatter: MessageStringFormatter = DefaultFormatter,
     ): RollingFileLogWriter = RollingFileLogWriter(
         config = RollingFileLogWriterConfig(
             logFileName = fileName,
             logFilePath = dir,
             rollOnSize = rollOnSize,
             maxLogFiles = maxLogFiles,
-            prependTimestamp = false,
-            logTag = false,
+            prependTimestamp = prependTimestamp,
+            logTag = logTag,
         ),
+        clock = fixedClock,
+        messageStringFormatter = formatter,
     )
 
     private fun deleteRecursively(dir: Path) {
@@ -175,6 +191,52 @@ class RollingFileLogWriterTest {
             assertTrue(content.contains("Error occurred"))
             assertTrue(content.contains("RuntimeException"), "Should contain exception class name")
             assertTrue(content.contains("test error"), "Should contain exception message")
+        } finally {
+            deleteRecursively(dir)
+        }
+    }
+
+    @Test
+    fun throwableIsWrittenRightAfterItsMessage() = runBlocking {
+        val dir = createTempDir()
+        try {
+            val writer = createWriter(dir, logTag = true)
+            writer.log(Severity.Error, "Error occurred", "Tag", RuntimeException("test error"))
+            writer.log(Severity.Info, "Next message", "Tag", null)
+            waitForWrite()
+
+            val lines = readFileText(Path(dir, "test.log")).lines().filter { it.isNotEmpty() }
+            assertEquals("Error: (Tag) Error occurred", lines.first())
+            assertTrue(lines[1].contains("RuntimeException: test error"), "Stack trace should follow its message")
+            assertEquals("Info: (Tag) Next message", lines.last())
+        } finally {
+            deleteRecursively(dir)
+        }
+    }
+
+    @Test
+    fun prependsTimestampBeforeFormattedMessage() = runBlocking {
+        val dir = createTempDir()
+        try {
+            val writer = createWriter(dir, prependTimestamp = true, logTag = true)
+            writer.log(Severity.Info, "Hello", "Tag", null)
+            waitForWrite()
+
+            assertEquals("1970-01-01T00:00:00Z Info: (Tag) Hello\n", readFileText(Path(dir, "test.log")))
+        } finally {
+            deleteRecursively(dir)
+        }
+    }
+
+    @Test
+    fun keepsTimestampWhenFormatterOmitsTag() = runBlocking {
+        val dir = createTempDir()
+        try {
+            val writer = createWriter(dir, prependTimestamp = true, logTag = true, formatter = NoTagFormatter)
+            writer.log(Severity.Info, "Hello", "Tag", null)
+            waitForWrite()
+
+            assertEquals("1970-01-01T00:00:00Z Info: Hello\n", readFileText(Path(dir, "test.log")))
         } finally {
             deleteRecursively(dir)
         }
