@@ -12,6 +12,7 @@ package co.touchlab.kermit.io
 
 import co.touchlab.kermit.Severity
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import kotlinx.coroutines.delay
@@ -97,6 +98,11 @@ class RollingFileLogWriterTest {
             val content = readFileText(Path(dir, "test.log"))
             assertTrue(content.contains("First message"))
             assertTrue(content.contains("Second message"))
+            assertEquals(
+                listOf("Info: First message", "Warn: Second message"),
+                content.lines().filter { it.isNotEmpty() },
+                "Each log entry should be on its own line",
+            )
         } finally {
             deleteRecursively(dir)
         }

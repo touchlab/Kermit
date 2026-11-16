@@ -122,32 +122,33 @@ open class RollingFileLogWriter(
     }
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        bufferLog(
+        addLoggerToBuffer(
             formatMessage(
                 severity = severity,
-                tag = Tag(tag),
+                tag = Tag(
+                    buildString {
+                        if (config.prependTimestamp) {
+                            append(clock.now().format(DateTimeComponents.Formats.ISO_DATE_TIME_OFFSET))
+                            append(" ")
+                        }
+
+                        if (config.logTag) {
+                            append(tag)
+                        }
+                    },
+                ),
                 message = Message(message),
+                throwable = throwable,
             ),
-            throwable,
         )
     }
 
-    private fun bufferLog(message: String, throwable: Throwable?) {
-        val log = buildString {
-            if (config.prependTimestamp) {
-                append(clock.now().format(DateTimeComponents.Formats.ISO_DATE_TIME_OFFSET))
-                append(" ")
-            }
-            appendLine(message)
-            if (throwable != null) {
-                appendLine(throwable.stackTraceToString())
-            }
-        }
-        loggingChannel.sendBlockingUnlessInterrupted(Buffer().apply { writeString(log) })
+    protected fun addLoggerToBuffer(message: String) {
+        loggingChannel.sendBlockingUnlessInterrupted(Buffer().apply { writeString("$message\n") })
     }
 
-    private fun formatMessage(severity: Severity, tag: Tag?, message: Message): String =
-        messageStringFormatter.formatMessage(severity, if (config.logTag) tag else null, message)
+    private fun formatMessage(severity: Severity, tag: Tag?, message: Message, throwable: Throwable?): String =
+        messageStringFormatter.formatMessage(severity, tag.takeUnless { it?.tag.isNullOrBlank() }, message, throwable)
 
     private fun shouldRollLogs(currentSize: Long, logFilePath: Path): Boolean =
         max(currentSize, fileSizeOrZero(logFilePath)) > config.rollOnSize

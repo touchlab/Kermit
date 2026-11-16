@@ -20,18 +20,36 @@ import kotlin.jvm.JvmInline
 interface MessageStringFormatter {
     fun formatSeverity(severity: Severity) = "$severity:"
     fun formatTag(tag: Tag) = "(${tag.tag})"
-    fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String {
+
+    fun formatThrowable(throwable: Throwable) = throwable.stackTraceToString()
+
+    @Deprecated("Keeping for binary compatibility", level = DeprecationLevel.HIDDEN)
+    fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String = formatMessage(severity, tag, message, null)
+
+    fun formatMessage(severity: Severity?, tag: Tag?, message: Message, throwable: Throwable?): String {
         // Optimize for Android
-        if (severity == null && tag == null) {
+        if (severity == null && tag == null && throwable == null) {
             return message.message
         }
 
-        val sb = StringBuilder()
-        if (severity != null) sb.append(formatSeverity(severity)).append(" ")
-        if (tag != null && tag.tag.isNotEmpty()) sb.append(formatTag(tag)).append(" ")
-        sb.append(message.message)
+        return buildString {
+            if (severity != null) {
+                val formattedSeverity = formatSeverity(severity)
+                if (formattedSeverity.isNotEmpty()) append(formattedSeverity).append(" ")
+            }
 
-        return sb.toString()
+            if (tag != null && tag.tag.isNotEmpty()) {
+                val formattedTag = formatTag(tag)
+                if (formattedTag.isNotEmpty()) append(formattedTag).append(" ")
+            }
+
+            append(message.message)
+
+            if (throwable != null) {
+                val formattedThrowable = formatThrowable(throwable)
+                if (formattedThrowable.isNotEmpty()) appendLine().append(formattedThrowable)
+            }
+        }
     }
 }
 
@@ -55,7 +73,8 @@ object DefaultFormatter : MessageStringFormatter
  */
 object NoTagFormatter : MessageStringFormatter {
     override fun formatTag(tag: Tag): String = ""
-    override fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String = super.formatMessage(severity, null, message)
+    override fun formatMessage(severity: Severity?, tag: Tag?, message: Message, throwable: Throwable?): String =
+        super.formatMessage(severity, null, message, throwable)
 }
 
 /**
@@ -63,5 +82,12 @@ object NoTagFormatter : MessageStringFormatter {
  */
 object SimpleFormatter : MessageStringFormatter {
     override fun formatTag(tag: Tag): String = ""
-    override fun formatMessage(severity: Severity?, tag: Tag?, message: Message): String = message.message
+    override fun formatMessage(severity: Severity?, tag: Tag?, message: Message, throwable: Throwable?): String = message.message
+}
+
+/**
+ *
+ */
+object NoThrowableFormatter : MessageStringFormatter {
+    override fun formatThrowable(throwable: Throwable): String = ""
 }

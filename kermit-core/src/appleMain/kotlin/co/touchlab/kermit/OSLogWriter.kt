@@ -51,12 +51,24 @@ open class OSLogWriter internal constructor(
                 severity = severity,
                 message = Message(message),
                 tag = Tag(tag),
+                throwable = throwable,
             ),
-            throwable,
         )
     }
 
+    open fun callLog(severity: Severity, message: String) {
+        val osLogSeverity = kermitSeverityToOsLogType(severity)
+        darwinLogger.log(osLogSeverity, message)
+    }
+
+    open fun formatMessage(severity: Severity, tag: Tag, message: Message, throwable: Throwable?): String =
+        messageStringFormatter.formatMessage(null, tag, message, throwable)
+
     // Added to do some testing on log format. https://github.com/touchlab/Kermit/issues/243
+    @Deprecated(
+        "callLog with Throwable parameter has been deprecated and removed in the future. " +
+            "Use the MessageStringFormatter to include the stacktrace in the same log call, and use the callLog instead.",
+    )
     open fun callLog(severity: Severity, message: String, throwable: Throwable?) {
         val osLogSeverity = kermitSeverityToOsLogType(severity)
         darwinLogger.log(osLogSeverity, message)
@@ -65,9 +77,20 @@ open class OSLogWriter internal constructor(
         }
     }
 
+    @Deprecated(
+        "logThrowable has been deprecated and removed in the future. " +
+            "Use the MessageStringFormatter to include the stacktrace in the same log call.",
+    )
     open fun logThrowable(osLogSeverity: os_log_type_t, throwable: Throwable) {
         darwinLogger.log(osLogSeverity, throwable.stackTraceToString())
     }
+
+    @Deprecated(
+        "callLog without Throwable parameter has been deprecated and removed in the future. " +
+            "Use the MessageStringFormatter or use the `formatMessage` with Throwable parameter to include the stacktrace in the same log call.",
+    )
+    open fun formatMessage(severity: Severity, tag: Tag, message: Message): String =
+        messageStringFormatter.formatMessage(null, tag, message, null)
 
     private fun kermitSeverityToOsLogType(severity: Severity): os_log_type_t = when (severity) {
         Severity.Verbose, Severity.Debug -> OS_LOG_TYPE_DEBUG
@@ -76,9 +99,6 @@ open class OSLogWriter internal constructor(
         Severity.Error -> OS_LOG_TYPE_ERROR
         Severity.Assert -> OS_LOG_TYPE_FAULT
     }
-
-    open fun formatMessage(severity: Severity, tag: Tag, message: Message): String =
-        messageStringFormatter.formatMessage(null, tag, message)
 }
 
 internal interface DarwinLogger {

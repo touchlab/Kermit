@@ -23,14 +23,12 @@ class ConsoleWriter internal constructor(private val messageStringFormatter: Mes
     )
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        var output = messageStringFormatter.formatMessage(
+        val output = messageStringFormatter.formatMessage(
             null,
             Tag(tag),
             Message(message),
+            throwable,
         ) // Ignore severity. It is part of the console API.
-        throwable?.let {
-            output += " ${it.stackTraceToString()}"
-        }
         when (severity) {
             Severity.Assert, Severity.Error -> console.error(output)
             Severity.Warn -> console.warn(output)

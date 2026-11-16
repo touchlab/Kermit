@@ -16,31 +16,31 @@ import kotlin.test.assertEquals
 class LogFormatterTest {
     @Test
     fun skipEmptyTag() {
-        assertEquals("Warn: Hello", DefaultFormatter.formatMessage(Severity.Warn, Tag(""), Message("Hello")))
-        assertEquals("Warn: Hello", DefaultFormatter.formatMessage(Severity.Warn, null, Message("Hello")))
+        assertEquals("Warn: Hello", DefaultFormatter.formatMessage(Severity.Warn, Tag(""), Message("Hello"), null))
+        assertEquals("Warn: Hello", DefaultFormatter.formatMessage(Severity.Warn, null, Message("Hello"), null))
     }
 
     @Test
     fun noTag() {
-        assertEquals("Warn: Hello", NoTagFormatter.formatMessage(Severity.Warn, Tag("ATag"), Message("Hello")))
-        assertEquals("Hello", NoTagFormatter.formatMessage(null, Tag("ATag"), Message("Hello")))
+        assertEquals("Warn: Hello", NoTagFormatter.formatMessage(Severity.Warn, Tag("ATag"), Message("Hello"), null))
+        assertEquals("Hello", NoTagFormatter.formatMessage(null, Tag("ATag"), Message("Hello"), null))
     }
 
     @Test
     fun simpleFormat() {
-        assertEquals("Hello", SimpleFormatter.formatMessage(Severity.Warn, Tag("ATag"), Message("Hello")))
-        assertEquals("Hello", SimpleFormatter.formatMessage(null, Tag("ATag"), Message("Hello")))
-        assertEquals("Hello", SimpleFormatter.formatMessage(null, Tag(""), Message("Hello")))
-        assertEquals("Hello", SimpleFormatter.formatMessage(null, null, Message("Hello")))
+        assertEquals("Hello", SimpleFormatter.formatMessage(Severity.Warn, Tag("ATag"), Message("Hello"), null))
+        assertEquals("Hello", SimpleFormatter.formatMessage(null, Tag("ATag"), Message("Hello"), null))
+        assertEquals("Hello", SimpleFormatter.formatMessage(null, Tag(""), Message("Hello"), null))
+        assertEquals("Hello", SimpleFormatter.formatMessage(null, null, Message("Hello"), null))
     }
 
     @Test
     fun skipSeverity() {
-        assertEquals("(ATag) Hello", DefaultFormatter.formatMessage(null, Tag("ATag"), Message("Hello")))
+        assertEquals("(ATag) Hello", DefaultFormatter.formatMessage(null, Tag("ATag"), Message("Hello"), null))
     }
 
     @Test
     fun basicFormat() {
-        assertEquals("Warn: (ATag) Hello", DefaultFormatter.formatMessage(Severity.Warn, Tag("ATag"), Message("Hello")))
+        assertEquals("Warn: (ATag) Hello", DefaultFormatter.formatMessage(Severity.Warn, Tag("ATag"), Message("Hello"), null))
     }
 }

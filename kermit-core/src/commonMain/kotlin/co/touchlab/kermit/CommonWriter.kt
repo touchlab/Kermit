@@ -18,7 +18,7 @@ package co.touchlab.kermit
  */
 open class CommonWriter(private val messageStringFormatter: MessageStringFormatter = DefaultFormatter) : LogWriter() {
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        println(messageStringFormatter.formatMessage(severity, Tag(tag), Message(message)))
+        println(messageStringFormatter.formatMessage(severity, Tag(tag), Message(message), null))
         throwable?.printStackTrace()
     }
 }
