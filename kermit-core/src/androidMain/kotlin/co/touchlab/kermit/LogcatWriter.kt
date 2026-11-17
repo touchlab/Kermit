@@ -20,7 +20,7 @@ class LogcatWriter(private val messageStringFormatter: MessageStringFormatter = 
     private val testWriter: CommonWriter = CommonWriter(messageStringFormatter)
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        val formattedMessage = messageStringFormatter.formatMessage(null, null, Message(message))
+        val formattedMessage = messageStringFormatter.formatMessage(null, null, Message(message), null)
         try {
             if (throwable == null) {
                 when (severity) {

@@ -42,7 +42,7 @@ class CrashlyticsLogWriter(
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         crashlyticsCalls.logMessage(
-            messageStringFormatter.formatMessage(severity, Tag(tag), Message(message)),
+            messageStringFormatter.formatMessage(severity, Tag(tag), Message(message), null),
         )
         if (throwable != null && minCrashSeverity != null && severity >= minCrashSeverity) {
             crashlyticsCalls.sendHandledException(throwable)

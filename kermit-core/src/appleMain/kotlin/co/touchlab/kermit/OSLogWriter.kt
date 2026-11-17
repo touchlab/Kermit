@@ -45,29 +45,61 @@ open class OSLogWriter internal constructor(
     )
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
+        // Routed through the deprecated overload so subclasses that override it keep being called. The throwable is
+        // already part of the formatted message, so it is not passed along.
+        @Suppress("DEPRECATION")
         callLog(
             severity,
             formatMessage(
                 severity = severity,
                 message = Message(message),
                 tag = Tag(tag),
+                throwable = throwable,
             ),
-            throwable,
+            null,
         )
     }
 
-    // Added to do some testing on log format. https://github.com/touchlab/Kermit/issues/243
-    open fun callLog(severity: Severity, message: String, throwable: Throwable?) {
+    /**
+     * Writes an already formatted message, including any stack trace, to OSLog as a single entry.
+     */
+    open fun callLog(severity: Severity, message: String) {
         val osLogSeverity = kermitSeverityToOsLogType(severity)
         darwinLogger.log(osLogSeverity, message)
+    }
+
+    open fun formatMessage(severity: Severity, tag: Tag, message: Message, throwable: Throwable?): String =
+        messageStringFormatter.formatMessage(null, tag, message, throwable)
+
+    // Added to do some testing on log format. https://github.com/touchlab/Kermit/issues/243
+    @Deprecated(
+        "The throwable is now included in the formatted message. Override callLog(severity, message) instead. " +
+            "This overload will be removed in a future release.",
+        ReplaceWith("callLog(severity, message)"),
+    )
+    open fun callLog(severity: Severity, message: String, throwable: Throwable?) {
+        callLog(severity, message)
         if (throwable != null) {
-            logThrowable(osLogSeverity, throwable)
+            @Suppress("DEPRECATION")
+            logThrowable(kermitSeverityToOsLogType(severity), throwable)
         }
     }
 
+    @Deprecated(
+        "No longer called by OSLogWriter. The throwable is included in the formatted message; customize it with " +
+            "MessageStringFormatter.formatThrowable. This function will be removed in a future release.",
+    )
     open fun logThrowable(osLogSeverity: os_log_type_t, throwable: Throwable) {
         darwinLogger.log(osLogSeverity, throwable.stackTraceToString())
     }
+
+    @Deprecated(
+        "No longer called by OSLogWriter. Override formatMessage(severity, tag, message, throwable) instead. " +
+            "This overload will be removed in a future release.",
+        ReplaceWith("formatMessage(severity, tag, message, null)"),
+    )
+    open fun formatMessage(severity: Severity, tag: Tag, message: Message): String =
+        messageStringFormatter.formatMessage(null, tag, message, null)
 
     private fun kermitSeverityToOsLogType(severity: Severity): os_log_type_t = when (severity) {
         Severity.Verbose, Severity.Debug -> OS_LOG_TYPE_DEBUG
@@ -76,9 +108,6 @@ open class OSLogWriter internal constructor(
         Severity.Error -> OS_LOG_TYPE_ERROR
         Severity.Assert -> OS_LOG_TYPE_FAULT
     }
-
-    open fun formatMessage(severity: Severity, tag: Tag, message: Message): String =
-        messageStringFormatter.formatMessage(null, tag, message)
 }
 
 internal interface DarwinLogger {

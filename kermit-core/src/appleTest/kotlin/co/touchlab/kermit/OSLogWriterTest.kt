@@ -22,6 +22,33 @@ class OSLogWriterTest {
         assertEquals(collector.logs.size, 1)
         assertEquals(collector.logs[0].message, "(ATag) Hello")
     }
+
+    @Test
+    fun throwableIsLoggedInSameEntry() {
+        val collector = DarwinLoggerCollector()
+        val osLogWriter = OSLogWriter(DefaultFormatter, collector)
+        val throwable = RuntimeException("Boom")
+        osLogWriter.log(Severity.Error, "Hello", "ATag", throwable)
+        assertEquals(1, collector.logs.size)
+        assertEquals("(ATag) Hello\n${throwable.stackTraceToString()}", collector.logs[0].message)
+    }
+
+    @Test
+    fun legacyCallLogOverrideIsStillCalled() {
+        val collector = DarwinLoggerCollector()
+        val calls = mutableListOf<String>()
+        val osLogWriter = object : OSLogWriter(DefaultFormatter, collector) {
+            @Deprecated("Testing the legacy overload")
+            override fun callLog(severity: Severity, message: String, throwable: Throwable?) {
+                calls.add(message)
+                @Suppress("DEPRECATION")
+                super.callLog(severity, message, throwable)
+            }
+        }
+        osLogWriter.log(Severity.Info, "Hello", "ATag", null)
+        assertEquals(listOf("(ATag) Hello"), calls)
+        assertEquals(1, collector.logs.size)
+    }
 }
 
 class DarwinLoggerCollector : DarwinLogger {
