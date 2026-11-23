@@ -2,7 +2,7 @@
 
 ## [2.2.0] - 2026-09-1 ([Milestone](https://github.com/touchlab/Kermit/milestone/5))
 ### Changed
-- Added `kermit-coil3` extension for Coil3 support: [PR](https://github.com/touchlab/Kermit/pull/479)
+- Added `kermit-coil` extension for Coil3 support: [PR](https://github.com/touchlab/Kermit/pull/479)
 - Added `WasmWasi` support to `kermit-core` and `kermit-test`: [PR](https://github.com/touchlab/Kermit/pull/484), [Issue](https://github.com/touchlab/Kermit/issues/481)
 - Added `jvm`, `linux`, `mingwX64` and `Android Native` targets to the `kermit-ktor` module: [PR](https://github.com/touchlab/Kermit/pull/477), [Issue](https://github.com/touchlab/Kermit/issues/474)
 - Updating `RollingFileLogWriter` to now Catch IO exceptions: [PR](https://github.com/touchlab/Kermit/pull/483), [Issue](https://github.com/touchlab/Kermit/issues/480)
