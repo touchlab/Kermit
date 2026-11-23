@@ -14,18 +14,12 @@
 package co.touchlab.kermit
 
 import platform.Foundation.NSLog
-import platform.Foundation.NSString
 
 /**
  * Legacy logger, using NSLog
  */
-@Suppress("CAST_NEVER_SUCCEEDS")
 class NSLogWriter(private val messageStringFormatter: MessageStringFormatter = DefaultFormatter) : LogWriter() {
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        NSLog("%s", messageStringFormatter.formatMessage(severity, Tag(tag), Message(message)))
-        throwable?.let {
-            val string = it.stackTraceToString()
-            NSLog("%@", string as NSString)
-        }
+        NSLog("%s", messageStringFormatter.formatMessage(severity, Tag(tag), Message(message), throwable))
     }
 }

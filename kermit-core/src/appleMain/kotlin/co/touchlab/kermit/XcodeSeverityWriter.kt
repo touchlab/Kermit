@@ -10,21 +10,14 @@
 
 package co.touchlab.kermit
 
-import platform.darwin.os_log_type_t
-
 /**
- * Development-focused LogWriter. Will write a colored emoji according to Severity, and write the Throwable stack trace
- * to println rather than oslog, as oslog will cut off long strings.
+ * Development-focused LogWriter. Will write a colored emoji according to Severity. The Throwable stack trace is written
+ * to OSLog in the same entry as the message, so very long stack traces may be truncated by OSLog.
  */
 open class XcodeSeverityWriter(private val messageStringFormatter: MessageStringFormatter = DefaultFormatter) :
     OSLogWriter(messageStringFormatter) {
-    override fun formatMessage(severity: Severity, tag: Tag, message: Message): String =
-        "${emojiPrefix(severity)} ${messageStringFormatter.formatMessage(null, tag, message)}"
-
-    override fun logThrowable(osLogSeverity: os_log_type_t, throwable: Throwable) {
-        // oslog cuts off longer strings, so for local development, println is more useful
-        println(throwable.stackTraceToString())
-    }
+    override fun formatMessage(severity: Severity, tag: Tag, message: Message, throwable: Throwable?): String =
+        "${emojiPrefix(severity)} ${messageStringFormatter.formatMessage(null, tag, message, throwable)}"
 
     // If this looks familiar, yes, it came directly from Napier :) https://github.com/AAkira/Napier#darwinios-macos-watchos-tvosintelapple-silicon
     open fun emojiPrefix(severity: Severity): String = when (severity) {

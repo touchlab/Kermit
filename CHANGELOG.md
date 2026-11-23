@@ -1,5 +1,17 @@
 # Change Log
 
+## [Unreleased]
+### Changed
+- Log writers now write the message and its `Throwable` stack trace as a single entry, so they can't be interleaved with other logs. Applies to `OSLogWriter`, `XcodeSeverityWriter`, `NSLogWriter`, `SystemWriter`, `ConsoleWriter`, `CommonWriter` and `RollingFileLogWriter`: [Issue](https://github.com/touchlab/Kermit/issues/490)
+- `XcodeSeverityWriter` now writes stack traces to OSLog instead of `println`
+- `ConsoleWriter` separates the message and stack trace with a newline instead of a space
+- Added `MessageStringFormatter.formatMessage(severity, tag, message, throwable)` and `MessageStringFormatter.formatThrowable`, so formatters can customize how throwables are written: [Issue](https://github.com/touchlab/Kermit/issues/471)
+- Added `NoThrowableFormatter`, which omits stack traces from the formatted message
+- Added protected `RollingFileLogWriter.bufferLog`, so subclasses can write entries with a custom format: [Issue](https://github.com/touchlab/Kermit/issues/471)
+### Deprecated
+- `MessageStringFormatter.formatMessage(severity, tag, message)`. Existing overrides are still used, and the throwable is appended after them
+- `OSLogWriter.callLog(severity, message, throwable)`, `OSLogWriter.logThrowable` and `OSLogWriter.formatMessage(severity, tag, message)`. `OSLogWriter` no longer calls `logThrowable` or the 3-argument `formatMessage`
+
 ## [2.2.0] - 2026-09-1 ([Milestone](https://github.com/touchlab/Kermit/milestone/5))
 ### Changed
 - Added `kermit-coil` extension for Coil3 support: [PR](https://github.com/touchlab/Kermit/pull/479)

@@ -122,32 +122,26 @@ open class RollingFileLogWriter(
     }
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        bufferLog(
-            formatMessage(
-                severity = severity,
-                tag = Tag(tag),
-                message = Message(message),
-            ),
-            throwable,
-        )
-    }
-
-    private fun bufferLog(message: String, throwable: Throwable?) {
         val log = buildString {
             if (config.prependTimestamp) {
                 append(clock.now().format(DateTimeComponents.Formats.ISO_DATE_TIME_OFFSET))
                 append(" ")
             }
-            appendLine(message)
-            if (throwable != null) {
-                appendLine(throwable.stackTraceToString())
-            }
+            append(formatMessage(severity, Tag(tag), Message(message), throwable))
         }
-        loggingChannel.sendBlockingUnlessInterrupted(Buffer().apply { writeString(log) })
+        bufferLog(log)
     }
 
-    private fun formatMessage(severity: Severity, tag: Tag?, message: Message): String =
-        messageStringFormatter.formatMessage(severity, if (config.logTag) tag else null, message)
+    /**
+     * Queues an already formatted log entry to be written to the log file, followed by a newline. Subclasses can use this
+     * to write entries with a custom format. Blocks only when the internal buffer is full, see [RollingFileLogWriter].
+     */
+    protected fun bufferLog(message: String) {
+        loggingChannel.sendBlockingUnlessInterrupted(Buffer().apply { writeString("$message\n") })
+    }
+
+    private fun formatMessage(severity: Severity, tag: Tag?, message: Message, throwable: Throwable?): String =
+        messageStringFormatter.formatMessage(severity, if (config.logTag) tag else null, message, throwable)
 
     private fun shouldRollLogs(currentSize: Long, logFilePath: Path): Boolean =
         max(currentSize, fileSizeOrZero(logFilePath)) > config.rollOnSize
