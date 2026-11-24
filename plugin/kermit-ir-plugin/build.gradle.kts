@@ -3,7 +3,8 @@ import com.vanniktech.maven.publish.DeploymentValidation
 plugins {
     kotlin("jvm")
     id("com.github.gmazzo.buildconfig")
-    id("com.vanniktech.maven.publish")
+    //id("com.vanniktech.maven.publish")
+    kotlin("compiler.plugin.devkit") version "0.0.4-dev-408"
 }
 
 dependencies {
