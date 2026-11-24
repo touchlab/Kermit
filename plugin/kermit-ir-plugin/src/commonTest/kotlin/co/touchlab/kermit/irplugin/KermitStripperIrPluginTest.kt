@@ -13,9 +13,11 @@ package co.touchlab.kermit.irplugin
 import com.tschuchort.compiletesting.JvmCompilationResult
 import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
+import kotlin.test.Test
 import kotlin.test.assertEquals
+import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
-import org.junit.Test
+import org.jetbrains.kotlin.config.CompilerConfiguration
 
 @OptIn(ExperimentalCompilerApi::class)
 class IrPluginTest {
@@ -282,6 +284,22 @@ class IrPluginTest {
 @OptIn(ExperimentalCompilerApi::class)
 fun compile(sourceFiles: List<SourceFile>, stripBelow: String = "None"): JvmCompilationResult = KotlinCompilation().apply {
     sources = sourceFiles
-    compilerPluginRegistrars = listOf(KermitCompilerPluginRegistrar(stripBelow))
+    compilerPluginRegistrars = listOf(KermitCompilerPluginRegistrar(stripBelow).asCompilerPluginRegistrar())
     inheritClassPath = true
 }.compile()
+
+// KermitCompilerPluginRegistrar is a DevKitComponentRegistrar, which kctfork can't load directly.
+@OptIn(ExperimentalCompilerApi::class)
+private fun KermitCompilerPluginRegistrar.asCompilerPluginRegistrar(): CompilerPluginRegistrar {
+    val delegate = this
+    return object : CompilerPluginRegistrar() {
+        override val supportsK2: Boolean = true
+
+        override val pluginId: String = "co.touchlab.kermit"
+
+        override fun ExtensionStorage.registerExtensions(configuration: CompilerConfiguration) {
+            val storage = this
+            with(delegate) { storage.registerExtensions(configuration) }
+        }
+    }
+}
