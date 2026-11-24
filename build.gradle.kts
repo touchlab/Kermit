@@ -47,10 +47,6 @@ allprojects {
 allprojects {
     apply(plugin = "org.jetbrains.dokka")
 
-    repositories {
-        mavenCentral()
-        google()
-    }
     tasks.getByName("dokkaHtml").dependsOn(":kermit:transformIosMainCInteropDependenciesMetadataForIde")
 }
 
