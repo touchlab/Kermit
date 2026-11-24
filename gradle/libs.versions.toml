@@ -28,7 +28,6 @@ kotlinx-io = "0.8.0"
 kotlinx-js = "0.12.0"
 kotlinx-wasm = "0.3.1"
 roboelectric = "4.16.1"
-buildConfig = "6.1.2"
 kctfork = "0.12.1"
 mavenPublish = "0.36.0"
 
@@ -80,7 +79,6 @@ maven-publish-gradlePlugin = { module = "com.vanniktech.maven.publish:com.vannik
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 android-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "android-gradle-plugin" }
-buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }
 binaryCompatability = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatability" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 touchlab-docusaurus-template = { id = "co.touchlab.touchlabtools.docusaurusosstemplate", version.ref = "touchlab-docusaurus-template" }

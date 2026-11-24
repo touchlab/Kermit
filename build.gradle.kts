@@ -21,7 +21,6 @@ buildscript {
 }
 
 plugins {
-    alias(libs.plugins.buildConfig) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.binaryCompatability)
     alias(libs.plugins.dokka) apply false
