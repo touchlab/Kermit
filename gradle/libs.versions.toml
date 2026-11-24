@@ -28,7 +28,7 @@ kotlinx-io = "0.8.0"
 kotlinx-js = "0.12.0"
 kotlinx-wasm = "0.3.1"
 roboelectric = "4.16.1"
-buildConfig = "5.6.7"
+buildConfig = "6.1.2"
 kctfork = "0.12.1"
 mavenPublish = "0.36.0"
 

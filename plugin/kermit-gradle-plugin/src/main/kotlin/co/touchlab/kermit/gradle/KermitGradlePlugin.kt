@@ -10,32 +10,21 @@
 
 package co.touchlab.kermit.gradle
 
+import co.touchlab.kermit.PluginInfo
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
+import org.jetbrains.kotlin.compiler.plugin.devkit.DevKitSupportPlugin
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
-import org.jetbrains.kotlin.gradle.plugin.KotlinCompilerPluginSupportPlugin
-import org.jetbrains.kotlin.gradle.plugin.SubpluginArtifact
 import org.jetbrains.kotlin.gradle.plugin.SubpluginOption
 
-class KermitGradlePlugin : KotlinCompilerPluginSupportPlugin {
+class KermitGradlePlugin : DevKitSupportPlugin(PluginInfo.PLUGIN_INFO) {
     override fun apply(target: Project): Unit = with(target) {
         extensions.create("kermit", KermitGradleExtension::class.java)
     }
 
-    override fun isApplicable(kotlinCompilation: KotlinCompilation<*>): Boolean = true
-
-    override fun getCompilerPluginId(): String = BuildConfig.KOTLIN_PLUGIN_ID
-
-    override fun getPluginArtifact(): SubpluginArtifact = SubpluginArtifact(
-        groupId = BuildConfig.KOTLIN_PLUGIN_GROUP,
-        artifactId = BuildConfig.KOTLIN_PLUGIN_NAME,
-        version = BuildConfig.KOTLIN_PLUGIN_VERSION,
-    )
-
-    override fun applyToCompilation(kotlinCompilation: KotlinCompilation<*>): Provider<List<SubpluginOption>> {
-        val project = kotlinCompilation.target.project
-        val extension = project.extensions.getByType(KermitGradleExtension::class.java)
-        return project.provider {
+    override fun Project.applyToCompilation(kotlinCompilation: KotlinCompilation<*>): Provider<List<SubpluginOption>> {
+        val extension = extensions.getByType(KermitGradleExtension::class.java)
+        return provider {
             listOf(
                 SubpluginOption(key = "stripBelow", value = extension.stripBelow.toString()),
             )
