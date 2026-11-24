@@ -10,22 +10,19 @@
 
 package co.touchlab.kermit.irplugin
 
-import co.touchlab.BuildConfig
 import org.jetbrains.kotlin.compiler.plugin.AbstractCliOption
 import org.jetbrains.kotlin.compiler.plugin.CliOption
-import org.jetbrains.kotlin.compiler.plugin.CommandLineProcessor
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
+import org.jetbrains.kotlin.compiler.plugin.devkit.DevKitCLP
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.config.CompilerConfigurationKey
 
 @OptIn(ExperimentalCompilerApi::class)
-class KermitCommandLineProcessor : CommandLineProcessor {
+class KermitCommandLineProcessor : DevKitCLP {
     companion object {
         private const val OPTION_STRIP_BELOW = "stripBelow"
         val ARG_STRIP_BELOW = CompilerConfigurationKey<String>(OPTION_STRIP_BELOW)
     }
-
-    override val pluginId: String = BuildConfig.KOTLIN_PLUGIN_ID
 
     override val pluginOptions: Collection<CliOption> = listOf(
         CliOption(
