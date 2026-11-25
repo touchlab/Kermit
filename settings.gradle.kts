@@ -10,6 +10,26 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
+pluginManagement {
+    includeBuild("convention-plugins")
+    repositories {
+        google()
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+plugins {
+    kotlin("compiler.plugin.devkit") version "0.1.0"
+}
+
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
 include(":kermit-core")
 include(":kermit")
 include(":kermit-io")
@@ -33,12 +53,3 @@ include(":kermit-ir-plugin")
 
 project(":kermit-gradle-plugin").projectDir = File("plugin/kermit-gradle-plugin")
 project(":kermit-ir-plugin").projectDir = File("plugin/kermit-ir-plugin")
-
-pluginManagement {
-    includeBuild("convention-plugins")
-    repositories {
-        google()
-        gradlePluginPortal()
-        mavenCentral()
-    }
-}

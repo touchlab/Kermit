@@ -10,7 +10,6 @@
 
 package co.touchlab.kermit.irplugin
 
-import co.touchlab.BuildConfig
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -22,11 +21,6 @@ import org.jetbrains.kotlin.config.CompilerConfiguration
 @OptIn(ExperimentalCompilerApi::class)
 class KermitCommandLineProcessorTest {
     private val processor = KermitCommandLineProcessor()
-
-    @Test
-    fun `pluginId matches BuildConfig`() {
-        assertEquals(BuildConfig.KOTLIN_PLUGIN_ID, processor.pluginId)
-    }
 
     @Test
     fun `plugin exposes stripBelow option`() {

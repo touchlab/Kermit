@@ -10,6 +10,7 @@
 
 package co.touchlab.kermit.gradle
 
+import co.touchlab.kermit.PluginInfo
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -39,11 +40,11 @@ class KermitGradlePluginTest {
     @Test
     fun `compiler plugin id and artifact coordinates match build config`() {
         val plugin = KermitGradlePlugin()
-        assertEquals(BuildConfig.KOTLIN_PLUGIN_ID, plugin.getCompilerPluginId())
+        assertEquals(PluginInfo.PLUGIN_ID, plugin.getCompilerPluginId())
         val artifact = plugin.getPluginArtifact()
-        assertEquals(BuildConfig.KOTLIN_PLUGIN_GROUP, artifact.groupId)
-        assertEquals(BuildConfig.KOTLIN_PLUGIN_NAME, artifact.artifactId)
-        assertEquals(BuildConfig.KOTLIN_PLUGIN_VERSION, artifact.version)
+        assertEquals(PluginInfo.PLUGIN_ARTIFACT.groupId, artifact.groupId)
+        assertEquals(PluginInfo.PLUGIN_ARTIFACT.artifactId, artifact.artifactId)
+        assertEquals(PluginInfo.PLUGIN_ARTIFACT.version, artifact.version)
     }
 
     @Test
@@ -79,7 +80,7 @@ class KermitGradlePluginTest {
         } as org.jetbrains.kotlin.gradle.plugin.KotlinCompilation<*>
 
         val plugin = KermitGradlePlugin()
-        val optionsProvider = plugin.applyToCompilation(compilation)
+        val optionsProvider = with(plugin) { project.applyToCompilation(compilation) }
         val options = optionsProvider.get()
         assertEquals(1, options.size)
         assertEquals("stripBelow", options[0].key)
