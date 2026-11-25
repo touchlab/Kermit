@@ -1,6 +1,8 @@
+import com.vanniktech.maven.publish.DeploymentValidation
+
 plugins {
     kotlin("multiplatform")
-    // id("com.vanniktech.maven.publish")
+    id("com.vanniktech.maven.publish")
     pluginDevKit("compiler-plugin")
 }
 
@@ -24,8 +26,13 @@ val generateTestsTasks = tasks.matching { it.name.startsWith("generateTests") }
 generateTestsTasks.configureEach { enabled = false }
 tasks.matching { it.name.startsWith("runKtlint") }.configureEach { mustRunAfter(generateTestsTasks) }
 
-/*
 mavenPublishing {
     configureBasedOnAppliedPlugins()
     publishToMavenCentral(true, DeploymentValidation.NONE)
-}*/
+}
+
+// The DevKit's functional-test publishing signs every publication, so `build` needs signing to be optional
+// locally. Release builds provide a signatory and are still signed.
+tasks.withType<org.gradle.plugins.signing.Sign>().configureEach {
+    onlyIf { signatory != null }
+}

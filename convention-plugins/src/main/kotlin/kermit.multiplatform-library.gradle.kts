@@ -62,7 +62,7 @@ project.afterEvaluate {
         }
     }
 }
-/*
+
 mavenPublishing {
     /*
      * Pass explicitly rather than using the default which causes every publication to get
@@ -73,4 +73,4 @@ mavenPublishing {
      */
     configureBasedOnAppliedPlugins(javadocJar = JavadocJar.Empty())
     publishToMavenCentral(true, DeploymentValidation.NONE)
-}*/
+}
