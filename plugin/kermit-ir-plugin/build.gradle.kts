@@ -22,9 +22,6 @@ pluginDevKit {
     generateTestsEnabled = false
 }
 
-// Kermit's tests use kotlin-compile-testing, not the compiler test framework, so there is no test data to generate.
-tasks.matching { it.name.startsWith("runKtlint") }.configureEach { mustRunAfter(generateTestsTasks) }
-
 mavenPublishing {
     configureBasedOnAppliedPlugins()
     publishToMavenCentral(true, DeploymentValidation.NONE)
