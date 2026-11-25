@@ -6,21 +6,20 @@ plugins {
     pluginDevKit("compiler-plugin")
 }
 
-kotlin {
-    sourceSets {
-        commonTest.dependencies {
-            implementation(kotlin("test"))
-            implementation(libs.kotlin.compiler.embeddable)
-            implementation(libs.kctfork)
-        }
-    }
-}
-
 pluginDevKit {
     componentRegistrar = "co.touchlab.kermit.irplugin.KermitCompilerPluginRegistrar"
     commandLineProcessor = "co.touchlab.kermit.irplugin.KermitCommandLineProcessor"
-    generateTestsEnabled = false
 }
+
+// The DevKit compiles the test generator against the newest known Kotlin libraries, which are newer than the
+// Kotlin version this build uses.
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>()
+    .matching { it.name.startsWith("compileGenerateTests") }
+    .configureEach { compilerOptions.freeCompilerArgs.add("-Xskip-metadata-version-check") }
+
+// ktlint reads the generated test sources, so it has to run after the generator.
+tasks.matching { it.name.startsWith("runKtlint") }
+    .configureEach { mustRunAfter(tasks.matching { it.name.startsWith("generateTests") }) }
 
 mavenPublishing {
     configureBasedOnAppliedPlugins()

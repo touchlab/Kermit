@@ -28,7 +28,6 @@ kotlinx-io = "0.8.0"
 kotlinx-js = "0.12.0"
 kotlinx-wasm = "0.3.1"
 roboelectric = "4.16.1"
-kctfork = "0.12.1"
 mavenPublish = "0.36.0"
 
 dokka = "2.2.0"
@@ -68,8 +67,6 @@ kotlinx-io = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "
 kotlinx-js = { module = "org.jetbrains.kotlinx:kotlinx-html-js", version.ref = "kotlinx-js" }
 kotlinx-wasm = { module = "org.jetbrains.kotlinx:kotlinx-browser-wasm-js", version.ref = "kotlinx-wasm"}
 roboelectric = { module = "org.robolectric:robolectric", version.ref = "roboelectric" }
-kotlin-compiler-embeddable = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }
-kctfork = { module = "dev.zacsweers.kctfork:core", version.ref = "kctfork" }
 
 # For convention-plugins
 android-library-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
