@@ -1,8 +1,6 @@
-import com.vanniktech.maven.publish.DeploymentValidation
-
 plugins {
     kotlin("multiplatform")
-    //id("com.vanniktech.maven.publish")
+    // id("com.vanniktech.maven.publish")
     pluginDevKit("compiler-plugin")
 }
 
@@ -20,6 +18,11 @@ pluginDevKit {
     componentRegistrar = "co.touchlab.kermit.irplugin.KermitCompilerPluginRegistrar"
     commandLineProcessor = "co.touchlab.kermit.irplugin.KermitCommandLineProcessor"
 }
+
+// Kermit's tests use kotlin-compile-testing, not the compiler test framework, so there is no test data to generate.
+val generateTestsTasks = tasks.matching { it.name.startsWith("generateTests") }
+generateTestsTasks.configureEach { enabled = false }
+tasks.matching { it.name.startsWith("runKtlint") }.configureEach { mustRunAfter(generateTestsTasks) }
 
 /*
 mavenPublishing {

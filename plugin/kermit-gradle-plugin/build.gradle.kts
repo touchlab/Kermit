@@ -1,8 +1,6 @@
-import com.vanniktech.maven.publish.DeploymentValidation
-
 plugins {
     kotlin("jvm")
-    //id("com.vanniktech.maven.publish")
+    // id("com.vanniktech.maven.publish")
     pluginDevKit("gradle-plugin")
 }
 
