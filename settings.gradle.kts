@@ -16,19 +16,17 @@ pluginManagement {
         google()
         gradlePluginPortal()
         mavenCentral()
-        maven("https://packages.jetbrains.team/maven/p/compiler-plugin-dev-kit/eap")
     }
 }
 
 plugins {
-    kotlin("compiler.plugin.devkit") version "0.0.4-dev-408"
+    kotlin("compiler.plugin.devkit") version "0.1.0"
 }
 
 dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven("https://packages.jetbrains.team/maven/p/compiler-plugin-dev-kit/eap")
     }
 }
 
